@@ -17,6 +17,10 @@
 		F83CBC4828D87352005BA1B8 /* LoginSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83CBC4728D87352005BA1B8 /* LoginSignUpViewController.swift */; };
 		F83CBC4C28D88466005BA1B8 /* NunitoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F83CBC4A28D88466005BA1B8 /* NunitoSans-Bold.ttf */; };
 		F83CBC4D28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F83CBC4B28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf */; };
+		F8C75A5D28E97EC100F5B2E2 /* UITextFieldWithPlaceholder_CR8.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C75A5C28E97EC100F5B2E2 /* UITextFieldWithPlaceholder_CR8.swift */; };
+		F8C75A6028E98B7000F5B2E2 /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C75A5F28E98B7000F5B2E2 /* extensions.swift */; };
+		F8C75A6228E98BEB00F5B2E2 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C75A6128E98BEB00F5B2E2 /* Utils.swift */; };
+		F8C75A6428EA016E00F5B2E2 /* UIButtonBlueBackgroundVariableCR.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C75A6328EA016E00F5B2E2 /* UIButtonBlueBackgroundVariableCR.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +38,10 @@
 		F83CBC4728D87352005BA1B8 /* LoginSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignUpViewController.swift; sourceTree = "<group>"; };
 		F83CBC4A28D88466005BA1B8 /* NunitoSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-Bold.ttf"; sourceTree = "<group>"; };
 		F83CBC4B28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		F8C75A5C28E97EC100F5B2E2 /* UITextFieldWithPlaceholder_CR8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldWithPlaceholder_CR8.swift; sourceTree = "<group>"; };
+		F8C75A5F28E98B7000F5B2E2 /* extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
+		F8C75A6128E98BEB00F5B2E2 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		F8C75A6328EA016E00F5B2E2 /* UIButtonBlueBackgroundVariableCR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonBlueBackgroundVariableCR.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +85,7 @@
 		F8131B1228D5A09F00B7558D /* Medonapp iOS */ = {
 			isa = PBXGroup;
 			children = (
+				F8C75A5E28E98B6500F5B2E2 /* Utils */,
 				F8131B2A28D5AAF700B7558D /* Network */,
 				F8131B2928D5AACE00B7558D /* UIComponents */,
 				F8131B2828D5AAC500B7558D /* ViewControllers */,
@@ -112,6 +121,8 @@
 		F8131B2928D5AACE00B7558D /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				F8C75A5C28E97EC100F5B2E2 /* UITextFieldWithPlaceholder_CR8.swift */,
+				F8C75A6328EA016E00F5B2E2 /* UIButtonBlueBackgroundVariableCR.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -123,13 +134,21 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		F8C75A5E28E98B6500F5B2E2 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				F8C75A5F28E98B7000F5B2E2 /* extensions.swift */,
+				F8C75A6128E98BEB00F5B2E2 /* Utils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		F982A52728DAF7636875B006 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
 				E47870D81D93ADDBC656900F /* Pods-Medonapp iOS.debug.xcconfig */,
 				2D67C0FA0307CC5CE71984A1 /* Pods-Medonapp iOS.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -252,8 +271,12 @@
 			files = (
 				F83CBC4828D87352005BA1B8 /* LoginSignUpViewController.swift in Sources */,
 				F8131B1828D5A09F00B7558D /* LandingPageView.swift in Sources */,
+				F8C75A5D28E97EC100F5B2E2 /* UITextFieldWithPlaceholder_CR8.swift in Sources */,
+				F8C75A6228E98BEB00F5B2E2 /* Utils.swift in Sources */,
 				F8131B1428D5A09F00B7558D /* AppDelegate.swift in Sources */,
 				F8131B1628D5A09F00B7558D /* SceneDelegate.swift in Sources */,
+				F8C75A6428EA016E00F5B2E2 /* UIButtonBlueBackgroundVariableCR.swift in Sources */,
+				F8C75A6028E98B7000F5B2E2 /* extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

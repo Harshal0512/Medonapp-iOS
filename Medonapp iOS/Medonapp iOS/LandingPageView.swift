@@ -31,6 +31,15 @@ class LandingPageView: UIViewController {
         present(sheetViewController, animated: true) {
             sheetViewController.isModalInPresentation = true
         }
+        
+        imageView?.isHidden = false
+        UIView.animate(withDuration: 0.05) {
+                self.view.layoutIfNeeded()
+        }
+        self.imageViewTop?.constant = -120
+        UIView.animate(withDuration: 0.37) {
+                self.view.layoutIfNeeded()
+        }
     }
     
     private func initialise() {
@@ -50,6 +59,7 @@ class LandingPageView: UIViewController {
         imageView?.image = UIImage(named: "static-loginpage")
         imageView?.contentMode = .scaleAspectFit
         view.addSubview(imageView!)
+        imageView?.isHidden = true
         
     }
     
@@ -60,12 +70,14 @@ class LandingPageView: UIViewController {
         imageView?.translatesAutoresizingMaskIntoConstraints = false
         
         
-        imageViewTop = imageView?.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -120)
+        imageViewTop = imageView?.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 90)
         imageViewTop?.isActive = true
         imageViewBottom = imageView?.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100)
 //        imageViewBottom?.isActive = true
         imageView?.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
         imageView?.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        
+        
     }
 
 

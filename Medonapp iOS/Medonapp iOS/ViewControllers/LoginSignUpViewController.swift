@@ -6,17 +6,28 @@
 //
 
 import UIKit
+import SwiftValidator
 
 class LoginSignUpViewController: UIViewController {
+    let validator = Validator()
     var scrollView: UIScrollView?
     var contentView: UIView?
     var pageTitle: UILabel?
-    var loginButton: UIButton?
+    var loginButton: UIButtonBlueBackgroundVariableCR?
     var signUpButton: UIButton?
     var emailPhoneNumberLabel: UILabel?
+    var emailPhoneNumberTextField: UITextFieldWithPlaceholder_CR8?
+    var passwordLabel: UILabel?
+    var passwordTextField: UITextFieldWithPlaceholder_CR8?
+    var forgotPasswordButton: UIButton?
+    var continueButton: UIButtonBlueBackgroundVariableCR?
+    
+    var activeTextField : UITextField? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.dismissKeyboard()
         
         if let presentationController = presentationController as? UISheetPresentationController {
             presentationController.detents = [
@@ -30,11 +41,14 @@ class LoginSignUpViewController: UIViewController {
         initialise()
         setupUI()
         setConstraints()
-
+        
         // Do any additional setup after loading the view.
     }
     
     private func initialise() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     private func setupUI() {
@@ -50,12 +64,8 @@ class LoginSignUpViewController: UIViewController {
         pageTitle?.font = UIFont(name: "NunitoSans-ExtraBold", size: 24)
         contentView?.addSubview(pageTitle!)
         
-        loginButton = UIButton()
-        loginButton?.setTitle("Login", for: .normal)
-        loginButton?.backgroundColor = UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00)
-        loginButton?.setTitleColor(.white, for: .normal)
-        loginButton?.titleLabel?.font = UIFont(name: "NunitoSans-Bold", size: 14)
-        loginButton?.layer.cornerRadius = 8
+        loginButton = UIButtonBlueBackgroundVariableCR()
+        loginButton?.initButton(title: "Login", cornerRadius: 8)
         contentView?.addSubview(loginButton!)
         
         signUpButton = UIButton()
@@ -72,6 +82,37 @@ class LoginSignUpViewController: UIViewController {
         emailPhoneNumberLabel?.text = "Email or Phone Number"
         emailPhoneNumberLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
         contentView?.addSubview(emailPhoneNumberLabel!)
+        
+        emailPhoneNumberTextField = UITextFieldWithPlaceholder_CR8()
+        emailPhoneNumberTextField?.delegate = self
+        emailPhoneNumberTextField?.setPlaceholder(placeholder: "Email or Phone number")
+        contentView?.addSubview(emailPhoneNumberTextField!)
+        
+        passwordLabel = UILabel()
+        passwordLabel?.text = "Password"
+        passwordLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
+        contentView?.addSubview(passwordLabel!)
+        
+        passwordTextField = UITextFieldWithPlaceholder_CR8()
+        passwordTextField?.delegate = self
+        passwordTextField?.setPlaceholder(placeholder: "Password")
+        contentView?.addSubview(passwordTextField!)
+        
+        forgotPasswordButton = UIButton()
+        let forgotPasswordButtonAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont(name: "NunitoSans-Bold", size: 14)!,
+              .foregroundColor: UIColor(red: 0.48, green: 0.55, blue: 0.62, alpha: 1.00),
+              .underlineStyle: NSUnderlineStyle.single.rawValue
+          ]
+        forgotPasswordButton?.setAttributedTitle(NSMutableAttributedString(
+            string: "Forgot Password?",
+            attributes: forgotPasswordButtonAttributes), for: .normal)
+        forgotPasswordButton?.contentHorizontalAlignment = .leading
+        contentView?.addSubview(forgotPasswordButton!)
+        
+        continueButton = UIButtonBlueBackgroundVariableCR()
+        continueButton?.initButton(title: "Continue", cornerRadius: 14)
+        contentView?.addSubview(continueButton!)
     }
     
     
@@ -84,6 +125,11 @@ class LoginSignUpViewController: UIViewController {
         loginButton?.translatesAutoresizingMaskIntoConstraints = false
         signUpButton?.translatesAutoresizingMaskIntoConstraints = false
         emailPhoneNumberLabel?.translatesAutoresizingMaskIntoConstraints = false
+        emailPhoneNumberTextField?.translatesAutoresizingMaskIntoConstraints = false
+        passwordLabel?.translatesAutoresizingMaskIntoConstraints = false
+        passwordTextField?.translatesAutoresizingMaskIntoConstraints = false
+        forgotPasswordButton?.translatesAutoresizingMaskIntoConstraints = false
+        continueButton?.translatesAutoresizingMaskIntoConstraints = false
         
         
         
@@ -120,5 +166,71 @@ class LoginSignUpViewController: UIViewController {
         emailPhoneNumberLabel?.topAnchor.constraint(equalTo: loginButton!.bottomAnchor, constant: 22).isActive = true
         emailPhoneNumberLabel?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 28).isActive = true
         emailPhoneNumberLabel?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: 28).isActive = true
+        
+        emailPhoneNumberTextField?.topAnchor.constraint(equalTo: emailPhoneNumberLabel!.bottomAnchor, constant: 5).isActive = true
+        emailPhoneNumberTextField?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 28).isActive = true
+        emailPhoneNumberTextField?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -28).isActive = true
+        emailPhoneNumberTextField?.widthAnchor.constraint(equalToConstant: 319).isActive = true
+        emailPhoneNumberTextField?.heightAnchor.constraint(equalToConstant: 61).isActive = true
+        
+        passwordLabel?.topAnchor.constraint(equalTo: emailPhoneNumberTextField!.bottomAnchor, constant: 15).isActive = true
+        passwordLabel?.leadingAnchor.constraint(equalTo: emailPhoneNumberLabel!.leadingAnchor).isActive = true
+        passwordLabel?.trailingAnchor.constraint(equalTo: emailPhoneNumberLabel!.trailingAnchor).isActive = true
+        
+        passwordTextField?.topAnchor.constraint(equalTo: passwordLabel!.bottomAnchor, constant: 5).isActive = true
+        passwordTextField?.leadingAnchor.constraint(equalTo: emailPhoneNumberTextField!.leadingAnchor).isActive = true
+        passwordTextField?.trailingAnchor.constraint(equalTo: emailPhoneNumberTextField!.trailingAnchor).isActive = true
+        passwordTextField?.widthAnchor.constraint(equalTo: emailPhoneNumberTextField!.widthAnchor).isActive = true
+        passwordTextField?.heightAnchor.constraint(equalTo: emailPhoneNumberTextField!.heightAnchor).isActive = true
+        
+        forgotPasswordButton?.topAnchor.constraint(equalTo: passwordTextField!.bottomAnchor, constant: 6).isActive = true
+        forgotPasswordButton?.leadingAnchor.constraint(equalTo: emailPhoneNumberTextField!.leadingAnchor).isActive = true
+        forgotPasswordButton?.trailingAnchor.constraint(equalTo: emailPhoneNumberTextField!.trailingAnchor).isActive = true
+        
+        continueButton?.topAnchor.constraint(equalTo: forgotPasswordButton!.bottomAnchor, constant: 25).isActive = true
+        continueButton?.leadingAnchor.constraint(equalTo: emailPhoneNumberTextField!.leadingAnchor).isActive = true
+        continueButton?.trailingAnchor.constraint(equalTo: emailPhoneNumberTextField!.trailingAnchor).isActive = true
+        continueButton?.heightAnchor.constraint(equalToConstant: 56).isActive = true
+        
+        continueButton?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -10).isActive = true
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            
+            // if keyboard size is not available for some reason, dont do anything
+            return
+        }
+        
+        let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height , right: 0.0)
+        scrollView!.contentInset = contentInsets
+        scrollView!.scrollIndicatorInsets = contentInsets
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+        
+        // reset back the content inset to zero after keyboard is gone
+        scrollView!.contentInset = contentInsets
+        scrollView!.scrollIndicatorInsets = contentInsets
+    }
+}
+
+extension LoginSignUpViewController : UITextFieldDelegate {
+    // when user select a textfield, this method will be called
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        // set the activeTextField to the selected textfield
+        self.activeTextField = textField
+    }
+    
+    // when user click 'done' or dismiss the keyboard
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.activeTextField = nil
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
 }
