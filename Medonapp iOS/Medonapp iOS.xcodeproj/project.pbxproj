@@ -7,23 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		08F565BC217C9820C601B123 /* Pods_Medonapp_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F28C35CFE676567ACC6FCEAF /* Pods_Medonapp_iOS.framework */; };
 		F8131B1428D5A09F00B7558D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8131B1328D5A09F00B7558D /* AppDelegate.swift */; };
 		F8131B1628D5A09F00B7558D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8131B1528D5A09F00B7558D /* SceneDelegate.swift */; };
-		F8131B1828D5A09F00B7558D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8131B1728D5A09F00B7558D /* ViewController.swift */; };
+		F8131B1828D5A09F00B7558D /* LandingPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8131B1728D5A09F00B7558D /* LandingPageView.swift */; };
 		F8131B1B28D5A09F00B7558D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8131B1928D5A09F00B7558D /* Main.storyboard */; };
 		F8131B1D28D5A0A000B7558D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8131B1C28D5A0A000B7558D /* Assets.xcassets */; };
 		F8131B2028D5A0A000B7558D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8131B1E28D5A0A000B7558D /* LaunchScreen.storyboard */; };
+		F83CBC4828D87352005BA1B8 /* LoginSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83CBC4728D87352005BA1B8 /* LoginSignUpViewController.swift */; };
+		F83CBC4C28D88466005BA1B8 /* NunitoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F83CBC4A28D88466005BA1B8 /* NunitoSans-Bold.ttf */; };
+		F83CBC4D28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F83CBC4B28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2D67C0FA0307CC5CE71984A1 /* Pods-Medonapp iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Medonapp iOS.release.xcconfig"; path = "Target Support Files/Pods-Medonapp iOS/Pods-Medonapp iOS.release.xcconfig"; sourceTree = "<group>"; };
+		E47870D81D93ADDBC656900F /* Pods-Medonapp iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Medonapp iOS.debug.xcconfig"; path = "Target Support Files/Pods-Medonapp iOS/Pods-Medonapp iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		F28C35CFE676567ACC6FCEAF /* Pods_Medonapp_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Medonapp_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8131B1028D5A09F00B7558D /* Medonapp iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Medonapp iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8131B1328D5A09F00B7558D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F8131B1528D5A09F00B7558D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F8131B1728D5A09F00B7558D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F8131B1728D5A09F00B7558D /* LandingPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPageView.swift; sourceTree = "<group>"; };
 		F8131B1A28D5A09F00B7558D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F8131B1C28D5A0A000B7558D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F8131B1F28D5A0A000B7558D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F8131B2128D5A0A000B7558D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F83CBC4728D87352005BA1B8 /* LoginSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignUpViewController.swift; sourceTree = "<group>"; };
+		F83CBC4A28D88466005BA1B8 /* NunitoSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-Bold.ttf"; sourceTree = "<group>"; };
+		F83CBC4B28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-ExtraBold.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +41,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08F565BC217C9820C601B123 /* Pods_Medonapp_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		715EF0606B2F25A3E1918308 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F28C35CFE676567ACC6FCEAF /* Pods_Medonapp_iOS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F8131B0728D5A09F00B7558D = {
 			isa = PBXGroup;
 			children = (
 				F8131B1228D5A09F00B7558D /* Medonapp iOS */,
 				F8131B1128D5A09F00B7558D /* Products */,
+				F982A52728DAF7636875B006 /* Pods */,
+				715EF0606B2F25A3E1918308 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +77,60 @@
 		F8131B1228D5A09F00B7558D /* Medonapp iOS */ = {
 			isa = PBXGroup;
 			children = (
+				F8131B2A28D5AAF700B7558D /* Network */,
+				F8131B2928D5AACE00B7558D /* UIComponents */,
+				F8131B2828D5AAC500B7558D /* ViewControllers */,
+				F8131B2728D5AABE00B7558D /* Fonts */,
 				F8131B1328D5A09F00B7558D /* AppDelegate.swift */,
 				F8131B1528D5A09F00B7558D /* SceneDelegate.swift */,
-				F8131B1728D5A09F00B7558D /* ViewController.swift */,
+				F8131B1728D5A09F00B7558D /* LandingPageView.swift */,
 				F8131B1928D5A09F00B7558D /* Main.storyboard */,
 				F8131B1C28D5A0A000B7558D /* Assets.xcassets */,
 				F8131B1E28D5A0A000B7558D /* LaunchScreen.storyboard */,
 				F8131B2128D5A0A000B7558D /* Info.plist */,
 			);
 			path = "Medonapp iOS";
+			sourceTree = "<group>";
+		};
+		F8131B2728D5AABE00B7558D /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				F83CBC4A28D88466005BA1B8 /* NunitoSans-Bold.ttf */,
+				F83CBC4B28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		F8131B2828D5AAC500B7558D /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				F83CBC4728D87352005BA1B8 /* LoginSignUpViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		F8131B2928D5AACE00B7558D /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UIComponents;
+			sourceTree = "<group>";
+		};
+		F8131B2A28D5AAF700B7558D /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		F982A52728DAF7636875B006 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E47870D81D93ADDBC656900F /* Pods-Medonapp iOS.debug.xcconfig */,
+				2D67C0FA0307CC5CE71984A1 /* Pods-Medonapp iOS.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +140,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F8131B2428D5A0A000B7558D /* Build configuration list for PBXNativeTarget "Medonapp iOS" */;
 			buildPhases = (
+				12DEC2BB5240995B4C181143 /* [CP] Check Pods Manifest.lock */,
 				F8131B0C28D5A09F00B7558D /* Sources */,
 				F8131B0D28D5A09F00B7558D /* Frameworks */,
 				F8131B0E28D5A09F00B7558D /* Resources */,
+				E16F361A4D9A843533F6F50F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -125,20 +193,65 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F83CBC4D28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf in Resources */,
 				F8131B2028D5A0A000B7558D /* LaunchScreen.storyboard in Resources */,
 				F8131B1D28D5A0A000B7558D /* Assets.xcassets in Resources */,
 				F8131B1B28D5A09F00B7558D /* Main.storyboard in Resources */,
+				F83CBC4C28D88466005BA1B8 /* NunitoSans-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		12DEC2BB5240995B4C181143 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Medonapp iOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E16F361A4D9A843533F6F50F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Medonapp iOS/Pods-Medonapp iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Medonapp iOS/Pods-Medonapp iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Medonapp iOS/Pods-Medonapp iOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F8131B0C28D5A09F00B7558D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8131B1828D5A09F00B7558D /* ViewController.swift in Sources */,
+				F83CBC4828D87352005BA1B8 /* LoginSignUpViewController.swift in Sources */,
+				F8131B1828D5A09F00B7558D /* LandingPageView.swift in Sources */,
 				F8131B1428D5A09F00B7558D /* AppDelegate.swift in Sources */,
 				F8131B1628D5A09F00B7558D /* SceneDelegate.swift in Sources */,
 			);
@@ -282,6 +395,7 @@
 		};
 		F8131B2528D5A0A000B7558D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E47870D81D93ADDBC656900F /* Pods-Medonapp iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -311,6 +425,7 @@
 		};
 		F8131B2628D5A0A000B7558D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2D67C0FA0307CC5CE71984A1 /* Pods-Medonapp iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

@@ -1,0 +1,6 @@
+framework module Pods_Medonapp_iOS {
+  umbrella header "Pods-Medonapp iOS-umbrella.h"
+
+  export *
+  module * { export * }
+}
