@@ -24,6 +24,7 @@ class UITextFieldWithPlaceholder_CR8: UITextField {
     func setupUI() {
         self.layer.cornerRadius = 10
         self.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
+        self.textColor = .black
         self.layer.borderWidth = 1
         let paddingView = UIView(frame: CGRectMake(0, 0, 15, self.frame.height))
         self.leftView = paddingView

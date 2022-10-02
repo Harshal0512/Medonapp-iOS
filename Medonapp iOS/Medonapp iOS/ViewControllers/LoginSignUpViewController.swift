@@ -61,6 +61,7 @@ class LoginSignUpViewController: UIViewController {
         
         pageTitle = UILabel()
         pageTitle?.text = "Welcome to Medonapp"
+        pageTitle?.textColor = .black
         pageTitle?.font = UIFont(name: "NunitoSans-ExtraBold", size: 24)
         contentView?.addSubview(pageTitle!)
         
@@ -80,6 +81,7 @@ class LoginSignUpViewController: UIViewController {
         
         emailPhoneNumberLabel = UILabel()
         emailPhoneNumberLabel?.text = "Email or Phone Number"
+        emailPhoneNumberLabel?.textColor = .black
         emailPhoneNumberLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
         contentView?.addSubview(emailPhoneNumberLabel!)
         
@@ -90,6 +92,7 @@ class LoginSignUpViewController: UIViewController {
         
         passwordLabel = UILabel()
         passwordLabel?.text = "Password"
+        passwordLabel?.textColor = .black
         passwordLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
         contentView?.addSubview(passwordLabel!)
         
@@ -133,44 +136,44 @@ class LoginSignUpViewController: UIViewController {
         
         
         
-        scrollView?.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        scrollView?.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        scrollView?.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        scrollView?.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        scrollView?.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        scrollView?.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        scrollView?.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        scrollView?.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         
         
         contentView?.topAnchor.constraint(equalTo: scrollView!.topAnchor).isActive = true
         contentView?.leadingAnchor.constraint(equalTo: scrollView!.leadingAnchor).isActive = true
         contentView?.trailingAnchor.constraint(equalTo: scrollView!.trailingAnchor).isActive = true
         contentView?.bottomAnchor.constraint(equalTo: scrollView!.bottomAnchor).isActive = true
+        contentView?.widthAnchor.constraint(equalTo: scrollView!.widthAnchor).isActive = true
         
         
-        pageTitle?.topAnchor.constraint(equalTo: scrollView!.topAnchor, constant: 39).isActive = true
-        pageTitle?.leadingAnchor.constraint(equalTo: scrollView!.leadingAnchor, constant: 28).isActive = true
-        pageTitle?.trailingAnchor.constraint(greaterThanOrEqualTo: scrollView!.trailingAnchor, constant: -30).isActive = true
+        pageTitle?.topAnchor.constraint(equalTo: contentView!.topAnchor, constant: 39).isActive = true
+        pageTitle?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 28).isActive = true
+        pageTitle?.trailingAnchor.constraint(greaterThanOrEqualTo: contentView!.trailingAnchor, constant: -30).isActive = true
         
         
         loginButton?.topAnchor.constraint(equalTo: pageTitle!.bottomAnchor, constant: 22).isActive = true
         loginButton?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 28).isActive = true
-        loginButton?.widthAnchor.constraint(equalToConstant: 152).isActive = true
+        loginButton?.trailingAnchor.constraint(equalTo: signUpButton!.leadingAnchor, constant: -20).isActive = true
         loginButton?.heightAnchor.constraint(equalToConstant: 61).isActive = true
         
         
         signUpButton?.topAnchor.constraint(equalTo: loginButton!.topAnchor).isActive = true
-        signUpButton?.leadingAnchor.constraint(greaterThanOrEqualTo: loginButton!.trailingAnchor, constant: 20).isActive = true
         signUpButton?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -28).isActive = true
+        
         signUpButton?.widthAnchor.constraint(equalTo: loginButton!.widthAnchor).isActive = true
         signUpButton?.heightAnchor.constraint(equalToConstant: 61).isActive = true
         
         
         emailPhoneNumberLabel?.topAnchor.constraint(equalTo: loginButton!.bottomAnchor, constant: 22).isActive = true
         emailPhoneNumberLabel?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 28).isActive = true
-        emailPhoneNumberLabel?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: 28).isActive = true
+        emailPhoneNumberLabel?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -28).isActive = true
         
         emailPhoneNumberTextField?.topAnchor.constraint(equalTo: emailPhoneNumberLabel!.bottomAnchor, constant: 5).isActive = true
         emailPhoneNumberTextField?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 28).isActive = true
         emailPhoneNumberTextField?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -28).isActive = true
-        emailPhoneNumberTextField?.widthAnchor.constraint(equalToConstant: 319).isActive = true
         emailPhoneNumberTextField?.heightAnchor.constraint(equalToConstant: 61).isActive = true
         
         passwordLabel?.topAnchor.constraint(equalTo: emailPhoneNumberTextField!.bottomAnchor, constant: 15).isActive = true
