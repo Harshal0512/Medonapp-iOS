@@ -8,19 +8,38 @@
 import UIKit
 import SwiftValidator
 
+enum views {
+    case login
+    case signup
+}
+
 class LoginSignUpViewController: UIViewController {
     let validator = Validator()
     var scrollView: UIScrollView?
-    var contentView: UIView?
     var pageTitle: UILabel?
-    var loginButton: UIButtonBlueBackgroundVariableCR?
-    var signUpButton: UIButton?
+    var loginButton: UIButtonVariableBackgroundVariableCR?
+    var signUpButton: UIButtonVariableBackgroundVariableCR?
+    public var activeView: views = .login //change value to toggle between initially active view
+    
+    var loginScreenContentView: UIView?
     var emailPhoneNumberLabel: UILabel?
     var emailPhoneNumberTextField: UITextFieldWithPlaceholder_CR8?
     var passwordLabel: UILabel?
     var passwordTextField: UITextFieldWithPlaceholder_CR8?
     var forgotPasswordButton: UIButton?
-    var continueButton: UIButtonBlueBackgroundVariableCR?
+    var loginContinueButton: UIButtonVariableBackgroundVariableCR?
+    var loginContinueButtonBottomConstraint: NSLayoutConstraint?
+    
+    var signUpScreenContentView: UIView?
+    var emailLabel: UILabel?
+    var emailTextField: UITextFieldWithPlaceholder_CR8?
+    var choosePasswordLabel: UILabel?
+    var choosePasswordTextField: UITextFieldWithPlaceholder_CR8?
+    var confirmPasswordLabel: UILabel?
+    var confirmPasswordTextField: UITextFieldWithPlaceholder_CR8?
+    var signupContinueButton: UIButtonVariableBackgroundVariableCR?
+    var signupContinueButtonBottomConstraint: NSLayoutConstraint?
+    
     
     var activeTextField : UITextField? = nil
     
@@ -42,6 +61,10 @@ class LoginSignUpViewController: UIViewController {
         setupUI()
         setConstraints()
         
+        
+        //activate view according to initialized value
+        (activeView == .login) ? loginButtonPressed() : signUpButtonPressed()
+        
         // Do any additional setup after loading the view.
     }
     
@@ -54,68 +77,107 @@ class LoginSignUpViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .white
         scrollView = UIScrollView()
-        contentView = UIView()
+        loginScreenContentView = UIView()
+        signUpScreenContentView = UIView()
         
         view.addSubview(scrollView!)
-        scrollView?.addSubview(contentView!)
+        scrollView?.addSubview(loginScreenContentView!)
+        scrollView?.addSubview(signUpScreenContentView!)
         
         pageTitle = UILabel()
         pageTitle?.text = "Welcome to Medonapp"
         pageTitle?.textColor = .black
         pageTitle?.font = UIFont(name: "NunitoSans-ExtraBold", size: 24)
-        contentView?.addSubview(pageTitle!)
+        scrollView?.addSubview(pageTitle!)
         
-        loginButton = UIButtonBlueBackgroundVariableCR()
-        loginButton?.initButton(title: "Login", cornerRadius: 8)
-        contentView?.addSubview(loginButton!)
+        loginButton = UIButtonVariableBackgroundVariableCR()
+        scrollView?.addSubview(loginButton!)
+        loginButton?.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
         
-        signUpButton = UIButton()
-        signUpButton?.setTitle("Signup", for: .normal)
-        signUpButton?.backgroundColor = .white
-        signUpButton?.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
-        signUpButton?.layer.borderWidth = 1
-        signUpButton?.setTitleColor(UIColor(red: 0.48, green: 0.55, blue: 0.62, alpha: 1.00), for: .normal)
-        signUpButton?.titleLabel?.font = UIFont(name: "NunitoSans-Bold", size: 14)
-        signUpButton?.layer.cornerRadius = 8
-        contentView?.addSubview(signUpButton!)
+        signUpButton = UIButtonVariableBackgroundVariableCR()
+        scrollView?.addSubview(signUpButton!)
+        signUpButton?.addTarget(self, action: #selector(signUpButtonPressed), for: .touchUpInside)
+        
+        
+        //MARK: Initializing variables for login view
         
         emailPhoneNumberLabel = UILabel()
         emailPhoneNumberLabel?.text = "Email or Phone Number"
         emailPhoneNumberLabel?.textColor = .black
         emailPhoneNumberLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
-        contentView?.addSubview(emailPhoneNumberLabel!)
+        loginScreenContentView?.addSubview(emailPhoneNumberLabel!)
         
         emailPhoneNumberTextField = UITextFieldWithPlaceholder_CR8()
         emailPhoneNumberTextField?.delegate = self
         emailPhoneNumberTextField?.setPlaceholder(placeholder: "Email or Phone number")
-        contentView?.addSubview(emailPhoneNumberTextField!)
+        loginScreenContentView?.addSubview(emailPhoneNumberTextField!)
         
         passwordLabel = UILabel()
         passwordLabel?.text = "Password"
         passwordLabel?.textColor = .black
         passwordLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
-        contentView?.addSubview(passwordLabel!)
+        loginScreenContentView?.addSubview(passwordLabel!)
         
         passwordTextField = UITextFieldWithPlaceholder_CR8()
         passwordTextField?.delegate = self
         passwordTextField?.setPlaceholder(placeholder: "Password")
-        contentView?.addSubview(passwordTextField!)
+        loginScreenContentView?.addSubview(passwordTextField!)
         
         forgotPasswordButton = UIButton()
         let forgotPasswordButtonAttributes: [NSAttributedString.Key: Any] = [
             .font: UIFont(name: "NunitoSans-Bold", size: 14)!,
-              .foregroundColor: UIColor(red: 0.48, green: 0.55, blue: 0.62, alpha: 1.00),
-              .underlineStyle: NSUnderlineStyle.single.rawValue
-          ]
+            .foregroundColor: UIColor(red: 0.48, green: 0.55, blue: 0.62, alpha: 1.00),
+            .underlineStyle: NSUnderlineStyle.single.rawValue
+        ]
         forgotPasswordButton?.setAttributedTitle(NSMutableAttributedString(
             string: "Forgot Password?",
             attributes: forgotPasswordButtonAttributes), for: .normal)
         forgotPasswordButton?.contentHorizontalAlignment = .leading
-        contentView?.addSubview(forgotPasswordButton!)
+        loginScreenContentView?.addSubview(forgotPasswordButton!)
         
-        continueButton = UIButtonBlueBackgroundVariableCR()
-        continueButton?.initButton(title: "Continue", cornerRadius: 14)
-        contentView?.addSubview(continueButton!)
+        loginContinueButton = UIButtonVariableBackgroundVariableCR()
+        loginContinueButton?.initButton(title: "Continue", cornerRadius: 14, variant: .blueBack)
+        loginScreenContentView?.addSubview(loginContinueButton!)
+        
+        
+        //MARK: Initializing variables for signup view
+        
+        emailLabel = UILabel()
+        emailLabel?.text = "Email"
+        emailLabel?.textColor = .black
+        emailLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
+        signUpScreenContentView?.addSubview(emailLabel!)
+        
+        emailTextField = UITextFieldWithPlaceholder_CR8()
+        emailTextField?.delegate = self
+        emailTextField?.setPlaceholder(placeholder: "Email")
+        signUpScreenContentView?.addSubview(emailTextField!)
+        
+        choosePasswordLabel = UILabel()
+        choosePasswordLabel?.text = "Choose your Password"
+        choosePasswordLabel?.textColor = .black
+        choosePasswordLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
+        signUpScreenContentView?.addSubview(choosePasswordLabel!)
+        
+        choosePasswordTextField = UITextFieldWithPlaceholder_CR8()
+        choosePasswordTextField?.delegate = self
+        choosePasswordTextField?.setPlaceholder(placeholder: "Password")
+        signUpScreenContentView?.addSubview(choosePasswordTextField!)
+        
+        confirmPasswordLabel = UILabel()
+        confirmPasswordLabel?.text = "Confirm Password"
+        confirmPasswordLabel?.textColor = .black
+        confirmPasswordLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
+        signUpScreenContentView?.addSubview(confirmPasswordLabel!)
+        
+        confirmPasswordTextField = UITextFieldWithPlaceholder_CR8()
+        confirmPasswordTextField?.delegate = self
+        confirmPasswordTextField?.setPlaceholder(placeholder: "Confirm Password")
+        signUpScreenContentView?.addSubview(confirmPasswordTextField!)
+        
+        signupContinueButton = UIButtonVariableBackgroundVariableCR()
+        signupContinueButton?.initButton(title: "Continue", cornerRadius: 14, variant: .blueBack)
+        signUpScreenContentView?.addSubview(signupContinueButton!)
     }
     
     
@@ -123,16 +185,27 @@ class LoginSignUpViewController: UIViewController {
     
     private func setConstraints() {
         scrollView?.translatesAutoresizingMaskIntoConstraints = false
-        contentView?.translatesAutoresizingMaskIntoConstraints = false
         pageTitle?.translatesAutoresizingMaskIntoConstraints = false
         loginButton?.translatesAutoresizingMaskIntoConstraints = false
         signUpButton?.translatesAutoresizingMaskIntoConstraints = false
+        
+        loginScreenContentView?.translatesAutoresizingMaskIntoConstraints = false
         emailPhoneNumberLabel?.translatesAutoresizingMaskIntoConstraints = false
         emailPhoneNumberTextField?.translatesAutoresizingMaskIntoConstraints = false
         passwordLabel?.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField?.translatesAutoresizingMaskIntoConstraints = false
         forgotPasswordButton?.translatesAutoresizingMaskIntoConstraints = false
-        continueButton?.translatesAutoresizingMaskIntoConstraints = false
+        loginContinueButton?.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        signUpScreenContentView?.translatesAutoresizingMaskIntoConstraints = false
+        emailLabel?.translatesAutoresizingMaskIntoConstraints = false
+        emailTextField?.translatesAutoresizingMaskIntoConstraints = false
+        choosePasswordLabel?.translatesAutoresizingMaskIntoConstraints = false
+        choosePasswordTextField?.translatesAutoresizingMaskIntoConstraints = false
+        confirmPasswordLabel?.translatesAutoresizingMaskIntoConstraints = false
+        confirmPasswordTextField?.translatesAutoresizingMaskIntoConstraints = false
+        signupContinueButton?.translatesAutoresizingMaskIntoConstraints = false
         
         
         
@@ -142,38 +215,47 @@ class LoginSignUpViewController: UIViewController {
         scrollView?.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         
         
-        contentView?.topAnchor.constraint(equalTo: scrollView!.topAnchor).isActive = true
-        contentView?.leadingAnchor.constraint(equalTo: scrollView!.leadingAnchor).isActive = true
-        contentView?.trailingAnchor.constraint(equalTo: scrollView!.trailingAnchor).isActive = true
-        contentView?.bottomAnchor.constraint(equalTo: scrollView!.bottomAnchor).isActive = true
-        contentView?.widthAnchor.constraint(equalTo: scrollView!.widthAnchor).isActive = true
+        loginScreenContentView?.topAnchor.constraint(equalTo: scrollView!.topAnchor).isActive = true
+        loginScreenContentView?.leadingAnchor.constraint(equalTo: scrollView!.leadingAnchor).isActive = true
+        loginScreenContentView?.trailingAnchor.constraint(equalTo: scrollView!.trailingAnchor).isActive = true
+        loginScreenContentView?.bottomAnchor.constraint(equalTo: scrollView!.bottomAnchor).isActive = true
+        loginScreenContentView?.widthAnchor.constraint(equalTo: scrollView!.widthAnchor).isActive = true
         
         
-        pageTitle?.topAnchor.constraint(equalTo: contentView!.topAnchor, constant: 39).isActive = true
-        pageTitle?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 28).isActive = true
-        pageTitle?.trailingAnchor.constraint(greaterThanOrEqualTo: contentView!.trailingAnchor, constant: -30).isActive = true
+        signUpScreenContentView?.topAnchor.constraint(equalTo: scrollView!.topAnchor).isActive = true
+        signUpScreenContentView?.leadingAnchor.constraint(equalTo: scrollView!.leadingAnchor).isActive = true
+        signUpScreenContentView?.trailingAnchor.constraint(equalTo: scrollView!.trailingAnchor).isActive = true
+        signUpScreenContentView?.bottomAnchor.constraint(equalTo: scrollView!.bottomAnchor).isActive = true
+        signUpScreenContentView?.widthAnchor.constraint(equalTo: scrollView!.widthAnchor).isActive = true
+        
+        
+        
+        pageTitle?.topAnchor.constraint(equalTo: scrollView!.topAnchor, constant: 39).isActive = true
+        pageTitle?.leadingAnchor.constraint(equalTo: scrollView!.leadingAnchor, constant: 28).isActive = true
+        pageTitle?.trailingAnchor.constraint(greaterThanOrEqualTo: scrollView!.trailingAnchor, constant: -30).isActive = true
         
         
         loginButton?.topAnchor.constraint(equalTo: pageTitle!.bottomAnchor, constant: 22).isActive = true
-        loginButton?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 28).isActive = true
+        loginButton?.leadingAnchor.constraint(equalTo: scrollView!.leadingAnchor, constant: 28).isActive = true
         loginButton?.trailingAnchor.constraint(equalTo: signUpButton!.leadingAnchor, constant: -20).isActive = true
         loginButton?.heightAnchor.constraint(equalToConstant: 61).isActive = true
         
         
         signUpButton?.topAnchor.constraint(equalTo: loginButton!.topAnchor).isActive = true
-        signUpButton?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -28).isActive = true
+        signUpButton?.trailingAnchor.constraint(equalTo: scrollView!.trailingAnchor, constant: -28).isActive = true
         
         signUpButton?.widthAnchor.constraint(equalTo: loginButton!.widthAnchor).isActive = true
         signUpButton?.heightAnchor.constraint(equalToConstant: 61).isActive = true
         
         
+        //MARK: Constraints for login view
         emailPhoneNumberLabel?.topAnchor.constraint(equalTo: loginButton!.bottomAnchor, constant: 22).isActive = true
-        emailPhoneNumberLabel?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 28).isActive = true
-        emailPhoneNumberLabel?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -28).isActive = true
+        emailPhoneNumberLabel?.leadingAnchor.constraint(equalTo: loginScreenContentView!.leadingAnchor, constant: 28).isActive = true
+        emailPhoneNumberLabel?.trailingAnchor.constraint(equalTo: loginScreenContentView!.trailingAnchor, constant: -28).isActive = true
         
         emailPhoneNumberTextField?.topAnchor.constraint(equalTo: emailPhoneNumberLabel!.bottomAnchor, constant: 5).isActive = true
-        emailPhoneNumberTextField?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 28).isActive = true
-        emailPhoneNumberTextField?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -28).isActive = true
+        emailPhoneNumberTextField?.leadingAnchor.constraint(equalTo: loginScreenContentView!.leadingAnchor, constant: 28).isActive = true
+        emailPhoneNumberTextField?.trailingAnchor.constraint(equalTo: loginScreenContentView!.trailingAnchor, constant: -28).isActive = true
         emailPhoneNumberTextField?.heightAnchor.constraint(equalToConstant: 61).isActive = true
         
         passwordLabel?.topAnchor.constraint(equalTo: emailPhoneNumberTextField!.bottomAnchor, constant: 15).isActive = true
@@ -190,12 +272,111 @@ class LoginSignUpViewController: UIViewController {
         forgotPasswordButton?.leadingAnchor.constraint(equalTo: emailPhoneNumberTextField!.leadingAnchor).isActive = true
         forgotPasswordButton?.trailingAnchor.constraint(equalTo: emailPhoneNumberTextField!.trailingAnchor).isActive = true
         
-        continueButton?.topAnchor.constraint(equalTo: forgotPasswordButton!.bottomAnchor, constant: 25).isActive = true
-        continueButton?.leadingAnchor.constraint(equalTo: emailPhoneNumberTextField!.leadingAnchor).isActive = true
-        continueButton?.trailingAnchor.constraint(equalTo: emailPhoneNumberTextField!.trailingAnchor).isActive = true
-        continueButton?.heightAnchor.constraint(equalToConstant: 56).isActive = true
+        loginContinueButton?.topAnchor.constraint(equalTo: forgotPasswordButton!.bottomAnchor, constant: 25).isActive = true
+        loginContinueButton?.leadingAnchor.constraint(equalTo: emailPhoneNumberTextField!.leadingAnchor).isActive = true
+        loginContinueButton?.trailingAnchor.constraint(equalTo: emailPhoneNumberTextField!.trailingAnchor).isActive = true
+        loginContinueButton?.heightAnchor.constraint(equalToConstant: 56).isActive = true
         
-        continueButton?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -10).isActive = true
+        loginContinueButtonBottomConstraint = loginContinueButton?.bottomAnchor.constraint(equalTo: loginScreenContentView!.bottomAnchor, constant: -10)
+        
+        
+        
+        //MARK: Constraints for signup view
+        emailLabel?.topAnchor.constraint(equalTo: loginButton!.bottomAnchor, constant: 22).isActive = true
+        emailLabel?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
+        emailLabel?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
+        
+        emailTextField?.topAnchor.constraint(equalTo: emailLabel!.bottomAnchor, constant: 5).isActive = true
+        emailTextField?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
+        emailTextField?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
+        emailTextField?.heightAnchor.constraint(equalToConstant: 61).isActive = true
+        
+        choosePasswordLabel?.topAnchor.constraint(equalTo: emailTextField!.bottomAnchor, constant: 15).isActive = true
+        choosePasswordLabel?.leadingAnchor.constraint(equalTo: emailLabel!.leadingAnchor).isActive = true
+        choosePasswordLabel?.trailingAnchor.constraint(equalTo: emailLabel!.trailingAnchor).isActive = true
+        
+        choosePasswordTextField?.topAnchor.constraint(equalTo: choosePasswordLabel!.bottomAnchor, constant: 5).isActive = true
+        choosePasswordTextField?.leadingAnchor.constraint(equalTo: emailTextField!.leadingAnchor).isActive = true
+        choosePasswordTextField?.trailingAnchor.constraint(equalTo: emailTextField!.trailingAnchor).isActive = true
+        choosePasswordTextField?.widthAnchor.constraint(equalTo: emailTextField!.widthAnchor).isActive = true
+        choosePasswordTextField?.heightAnchor.constraint(equalTo: emailTextField!.heightAnchor).isActive = true
+        
+        confirmPasswordLabel?.topAnchor.constraint(equalTo: choosePasswordTextField!.bottomAnchor, constant: 15).isActive = true
+        confirmPasswordLabel?.leadingAnchor.constraint(equalTo: emailLabel!.leadingAnchor).isActive = true
+        confirmPasswordLabel?.trailingAnchor.constraint(equalTo: emailLabel!.trailingAnchor).isActive = true
+        
+        confirmPasswordTextField?.topAnchor.constraint(equalTo: confirmPasswordLabel!.bottomAnchor, constant: 5).isActive = true
+        confirmPasswordTextField?.leadingAnchor.constraint(equalTo: emailTextField!.leadingAnchor).isActive = true
+        confirmPasswordTextField?.trailingAnchor.constraint(equalTo: emailTextField!.trailingAnchor).isActive = true
+        confirmPasswordTextField?.widthAnchor.constraint(equalTo: emailTextField!.widthAnchor).isActive = true
+        confirmPasswordTextField?.heightAnchor.constraint(equalTo: emailTextField!.heightAnchor).isActive = true
+        
+        signupContinueButton?.topAnchor.constraint(equalTo: confirmPasswordTextField!.bottomAnchor, constant: 22).isActive = true
+        signupContinueButton?.leadingAnchor.constraint(equalTo: confirmPasswordTextField!.leadingAnchor).isActive = true
+        signupContinueButton?.trailingAnchor.constraint(equalTo: confirmPasswordTextField!.trailingAnchor).isActive = true
+        signupContinueButton?.heightAnchor.constraint(equalToConstant: 56).isActive = true
+        
+        signupContinueButtonBottomConstraint = signupContinueButton?.bottomAnchor.constraint(equalTo: signUpScreenContentView!.bottomAnchor, constant: -10)
+    }
+    
+    @objc func loginButtonPressed() {
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.transitionCurlUp, animations: {
+            //change active button colors
+            self.signUpButton?.initButton(title: "Signup", cornerRadius: 8, variant: .whiteBack)
+            self.loginButton?.initButton(title: "Login", cornerRadius: 8, variant: .blueBack)
+            
+            //set active view opacity
+            self.signUpScreenContentView?.alpha = 0
+        }, completion: {
+            (finished: Bool) -> Void in
+            
+            //Activate and deactivate constraints
+            self.signupContinueButtonBottomConstraint?.isActive = false
+            self.loginContinueButtonBottomConstraint?.isActive = true
+            
+            //Set hidden views
+            self.signUpScreenContentView?.isHidden = true
+            self.loginScreenContentView?.alpha = 0
+            self.loginScreenContentView?.isHidden = false
+            
+            // Fade in new view
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.transitionCurlUp, animations: {
+                self.loginScreenContentView?.alpha = 1.0
+            }, completion: nil)
+            
+            //set active view
+            self.activeView = .login
+        })
+    }
+    
+    @objc func signUpButtonPressed() {
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+            //change active button colors
+            self.loginButton?.initButton(title: "Login", cornerRadius: 8, variant: .whiteBack)
+            self.signUpButton?.initButton(title: "Signup", cornerRadius: 8, variant: .blueBack)
+            
+            //set active view opacity
+            self.loginScreenContentView?.alpha = 0
+        }, completion: {
+            (finished: Bool) -> Void in
+            
+            //Activate and deactivate constraints
+            self.loginContinueButtonBottomConstraint?.isActive = false
+            self.signupContinueButtonBottomConstraint?.isActive = true
+            
+            //Set hidden views
+            self.loginScreenContentView?.isHidden = true
+            self.signUpScreenContentView?.alpha = 0
+            self.signUpScreenContentView?.isHidden = false
+            
+            // Fade in new view
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+                self.signUpScreenContentView?.alpha = 1.0
+            }, completion: nil)
+            
+            //set active view
+            self.activeView = .signup
+        })
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
