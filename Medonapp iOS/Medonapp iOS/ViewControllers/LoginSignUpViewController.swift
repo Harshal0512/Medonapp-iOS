@@ -6,20 +6,23 @@
 //
 
 import UIKit
-import SwiftValidator
+import DPOTPView
 
 enum views {
     case login
-    case signup
+    case signupInitialDetails
+    case signupPersonalDetails
+    case signupAddressDetails
+    case signupOtpVerification
 }
 
 class LoginSignUpViewController: UIViewController {
-    let validator = Validator()
     var scrollView: UIScrollView?
     var pageTitle: UILabel?
     var loginButton: UIButtonVariableBackgroundVariableCR?
     var signUpButton: UIButtonVariableBackgroundVariableCR?
     public var activeView: views = .login //change value to toggle between initially active view
+    var progressBar: UIProgressView?
     
     var loginScreenContentView: UIView?
     var emailPhoneNumberLabel: UILabel?
@@ -30,14 +33,36 @@ class LoginSignUpViewController: UIViewController {
     var loginContinueButton: UIButtonVariableBackgroundVariableCR?
     var loginContinueButtonBottomConstraint: NSLayoutConstraint?
     
+    
     var signUpScreenContentView: UIView?
+    
+    //initial details
     var emailLabel: UILabel?
     var emailTextField: UITextFieldWithPlaceholder_CR8?
     var choosePasswordLabel: UILabel?
     var choosePasswordTextField: UITextFieldWithPlaceholder_CR8?
     var confirmPasswordLabel: UILabel?
     var confirmPasswordTextField: UITextFieldWithPlaceholder_CR8?
+    
+    //personal details
+    var firstNameLabel: UILabel?
+    var firstNameField: UITextFieldWithPlaceholder_CR8?
+    var lastNameLabel: UILabel?
+    var lastNameField: UITextFieldWithPlaceholder_CR8?
+    
+    //address details
+    var phoneNumberLabel: UILabel?
+    var countryCodeLabel: UILabel?
+    var phoneNumberField: UITextFieldWithPlaceholder_CR8?
+    var addressTextView: UITextViewWithPlaceholder_CR8?
+    
+    //otp verification
+    var otpDetailsLabel: UILabel?
+    var txtOTPView: DPOTPView?
+    
     var signupContinueButton: UIButtonVariableBackgroundVariableCR?
+    var progressBarTopConstraint: NSLayoutConstraint?
+    var signupContinueButtonTopConstraint: NSLayoutConstraint?
     var signupContinueButtonBottomConstraint: NSLayoutConstraint?
     
     
@@ -50,7 +75,7 @@ class LoginSignUpViewController: UIViewController {
         
         if let presentationController = presentationController as? UISheetPresentationController {
             presentationController.detents = [
-                .medium()
+                .medium(), .large()
             ]
             presentationController.prefersGrabberVisible = true
             presentationController.preferredCornerRadius = 35
@@ -66,6 +91,10 @@ class LoginSignUpViewController: UIViewController {
         (activeView == .login) ? loginButtonPressed() : signUpButtonPressed()
         
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     private func initialise() {
@@ -151,6 +180,9 @@ class LoginSignUpViewController: UIViewController {
         emailTextField = UITextFieldWithPlaceholder_CR8()
         emailTextField?.delegate = self
         emailTextField?.setPlaceholder(placeholder: "Email")
+        firstNameField?.autocapitalizationType = .none
+        firstNameField?.autocorrectionType = .no
+        firstNameField?.keyboardType = .emailAddress
         signUpScreenContentView?.addSubview(emailTextField!)
         
         choosePasswordLabel = UILabel()
@@ -175,12 +207,115 @@ class LoginSignUpViewController: UIViewController {
         confirmPasswordTextField?.setPlaceholder(placeholder: "Confirm Password")
         signUpScreenContentView?.addSubview(confirmPasswordTextField!)
         
+        firstNameLabel = UILabel()
+        firstNameLabel?.text = "First Name"
+        firstNameLabel?.textColor = .black
+        firstNameLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
+        signUpScreenContentView?.addSubview(firstNameLabel!)
+        firstNameLabel?.alpha = 0
+        
+        firstNameField = UITextFieldWithPlaceholder_CR8()
+        firstNameField?.delegate = self
+        firstNameField?.setPlaceholder(placeholder: "First Name")
+        firstNameField?.autocapitalizationType = .words
+        firstNameField?.autocorrectionType = .no
+        firstNameField?.keyboardType = .default
+        signUpScreenContentView?.addSubview(firstNameField!)
+        firstNameField?.alpha = 0
+        
+        lastNameLabel = UILabel()
+        lastNameLabel?.text = "Last Name"
+        lastNameLabel?.textColor = .black
+        lastNameLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
+        signUpScreenContentView?.addSubview(lastNameLabel!)
+        lastNameLabel?.alpha = 0
+        
+        lastNameField = UITextFieldWithPlaceholder_CR8()
+        lastNameField?.delegate = self
+        lastNameField?.setPlaceholder(placeholder: "Last Name")
+        firstNameField?.autocapitalizationType = .words
+        firstNameField?.autocorrectionType = .no
+        firstNameField?.keyboardType = .default
+        signUpScreenContentView?.addSubview(lastNameField!)
+        lastNameField?.alpha = 0
+        
+        phoneNumberLabel = UILabel()
+        phoneNumberLabel?.text = "Phone Number"
+        phoneNumberLabel?.textColor = .black
+        phoneNumberLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
+        signUpScreenContentView?.addSubview(phoneNumberLabel!)
+        phoneNumberLabel?.alpha = 0
+        
+        countryCodeLabel = UILabel()
+        countryCodeLabel?.text = "+91"
+        countryCodeLabel?.textColor = UIColor(red: 0.48, green: 0.55, blue: 0.62, alpha: 1.00)
+        countryCodeLabel?.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
+        countryCodeLabel?.textAlignment = .center
+        countryCodeLabel?.layer.borderWidth = 1
+        countryCodeLabel?.layer.cornerRadius = 10
+        countryCodeLabel?.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+        countryCodeLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
+        signUpScreenContentView?.addSubview(countryCodeLabel!)
+        countryCodeLabel?.alpha = 0
+        
+        phoneNumberField = UITextFieldWithPlaceholder_CR8()
+        phoneNumberField?.delegate = self
+        phoneNumberField?.setPlaceholder(placeholder: "Phone Number")
+        firstNameField?.autocapitalizationType = .none
+        firstNameField?.autocorrectionType = .no
+        firstNameField?.keyboardType = .namePhonePad
+        phoneNumberField?.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+        
+        addressTextView = UITextViewWithPlaceholder_CR8()
+        addressTextView?.setPlaceholder(placeholder: "Address")
+        addressTextView?.autocapitalizationType = .words
+        addressTextView?.autocorrectionType = .no
+        addressTextView?.keyboardType = .default
+        addressTextView?.font = UIFont(name: "NunitoSans-Bold", size: 18)
+        signUpScreenContentView?.addSubview(addressTextView!)
+        addressTextView?.alpha = 0
+        
+        otpDetailsLabel = UILabel()
+        otpDetailsLabel?.text = "Please enter Verification code sent to email "
+        otpDetailsLabel?.textColor = .black
+        otpDetailsLabel?.numberOfLines = 0
+        otpDetailsLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
+        signUpScreenContentView?.addSubview(otpDetailsLabel!)
+        otpDetailsLabel?.alpha = 0
+        
+        txtOTPView = DPOTPView()
+        txtOTPView?.placeholder = "...."
+        txtOTPView?.count = 4
+        txtOTPView?.spacing = 15
+        txtOTPView?.fontTextField = UIFont(name: "NunitoSans-ExtraBold", size: CGFloat(20.0))!
+        txtOTPView?.dismissOnLastEntry = true
+        txtOTPView?.borderColorTextField = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00)
+        txtOTPView?.selectedBorderColorTextField = UIColor.blue
+        txtOTPView?.borderWidthTextField = 2
+        txtOTPView?.backGroundColorTextField = UIColor.black.withAlphaComponent(0.06)
+        txtOTPView?.cornerRadiusTextField = 8
+        txtOTPView?.isCursorHidden = true
+        //txtOTPView.isSecureTextEntry = true
+        //txtOTPView.isBottomLineTextField = true
+        //txtOTPView.isCircleTextField = true
+        signUpScreenContentView?.addSubview(txtOTPView!)
+        txtOTPView?.alpha = 0
+        
+        
+        signUpScreenContentView?.addSubview(phoneNumberField!)
+        phoneNumberField?.alpha = 0
+        
+        progressBar = UIProgressView(progressViewStyle: .default)
+        progressBar?.progress = 0.25
+        progressBar?.progressTintColor = UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00)
+        progressBar?.trackTintColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00)
+        signUpScreenContentView?.addSubview(progressBar!)
+        
         signupContinueButton = UIButtonVariableBackgroundVariableCR()
         signupContinueButton?.initButton(title: "Continue", cornerRadius: 14, variant: .blueBack)
         signUpScreenContentView?.addSubview(signupContinueButton!)
+        signupContinueButton?.addTarget(self, action: #selector(signUpContinueButtonPressed), for: .touchUpInside)
     }
-    
-    
     
     
     private func setConstraints() {
@@ -205,6 +340,21 @@ class LoginSignUpViewController: UIViewController {
         choosePasswordTextField?.translatesAutoresizingMaskIntoConstraints = false
         confirmPasswordLabel?.translatesAutoresizingMaskIntoConstraints = false
         confirmPasswordTextField?.translatesAutoresizingMaskIntoConstraints = false
+        
+        firstNameLabel?.translatesAutoresizingMaskIntoConstraints = false
+        firstNameField?.translatesAutoresizingMaskIntoConstraints = false
+        lastNameLabel?.translatesAutoresizingMaskIntoConstraints = false
+        lastNameField?.translatesAutoresizingMaskIntoConstraints = false
+        
+        phoneNumberLabel?.translatesAutoresizingMaskIntoConstraints = false
+        countryCodeLabel?.translatesAutoresizingMaskIntoConstraints = false
+        phoneNumberField?.translatesAutoresizingMaskIntoConstraints = false
+        addressTextView?.translatesAutoresizingMaskIntoConstraints = false
+        
+        otpDetailsLabel?.translatesAutoresizingMaskIntoConstraints = false
+        txtOTPView?.translatesAutoresizingMaskIntoConstraints = false
+        
+        progressBar?.translatesAutoresizingMaskIntoConstraints = false
         signupContinueButton?.translatesAutoresizingMaskIntoConstraints = false
         
         
@@ -273,6 +423,7 @@ class LoginSignUpViewController: UIViewController {
         forgotPasswordButton?.trailingAnchor.constraint(equalTo: emailPhoneNumberTextField!.trailingAnchor).isActive = true
         
         loginContinueButton?.topAnchor.constraint(equalTo: forgotPasswordButton!.bottomAnchor, constant: 25).isActive = true
+        
         loginContinueButton?.leadingAnchor.constraint(equalTo: emailPhoneNumberTextField!.leadingAnchor).isActive = true
         loginContinueButton?.trailingAnchor.constraint(equalTo: emailPhoneNumberTextField!.trailingAnchor).isActive = true
         loginContinueButton?.heightAnchor.constraint(equalToConstant: 56).isActive = true
@@ -282,36 +433,15 @@ class LoginSignUpViewController: UIViewController {
         
         
         //MARK: Constraints for signup view
-        emailLabel?.topAnchor.constraint(equalTo: loginButton!.bottomAnchor, constant: 22).isActive = true
-        emailLabel?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
-        emailLabel?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
         
-        emailTextField?.topAnchor.constraint(equalTo: emailLabel!.bottomAnchor, constant: 5).isActive = true
-        emailTextField?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
-        emailTextField?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
-        emailTextField?.heightAnchor.constraint(equalToConstant: 61).isActive = true
+        initializeAndActivateViewConstraints(view: .signupInitialDetails)
         
-        choosePasswordLabel?.topAnchor.constraint(equalTo: emailTextField!.bottomAnchor, constant: 15).isActive = true
-        choosePasswordLabel?.leadingAnchor.constraint(equalTo: emailLabel!.leadingAnchor).isActive = true
-        choosePasswordLabel?.trailingAnchor.constraint(equalTo: emailLabel!.trailingAnchor).isActive = true
+        progressBar?.leadingAnchor.constraint(equalTo: emailTextField!.leadingAnchor).isActive = true
+        progressBar?.trailingAnchor.constraint(equalTo: emailTextField!.trailingAnchor).isActive = true
+        progressBar?.widthAnchor.constraint(equalTo: emailTextField!.widthAnchor).isActive = true
+        progressBar?.heightAnchor.constraint(equalToConstant: 5).isActive = true
         
-        choosePasswordTextField?.topAnchor.constraint(equalTo: choosePasswordLabel!.bottomAnchor, constant: 5).isActive = true
-        choosePasswordTextField?.leadingAnchor.constraint(equalTo: emailTextField!.leadingAnchor).isActive = true
-        choosePasswordTextField?.trailingAnchor.constraint(equalTo: emailTextField!.trailingAnchor).isActive = true
-        choosePasswordTextField?.widthAnchor.constraint(equalTo: emailTextField!.widthAnchor).isActive = true
-        choosePasswordTextField?.heightAnchor.constraint(equalTo: emailTextField!.heightAnchor).isActive = true
-        
-        confirmPasswordLabel?.topAnchor.constraint(equalTo: choosePasswordTextField!.bottomAnchor, constant: 15).isActive = true
-        confirmPasswordLabel?.leadingAnchor.constraint(equalTo: emailLabel!.leadingAnchor).isActive = true
-        confirmPasswordLabel?.trailingAnchor.constraint(equalTo: emailLabel!.trailingAnchor).isActive = true
-        
-        confirmPasswordTextField?.topAnchor.constraint(equalTo: confirmPasswordLabel!.bottomAnchor, constant: 5).isActive = true
-        confirmPasswordTextField?.leadingAnchor.constraint(equalTo: emailTextField!.leadingAnchor).isActive = true
-        confirmPasswordTextField?.trailingAnchor.constraint(equalTo: emailTextField!.trailingAnchor).isActive = true
-        confirmPasswordTextField?.widthAnchor.constraint(equalTo: emailTextField!.widthAnchor).isActive = true
-        confirmPasswordTextField?.heightAnchor.constraint(equalTo: emailTextField!.heightAnchor).isActive = true
-        
-        signupContinueButton?.topAnchor.constraint(equalTo: confirmPasswordTextField!.bottomAnchor, constant: 22).isActive = true
+        signupContinueButton?.topAnchor.constraint(equalTo: progressBar!.bottomAnchor, constant: 22).isActive = true
         signupContinueButton?.leadingAnchor.constraint(equalTo: confirmPasswordTextField!.leadingAnchor).isActive = true
         signupContinueButton?.trailingAnchor.constraint(equalTo: confirmPasswordTextField!.trailingAnchor).isActive = true
         signupContinueButton?.heightAnchor.constraint(equalToConstant: 56).isActive = true
@@ -331,7 +461,9 @@ class LoginSignUpViewController: UIViewController {
             (finished: Bool) -> Void in
             
             //Activate and deactivate constraints
+            self.signupContinueButtonTopConstraint?.isActive = false
             self.signupContinueButtonBottomConstraint?.isActive = false
+            self.progressBarTopConstraint?.isActive = false
             self.loginContinueButtonBottomConstraint?.isActive = true
             
             //Set hidden views
@@ -362,6 +494,8 @@ class LoginSignUpViewController: UIViewController {
             
             //Activate and deactivate constraints
             self.loginContinueButtonBottomConstraint?.isActive = false
+            self.progressBarTopConstraint?.isActive = true
+            self.signupContinueButtonTopConstraint?.isActive = true
             self.signupContinueButtonBottomConstraint?.isActive = true
             
             //Set hidden views
@@ -375,8 +509,185 @@ class LoginSignUpViewController: UIViewController {
             }, completion: nil)
             
             //set active view
-            self.activeView = .signup
+            self.activeView = .signupInitialDetails
         })
+    }
+    
+    @objc func signUpContinueButtonPressed() {
+        if activeView == .signupInitialDetails {
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+                self.pageTitle?.alpha = 0
+                self.loginButton?.alpha = 0
+                self.signUpButton?.alpha = 0
+                self.emailLabel?.alpha = 0
+                self.emailTextField?.alpha = 0
+                self.choosePasswordLabel?.alpha = 0
+                self.choosePasswordTextField?.alpha = 0
+                self.confirmPasswordLabel?.alpha = 0
+                self.confirmPasswordTextField?.alpha = 0
+            }, completion: {
+                (finished: Bool) -> Void in
+                self.pageTitle?.text = "Enter your details"
+                UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+                    self.pageTitle?.alpha = 1
+                    self.initializeAndActivateViewConstraints(view: .signupPersonalDetails)
+                    self.progressBar?.setProgress(0.50, animated: true)
+                }, completion: nil)
+            })
+        } else if activeView == .signupPersonalDetails {
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+                self.firstNameLabel?.alpha = 0
+                self.firstNameField?.alpha = 0
+                self.lastNameLabel?.alpha = 0
+                self.lastNameField?.alpha = 0
+            }, completion: {
+                (finished: Bool) -> Void in
+                UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+                    self.initializeAndActivateViewConstraints(view: .signupAddressDetails)
+                    self.progressBar?.setProgress(0.75, animated: true)
+                }, completion: nil)
+            })
+        } else if activeView == .signupAddressDetails {
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+                self.pageTitle?.alpha = 0
+                self.phoneNumberLabel?.alpha = 0
+                self.countryCodeLabel?.alpha = 0
+                self.phoneNumberField?.alpha = 0
+                self.addressTextView?.alpha = 0
+            }, completion: {
+                (finished: Bool) -> Void in
+                self.pageTitle?.text = "You’re all set"
+                UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+                    self.pageTitle?.alpha = 1
+                    self.initializeAndActivateViewConstraints(view: .signupOtpVerification)
+                    self.progressBar?.setProgress(0.87, animated: true)
+                }, completion: nil)
+            })
+        }
+        
+        
+    }
+    
+    func initializeAndActivateViewConstraints(view: views) {
+        switch view {
+        case .login:
+            break
+        case .signupInitialDetails:
+            emailLabel?.topAnchor.constraint(equalTo: loginButton!.bottomAnchor, constant: 22).isActive = true
+            emailLabel?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
+            emailLabel?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
+            
+            emailTextField?.topAnchor.constraint(equalTo: emailLabel!.bottomAnchor, constant: 5).isActive = true
+            emailTextField?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
+            emailTextField?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
+            emailTextField?.heightAnchor.constraint(equalToConstant: 61).isActive = true
+            
+            choosePasswordLabel?.topAnchor.constraint(equalTo: emailTextField!.bottomAnchor, constant: 15).isActive = true
+            choosePasswordLabel?.leadingAnchor.constraint(equalTo: emailLabel!.leadingAnchor).isActive = true
+            choosePasswordLabel?.trailingAnchor.constraint(equalTo: emailLabel!.trailingAnchor).isActive = true
+            
+            choosePasswordTextField?.topAnchor.constraint(equalTo: choosePasswordLabel!.bottomAnchor, constant: 5).isActive = true
+            choosePasswordTextField?.leadingAnchor.constraint(equalTo: emailTextField!.leadingAnchor).isActive = true
+            choosePasswordTextField?.trailingAnchor.constraint(equalTo: emailTextField!.trailingAnchor).isActive = true
+            choosePasswordTextField?.widthAnchor.constraint(equalTo: emailTextField!.widthAnchor).isActive = true
+            choosePasswordTextField?.heightAnchor.constraint(equalTo: emailTextField!.heightAnchor).isActive = true
+            
+            confirmPasswordLabel?.topAnchor.constraint(equalTo: choosePasswordTextField!.bottomAnchor, constant: 15).isActive = true
+            confirmPasswordLabel?.leadingAnchor.constraint(equalTo: emailLabel!.leadingAnchor).isActive = true
+            confirmPasswordLabel?.trailingAnchor.constraint(equalTo: emailLabel!.trailingAnchor).isActive = true
+            
+            confirmPasswordTextField?.topAnchor.constraint(equalTo: confirmPasswordLabel!.bottomAnchor, constant: 5).isActive = true
+            confirmPasswordTextField?.leadingAnchor.constraint(equalTo: emailTextField!.leadingAnchor).isActive = true
+            confirmPasswordTextField?.trailingAnchor.constraint(equalTo: emailTextField!.trailingAnchor).isActive = true
+            confirmPasswordTextField?.widthAnchor.constraint(equalTo: emailTextField!.widthAnchor).isActive = true
+            confirmPasswordTextField?.heightAnchor.constraint(equalTo: emailTextField!.heightAnchor).isActive = true
+            
+            progressBarTopConstraint?.isActive = false
+            progressBarTopConstraint = progressBar?.topAnchor.constraint(equalTo: confirmPasswordTextField!.bottomAnchor, constant: 29)
+            progressBarTopConstraint?.isActive = true
+        case .signupPersonalDetails:
+            firstNameLabel?.topAnchor.constraint(equalTo: pageTitle!.bottomAnchor, constant: 22).isActive = true
+            firstNameLabel?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
+            firstNameLabel?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
+            
+            firstNameField?.topAnchor.constraint(equalTo: firstNameLabel!.bottomAnchor, constant: 5).isActive = true
+            firstNameField?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
+            firstNameField?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
+            firstNameField?.heightAnchor.constraint(equalToConstant: 61).isActive = true
+            
+            lastNameLabel?.topAnchor.constraint(equalTo: firstNameField!.bottomAnchor, constant: 22).isActive = true
+            lastNameLabel?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
+            lastNameLabel?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
+            
+            lastNameField?.topAnchor.constraint(equalTo: lastNameLabel!.bottomAnchor, constant: 5).isActive = true
+            lastNameField?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
+            lastNameField?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
+            lastNameField?.heightAnchor.constraint(equalToConstant: 61).isActive = true
+            
+            firstNameLabel?.alpha = 1
+            firstNameField?.alpha = 1
+            lastNameLabel?.alpha = 1
+            lastNameField?.alpha = 1
+            
+            progressBarTopConstraint?.isActive = false
+            progressBarTopConstraint = progressBar?.topAnchor.constraint(equalTo: lastNameField!.bottomAnchor, constant: 29)
+            progressBarTopConstraint?.isActive = true
+            
+            self.activeView = .signupPersonalDetails
+            break
+        case .signupAddressDetails:
+            phoneNumberLabel?.topAnchor.constraint(equalTo: pageTitle!.bottomAnchor, constant: 22).isActive = true
+            phoneNumberLabel?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
+            phoneNumberLabel?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
+            
+            countryCodeLabel?.topAnchor.constraint(equalTo: phoneNumberLabel!.bottomAnchor, constant: 22).isActive = true
+            countryCodeLabel?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
+            countryCodeLabel?.widthAnchor.constraint(equalToConstant: 60).isActive = true
+            countryCodeLabel?.heightAnchor.constraint(equalToConstant: 61).isActive = true
+            
+            phoneNumberField?.topAnchor.constraint(equalTo: countryCodeLabel!.topAnchor).isActive = true
+            phoneNumberField?.leadingAnchor.constraint(equalTo: countryCodeLabel!.trailingAnchor, constant: 0).isActive = true
+            phoneNumberField?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
+            phoneNumberField?.heightAnchor.constraint(equalToConstant: 61).isActive = true
+            
+            addressTextView?.topAnchor.constraint(equalTo: phoneNumberField!.bottomAnchor, constant: 22).isActive = true
+            addressTextView?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
+            addressTextView?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
+            addressTextView?.heightAnchor.constraint(equalToConstant: 150).isActive = true
+            
+            phoneNumberLabel?.alpha = 1
+            countryCodeLabel?.alpha = 1
+            phoneNumberField?.alpha = 1
+            addressTextView?.alpha = 1
+            
+            progressBarTopConstraint?.isActive = false
+            progressBarTopConstraint = progressBar?.topAnchor.constraint(equalTo: addressTextView!.bottomAnchor, constant: 29)
+            progressBarTopConstraint?.isActive = true
+            
+            self.activeView = .signupAddressDetails
+            break
+        case .signupOtpVerification:
+            otpDetailsLabel?.topAnchor.constraint(equalTo: pageTitle!.bottomAnchor, constant: 22).isActive = true
+            otpDetailsLabel?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
+            otpDetailsLabel?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
+            otpDetailsLabel?.heightAnchor.constraint(equalToConstant: 90).isActive = true
+            
+            txtOTPView?.topAnchor.constraint(equalTo: otpDetailsLabel!.bottomAnchor, constant: 28).isActive = true
+            txtOTPView?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
+            txtOTPView?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
+            txtOTPView?.centerXAnchor.constraint(equalTo: signUpScreenContentView!.centerXAnchor).isActive = true
+            txtOTPView?.heightAnchor.constraint(equalToConstant: 60).isActive = true
+            
+            otpDetailsLabel?.alpha = 1
+            txtOTPView?.alpha = 1
+            
+            progressBarTopConstraint?.isActive = false
+            progressBarTopConstraint = progressBar?.topAnchor.constraint(equalTo: txtOTPView!.bottomAnchor, constant: 29)
+            progressBarTopConstraint?.isActive = true
+            
+            self.activeView = .signupOtpVerification
+            break
+        }
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -401,7 +712,7 @@ class LoginSignUpViewController: UIViewController {
     }
 }
 
-extension LoginSignUpViewController : UITextFieldDelegate {
+extension LoginSignUpViewController : UITextFieldDelegate, DPOTPViewDelegate {
     // when user select a textfield, this method will be called
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // set the activeTextField to the selected textfield
@@ -417,4 +728,22 @@ extension LoginSignUpViewController : UITextFieldDelegate {
         self.view.endEditing(true)
         return false
     }
+    
+    func dpOTPViewAddText(_ text: String, at position: Int) {
+         print("addText:- " + text + " at:- \(position)" )
+     }
+     
+     func dpOTPViewRemoveText(_ text: String, at position: Int) {
+         print("removeText:- " + text + " at:- \(position)" )
+     }
+     
+     func dpOTPViewChangePositionAt(_ position: Int) {
+         print("at:-\(position)")
+     }
+     func dpOTPViewBecomeFirstResponder() {
+         
+     }
+     func dpOTPViewResignFirstResponder() {
+         
+     }
 }

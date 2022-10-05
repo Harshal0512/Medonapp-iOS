@@ -17,6 +17,8 @@
 		F83CBC4828D87352005BA1B8 /* LoginSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83CBC4728D87352005BA1B8 /* LoginSignUpViewController.swift */; };
 		F83CBC4C28D88466005BA1B8 /* NunitoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F83CBC4A28D88466005BA1B8 /* NunitoSans-Bold.ttf */; };
 		F83CBC4D28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F83CBC4B28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf */; };
+		F859AB3428EC2FA20069D247 /* UITextViewWithPlaceholder_CR8.swift in Sources */ = {isa = PBXBuildFile; fileRef = F859AB3328EC2FA10069D247 /* UITextViewWithPlaceholder_CR8.swift */; };
+		F86A71CD28EC9C4E0083D12D /* DPOTPView in Frameworks */ = {isa = PBXBuildFile; productRef = F86A71CC28EC9C4E0083D12D /* DPOTPView */; };
 		F8C75A5D28E97EC100F5B2E2 /* UITextFieldWithPlaceholder_CR8.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C75A5C28E97EC100F5B2E2 /* UITextFieldWithPlaceholder_CR8.swift */; };
 		F8C75A6028E98B7000F5B2E2 /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C75A5F28E98B7000F5B2E2 /* extensions.swift */; };
 		F8C75A6228E98BEB00F5B2E2 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C75A6128E98BEB00F5B2E2 /* Utils.swift */; };
@@ -38,6 +40,7 @@
 		F83CBC4728D87352005BA1B8 /* LoginSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignUpViewController.swift; sourceTree = "<group>"; };
 		F83CBC4A28D88466005BA1B8 /* NunitoSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-Bold.ttf"; sourceTree = "<group>"; };
 		F83CBC4B28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		F859AB3328EC2FA10069D247 /* UITextViewWithPlaceholder_CR8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewWithPlaceholder_CR8.swift; sourceTree = "<group>"; };
 		F8C75A5C28E97EC100F5B2E2 /* UITextFieldWithPlaceholder_CR8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldWithPlaceholder_CR8.swift; sourceTree = "<group>"; };
 		F8C75A5F28E98B7000F5B2E2 /* extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 		F8C75A6128E98BEB00F5B2E2 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -50,6 +53,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				08F565BC217C9820C601B123 /* Pods_Medonapp_iOS.framework in Frameworks */,
+				F86A71CD28EC9C4E0083D12D /* DPOTPView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,6 +127,7 @@
 			children = (
 				F8C75A5C28E97EC100F5B2E2 /* UITextFieldWithPlaceholder_CR8.swift */,
 				F8C75A6328EA016E00F5B2E2 /* UIButtonVariableBackgroundVariableCR.swift */,
+				F859AB3328EC2FA10069D247 /* UITextViewWithPlaceholder_CR8.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -170,6 +175,9 @@
 			dependencies = (
 			);
 			name = "Medonapp iOS";
+			packageProductDependencies = (
+				F86A71CC28EC9C4E0083D12D /* DPOTPView */,
+			);
 			productName = "Medonapp iOS";
 			productReference = F8131B1028D5A09F00B7558D /* Medonapp iOS.app */;
 			productType = "com.apple.product-type.application";
@@ -198,6 +206,9 @@
 				Base,
 			);
 			mainGroup = F8131B0728D5A09F00B7558D;
+			packageReferences = (
+				F86A71CB28EC9C4E0083D12D /* XCRemoteSwiftPackageReference "DPOTPView" */,
+			);
 			productRefGroup = F8131B1128D5A09F00B7558D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -269,6 +280,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F859AB3428EC2FA20069D247 /* UITextViewWithPlaceholder_CR8.swift in Sources */,
 				F83CBC4828D87352005BA1B8 /* LoginSignUpViewController.swift in Sources */,
 				F8131B1828D5A09F00B7558D /* LandingPageView.swift in Sources */,
 				F8C75A5D28E97EC100F5B2E2 /* UITextFieldWithPlaceholder_CR8.swift in Sources */,
@@ -498,6 +510,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F86A71CB28EC9C4E0083D12D /* XCRemoteSwiftPackageReference "DPOTPView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Datt1994/DPOTPView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F86A71CC28EC9C4E0083D12D /* DPOTPView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F86A71CB28EC9C4E0083D12D /* XCRemoteSwiftPackageReference "DPOTPView" */;
+			productName = DPOTPView;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F8131B0828D5A09F00B7558D /* Project object */;
 }
