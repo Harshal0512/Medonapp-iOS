@@ -563,6 +563,18 @@ class LoginSignUpViewController: UIViewController {
                     self.progressBar?.setProgress(0.87, animated: true)
                 }, completion: nil)
             })
+        } else if activeView == .signupOtpVerification {
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+                self.progressBar?.setProgress(0.87, animated: true)
+            }, completion: {
+                (finished: Bool) -> Void in
+                self.pageTitle?.text = "You’re all set"
+                UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+                    self.dismiss(animated: true) {
+                        NotificationCenter.default.post(name: Notification.Name("goToDashboard"), object: nil)
+                    }
+                }, completion: nil)
+            })
         }
         
         

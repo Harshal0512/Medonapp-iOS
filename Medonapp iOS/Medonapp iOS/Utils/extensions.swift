@@ -19,3 +19,10 @@ func dismissKeyboard() {
        view.endEditing(true)
     }
 }
+
+extension UIImageView {
+   func makeRoundCorners(byRadius rad: CGFloat) {
+      self.layer.cornerRadius = rad
+      self.clipsToBounds = true
+   }
+}

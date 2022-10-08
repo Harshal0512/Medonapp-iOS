@@ -30,7 +30,7 @@
         <!--Home-->
         <scene sceneID="D3C-re-T51">
             <objects>
-                <viewController id="WrO-ii-FGo" sceneMemberID="viewController">
+                <viewController id="WrO-ii-FGo" customClass="HomeTabViewController" customModule="Medonapp_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bUq-7k-X25">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -66,6 +66,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="qWy-ls-zbj" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6NI-u1-Ghm">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>

@@ -43,13 +43,17 @@ class LandingPageView: UIViewController {
     }
     
     private func initialise() {
+        NotificationCenter.default.addObserver(self, selector: #selector(goToDashboard), name: Notification.Name("goToDashboard"), object: nil)
+    }
+    
+    @objc func goToDashboard() {
+        self.performSegue(withIdentifier: "toDashboard", sender: nil)
     }
     
     private func setupUI() {
         view.backgroundColor = UIColor(red: 0.86, green: 0.93, blue: 0.98, alpha: 1.00)
         
-//        title = "My Verified Docs"
-//        navigationItem.largeTitleDisplayMode = .always
+        
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.setNavigationBarHidden(true, animated: false)
         navigationController?.isNavigationBarHidden = true
@@ -60,7 +64,6 @@ class LandingPageView: UIViewController {
         imageView?.contentMode = .scaleAspectFit
         view.addSubview(imageView!)
         imageView?.isHidden = true
-        
     }
     
     
