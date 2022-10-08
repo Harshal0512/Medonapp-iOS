@@ -15,7 +15,8 @@ class HomeTabViewController: UIViewController {
     var profileImageView: UIImageView?
     var searchBar: SearchBarWithSearchAndFilterIcon?
     var servicesTextLabel: UILabel?
-    var doctorTab: TabForServices_VariableColor?
+    var doctorsTab: TabForServices_VariableColor?
+    var reportsTab: TabForServices_VariableColor?
     
 
     
@@ -65,9 +66,13 @@ class HomeTabViewController: UIViewController {
         servicesTextLabel?.font = UIFont(name: "NunitoSans-Bold", size: 17)
         contentView?.addSubview(servicesTextLabel!)
         
-        doctorTab = TabForServices_VariableColor()
-        doctorTab?.initTabButton(variant: .blue, tabImage: UIImage(systemName: "magnifyingglass")!)
-        contentView?.addSubview(doctorTab!)
+        doctorsTab = TabForServices_VariableColor()
+        doctorsTab?.initTabButton(variant: .blue, tabImage: UIImage(systemName: "magnifyingglass")!)
+        contentView?.addSubview(doctorsTab!)
+        
+        reportsTab = TabForServices_VariableColor()
+        reportsTab?.initTabButton(variant: .sky, tabImage: UIImage(systemName: "magnifyingglass")!)
+        contentView?.addSubview(reportsTab!)
     }
     
     func setConstraints() {
@@ -78,7 +83,8 @@ class HomeTabViewController: UIViewController {
         profileImageView?.translatesAutoresizingMaskIntoConstraints = false
         searchBar?.translatesAutoresizingMaskIntoConstraints = false
         servicesTextLabel?.translatesAutoresizingMaskIntoConstraints = false
-        doctorTab?.translatesAutoresizingMaskIntoConstraints = false
+        doctorsTab?.translatesAutoresizingMaskIntoConstraints = false
+        reportsTab?.translatesAutoresizingMaskIntoConstraints = false
         
         
         
@@ -117,12 +123,17 @@ class HomeTabViewController: UIViewController {
         servicesTextLabel?.leadingAnchor.constraint(equalTo: searchBar!.leadingAnchor).isActive = true
         servicesTextLabel?.trailingAnchor.constraint(equalTo: searchBar!.trailingAnchor).isActive = true
         
-        doctorTab?.topAnchor.constraint(equalTo: servicesTextLabel!.bottomAnchor, constant: 12).isActive = true
-        doctorTab?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 28).isActive = true
-        doctorTab?.widthAnchor.constraint(equalToConstant: 72).isActive = true
-        doctorTab?.heightAnchor.constraint(equalToConstant: 72).isActive = true
+        doctorsTab?.topAnchor.constraint(equalTo: servicesTextLabel!.bottomAnchor, constant: 12).isActive = true
+        doctorsTab?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 28).isActive = true
+        doctorsTab?.widthAnchor.constraint(equalToConstant: 72).isActive = true
+        doctorsTab?.heightAnchor.constraint(equalToConstant: 72).isActive = true
         
-        doctorTab?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -28).isActive = true
+        reportsTab?.topAnchor.constraint(equalTo: doctorsTab!.topAnchor).isActive = true
+        reportsTab?.leadingAnchor.constraint(equalTo: doctorsTab!.trailingAnchor, constant: 12).isActive = true
+        reportsTab?.widthAnchor.constraint(equalTo: doctorsTab!.widthAnchor).isActive = true
+        reportsTab?.heightAnchor.constraint(equalTo: doctorsTab!.heightAnchor).isActive = true
+        
+        doctorsTab?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -28).isActive = true
     }
 
 }

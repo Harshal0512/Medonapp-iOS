@@ -68,7 +68,5 @@ class TabForServices_VariableColor: UIView {
         self.tabImage?.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15).isActive = true
         self.tabImage?.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -15).isActive = true
         
-        self.tabImage?.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        self.tabImage?.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
 }
