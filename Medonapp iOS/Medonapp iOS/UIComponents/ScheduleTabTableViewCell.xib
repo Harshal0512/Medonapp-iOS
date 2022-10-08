@@ -20,71 +20,87 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScheduleTabTableViewCell" rowHeight="120" id="KGk-i7-Jjw" customClass="ScheduleTabTableViewCell" customModule="Medonapp_iOS" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+            <rect key="frame" x="0.0" y="0.0" width="350" height="150"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+                <rect key="frame" x="0.0" y="0.0" width="350" height="150"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="U88-xM-ls9">
-                        <rect key="frame" x="15" y="30" width="60" height="60"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bo1-vN-0w7">
+                        <rect key="frame" x="10" y="10" width="330" height="130"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="U88-xM-ls9">
+                                <rect key="frame" x="15" y="35" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="HW3-wd-Knz"/>
+                                    <constraint firstAttribute="height" constant="60" id="yse-LD-k0D"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aZG-GW-bea">
+                                <rect key="frame" x="90" y="35" width="230" height="20"/>
+                                <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.65000000000000002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type of Dr." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HlB-hA-cnj">
+                                <rect key="frame" x="90" y="85" width="230" height="20.666666666666671"/>
+                                <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YMW-Ct-uoY">
+                                <rect key="frame" x="282" y="10" width="43" height="34.333333333333336"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain">
+                                    <imageReference key="image" image="circle.grid.2x1" catalog="system" symbolScale="small"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="small" weight="light"/>
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dr. Name Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P9g-5M-EIN">
+                                <rect key="frame" x="90" y="57" width="230" height="26"/>
+                                <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="19"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.10980392156862745" green="0.41960784313725491" blue="0.64313725490196072" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="60" id="HW3-wd-Knz"/>
-                            <constraint firstAttribute="height" constant="60" id="yse-LD-k0D"/>
+                            <constraint firstItem="U88-xM-ls9" firstAttribute="leading" secondItem="bo1-vN-0w7" secondAttribute="leading" constant="15" id="1jS-5t-96G"/>
+                            <constraint firstItem="HlB-hA-cnj" firstAttribute="leading" secondItem="U88-xM-ls9" secondAttribute="trailing" constant="15" id="2jb-Y3-xnp"/>
+                            <constraint firstAttribute="trailing" secondItem="aZG-GW-bea" secondAttribute="trailing" constant="10" id="39S-28-w6J"/>
+                            <constraint firstItem="P9g-5M-EIN" firstAttribute="leading" secondItem="U88-xM-ls9" secondAttribute="trailing" constant="15" id="5EE-kO-2sq"/>
+                            <constraint firstItem="aZG-GW-bea" firstAttribute="leading" secondItem="U88-xM-ls9" secondAttribute="trailing" constant="15" id="630-Mq-Lgt"/>
+                            <constraint firstItem="aZG-GW-bea" firstAttribute="top" secondItem="U88-xM-ls9" secondAttribute="top" id="AzP-1V-aZO"/>
+                            <constraint firstAttribute="trailing" secondItem="HlB-hA-cnj" secondAttribute="trailing" constant="10" id="JRX-1e-0c9"/>
+                            <constraint firstAttribute="trailing" secondItem="P9g-5M-EIN" secondAttribute="trailing" constant="10" id="LCW-SP-ANe"/>
+                            <constraint firstItem="HlB-hA-cnj" firstAttribute="top" secondItem="P9g-5M-EIN" secondAttribute="bottom" constant="2" id="LQr-La-cjn"/>
+                            <constraint firstAttribute="trailing" secondItem="YMW-Ct-uoY" secondAttribute="trailing" constant="5" id="UI0-fe-vEO"/>
+                            <constraint firstItem="P9g-5M-EIN" firstAttribute="top" secondItem="aZG-GW-bea" secondAttribute="bottom" constant="2" id="WfI-gU-frs"/>
+                            <constraint firstItem="U88-xM-ls9" firstAttribute="centerY" secondItem="bo1-vN-0w7" secondAttribute="centerY" id="Z39-OH-sN2"/>
+                            <constraint firstItem="YMW-Ct-uoY" firstAttribute="top" secondItem="bo1-vN-0w7" secondAttribute="top" constant="10" id="w0H-Rv-cZK"/>
                         </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="20"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aZG-GW-bea">
-                        <rect key="frame" x="90" y="30" width="220" height="20"/>
-                        <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="14"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dr. Name Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P9g-5M-EIN">
-                        <rect key="frame" x="90" y="52" width="220" height="26"/>
-                        <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="19"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.65000000000000002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type of Dr." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HlB-hA-cnj">
-                        <rect key="frame" x="90" y="80" width="73.333333333333314" height="20.666666666666671"/>
-                        <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="15"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YMW-Ct-uoY">
-                        <rect key="frame" x="272" y="10" width="43" height="34.333333333333336"/>
-                        <state key="normal" title="Button"/>
-                        <buttonConfiguration key="configuration" style="plain">
-                            <imageReference key="image" image="circle.grid.2x1" catalog="system" symbolScale="small"/>
-                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="small" weight="light"/>
-                            <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </buttonConfiguration>
-                    </button>
+                    </view>
                 </subviews>
-                <color key="backgroundColor" red="0.10980392156862745" green="0.41960784313725491" blue="0.64313725490196072" alpha="1" colorSpace="calibratedRGB"/>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="U88-xM-ls9" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="5Z7-k3-FJC"/>
-                    <constraint firstItem="HlB-hA-cnj" firstAttribute="top" secondItem="P9g-5M-EIN" secondAttribute="bottom" constant="2" id="7mc-gC-TLX"/>
-                    <constraint firstItem="YMW-Ct-uoY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="8x6-AF-HaA"/>
-                    <constraint firstItem="aZG-GW-bea" firstAttribute="top" secondItem="U88-xM-ls9" secondAttribute="top" id="AGj-OC-aHV"/>
-                    <constraint firstAttribute="trailing" secondItem="P9g-5M-EIN" secondAttribute="trailing" constant="10" id="ANu-lc-yMD"/>
-                    <constraint firstAttribute="trailing" secondItem="aZG-GW-bea" secondAttribute="trailing" constant="10" id="GDg-Tu-s9M"/>
-                    <constraint firstAttribute="trailing" secondItem="YMW-Ct-uoY" secondAttribute="trailing" constant="5" id="KAJ-UW-S1z"/>
-                    <constraint firstItem="aZG-GW-bea" firstAttribute="leading" secondItem="U88-xM-ls9" secondAttribute="trailing" constant="15" id="dr4-DN-emx"/>
-                    <constraint firstItem="P9g-5M-EIN" firstAttribute="top" secondItem="aZG-GW-bea" secondAttribute="bottom" constant="2" id="ee7-0a-ceH"/>
-                    <constraint firstItem="P9g-5M-EIN" firstAttribute="leading" secondItem="U88-xM-ls9" secondAttribute="trailing" constant="15" id="eeu-WX-ZzY"/>
-                    <constraint firstItem="U88-xM-ls9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="g5k-lE-BtL"/>
-                    <constraint firstItem="HlB-hA-cnj" firstAttribute="leading" secondItem="U88-xM-ls9" secondAttribute="trailing" constant="15" id="mnb-Bn-EXA"/>
+                    <constraint firstItem="bo1-vN-0w7" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Hw3-UD-wNf"/>
+                    <constraint firstItem="bo1-vN-0w7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="TvR-e2-PAg"/>
+                    <constraint firstItem="bo1-vN-0w7" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="ZSy-fA-9hs"/>
+                    <constraint firstAttribute="bottom" secondItem="bo1-vN-0w7" secondAttribute="bottom" constant="10" id="Zur-KY-fa7"/>
+                    <constraint firstAttribute="trailing" secondItem="bo1-vN-0w7" secondAttribute="trailing" constant="10" id="vLq-kK-iV9"/>
+                    <constraint firstItem="bo1-vN-0w7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="vUg-tR-h2n"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="appointmentTime" destination="aZG-GW-bea" id="1oH-hg-CRO"/>
+                <outlet property="cellContentView" destination="bo1-vN-0w7" id="gFs-f2-njI"/>
                 <outlet property="doctorImage" destination="U88-xM-ls9" id="94N-1i-SHg"/>
                 <outlet property="doctorName" destination="P9g-5M-EIN" id="1dx-Xn-HTP"/>
                 <outlet property="typeOfDoctor" destination="HlB-hA-cnj" id="hnI-tL-Klu"/>

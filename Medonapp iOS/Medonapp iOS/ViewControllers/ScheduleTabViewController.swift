@@ -27,6 +27,7 @@ class ScheduleTabViewController: UIViewController, UITableViewDelegate, UITableV
     
     func setupUI() {
         scheduleTable = UITableView()
+        scheduleTable?.separatorStyle = .none
         view.addSubview(scheduleTable!)
     }
     
@@ -41,26 +42,28 @@ class ScheduleTabViewController: UIViewController, UITableViewDelegate, UITableV
     
     
     //MARK: TableView Functions
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 3
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView()
-        headerView.backgroundColor = view.backgroundColor
-        return headerView
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "10:00 AM -------------"
+        } else if section == 1 {
+            return "11:00 AM -------------"
+        } else if section == 2 {
+            return "12:00 PM -------------"
+        } else {
+            return ""
+        }
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 20
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return 150
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

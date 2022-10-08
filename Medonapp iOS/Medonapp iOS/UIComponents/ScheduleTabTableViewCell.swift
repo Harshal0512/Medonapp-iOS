@@ -15,13 +15,14 @@ class ScheduleTabTableViewCell: UITableViewCell {
         return UINib(nibName: "ScheduleTabTableViewCell", bundle: nil)
     }
     
+    @IBOutlet private var cellContentView: UIView!
     @IBOutlet private var doctorImage: UIImageView!
     @IBOutlet private var appointmentTime: UILabel!
     @IBOutlet private var doctorName: UILabel!
     @IBOutlet private var typeOfDoctor: UILabel!
 
     public func configure(doctorImage: UIImage, appointmentTime: String, doctorName: String, typeOfDoctor: String) {
-        contentView.layer.cornerRadius = 28
+        cellContentView.layer.cornerRadius = 28
         self.doctorImage.image = doctorImage
         self.appointmentTime.text = appointmentTime
         self.doctorName.text = doctorName
