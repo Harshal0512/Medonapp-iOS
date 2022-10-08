@@ -68,7 +68,13 @@ class ScheduleTabViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = scheduleTable!.dequeueReusableCell(withIdentifier: ScheduleTabTableViewCell.identifier, for: indexPath) as! ScheduleTabTableViewCell
-        cell.configure(doctorImage: UIImage(named: "cat")!, appointmentTime: "12:30 PM", doctorName: "Dr. Suryansh Sharma", typeOfDoctor: "Cardiologist")
+        if indexPath.section == 0 {
+            cell.configure(doctorImage: UIImage(named: "cat")!, appointmentTime: "12:30 PM", doctorName: "Dr. Suryansh Sharma", typeOfDoctor: "Cardiologist", cellVariant: .blue)
+        } else if indexPath.section == 1 {
+            cell.configure(doctorImage: UIImage(named: "cat")!, appointmentTime: "12:30 PM", doctorName: "Dr. Suryansh Sharma", typeOfDoctor: "Cardiologist", cellVariant: .pink)
+        } else {
+            cell.configure(doctorImage: UIImage(named: "cat")!, appointmentTime: "12:30 PM", doctorName: "Dr. Suryansh Sharma", typeOfDoctor: "Cardiologist", cellVariant: .yellow)
+        }
         
         return cell
     }
