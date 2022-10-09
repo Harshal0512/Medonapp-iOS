@@ -18,7 +18,12 @@ class HomeTabViewController: UIViewController {
     var doctorsTab: TabForServices_VariableColor?
     var reportsTab: TabForServices_VariableColor?
     
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        let tabBarItems = tabBarController?.tabBar.items!
+//        tabBarItems![0].image = UIImage(named: "homeTabIcon")?.withTintColor(UIColor(red: 0.48, green: 0.55, blue: 0.62, alpha: 1.00))
+//        tabBarItems![0].selectedImage = UIImage(named: "homeTabIcon")?.withTintColor(UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00))
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
