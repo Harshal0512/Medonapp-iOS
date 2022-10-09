@@ -23,7 +23,7 @@ class LandingPageView: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.performSegue(withIdentifier: "toDashboard", sender: nil)
+//        self.performSegue(withIdentifier: "toDashboard", sender: nil) //directly to dashboard
         
         // Create the view controller.
         let sheetViewController = LoginSignUpViewController()

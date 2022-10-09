@@ -44,7 +44,7 @@
             </objects>
             <point key="canvasLocation" x="1996" y="-870"/>
         </scene>
-        <!--Schedule-->
+        <!--Schedule Tab View Controller-->
         <scene sceneID="kep-Pk-Nju">
             <objects>
                 <viewController id="ZIb-Vf-QWT" customClass="ScheduleTabViewController" customModule="Medonapp_iOS" customModuleProvider="target" sceneMemberID="viewController">
@@ -54,11 +54,11 @@
                         <viewLayoutGuide key="safeArea" id="fil-Kp-HLQ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Schedule" id="jEg-zo-wEC"/>
+                    <navigationItem key="navigationItem" id="Oe6-jx-R5A"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dnp-Iv-JQw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1996" y="-204"/>
+            <point key="canvasLocation" x="2905.7971014492755" y="-204.24107142857142"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="jzU-OC-xoy">
@@ -72,7 +72,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="WrO-ii-FGo" kind="relationship" relationship="viewControllers" id="hUk-dT-J7F"/>
-                        <segue destination="ZIb-Vf-QWT" kind="relationship" relationship="viewControllers" id="DuB-d3-CWi"/>
+                        <segue destination="ewj-co-gae" kind="relationship" relationship="viewControllers" id="DuB-d3-CWi"/>
                         <segue destination="j70-iV-9S8" kind="relationship" relationship="viewControllers" id="at1-kn-Wrv"/>
                         <segue destination="8gs-7i-x2t" kind="relationship" relationship="viewControllers" id="rM3-Ce-etR"/>
                     </connections>
@@ -112,6 +112,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Qs-2z-kFa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1996" y="1127"/>
+        </scene>
+        <!--Schedule-->
+        <scene sceneID="2ng-8l-yrD">
+            <objects>
+                <navigationController title="Schedule" automaticallyAdjustsScrollViewInsets="NO" id="ewj-co-gae" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Schedule" id="jEg-zo-wEC"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nwp-IQ-1gf">
+                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ZIb-Vf-QWT" kind="relationship" relationship="rootViewController" id="wsc-gf-yA8"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mwJ-lQ-aO3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1995.6521739130437" y="-204.24107142857142"/>
         </scene>
     </scenes>
     <resources>
