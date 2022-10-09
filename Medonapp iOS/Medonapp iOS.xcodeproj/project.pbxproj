@@ -20,6 +20,7 @@
 		F859AB3428EC2FA20069D247 /* UITextViewWithPlaceholder_CR8.swift in Sources */ = {isa = PBXBuildFile; fileRef = F859AB3328EC2FA10069D247 /* UITextViewWithPlaceholder_CR8.swift */; };
 		F85D9C3528F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85D9C3328F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.swift */; };
 		F85D9C3628F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F85D9C3428F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.xib */; };
+		F85D9C3828F33B6D008FBDE9 /* ReportTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85D9C3728F33B6D008FBDE9 /* ReportTabViewController.swift */; };
 		F86A71CD28EC9C4E0083D12D /* DPOTPView in Frameworks */ = {isa = PBXBuildFile; productRef = F86A71CC28EC9C4E0083D12D /* DPOTPView */; };
 		F86A71CF28EE9C970083D12D /* HomeTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86A71CE28EE9C970083D12D /* HomeTabViewController.swift */; };
 		F86A71D728EEAF7B0083D12D /* NunitoSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F86A71D628EEAF7B0083D12D /* NunitoSans-SemiBold.ttf */; };
@@ -53,6 +54,7 @@
 		F859AB3328EC2FA10069D247 /* UITextViewWithPlaceholder_CR8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewWithPlaceholder_CR8.swift; sourceTree = "<group>"; };
 		F85D9C3328F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTabDateCollectionViewCell.swift; sourceTree = "<group>"; };
 		F85D9C3428F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleTabDateCollectionViewCell.xib; sourceTree = "<group>"; };
+		F85D9C3728F33B6D008FBDE9 /* ReportTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportTabViewController.swift; sourceTree = "<group>"; };
 		F86A71CE28EE9C970083D12D /* HomeTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabViewController.swift; sourceTree = "<group>"; };
 		F86A71D628EEAF7B0083D12D /* NunitoSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		F89272BB28F157510063525E /* TabForServices_VariableColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabForServices_VariableColor.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				F83CBC4728D87352005BA1B8 /* LoginSignUpViewController.swift */,
 				F86A71CE28EE9C970083D12D /* HomeTabViewController.swift */,
 				F89272BD28F1AC7B0063525E /* ScheduleTabViewController.swift */,
+				F85D9C3728F33B6D008FBDE9 /* ReportTabViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				F8131B1628D5A09F00B7558D /* SceneDelegate.swift in Sources */,
 				F89272C128F1AEA50063525E /* ScheduleTabTableViewCell.swift in Sources */,
 				F8C75A6428EA016E00F5B2E2 /* UIButtonVariableBackgroundVariableCR.swift in Sources */,
+				F85D9C3828F33B6D008FBDE9 /* ReportTabViewController.swift in Sources */,
 				F85D9C3528F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.swift in Sources */,
 				F89272BE28F1AC7B0063525E /* ScheduleTabViewController.swift in Sources */,
 				F8C75A6028E98B7000F5B2E2 /* extensions.swift in Sources */,
