@@ -25,6 +25,8 @@ class ReportTabViewController: UIViewController {
     var weightImageLabel: UIImageView?
     var weightTitleLabel: UILabel?
     var weightStatusLabel: UILabel?
+    
+    var latestReportsLabel: UILabel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,6 +117,14 @@ class ReportTabViewController: UIViewController {
         weightStatusLabel?.textColor = .black
         weightStatusLabel?.font = UIFont(name: "NunitoSans-Bold", size: 28)
         weightView?.addSubview(weightStatusLabel!)
+        
+        
+        latestReportsLabel = UILabel()
+        latestReportsLabel?.text = "Latest Report"
+        latestReportsLabel?.textColor = .black
+        latestReportsLabel?.font = UIFont(name: "NunitoSans-Bold", size: 17)
+        contentView?.addSubview(latestReportsLabel!)
+        
     }
     
     func setConstraints() {
@@ -153,8 +163,9 @@ class ReportTabViewController: UIViewController {
         healthStatus?.topAnchor.constraint(equalTo: contentView!.topAnchor, constant: 16).isActive = true
         healthStatus?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 28).isActive = true
         healthStatus?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -28).isActive = true
-        healthStatus?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -10).isActive = true
         healthStatus?.heightAnchor.constraint(equalToConstant: 175).isActive = true
+        
+        latestReportsLabel?.translatesAutoresizingMaskIntoConstraints = false
         
         healthLabelHealthStatusView?.topAnchor.constraint(equalTo: healthStatus!.topAnchor, constant: 29).isActive = true
         healthLabelHealthStatusView?.leadingAnchor.constraint(equalTo: healthStatus!.leadingAnchor, constant: 22).isActive = true
@@ -207,6 +218,11 @@ class ReportTabViewController: UIViewController {
         weightStatusLabel?.leadingAnchor.constraint(equalTo: weightImageLabel!.leadingAnchor).isActive = true
         weightStatusLabel?.trailingAnchor.constraint(equalTo: weightView!.trailingAnchor, constant: -10).isActive = true
         weightStatusLabel?.bottomAnchor.constraint(equalTo: weightView!.bottomAnchor, constant: -15).isActive = true
+        
+        
+        latestReportsLabel?.topAnchor.constraint(equalTo: bloodGroupView!.bottomAnchor, constant: 27).isActive = true
+        latestReportsLabel?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 27).isActive = true
+        latestReportsLabel?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -27).isActive = true
     }
 
 }
