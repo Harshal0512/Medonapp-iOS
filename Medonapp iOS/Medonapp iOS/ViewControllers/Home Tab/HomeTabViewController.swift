@@ -32,12 +32,17 @@ class HomeTabViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.dismissKeyboard()
+        
         initialise()
         setupUI()
         setConstraints()
     }
     
     func initialise() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     func setupUI() {
@@ -66,7 +71,8 @@ class HomeTabViewController: UIViewController {
         contentView?.addSubview(profileImageView!)
         
         searchBar = SearchBarWithSearchAndFilterIcon()
-        searchBar?.setPlaceholder(placeholder: " Search medical")
+        searchBar?.setPlaceholder(placeholder: "Search medical")
+        searchBar?.delegate = self
         contentView?.addSubview(searchBar!)
         
         servicesTextLabel = UILabel()
@@ -78,6 +84,8 @@ class HomeTabViewController: UIViewController {
         doctorsTab = TabForServices_VariableColor()
         doctorsTab?.initTabButton(variant: .blue, tabImage: UIImage(systemName: "magnifyingglass")!)
         contentView?.addSubview(doctorsTab!)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.goToDoctorsScreen(_:)))
+        doctorsTab?.addGestureRecognizer(tap)
         
         reportsTab = TabForServices_VariableColor()
         reportsTab?.initTabButton(variant: .sky, tabImage: UIImage(systemName: "magnifyingglass")!)
@@ -144,5 +152,40 @@ class HomeTabViewController: UIViewController {
         
         doctorsTab?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -28).isActive = true
     }
+    
+    @objc func goToDoctorsScreen(_ sender: UITapGestureRecognizer? = nil) {
+        let doctorsScreenVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "doctorsScreenVC") as? DoctorsScreenViewController
+//        doctorsScreenVC?.modalPresentationStyle = .fullScreen
+//        self.present(doctorsScreenVC!, animated: true, completion: nil)
+        self.navigationController?.pushViewController(doctorsScreenVC!, animated: true)
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            
+            // if keyboard size is not available for some reason, dont do anything
+            return
+        }
+        
+        let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height , right: 0.0)
+        scrollView!.contentInset = contentInsets
+        scrollView!.scrollIndicatorInsets = contentInsets
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+        
+        // reset back the content inset to zero after keyboard is gone
+        scrollView!.contentInset = contentInsets
+        scrollView!.scrollIndicatorInsets = contentInsets
+    }
 
+}
+
+extension HomeTabViewController : UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
 }

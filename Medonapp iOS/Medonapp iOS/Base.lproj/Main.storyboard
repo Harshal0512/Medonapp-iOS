@@ -27,7 +27,7 @@
             </objects>
             <point key="canvasLocation" x="71" y="92"/>
         </scene>
-        <!--Home-->
+        <!--Home Tab View Controller-->
         <scene sceneID="D3C-re-T51">
             <objects>
                 <viewController id="WrO-ii-FGo" customClass="HomeTabViewController" customModule="Medonapp_iOS" customModuleProvider="target" sceneMemberID="viewController">
@@ -37,12 +37,11 @@
                         <viewLayoutGuide key="safeArea" id="CeJ-2e-F2j"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Home" id="Pv8-Yy-Cyy"/>
                     <navigationItem key="navigationItem" id="d6P-Uy-hWt"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Zb-SG-jyd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1996" y="-870"/>
+            <point key="canvasLocation" x="2905.7971014492755" y="-870.53571428571422"/>
         </scene>
         <!--Schedule Tab View Controller-->
         <scene sceneID="kep-Pk-Nju">
@@ -72,7 +71,7 @@
                         <color key="tintColor" red="0.10980392156862745" green="0.41960784313725491" blue="0.64313725490196072" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
-                        <segue destination="WrO-ii-FGo" kind="relationship" relationship="viewControllers" id="hUk-dT-J7F"/>
+                        <segue destination="rFr-0G-F7H" kind="relationship" relationship="viewControllers" id="hUk-dT-J7F"/>
                         <segue destination="ewj-co-gae" kind="relationship" relationship="viewControllers" id="DuB-d3-CWi"/>
                         <segue destination="Jo2-Wg-8cP" kind="relationship" relationship="viewControllers" id="at1-kn-Wrv"/>
                     </connections>
@@ -134,6 +133,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KfW-Tt-b8s" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1995.6521739130437" y="453.34821428571428"/>
+        </scene>
+        <!--Home-->
+        <scene sceneID="6zK-Jo-9fb">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rFr-0G-F7H" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Home" id="Pv8-Yy-Cyy"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZuZ-TB-knB">
+                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="WrO-ii-FGo" kind="relationship" relationship="rootViewController" id="GSP-8D-At9"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bYF-h7-MY8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1995.6521739130437" y="-870.53571428571422"/>
         </scene>
     </scenes>
     <resources>

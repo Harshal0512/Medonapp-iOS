@@ -20,13 +20,29 @@ class SearchBarWithSearchAndFilterIcon: UITextField {
         setupUI()
     }
 
+    let padding = UIEdgeInsets(top: 0, left: 35, bottom: 0, right: 20)
+
+        override open func textRect(forBounds bounds: CGRect) -> CGRect {
+            return bounds.inset(by: padding)
+        }
+
+        override open func placeholderRect(forBounds bounds: CGRect) -> CGRect {
+            return bounds.inset(by: padding)
+        }
+
+        override open func editingRect(forBounds bounds: CGRect) -> CGRect {
+            return bounds.inset(by: padding)
+        }
     
     func setupUI() {
-        self.layer.cornerRadius = 10
-        self.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
+        self.layer.cornerRadius = 18
+        self.layer.borderColor = UIColor(red: 0.93, green: 0.96, blue: 0.99, alpha: 1.00).cgColor
+        self.backgroundColor = UIColor(red: 0.93, green: 0.96, blue: 0.99, alpha: 1.00)
         self.textColor = .black
         self.layer.borderWidth = 1
-        self.font = UIFont(name: "NunitoSans-Bold", size: 16)
+        self.font = UIFont(name: "NunitoSans-Regular", size: 14)
+        self.autocorrectionType = .no
+        self.clearButtonMode = .whileEditing
         
         let searchIconView = UIImageView(frame: CGRect(x: 10, y: 5, width: 22, height: 20))
         searchIconView.image = UIImage(systemName: "magnifyingglass")!
@@ -46,8 +62,8 @@ class SearchBarWithSearchAndFilterIcon: UITextField {
     
     func setPlaceholder(placeholder: String) {
         self.attributedPlaceholder = NSAttributedString(
-            string: placeholder,
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 0.48, green: 0.55, blue: 0.62, alpha: 1.00), NSAttributedString.Key.font: UIFont(name: "NunitoSans-Bold", size: 16)!]
+            string: " \(placeholder)",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 0.48, green: 0.55, blue: 0.62, alpha: 1.00), NSAttributedString.Key.font: UIFont(name: "NunitoSans-Regular", size: 14)!]
         )
     }
     

@@ -32,6 +32,9 @@
 		F8A4F47828F14CE60032A87B /* SearchBarWithSearchAndFilterIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A4F47728F14CE60032A87B /* SearchBarWithSearchAndFilterIcon.swift */; };
 		F8BC4A3D28F420F000440406 /* ReportCellWithIconAndDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC4A3C28F420F000440406 /* ReportCellWithIconAndDescription.swift */; };
 		F8BC4A3F28F4211600440406 /* ReportCellWithIconAndDescription.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8BC4A3E28F4211600440406 /* ReportCellWithIconAndDescription.xib */; };
+		F8BC4A4228F4588A00440406 /* DoctorsScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC4A4128F4588A00440406 /* DoctorsScreenViewController.swift */; };
+		F8BC4A4428F460D600440406 /* StoryboardUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC4A4328F460D600440406 /* StoryboardUtils.swift */; };
+		F8BC4A4628F4614800440406 /* HomeTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8BC4A4528F4614800440406 /* HomeTab.storyboard */; };
 		F8C75A5D28E97EC100F5B2E2 /* UITextFieldWithPlaceholder_CR8.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C75A5C28E97EC100F5B2E2 /* UITextFieldWithPlaceholder_CR8.swift */; };
 		F8C75A6028E98B7000F5B2E2 /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C75A5F28E98B7000F5B2E2 /* extensions.swift */; };
 		F8C75A6228E98BEB00F5B2E2 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C75A6128E98BEB00F5B2E2 /* Utils.swift */; };
@@ -67,6 +70,9 @@
 		F8A4F47728F14CE60032A87B /* SearchBarWithSearchAndFilterIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarWithSearchAndFilterIcon.swift; sourceTree = "<group>"; };
 		F8BC4A3C28F420F000440406 /* ReportCellWithIconAndDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportCellWithIconAndDescription.swift; sourceTree = "<group>"; };
 		F8BC4A3E28F4211600440406 /* ReportCellWithIconAndDescription.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReportCellWithIconAndDescription.xib; sourceTree = "<group>"; };
+		F8BC4A4128F4588A00440406 /* DoctorsScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorsScreenViewController.swift; sourceTree = "<group>"; };
+		F8BC4A4328F460D600440406 /* StoryboardUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardUtils.swift; sourceTree = "<group>"; };
+		F8BC4A4528F4614800440406 /* HomeTab.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeTab.storyboard; sourceTree = "<group>"; };
 		F8C75A5C28E97EC100F5B2E2 /* UITextFieldWithPlaceholder_CR8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldWithPlaceholder_CR8.swift; sourceTree = "<group>"; };
 		F8C75A5F28E98B7000F5B2E2 /* extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 		F8C75A6128E98BEB00F5B2E2 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -146,7 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				F83CBC4728D87352005BA1B8 /* LoginSignUpViewController.swift */,
-				F86A71CE28EE9C970083D12D /* HomeTabViewController.swift */,
+				F8BC4A4028F4585700440406 /* Home Tab */,
 				F89272BD28F1AC7B0063525E /* ScheduleTabViewController.swift */,
 				F85D9C3728F33B6D008FBDE9 /* ReportTabViewController.swift */,
 			);
@@ -178,11 +184,22 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		F8BC4A4028F4585700440406 /* Home Tab */ = {
+			isa = PBXGroup;
+			children = (
+				F86A71CE28EE9C970083D12D /* HomeTabViewController.swift */,
+				F8BC4A4528F4614800440406 /* HomeTab.storyboard */,
+				F8BC4A4128F4588A00440406 /* DoctorsScreenViewController.swift */,
+			);
+			path = "Home Tab";
+			sourceTree = "<group>";
+		};
 		F8C75A5E28E98B6500F5B2E2 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				F8C75A5F28E98B7000F5B2E2 /* extensions.swift */,
 				F8C75A6128E98BEB00F5B2E2 /* Utils.swift */,
+				F8BC4A4328F460D600440406 /* StoryboardUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -267,6 +284,7 @@
 				F8131B1D28D5A0A000B7558D /* Assets.xcassets in Resources */,
 				F89272C428F1B0F80063525E /* NunitoSans-Regular.ttf in Resources */,
 				F8131B1B28D5A09F00B7558D /* Main.storyboard in Resources */,
+				F8BC4A4628F4614800440406 /* HomeTab.storyboard in Resources */,
 				F89272C228F1AEA50063525E /* ScheduleTabTableViewCell.xib in Resources */,
 				F85D9C3628F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.xib in Resources */,
 				F83CBC4C28D88466005BA1B8 /* NunitoSans-Bold.ttf in Resources */,
@@ -335,6 +353,8 @@
 				F89272C128F1AEA50063525E /* ScheduleTabTableViewCell.swift in Sources */,
 				F8C75A6428EA016E00F5B2E2 /* UIButtonVariableBackgroundVariableCR.swift in Sources */,
 				F85D9C3828F33B6D008FBDE9 /* ReportTabViewController.swift in Sources */,
+				F8BC4A4228F4588A00440406 /* DoctorsScreenViewController.swift in Sources */,
+				F8BC4A4428F460D600440406 /* StoryboardUtils.swift in Sources */,
 				F85D9C3528F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.swift in Sources */,
 				F89272BE28F1AC7B0063525E /* ScheduleTabViewController.swift in Sources */,
 				F8BC4A3D28F420F000440406 /* ReportCellWithIconAndDescription.swift in Sources */,
