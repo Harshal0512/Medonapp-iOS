@@ -7,12 +7,14 @@
 
 import UIKit
 
-class DoctorsScreenViewController: UIViewController {
+class DoctorsScreenViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     private var backButton: UIImageView?
     private var navTitle: UILabel?
     private var searchField: SearchBarWithSearchAndFilterIcon?
     var scrollView: UIScrollView?
     var contentView: UIView?
+    var liveDoctorsLabel: UILabel?
+    private var doctorsCollectionView: UICollectionView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +29,10 @@ class DoctorsScreenViewController: UIViewController {
         initialise()
         setupUI()
         setConstraints()
+        
+        doctorsCollectionView?.register(DoctorsScreenCarouselCollectionViewCell.nib(), forCellWithReuseIdentifier: DoctorsScreenCarouselCollectionViewCell.identifier)
+        doctorsCollectionView?.delegate = self
+        doctorsCollectionView?.dataSource = self
     }
     
     func initialise() {
@@ -62,6 +68,22 @@ class DoctorsScreenViewController: UIViewController {
         
         view.addSubview(scrollView!)
         scrollView?.addSubview(contentView!)
+        
+        liveDoctorsLabel = UILabel()
+        liveDoctorsLabel?.text = "Live Doctors"
+        liveDoctorsLabel?.textColor = .black
+        liveDoctorsLabel?.font = UIFont(name: "NunitoSans-Bold", size: 17)
+        contentView?.addSubview(liveDoctorsLabel!)
+        
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.itemSize = CGSize(width: 93, height: 93)
+        layout.scrollDirection = .horizontal
+        
+        doctorsCollectionView =  UICollectionView(frame: CGRect(x: 0, y: 0, width: 93, height: 93), collectionViewLayout: layout)
+        view.addSubview(doctorsCollectionView!)
+        doctorsCollectionView?.showsHorizontalScrollIndicator = false
+        doctorsCollectionView?.showsVerticalScrollIndicator = false
     }
     
     func setConstraints() {
@@ -70,6 +92,8 @@ class DoctorsScreenViewController: UIViewController {
         searchField?.translatesAutoresizingMaskIntoConstraints = false
         scrollView?.translatesAutoresizingMaskIntoConstraints = false
         contentView?.translatesAutoresizingMaskIntoConstraints = false
+        liveDoctorsLabel?.translatesAutoresizingMaskIntoConstraints = false
+        doctorsCollectionView?.translatesAutoresizingMaskIntoConstraints = false
         
         
         backButton?.topAnchor.constraint(equalTo: view.topAnchor, constant: 65).isActive = true
@@ -97,6 +121,15 @@ class DoctorsScreenViewController: UIViewController {
         contentView?.trailingAnchor.constraint(equalTo: scrollView!.trailingAnchor).isActive = true
         contentView?.bottomAnchor.constraint(equalTo: scrollView!.bottomAnchor).isActive = true
         contentView?.widthAnchor.constraint(equalTo: scrollView!.widthAnchor).isActive = true
+        
+        liveDoctorsLabel?.topAnchor.constraint(equalTo: contentView!.topAnchor, constant: 9).isActive = true
+        liveDoctorsLabel?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 27).isActive = true
+        liveDoctorsLabel?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -27).isActive = true
+        
+        doctorsCollectionView?.topAnchor.constraint(equalTo: liveDoctorsLabel!.bottomAnchor, constant: 17).isActive = true
+        doctorsCollectionView?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 27).isActive = true
+        doctorsCollectionView?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -27).isActive = true
+        doctorsCollectionView?.heightAnchor.constraint(equalToConstant: 100).isActive = true
     }
     
     @objc func handleBackAction(_ sender: UITapGestureRecognizer? = nil) {
@@ -122,6 +155,27 @@ class DoctorsScreenViewController: UIViewController {
         // reset back the content inset to zero after keyboard is gone
         scrollView!.contentInset = contentInsets
         scrollView!.scrollIndicatorInsets = contentInsets
+    }
+    
+    
+    //MARK: Collection View Methods
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DoctorsScreenCarouselCollectionViewCell.identifier, for: indexPath) as! DoctorsScreenCarouselCollectionViewCell
+        cell.configure(doctorImage: UIImage(named: "cat")!)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        doctorsCollectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        refreshCollectionView()
+    }
+    
+    func refreshCollectionView() {
+        doctorsCollectionView?.reloadData()
     }
 }
 

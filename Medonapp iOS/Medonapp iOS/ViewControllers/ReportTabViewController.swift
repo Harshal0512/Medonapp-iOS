@@ -242,6 +242,7 @@ class ReportTabViewController: UIViewController {
         familyReports?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 27).isActive = true
         familyReports?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -27).isActive = true
         familyReports?.heightAnchor.constraint(equalToConstant: 93).isActive = true
+        familyReports?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -20).isActive = true
     }
 
 }
