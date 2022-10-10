@@ -69,12 +69,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" red="0.10980392156862745" green="0.41960784313725491" blue="0.64313725490196072" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="WrO-ii-FGo" kind="relationship" relationship="viewControllers" id="hUk-dT-J7F"/>
                         <segue destination="ewj-co-gae" kind="relationship" relationship="viewControllers" id="DuB-d3-CWi"/>
                         <segue destination="Jo2-Wg-8cP" kind="relationship" relationship="viewControllers" id="at1-kn-Wrv"/>
-                        <segue destination="8gs-7i-x2t" kind="relationship" relationship="viewControllers" id="rM3-Ce-etR"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9o7-PO-Bhq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -96,22 +96,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eQd-zh-6HQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2905.7971014492755" y="453.34821428571428"/>
-        </scene>
-        <!--Notifications-->
-        <scene sceneID="Dyn-4C-q0h">
-            <objects>
-                <viewController id="8gs-7i-x2t" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="zCC-mR-3a7">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="QoS-7E-YFO"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Notifications" id="la9-Sy-oeO"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7Qs-2z-kFa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1996" y="1127"/>
         </scene>
         <!--Schedule-->
         <scene sceneID="2ng-8l-yrD">
