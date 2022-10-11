@@ -82,13 +82,13 @@ class HomeTabViewController: UIViewController {
         contentView?.addSubview(servicesTextLabel!)
         
         doctorsTab = TabForServices_VariableColor()
-        doctorsTab?.initTabButton(variant: .blue, tabImage: UIImage(systemName: "magnifyingglass")!)
+        doctorsTab?.initTabButton(variant: .blue, tabImage: UIImage(named: "doctorHomeTabIcon")!.resizeImageTo(size: CGSize(width: 24, height: 30))!)
         contentView?.addSubview(doctorsTab!)
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.goToDoctorsScreen(_:)))
         doctorsTab?.addGestureRecognizer(tap)
         
         reportsTab = TabForServices_VariableColor()
-        reportsTab?.initTabButton(variant: .sky, tabImage: UIImage(systemName: "magnifyingglass")!)
+        reportsTab?.initTabButton(variant: .sky, tabImage: UIImage(named: "reportHomeTabIcon")!.resizeImageTo(size: CGSize(width: 10, height: 14))!)
         contentView?.addSubview(reportsTab!)
     }
     

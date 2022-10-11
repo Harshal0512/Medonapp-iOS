@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="NunitoSans-Bold.ttf">
+            <string>NunitoSans-Bold</string>
+        </array>
+        <array key="NunitoSans-Regular.ttf">
+            <string>NunitoSans-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DoctorInfoTableViewCell" id="KGk-i7-Jjw" customClass="DoctorInfoTableViewCell" customModule="Medonapp_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="340" height="115"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="340" height="115"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lBu-wU-QHz">
+                        <rect key="frame" x="20" y="5" width="115" height="105"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="105" id="Qfw-Ea-nIm"/>
+                            <constraint firstAttribute="width" constant="115" id="ai7-ZT-isQ"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dr Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jsy-t5-6fm">
+                        <rect key="frame" x="154" y="14.999999999999998" width="176" height="27.333333333333329"/>
+                        <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="20"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iba-Zj-R4y">
+                        <rect key="frame" x="155" y="45.333333333333336" width="175" height="19.333333333333336"/>
+                        <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="starIcon" translatesAutoresizingMaskIntoConstraints="NO" id="6iR-1t-gnN">
+                        <rect key="frame" x="154" y="79.666666666666671" width="15" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="Ssa-T9-dxm"/>
+                            <constraint firstAttribute="width" constant="15" id="XrT-Rw-AQl"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="4.5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T2q-5F-ucu">
+                        <rect key="frame" x="177" y="76.333333333333329" width="27" height="25"/>
+                        <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(17 reviews)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ieL-Iz-8PX">
+                        <rect key="frame" x="214" y="79.666666666666671" width="96" height="20"/>
+                        <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="ieL-Iz-8PX" firstAttribute="leading" secondItem="T2q-5F-ucu" secondAttribute="trailing" constant="10" id="GKG-wn-Fh5"/>
+                    <constraint firstItem="jsy-t5-6fm" firstAttribute="leading" secondItem="lBu-wU-QHz" secondAttribute="trailing" constant="19" id="HQy-TT-LtE"/>
+                    <constraint firstAttribute="trailing" secondItem="jsy-t5-6fm" secondAttribute="trailing" constant="10" id="Hmb-Nc-6IE"/>
+                    <constraint firstItem="jsy-t5-6fm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="Hpw-f0-u0N"/>
+                    <constraint firstItem="lBu-wU-QHz" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="JLy-50-Wfq"/>
+                    <constraint firstAttribute="trailing" secondItem="iba-Zj-R4y" secondAttribute="trailing" constant="10" id="LIH-pb-WFr"/>
+                    <constraint firstItem="ieL-Iz-8PX" firstAttribute="top" secondItem="iba-Zj-R4y" secondAttribute="bottom" constant="15" id="LUT-Py-y4x"/>
+                    <constraint firstItem="6iR-1t-gnN" firstAttribute="top" secondItem="iba-Zj-R4y" secondAttribute="bottom" constant="15" id="SjA-E4-A0i"/>
+                    <constraint firstItem="T2q-5F-ucu" firstAttribute="leading" secondItem="6iR-1t-gnN" secondAttribute="trailing" constant="8" id="bHe-k0-q82"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="ieL-Iz-8PX" secondAttribute="trailing" constant="10" id="c7E-Jz-c9W"/>
+                    <constraint firstItem="iba-Zj-R4y" firstAttribute="leading" secondItem="lBu-wU-QHz" secondAttribute="trailing" constant="20" id="cnM-Br-ZVg"/>
+                    <constraint firstItem="iba-Zj-R4y" firstAttribute="top" secondItem="jsy-t5-6fm" secondAttribute="bottom" constant="3" id="qo4-sg-Hqs"/>
+                    <constraint firstItem="6iR-1t-gnN" firstAttribute="leading" secondItem="lBu-wU-QHz" secondAttribute="trailing" constant="19" id="r32-kC-fq6"/>
+                    <constraint firstItem="lBu-wU-QHz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="rpJ-fE-3aX"/>
+                    <constraint firstItem="T2q-5F-ucu" firstAttribute="top" secondItem="iba-Zj-R4y" secondAttribute="bottom" constant="11.5" id="wae-0z-xdu"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="designation" destination="iba-Zj-R4y" id="kd2-3X-SD9"/>
+                <outlet property="doctorImage" destination="lBu-wU-QHz" id="GPd-ty-X0w"/>
+                <outlet property="doctorName" destination="jsy-t5-6fm" id="gB7-SP-Jfn"/>
+                <outlet property="numberOfReviews" destination="ieL-Iz-8PX" id="GJs-mf-HQI"/>
+                <outlet property="rating" destination="T2q-5F-ucu" id="pQ6-jG-PXf"/>
+            </connections>
+            <point key="canvasLocation" x="83" y="-12"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="starIcon" width="30" height="29"/>
+    </resources>
+</document>
