@@ -52,5 +52,9 @@ extension StoryboardUtils{
     static func getDoctorsScreenVC() -> UIViewController {
         return HomeTab.instance.instantiateViewController(withIdentifier: "doctorsScreenVC")
     }
+    
+    static func getDoctorsDetailsVC() -> UIViewController {
+        return HomeTab.instance.instantiateViewController(withIdentifier: "doctorsDetailsVC")
+    }
 }
 

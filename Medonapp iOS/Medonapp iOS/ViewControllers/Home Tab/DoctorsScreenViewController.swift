@@ -177,6 +177,11 @@ class DoctorsScreenViewController: UIViewController, UITableViewDelegate, UITabl
         return tableCell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let doctorsDetailsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "doctorsDetailsVC") as? DoctorDetailsViewViewController
+        self.navigationController?.pushViewController(doctorsDetailsVC!, animated: true)
+    }
+    
 }
 
 extension DoctorsScreenViewController : UITextFieldDelegate {
