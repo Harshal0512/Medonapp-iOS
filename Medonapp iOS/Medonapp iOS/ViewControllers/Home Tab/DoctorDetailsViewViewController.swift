@@ -18,6 +18,8 @@ class DoctorDetailsViewViewController: UIViewController {
     private var patientsGreyView: GreyViewDoctorDetails?
     private var experienceGreyView: GreyViewDoctorDetails?
     private var ratingsGreyView: GreyViewDoctorDetails?
+    private var aboutLabel: UILabel?
+    private var aboutDescription: UILabel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,6 +78,28 @@ class DoctorDetailsViewViewController: UIViewController {
         
         ratingsGreyView = GreyViewDoctorDetails.instantiate(title: "Rating", metrics: "4.67")
         contentView?.addSubview(ratingsGreyView!)
+        
+        aboutLabel = UILabel()
+        aboutLabel?.text = "About"
+        aboutLabel?.textColor = .black
+        aboutLabel?.font = UIFont(name: "NunitoSans-Bold", size: 17)
+        contentView?.addSubview(aboutLabel!)
+        
+        aboutDescription = UILabel()
+        aboutDescription?.text =
+        """
+        MBBS, Ph.D., Fellow, International College of Surgeons.
+        
+        Ex- Professor & Head of Department
+        Department of Neurosurgery
+        Dhaka Medical College & Hospital
+        
+        """
+        aboutDescription?.textColor = UIColor(red: 0.29, green: 0.33, blue: 0.37, alpha: 1.00)
+        aboutDescription?.numberOfLines = 0
+        aboutDescription?.textColor = .black
+        aboutDescription?.font = UIFont(name: "NunitoSans-Regular", size: 14)
+        contentView?.addSubview(aboutDescription!)
     }
     
     func setConstraints() {
@@ -88,6 +112,8 @@ class DoctorDetailsViewViewController: UIViewController {
         patientsGreyView?.translatesAutoresizingMaskIntoConstraints = false
         experienceGreyView?.translatesAutoresizingMaskIntoConstraints = false
         ratingsGreyView?.translatesAutoresizingMaskIntoConstraints = false
+        aboutLabel?.translatesAutoresizingMaskIntoConstraints = false
+        aboutDescription?.translatesAutoresizingMaskIntoConstraints = false
         
         
         topView?.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
@@ -138,6 +164,14 @@ class DoctorDetailsViewViewController: UIViewController {
         
         ratingsGreyView?.widthAnchor.constraint(equalTo: experienceGreyView!.widthAnchor).isActive = true
         ratingsGreyView?.heightAnchor.constraint(equalTo: experienceGreyView!.heightAnchor).isActive = true
+        
+        aboutLabel?.topAnchor.constraint(equalTo: patientsGreyView!.bottomAnchor, constant: 30).isActive = true
+        aboutLabel?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 27).isActive = true
+        aboutLabel?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -27).isActive = true
+        
+        aboutDescription?.topAnchor.constraint(equalTo: aboutLabel!.bottomAnchor, constant: 10).isActive = true
+        aboutDescription?.leadingAnchor.constraint(equalTo: aboutLabel!.leadingAnchor).isActive = true
+        aboutDescription?.trailingAnchor.constraint(equalTo: aboutLabel!.trailingAnchor).isActive = true
     }
     
     @objc func handleBackAction(_ sender: UITapGestureRecognizer? = nil) {
