@@ -155,6 +155,12 @@ class DoctorsScreenViewController: UIViewController, UITableViewDelegate, UITabl
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         doctorsCollectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         refreshCollectionView()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            let doctorsDetailsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "doctorsDetailsVC") as? DoctorDetailsViewViewController
+            self.navigationController?.pushViewController(doctorsDetailsVC!, animated: true)
+            collectionView.deselectItem(at: indexPath, animated: true)
+        }
     }
     
     func refreshCollectionView() {
@@ -178,8 +184,18 @@ class DoctorsScreenViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let doctorsDetailsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "doctorsDetailsVC") as? DoctorDetailsViewViewController
-        self.navigationController?.pushViewController(doctorsDetailsVC!, animated: true)
+        doctorsTable?.scrollToRow(at: indexPath, at: .middle, animated: true)
+        refreshTableView()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            let doctorsDetailsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "doctorsDetailsVC") as? DoctorDetailsViewViewController
+            self.navigationController?.pushViewController(doctorsDetailsVC!, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
+    
+    func refreshTableView() {
+        doctorsTable?.reloadData()
     }
     
 }

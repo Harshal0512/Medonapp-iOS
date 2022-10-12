@@ -37,6 +37,8 @@
 		F8AF821D28F553CA00D62D98 /* DoctorDetailsViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AF821C28F553CA00D62D98 /* DoctorDetailsViewViewController.swift */; };
 		F8AF822128F5CB4900D62D98 /* DoctorDetailsScreenTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AF822028F5CB4900D62D98 /* DoctorDetailsScreenTopView.swift */; };
 		F8AF822328F5CB6300D62D98 /* DoctorDetailsScreenTopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8AF822228F5CB6300D62D98 /* DoctorDetailsScreenTopView.xib */; };
+		F8B96C2628F5D557009E5198 /* GreyViewDoctorDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B96C2528F5D557009E5198 /* GreyViewDoctorDetails.swift */; };
+		F8B96C2828F5D55E009E5198 /* GreyViewDoctorDetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8B96C2728F5D55E009E5198 /* GreyViewDoctorDetails.xib */; };
 		F8BC4A3D28F420F000440406 /* ReportCellWithIconAndDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC4A3C28F420F000440406 /* ReportCellWithIconAndDescription.swift */; };
 		F8BC4A3F28F4211600440406 /* ReportCellWithIconAndDescription.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8BC4A3E28F4211600440406 /* ReportCellWithIconAndDescription.xib */; };
 		F8BC4A4228F4588A00440406 /* DoctorsScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC4A4128F4588A00440406 /* DoctorsScreenViewController.swift */; };
@@ -82,6 +84,8 @@
 		F8AF821C28F553CA00D62D98 /* DoctorDetailsViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDetailsViewViewController.swift; sourceTree = "<group>"; };
 		F8AF822028F5CB4900D62D98 /* DoctorDetailsScreenTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDetailsScreenTopView.swift; sourceTree = "<group>"; };
 		F8AF822228F5CB6300D62D98 /* DoctorDetailsScreenTopView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DoctorDetailsScreenTopView.xib; sourceTree = "<group>"; };
+		F8B96C2528F5D557009E5198 /* GreyViewDoctorDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreyViewDoctorDetails.swift; sourceTree = "<group>"; };
+		F8B96C2728F5D55E009E5198 /* GreyViewDoctorDetails.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GreyViewDoctorDetails.xib; sourceTree = "<group>"; };
 		F8BC4A3C28F420F000440406 /* ReportCellWithIconAndDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportCellWithIconAndDescription.swift; sourceTree = "<group>"; };
 		F8BC4A3E28F4211600440406 /* ReportCellWithIconAndDescription.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReportCellWithIconAndDescription.xib; sourceTree = "<group>"; };
 		F8BC4A4128F4588A00440406 /* DoctorsScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorsScreenViewController.swift; sourceTree = "<group>"; };
@@ -221,6 +225,8 @@
 			children = (
 				F8AF822028F5CB4900D62D98 /* DoctorDetailsScreenTopView.swift */,
 				F8AF822228F5CB6300D62D98 /* DoctorDetailsScreenTopView.xib */,
+				F8B96C2528F5D557009E5198 /* GreyViewDoctorDetails.swift */,
+				F8B96C2728F5D55E009E5198 /* GreyViewDoctorDetails.xib */,
 			);
 			path = "Doctor Details";
 			sourceTree = "<group>";
@@ -343,6 +349,7 @@
 				F8AF822328F5CB6300D62D98 /* DoctorDetailsScreenTopView.xib in Resources */,
 				F85D9C3628F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.xib in Resources */,
 				F83CBC4C28D88466005BA1B8 /* NunitoSans-Bold.ttf in Resources */,
+				F8B96C2828F5D55E009E5198 /* GreyViewDoctorDetails.xib in Resources */,
 				F82AA0F728F490B100C7CE7F /* DoctorInfoTableViewCell.xib in Resources */,
 				F86A71D728EEAF7B0083D12D /* NunitoSans-SemiBold.ttf in Resources */,
 				F8BC4A3F28F4211600440406 /* ReportCellWithIconAndDescription.xib in Resources */,
@@ -399,6 +406,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F859AB3428EC2FA20069D247 /* UITextViewWithPlaceholder_CR8.swift in Sources */,
+				F8B96C2628F5D557009E5198 /* GreyViewDoctorDetails.swift in Sources */,
 				F83CBC4828D87352005BA1B8 /* LoginSignUpViewController.swift in Sources */,
 				F8131B1828D5A09F00B7558D /* LandingPageView.swift in Sources */,
 				F8AF821D28F553CA00D62D98 /* DoctorDetailsViewViewController.swift in Sources */,
