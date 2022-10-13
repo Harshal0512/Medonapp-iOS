@@ -183,6 +183,7 @@ class DoctorDetailsViewViewController: UIViewController {
         bookNowButton?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 27).isActive = true
         bookNowButton?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -27).isActive = true
         bookNowButton?.heightAnchor.constraint(equalToConstant: 56).isActive = true
+        bookNowButton?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -20).isActive = true
     }
     
     @objc func handleBackAction(_ sender: UITapGestureRecognizer? = nil) {
