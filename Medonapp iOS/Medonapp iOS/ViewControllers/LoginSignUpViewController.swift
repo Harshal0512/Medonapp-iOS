@@ -450,6 +450,11 @@ class LoginSignUpViewController: UIViewController {
     }
     
     @objc func loginButtonPressed() {
+        if let presentationController = presentationController as? UISheetPresentationController {
+            presentationController.animateChanges {
+                presentationController.selectedDetentIdentifier = .medium
+            }
+        }
         UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.transitionCurlUp, animations: {
             //change active button colors
             self.signUpButton?.initButton(title: "Signup", cornerRadius: 8, variant: .whiteBack)
@@ -482,6 +487,11 @@ class LoginSignUpViewController: UIViewController {
     }
     
     @objc func signUpButtonPressed() {
+        if let presentationController = presentationController as? UISheetPresentationController {
+            presentationController.animateChanges {
+                presentationController.selectedDetentIdentifier = .large
+            }
+        }
         UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
             //change active button colors
             self.loginButton?.initButton(title: "Login", cornerRadius: 8, variant: .whiteBack)
