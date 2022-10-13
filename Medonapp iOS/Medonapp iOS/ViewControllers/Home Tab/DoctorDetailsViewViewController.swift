@@ -20,6 +20,7 @@ class DoctorDetailsViewViewController: UIViewController {
     private var ratingsGreyView: GreyViewDoctorDetails?
     private var aboutLabel: UILabel?
     private var aboutDescription: UILabel?
+    private var bookNowButton: UIButtonVariableBackgroundVariableCR?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,6 +101,10 @@ class DoctorDetailsViewViewController: UIViewController {
         aboutDescription?.textColor = .black
         aboutDescription?.font = UIFont(name: "NunitoSans-Regular", size: 14)
         contentView?.addSubview(aboutDescription!)
+        
+        bookNowButton = UIButtonVariableBackgroundVariableCR()
+        bookNowButton?.initButton(title: "Book Now", cornerRadius: 14, variant: .blueBack)
+        contentView?.addSubview(bookNowButton!)
     }
     
     func setConstraints() {
@@ -114,6 +119,7 @@ class DoctorDetailsViewViewController: UIViewController {
         ratingsGreyView?.translatesAutoresizingMaskIntoConstraints = false
         aboutLabel?.translatesAutoresizingMaskIntoConstraints = false
         aboutDescription?.translatesAutoresizingMaskIntoConstraints = false
+        bookNowButton?.translatesAutoresizingMaskIntoConstraints = false
         
         
         topView?.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
@@ -172,6 +178,11 @@ class DoctorDetailsViewViewController: UIViewController {
         aboutDescription?.topAnchor.constraint(equalTo: aboutLabel!.bottomAnchor, constant: 10).isActive = true
         aboutDescription?.leadingAnchor.constraint(equalTo: aboutLabel!.leadingAnchor).isActive = true
         aboutDescription?.trailingAnchor.constraint(equalTo: aboutLabel!.trailingAnchor).isActive = true
+        
+        bookNowButton?.topAnchor.constraint(equalTo: aboutDescription!.bottomAnchor, constant: 43).isActive = true
+        bookNowButton?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 27).isActive = true
+        bookNowButton?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -27).isActive = true
+        bookNowButton?.heightAnchor.constraint(equalToConstant: 56).isActive = true
     }
     
     @objc func handleBackAction(_ sender: UITapGestureRecognizer? = nil) {
