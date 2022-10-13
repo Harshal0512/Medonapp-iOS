@@ -34,6 +34,10 @@ class HomeTabViewController: UIViewController {
         
         self.dismissKeyboard()
         
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.isNavigationBarHidden = true
+        
         initialise()
         setupUI()
         setConstraints()
@@ -69,6 +73,9 @@ class HomeTabViewController: UIViewController {
         profileImageView?.contentMode = .scaleAspectFill
         profileImageView?.makeRoundCorners(byRadius: 18)
         contentView?.addSubview(profileImageView!)
+        let profileImageTap = UITapGestureRecognizer(target: self, action: #selector(self.goToProfileScreen(_:)))
+        profileImageView?.addGestureRecognizer(profileImageTap)
+        profileImageView?.isUserInteractionEnabled = true
         
         searchBar = SearchBarWithSearchAndFilterIcon()
         searchBar?.setPlaceholder(placeholder: "Search medical")
@@ -158,6 +165,13 @@ class HomeTabViewController: UIViewController {
 //        doctorsScreenVC?.modalPresentationStyle = .fullScreen
 //        self.present(doctorsScreenVC!, animated: true, completion: nil)
         self.navigationController?.pushViewController(doctorsScreenVC!, animated: true)
+    }
+    
+    @objc func goToProfileScreen(_ sender: UITapGestureRecognizer? = nil) {
+        let profileVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "profileVC") as? ProfileViewViewController
+        profileVC?.modalPresentationStyle = .fullScreen
+        profileVC?.modalTransitionStyle = .coverVertical
+        self.present(profileVC!, animated: true)
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {

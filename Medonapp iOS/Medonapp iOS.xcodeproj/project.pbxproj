@@ -39,6 +39,8 @@
 		F8AF822328F5CB6300D62D98 /* DoctorDetailsScreenTopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8AF822228F5CB6300D62D98 /* DoctorDetailsScreenTopView.xib */; };
 		F8B96C2628F5D557009E5198 /* GreyViewDoctorDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B96C2528F5D557009E5198 /* GreyViewDoctorDetails.swift */; };
 		F8B96C2828F5D55E009E5198 /* GreyViewDoctorDetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8B96C2728F5D55E009E5198 /* GreyViewDoctorDetails.xib */; };
+		F8B96C2F28F699EF009E5198 /* ProfileViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B96C2E28F699EF009E5198 /* ProfileViewViewController.swift */; };
+		F8B96C3128F6A686009E5198 /* WhiteBackgroundButtonWithIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B96C3028F6A686009E5198 /* WhiteBackgroundButtonWithIcon.swift */; };
 		F8BC4A3D28F420F000440406 /* ReportCellWithIconAndDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC4A3C28F420F000440406 /* ReportCellWithIconAndDescription.swift */; };
 		F8BC4A3F28F4211600440406 /* ReportCellWithIconAndDescription.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8BC4A3E28F4211600440406 /* ReportCellWithIconAndDescription.xib */; };
 		F8BC4A4228F4588A00440406 /* DoctorsScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC4A4128F4588A00440406 /* DoctorsScreenViewController.swift */; };
@@ -86,6 +88,8 @@
 		F8AF822228F5CB6300D62D98 /* DoctorDetailsScreenTopView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DoctorDetailsScreenTopView.xib; sourceTree = "<group>"; };
 		F8B96C2528F5D557009E5198 /* GreyViewDoctorDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreyViewDoctorDetails.swift; sourceTree = "<group>"; };
 		F8B96C2728F5D55E009E5198 /* GreyViewDoctorDetails.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GreyViewDoctorDetails.xib; sourceTree = "<group>"; };
+		F8B96C2E28F699EF009E5198 /* ProfileViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewViewController.swift; sourceTree = "<group>"; };
+		F8B96C3028F6A686009E5198 /* WhiteBackgroundButtonWithIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhiteBackgroundButtonWithIcon.swift; sourceTree = "<group>"; };
 		F8BC4A3C28F420F000440406 /* ReportCellWithIconAndDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportCellWithIconAndDescription.swift; sourceTree = "<group>"; };
 		F8BC4A3E28F4211600440406 /* ReportCellWithIconAndDescription.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReportCellWithIconAndDescription.xib; sourceTree = "<group>"; };
 		F8BC4A4128F4588A00440406 /* DoctorsScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorsScreenViewController.swift; sourceTree = "<group>"; };
@@ -189,6 +193,7 @@
 				F82AA0F328F48FE600C7CE7F /* Report Tab */,
 				F8AF821E28F5CAD400D62D98 /* Doctors Sceeen */,
 				F8AF821F28F5CB0400D62D98 /* Doctor Details */,
+				F8B96C3028F6A686009E5198 /* WhiteBackgroundButtonWithIcon.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -238,6 +243,7 @@
 				F8BC4A4528F4614800440406 /* HomeTab.storyboard */,
 				F8BC4A4128F4588A00440406 /* DoctorsScreenViewController.swift */,
 				F8AF821C28F553CA00D62D98 /* DoctorDetailsViewViewController.swift */,
+				F8B96C2E28F699EF009E5198 /* ProfileViewViewController.swift */,
 			);
 			path = "Home Tab";
 			sourceTree = "<group>";
@@ -405,6 +411,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8B96C3128F6A686009E5198 /* WhiteBackgroundButtonWithIcon.swift in Sources */,
 				F859AB3428EC2FA20069D247 /* UITextViewWithPlaceholder_CR8.swift in Sources */,
 				F8B96C2628F5D557009E5198 /* GreyViewDoctorDetails.swift in Sources */,
 				F83CBC4828D87352005BA1B8 /* LoginSignUpViewController.swift in Sources */,
@@ -417,6 +424,7 @@
 				F8131B1428D5A09F00B7558D /* AppDelegate.swift in Sources */,
 				F8131B1628D5A09F00B7558D /* SceneDelegate.swift in Sources */,
 				F89272C128F1AEA50063525E /* ScheduleTabTableViewCell.swift in Sources */,
+				F8B96C2F28F699EF009E5198 /* ProfileViewViewController.swift in Sources */,
 				F8C75A6428EA016E00F5B2E2 /* UIButtonVariableBackgroundVariableCR.swift in Sources */,
 				F85D9C3828F33B6D008FBDE9 /* ReportTabViewController.swift in Sources */,
 				F8BC4A4228F4588A00440406 /* DoctorsScreenViewController.swift in Sources */,
