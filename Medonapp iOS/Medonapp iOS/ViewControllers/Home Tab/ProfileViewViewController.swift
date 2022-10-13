@@ -130,7 +130,7 @@ class ProfileViewViewController: UIViewController {
         backButton?.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         profileImageView?.centerXAnchor.constraint(equalTo: contentView!.centerXAnchor).isActive = true
-        profileImageView?.topAnchor.constraint(equalTo: backButton!.bottomAnchor, constant: 50).isActive = true
+        profileImageView?.topAnchor.constraint(equalTo: contentView!.topAnchor, constant: 100).isActive = true
         profileImageView?.heightAnchor.constraint(equalToConstant: 77).isActive = true
         profileImageView?.widthAnchor.constraint(equalToConstant: 77).isActive = true
         
@@ -167,6 +167,7 @@ class ProfileViewViewController: UIViewController {
         logoutButton?.topAnchor.constraint(equalTo: contactUsButton!.bottomAnchor, constant: 75).isActive = true
         logoutButton?.centerXAnchor.constraint(equalTo: contentView!.centerXAnchor).isActive = true
         logoutButton?.heightAnchor.constraint(equalToConstant: 28).isActive = true
+        logoutButton?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -20).isActive = true
     }
 
     @objc func handleBackAction(_ sender: UITapGestureRecognizer? = nil) {
