@@ -191,5 +191,10 @@ class DoctorDetailsViewViewController: UIViewController {
     }
     
     @objc func handleAnchorTapAction(_ sender: UITapGestureRecognizer? = nil) {
+        // Create the view controller.
+        let sheetViewController = ContactDoctorViewController()
+        
+        // Present it w/o any adjustments so it uses the default sheet presentation.
+        present(sheetViewController, animated: true)
     }
 }

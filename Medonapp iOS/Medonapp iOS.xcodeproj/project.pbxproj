@@ -50,6 +50,9 @@
 		F8C75A6028E98B7000F5B2E2 /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C75A5F28E98B7000F5B2E2 /* extensions.swift */; };
 		F8C75A6228E98BEB00F5B2E2 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C75A6128E98BEB00F5B2E2 /* Utils.swift */; };
 		F8C75A6428EA016E00F5B2E2 /* UIButtonVariableBackgroundVariableCR.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C75A6328EA016E00F5B2E2 /* UIButtonVariableBackgroundVariableCR.swift */; };
+		F8FB225C28F7CB7A003B9173 /* ContactDoctorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FB225B28F7CB7A003B9173 /* ContactDoctorViewController.swift */; };
+		F8FB225E28F7D9C7003B9173 /* TabViewInContactScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FB225D28F7D9C7003B9173 /* TabViewInContactScreen.swift */; };
+		F8FB226028F7D9D4003B9173 /* TabViewInContactScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8FB225F28F7D9D4003B9173 /* TabViewInContactScreen.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -99,6 +102,9 @@
 		F8C75A5F28E98B7000F5B2E2 /* extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 		F8C75A6128E98BEB00F5B2E2 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		F8C75A6328EA016E00F5B2E2 /* UIButtonVariableBackgroundVariableCR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonVariableBackgroundVariableCR.swift; sourceTree = "<group>"; };
+		F8FB225B28F7CB7A003B9173 /* ContactDoctorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDoctorViewController.swift; sourceTree = "<group>"; };
+		F8FB225D28F7D9C7003B9173 /* TabViewInContactScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewInContactScreen.swift; sourceTree = "<group>"; };
+		F8FB225F28F7D9D4003B9173 /* TabViewInContactScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TabViewInContactScreen.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +238,8 @@
 				F8AF822228F5CB6300D62D98 /* DoctorDetailsScreenTopView.xib */,
 				F8B96C2528F5D557009E5198 /* GreyViewDoctorDetails.swift */,
 				F8B96C2728F5D55E009E5198 /* GreyViewDoctorDetails.xib */,
+				F8FB225D28F7D9C7003B9173 /* TabViewInContactScreen.swift */,
+				F8FB225F28F7D9D4003B9173 /* TabViewInContactScreen.xib */,
 			);
 			path = "Doctor Details";
 			sourceTree = "<group>";
@@ -244,6 +252,7 @@
 				F8BC4A4128F4588A00440406 /* DoctorsScreenViewController.swift */,
 				F8AF821C28F553CA00D62D98 /* DoctorDetailsViewViewController.swift */,
 				F8B96C2E28F699EF009E5198 /* ProfileViewViewController.swift */,
+				F8FB225B28F7CB7A003B9173 /* ContactDoctorViewController.swift */,
 			);
 			path = "Home Tab";
 			sourceTree = "<group>";
@@ -344,6 +353,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8FB226028F7D9D4003B9173 /* TabViewInContactScreen.xib in Resources */,
 				F83CBC4D28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf in Resources */,
 				F8131B2028D5A0A000B7558D /* LaunchScreen.storyboard in Resources */,
 				F8131B1D28D5A0A000B7558D /* Assets.xcassets in Resources */,
@@ -418,6 +428,7 @@
 				F8131B1828D5A09F00B7558D /* LandingPageView.swift in Sources */,
 				F8AF821D28F553CA00D62D98 /* DoctorDetailsViewViewController.swift in Sources */,
 				F89272BC28F157520063525E /* TabForServices_VariableColor.swift in Sources */,
+				F8FB225C28F7CB7A003B9173 /* ContactDoctorViewController.swift in Sources */,
 				F8AF822128F5CB4900D62D98 /* DoctorDetailsScreenTopView.swift in Sources */,
 				F8C75A5D28E97EC100F5B2E2 /* UITextFieldWithPlaceholder_CR8.swift in Sources */,
 				F8C75A6228E98BEB00F5B2E2 /* Utils.swift in Sources */,
@@ -430,6 +441,7 @@
 				F8BC4A4228F4588A00440406 /* DoctorsScreenViewController.swift in Sources */,
 				F8BC4A4428F460D600440406 /* StoryboardUtils.swift in Sources */,
 				F85D9C3528F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.swift in Sources */,
+				F8FB225E28F7D9C7003B9173 /* TabViewInContactScreen.swift in Sources */,
 				F82AA0F628F490B100C7CE7F /* DoctorInfoTableViewCell.swift in Sources */,
 				F89272BE28F1AC7B0063525E /* ScheduleTabViewController.swift in Sources */,
 				F8BC4A3D28F420F000440406 /* ReportCellWithIconAndDescription.swift in Sources */,
