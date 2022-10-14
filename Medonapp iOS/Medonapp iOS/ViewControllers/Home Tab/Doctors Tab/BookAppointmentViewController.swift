@@ -32,6 +32,7 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegate,
     }
     
     func initialise() {
+        NotificationCenter.default.addObserver(self, selector: #selector(goToDashboard), name: Notification.Name("goToDashboard"), object: nil)
     }
     
     func setupUI() {
@@ -89,6 +90,7 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegate,
         makeAppointmentButton = UIButtonVariableBackgroundVariableCR()
         makeAppointmentButton?.initButton(title: "Make Appointment", cornerRadius: 14, variant: .whiteBack, titleColor: UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00))
         timeSelectView?.addSubview(makeAppointmentButton!)
+        makeAppointmentButton?.addTarget(self, action: #selector(goToAppointmentStatusVC), for: .touchUpInside)
     }
     
     func setConstraints() {
@@ -157,6 +159,21 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegate,
     
     @objc func dateChanged(_ sender: UIDatePicker) {
         print(Date.ISOStringFromDate(date: sender.date))
+    }
+    
+    @objc func goToAppointmentStatusVC() {
+        let appointmentSuccessVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "appointmentStatusVC") as? AppointmentStatusViewController
+        if true {
+            appointmentSuccessVC?.appointmentIsSuccess = true
+        } else {
+            appointmentSuccessVC?.appointmentIsSuccess = false
+        }
+        appointmentSuccessVC?.modalPresentationStyle = .fullScreen
+        self.present(appointmentSuccessVC!, animated: true, completion: nil)
+    }
+    
+    @objc func goToDashboard() {
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     //MARK: Collection View Methods

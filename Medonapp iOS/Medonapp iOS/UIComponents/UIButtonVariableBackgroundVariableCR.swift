@@ -11,6 +11,7 @@ import UIKit
 enum buttonVariants {
     case blueBack
     case whiteBack
+    case blackBack
 }
 
 class UIButtonVariableBackgroundVariableCR: UIButton {
@@ -45,7 +46,12 @@ class UIButtonVariableBackgroundVariableCR: UIButton {
             self.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
             self.layer.borderWidth = 1
             self.setTitleColor(UIColor(red: 0.48, green: 0.55, blue: 0.62, alpha: 1.00), for: .normal)
+            
+        case .blackBack:
+            self.backgroundColor = .black
+            self.setTitleColor(.white, for: .normal)
         }
+        
         if titleColor != .clear {
             self.setTitleColor(titleColor, for: .normal)
         }
