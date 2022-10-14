@@ -17,6 +17,7 @@
 		F81BAADD28F928BF0080BD21 /* BookAppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81BAADC28F928BF0080BD21 /* BookAppointmentViewController.swift */; };
 		F81BAAE428F93BC90080BD21 /* AppointmentTimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81BAAE228F93BC90080BD21 /* AppointmentTimeCollectionViewCell.swift */; };
 		F81BAAE528F93BC90080BD21 /* AppointmentTimeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F81BAAE328F93BC90080BD21 /* AppointmentTimeCollectionViewCell.xib */; };
+		F81BAAE828F97DFE0080BD21 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = F81BAAE728F97DFE0080BD21 /* Lottie */; };
 		F82AA0F128F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82AA0EF28F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.swift */; };
 		F82AA0F228F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F82AA0F028F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.xib */; };
 		F82AA0F628F490B100C7CE7F /* DoctorInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82AA0F428F490B100C7CE7F /* DoctorInfoTableViewCell.swift */; };
@@ -120,6 +121,7 @@
 			files = (
 				08F565BC217C9820C601B123 /* Pods_Medonapp_iOS.framework in Frameworks */,
 				F86A71CD28EC9C4E0083D12D /* DPOTPView in Frameworks */,
+				F81BAAE828F97DFE0080BD21 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,6 +318,7 @@
 			name = "Medonapp iOS";
 			packageProductDependencies = (
 				F86A71CC28EC9C4E0083D12D /* DPOTPView */,
+				F81BAAE728F97DFE0080BD21 /* Lottie */,
 			);
 			productName = "Medonapp iOS";
 			productReference = F8131B1028D5A09F00B7558D /* Medonapp iOS.app */;
@@ -347,6 +350,7 @@
 			mainGroup = F8131B0728D5A09F00B7558D;
 			packageReferences = (
 				F86A71CB28EC9C4E0083D12D /* XCRemoteSwiftPackageReference "DPOTPView" */,
+				F81BAAE628F97DFE0080BD21 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = F8131B1128D5A09F00B7558D /* Products */;
 			projectDirPath = "";
@@ -684,6 +688,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		F81BAAE628F97DFE0080BD21 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		F86A71CB28EC9C4E0083D12D /* XCRemoteSwiftPackageReference "DPOTPView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Datt1994/DPOTPView.git";
@@ -695,6 +707,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F81BAAE728F97DFE0080BD21 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F81BAAE628F97DFE0080BD21 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		F86A71CC28EC9C4E0083D12D /* DPOTPView */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F86A71CB28EC9C4E0083D12D /* XCRemoteSwiftPackageReference "DPOTPView" */;
