@@ -60,5 +60,9 @@ extension StoryboardUtils{
     static func getProfileVC() -> UIViewController {
         return HomeTab.instance.instantiateViewController(withIdentifier: "profileVC")
     }
+    
+    static func getBookAppointmentVC() -> UIViewController {
+        return HomeTab.instance.instantiateViewController(withIdentifier: "bookAppointmentVC")
+    }
 }
 

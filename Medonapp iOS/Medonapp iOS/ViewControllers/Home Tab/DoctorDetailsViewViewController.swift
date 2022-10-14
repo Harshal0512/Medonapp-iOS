@@ -51,7 +51,7 @@ class DoctorDetailsViewViewController: UIViewController {
         backButton?.isUserInteractionEnabled = true
         
         navTitle = UILabel()
-        navTitle?.text = "Doctors"
+        navTitle?.text = "Details"
         navTitle?.textAlignment = .center
         navTitle?.textColor = .white
         navTitle?.font = UIFont(name: "NunitoSans-Bold", size: 18)
@@ -105,6 +105,7 @@ class DoctorDetailsViewViewController: UIViewController {
         bookNowButton = UIButtonVariableBackgroundVariableCR()
         bookNowButton?.initButton(title: "Book Now", cornerRadius: 14, variant: .blueBack)
         contentView?.addSubview(bookNowButton!)
+        bookNowButton?.addTarget(self, action: #selector(bookNowButtonPressed), for: .touchUpInside)
     }
     
     func setConstraints() {
@@ -196,5 +197,12 @@ class DoctorDetailsViewViewController: UIViewController {
         
         // Present it w/o any adjustments so it uses the default sheet presentation.
         present(sheetViewController, animated: true)
+    }
+    
+    @objc func bookNowButtonPressed() {
+        let bookAppointmentVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "bookAppointmentVC") as? BookAppointmentViewController
+//        doctorsScreenVC?.modalPresentationStyle = .fullScreen
+//        self.present(doctorsScreenVC!, animated: true, completion: nil)
+        self.navigationController?.pushViewController(bookAppointmentVC!, animated: true)
     }
 }

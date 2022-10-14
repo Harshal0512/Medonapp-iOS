@@ -14,6 +14,9 @@
 		F8131B1B28D5A09F00B7558D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8131B1928D5A09F00B7558D /* Main.storyboard */; };
 		F8131B1D28D5A0A000B7558D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8131B1C28D5A0A000B7558D /* Assets.xcassets */; };
 		F8131B2028D5A0A000B7558D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8131B1E28D5A0A000B7558D /* LaunchScreen.storyboard */; };
+		F81BAADD28F928BF0080BD21 /* BookAppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81BAADC28F928BF0080BD21 /* BookAppointmentViewController.swift */; };
+		F81BAAE428F93BC90080BD21 /* AppointmentTimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81BAAE228F93BC90080BD21 /* AppointmentTimeCollectionViewCell.swift */; };
+		F81BAAE528F93BC90080BD21 /* AppointmentTimeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F81BAAE328F93BC90080BD21 /* AppointmentTimeCollectionViewCell.xib */; };
 		F82AA0F128F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82AA0EF28F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.swift */; };
 		F82AA0F228F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F82AA0F028F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.xib */; };
 		F82AA0F628F490B100C7CE7F /* DoctorInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82AA0F428F490B100C7CE7F /* DoctorInfoTableViewCell.swift */; };
@@ -67,6 +70,9 @@
 		F8131B1C28D5A0A000B7558D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F8131B1F28D5A0A000B7558D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F8131B2128D5A0A000B7558D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F81BAADC28F928BF0080BD21 /* BookAppointmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookAppointmentViewController.swift; sourceTree = "<group>"; };
+		F81BAAE228F93BC90080BD21 /* AppointmentTimeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentTimeCollectionViewCell.swift; sourceTree = "<group>"; };
+		F81BAAE328F93BC90080BD21 /* AppointmentTimeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppointmentTimeCollectionViewCell.xib; sourceTree = "<group>"; };
 		F82AA0EF28F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorsScreenCarouselCollectionViewCell.swift; sourceTree = "<group>"; };
 		F82AA0F028F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DoctorsScreenCarouselCollectionViewCell.xib; sourceTree = "<group>"; };
 		F82AA0F428F490B100C7CE7F /* DoctorInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -197,7 +203,7 @@
 				F89272BB28F157510063525E /* TabForServices_VariableColor.swift */,
 				F8BC4A4728F472AD00440406 /* ScheduleTab */,
 				F82AA0F328F48FE600C7CE7F /* Report Tab */,
-				F8AF821E28F5CAD400D62D98 /* Doctors Sceeen */,
+				F8AF821E28F5CAD400D62D98 /* Doctors Screen */,
 				F8AF821F28F5CB0400D62D98 /* Doctor Details */,
 				F8B96C3028F6A686009E5198 /* WhiteBackgroundButtonWithIcon.swift */,
 			);
@@ -220,7 +226,7 @@
 			path = "Report Tab";
 			sourceTree = "<group>";
 		};
-		F8AF821E28F5CAD400D62D98 /* Doctors Sceeen */ = {
+		F8AF821E28F5CAD400D62D98 /* Doctors Screen */ = {
 			isa = PBXGroup;
 			children = (
 				F82AA0EF28F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.swift */,
@@ -228,7 +234,7 @@
 				F82AA0F428F490B100C7CE7F /* DoctorInfoTableViewCell.swift */,
 				F82AA0F528F490B100C7CE7F /* DoctorInfoTableViewCell.xib */,
 			);
-			path = "Doctors Sceeen";
+			path = "Doctors Screen";
 			sourceTree = "<group>";
 		};
 		F8AF821F28F5CB0400D62D98 /* Doctor Details */ = {
@@ -240,6 +246,8 @@
 				F8B96C2728F5D55E009E5198 /* GreyViewDoctorDetails.xib */,
 				F8FB225D28F7D9C7003B9173 /* TabViewInContactScreen.swift */,
 				F8FB225F28F7D9D4003B9173 /* TabViewInContactScreen.xib */,
+				F81BAAE228F93BC90080BD21 /* AppointmentTimeCollectionViewCell.swift */,
+				F81BAAE328F93BC90080BD21 /* AppointmentTimeCollectionViewCell.xib */,
 			);
 			path = "Doctor Details";
 			sourceTree = "<group>";
@@ -253,6 +261,7 @@
 				F8AF821C28F553CA00D62D98 /* DoctorDetailsViewViewController.swift */,
 				F8B96C2E28F699EF009E5198 /* ProfileViewViewController.swift */,
 				F8FB225B28F7CB7A003B9173 /* ContactDoctorViewController.swift */,
+				F81BAADC28F928BF0080BD21 /* BookAppointmentViewController.swift */,
 			);
 			path = "Home Tab";
 			sourceTree = "<group>";
@@ -356,6 +365,7 @@
 				F8FB226028F7D9D4003B9173 /* TabViewInContactScreen.xib in Resources */,
 				F83CBC4D28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf in Resources */,
 				F8131B2028D5A0A000B7558D /* LaunchScreen.storyboard in Resources */,
+				F81BAAE528F93BC90080BD21 /* AppointmentTimeCollectionViewCell.xib in Resources */,
 				F8131B1D28D5A0A000B7558D /* Assets.xcassets in Resources */,
 				F82AA0F228F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.xib in Resources */,
 				F89272C428F1B0F80063525E /* NunitoSans-Regular.ttf in Resources */,
@@ -422,6 +432,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8B96C3128F6A686009E5198 /* WhiteBackgroundButtonWithIcon.swift in Sources */,
+				F81BAAE428F93BC90080BD21 /* AppointmentTimeCollectionViewCell.swift in Sources */,
 				F859AB3428EC2FA20069D247 /* UITextViewWithPlaceholder_CR8.swift in Sources */,
 				F8B96C2628F5D557009E5198 /* GreyViewDoctorDetails.swift in Sources */,
 				F83CBC4828D87352005BA1B8 /* LoginSignUpViewController.swift in Sources */,
@@ -437,6 +448,7 @@
 				F89272C128F1AEA50063525E /* ScheduleTabTableViewCell.swift in Sources */,
 				F8B96C2F28F699EF009E5198 /* ProfileViewViewController.swift in Sources */,
 				F8C75A6428EA016E00F5B2E2 /* UIButtonVariableBackgroundVariableCR.swift in Sources */,
+				F81BAADD28F928BF0080BD21 /* BookAppointmentViewController.swift in Sources */,
 				F85D9C3828F33B6D008FBDE9 /* ReportTabViewController.swift in Sources */,
 				F8BC4A4228F4588A00440406 /* DoctorsScreenViewController.swift in Sources */,
 				F8BC4A4428F460D600440406 /* StoryboardUtils.swift in Sources */,

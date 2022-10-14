@@ -30,7 +30,7 @@ class UIButtonVariableBackgroundVariableCR: UIButton {
         self.titleLabel?.font = UIFont(name: "NunitoSans-Bold", size: 14)
     }
     
-    func initButton(title: String, cornerRadius: CGFloat, variant: buttonVariants) {
+    func initButton(title: String, cornerRadius: CGFloat, variant: buttonVariants, titleColor: UIColor = .clear) {
         self.setTitle(title, for: .normal)
         self.layer.cornerRadius = cornerRadius
         self.variant = variant
@@ -45,6 +45,9 @@ class UIButtonVariableBackgroundVariableCR: UIButton {
             self.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
             self.layer.borderWidth = 1
             self.setTitleColor(UIColor(red: 0.48, green: 0.55, blue: 0.62, alpha: 1.00), for: .normal)
+        }
+        if titleColor != .clear {
+            self.setTitleColor(titleColor, for: .normal)
         }
     }
 }
