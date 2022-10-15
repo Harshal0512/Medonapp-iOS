@@ -72,7 +72,7 @@ class AppointmentStatusViewController: UIViewController {
         view.addSubview(subtitleLabel!)
             
         goToHomeButton = UIButtonVariableBackgroundVariableCR()
-        goToHomeButton?.initButton(title: "Back to Dashboard", cornerRadius: 17, variant: .blackBack)
+        goToHomeButton?.initButton(title: "Back to Dashboard", cornerRadius: 10, variant: .blackBack)
         view.addSubview(goToHomeButton!)
         goToHomeButton?.addTarget(self, action: #selector(goToHome), for: .touchUpInside)
         goToHomeButton?.alpha = 0
