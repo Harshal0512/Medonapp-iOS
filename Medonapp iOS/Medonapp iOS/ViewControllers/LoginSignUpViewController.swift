@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftValidator
 import DPOTPView
 
 enum views {
@@ -17,18 +18,21 @@ enum views {
 }
 
 class LoginSignUpViewController: UIViewController {
+    
     var scrollView: UIScrollView?
     var pageTitle: UILabel?
+    let validator = Validator()
     var loginButton: UIButtonVariableBackgroundVariableCR?
     var signUpButton: UIButtonVariableBackgroundVariableCR?
-    public var activeView: views = .login //change value to toggle between initially active view
+    public var activeView: views = .signupInitialDetails
     var progressBar: UIProgressView?
     
     var loginScreenContentView: UIView?
-    var emailPhoneNumberLabel: UILabel?
-    var emailPhoneNumberTextField: UITextFieldWithPlaceholder_CR8?
+    var emailLabelLogin: UILabel?
+    var emailTextFieldLogin: UITextFieldWithPlaceholder_CR8?
     var passwordLabel: UILabel?
     var passwordTextField: UITextFieldWithPlaceholder_CR8?
+    var loginPasswordHint: UILabel?
     var forgotPasswordButton: UIButton?
     var loginContinueButton: UIButtonVariableBackgroundVariableCR?
     var loginContinueButtonBottomConstraint: NSLayoutConstraint?
@@ -37,10 +41,11 @@ class LoginSignUpViewController: UIViewController {
     var signUpScreenContentView: UIView?
     
     //initial details
-    var emailLabel: UILabel?
-    var emailTextField: UITextFieldWithPlaceholder_CR8?
+    var emailLabelSignUp: UILabel?
+    var emailTextFieldSignUp: UITextFieldWithPlaceholder_CR8?
     var choosePasswordLabel: UILabel?
     var choosePasswordTextField: UITextFieldWithPlaceholder_CR8?
+    var passwordHint: UILabel?
     var confirmPasswordLabel: UILabel?
     var confirmPasswordTextField: UITextFieldWithPlaceholder_CR8?
     
@@ -54,6 +59,7 @@ class LoginSignUpViewController: UIViewController {
     var phoneNumberLabel: UILabel?
     var countryCodeLabel: UILabel?
     var phoneNumberField: UITextFieldWithPlaceholder_CR8?
+    var addressLabel: UILabel?
     var addressTextView: UITextViewWithPlaceholder_CR8?
     
     //otp verification
@@ -67,6 +73,8 @@ class LoginSignUpViewController: UIViewController {
     
     
     var activeTextField : UITextField? = nil
+    
+    var isValidationError = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,8 +95,8 @@ class LoginSignUpViewController: UIViewController {
         setConstraints()
         
         
-        //activate view according to initialized value
-        (activeView == .login) ? loginButtonPressed() : signUpButtonPressed()
+        //activate view accordingly
+        loginButtonPressed()
         
         // Do any additional setup after loading the view.
     }
@@ -130,16 +138,19 @@ class LoginSignUpViewController: UIViewController {
         
         //MARK: Initializing variables for login view
         
-        emailPhoneNumberLabel = UILabel()
-        emailPhoneNumberLabel?.text = "Email or Phone Number"
-        emailPhoneNumberLabel?.textColor = .black
-        emailPhoneNumberLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
-        loginScreenContentView?.addSubview(emailPhoneNumberLabel!)
+        emailLabelLogin = UILabel()
+        emailLabelLogin?.text = "Email or Phone Number"
+        emailLabelLogin?.textColor = .black
+        emailLabelLogin?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
+        loginScreenContentView?.addSubview(emailLabelLogin!)
         
-        emailPhoneNumberTextField = UITextFieldWithPlaceholder_CR8()
-        emailPhoneNumberTextField?.delegate = self
-        emailPhoneNumberTextField?.setPlaceholder(placeholder: "Email or Phone number")
-        loginScreenContentView?.addSubview(emailPhoneNumberTextField!)
+        emailTextFieldLogin = UITextFieldWithPlaceholder_CR8()
+        emailTextFieldLogin?.delegate = self
+        emailTextFieldLogin?.setPlaceholder(placeholder: "Email or Phone number")
+        emailTextFieldLogin?.autocapitalizationType = .none
+        emailTextFieldLogin?.autocorrectionType = .no
+        emailTextFieldLogin?.keyboardType = .emailAddress
+        loginScreenContentView?.addSubview(emailTextFieldLogin!)
         
         passwordLabel = UILabel()
         passwordLabel?.text = "Password"
@@ -150,7 +161,18 @@ class LoginSignUpViewController: UIViewController {
         passwordTextField = UITextFieldWithPlaceholder_CR8()
         passwordTextField?.delegate = self
         passwordTextField?.setPlaceholder(placeholder: "Password")
+        passwordTextField?.autocapitalizationType = .none
+        passwordTextField?.autocorrectionType = .no
+        passwordTextField?.keyboardType = .default
+        passwordTextField?.isSecureTextEntry = true
         loginScreenContentView?.addSubview(passwordTextField!)
+        
+        loginPasswordHint = UILabel()
+        loginPasswordHint?.text = "Is at least 8 characters long and contain an uppercase, a number & a special character"
+        loginPasswordHint?.textColor = .lightGray
+        loginPasswordHint?.font = UIFont(name: "NunitoSans-Bold", size: 11)
+        loginPasswordHint?.numberOfLines = 0
+        loginScreenContentView?.addSubview(loginPasswordHint!)
         
         forgotPasswordButton = UIButton()
         let forgotPasswordButtonAttributes: [NSAttributedString.Key: Any] = [
@@ -167,23 +189,24 @@ class LoginSignUpViewController: UIViewController {
         loginContinueButton = UIButtonVariableBackgroundVariableCR()
         loginContinueButton?.initButton(title: "Continue", cornerRadius: 14, variant: .blueBack)
         loginScreenContentView?.addSubview(loginContinueButton!)
+        loginContinueButton?.addTarget(self, action: #selector(loginContinueButtonPressed), for: .touchUpInside)
         
         
         //MARK: Initializing variables for signup view
         
-        emailLabel = UILabel()
-        emailLabel?.text = "Email"
-        emailLabel?.textColor = .black
-        emailLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
-        signUpScreenContentView?.addSubview(emailLabel!)
+        emailLabelSignUp = UILabel()
+        emailLabelSignUp?.text = "Email"
+        emailLabelSignUp?.textColor = .black
+        emailLabelSignUp?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
+        signUpScreenContentView?.addSubview(emailLabelSignUp!)
         
-        emailTextField = UITextFieldWithPlaceholder_CR8()
-        emailTextField?.delegate = self
-        emailTextField?.setPlaceholder(placeholder: "Email")
-        firstNameField?.autocapitalizationType = .none
-        firstNameField?.autocorrectionType = .no
-        firstNameField?.keyboardType = .emailAddress
-        signUpScreenContentView?.addSubview(emailTextField!)
+        emailTextFieldSignUp = UITextFieldWithPlaceholder_CR8()
+        emailTextFieldSignUp?.delegate = self
+        emailTextFieldSignUp?.setPlaceholder(placeholder: "Email")
+        emailTextFieldSignUp?.autocapitalizationType = .none
+        emailTextFieldSignUp?.autocorrectionType = .no
+        emailTextFieldSignUp?.keyboardType = .emailAddress
+        signUpScreenContentView?.addSubview(emailTextFieldSignUp!)
         
         choosePasswordLabel = UILabel()
         choosePasswordLabel?.text = "Choose your Password"
@@ -194,7 +217,18 @@ class LoginSignUpViewController: UIViewController {
         choosePasswordTextField = UITextFieldWithPlaceholder_CR8()
         choosePasswordTextField?.delegate = self
         choosePasswordTextField?.setPlaceholder(placeholder: "Password")
+        choosePasswordTextField?.autocapitalizationType = .none
+        choosePasswordTextField?.autocorrectionType = .no
+        choosePasswordTextField?.keyboardType = .default
+        choosePasswordTextField?.isSecureTextEntry = true
         signUpScreenContentView?.addSubview(choosePasswordTextField!)
+        
+        passwordHint = UILabel()
+        passwordHint?.text = "Should be at least 8 characters long and contain an uppercase, a number & a special character"
+        passwordHint?.textColor = .lightGray
+        passwordHint?.font = UIFont(name: "NunitoSans-Bold", size: 11)
+        passwordHint?.numberOfLines = 0
+        signUpScreenContentView?.addSubview(passwordHint!)
         
         confirmPasswordLabel = UILabel()
         confirmPasswordLabel?.text = "Confirm Password"
@@ -205,6 +239,10 @@ class LoginSignUpViewController: UIViewController {
         confirmPasswordTextField = UITextFieldWithPlaceholder_CR8()
         confirmPasswordTextField?.delegate = self
         confirmPasswordTextField?.setPlaceholder(placeholder: "Confirm Password")
+        confirmPasswordTextField?.autocapitalizationType = .none
+        confirmPasswordTextField?.autocorrectionType = .no
+        confirmPasswordTextField?.keyboardType = .default
+        confirmPasswordTextField?.isSecureTextEntry = true
         signUpScreenContentView?.addSubview(confirmPasswordTextField!)
         
         firstNameLabel = UILabel()
@@ -233,9 +271,9 @@ class LoginSignUpViewController: UIViewController {
         lastNameField = UITextFieldWithPlaceholder_CR8()
         lastNameField?.delegate = self
         lastNameField?.setPlaceholder(placeholder: "Last Name")
-        firstNameField?.autocapitalizationType = .words
-        firstNameField?.autocorrectionType = .no
-        firstNameField?.keyboardType = .default
+        lastNameField?.autocapitalizationType = .words
+        lastNameField?.autocorrectionType = .no
+        lastNameField?.keyboardType = .default
         signUpScreenContentView?.addSubview(lastNameField!)
         lastNameField?.alpha = 0
         
@@ -261,10 +299,19 @@ class LoginSignUpViewController: UIViewController {
         phoneNumberField = UITextFieldWithPlaceholder_CR8()
         phoneNumberField?.delegate = self
         phoneNumberField?.setPlaceholder(placeholder: "Phone Number")
-        firstNameField?.autocapitalizationType = .none
-        firstNameField?.autocorrectionType = .no
-        firstNameField?.keyboardType = .namePhonePad
+        phoneNumberField?.autocapitalizationType = .none
+        phoneNumberField?.autocorrectionType = .no
+        phoneNumberField?.keyboardType = .numberPad
         phoneNumberField?.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+        signUpScreenContentView?.addSubview(phoneNumberField!)
+        phoneNumberField?.alpha = 0
+        
+        addressLabel = UILabel()
+        addressLabel?.text = "Address"
+        addressLabel?.textColor = .black
+        addressLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
+        signUpScreenContentView?.addSubview(addressLabel!)
+        addressLabel?.alpha = 0
         
         addressTextView = UITextViewWithPlaceholder_CR8()
         addressTextView?.autocapitalizationType = .words
@@ -299,10 +346,6 @@ class LoginSignUpViewController: UIViewController {
         signUpScreenContentView?.addSubview(txtOTPView!)
         txtOTPView?.alpha = 0
         
-        
-        signUpScreenContentView?.addSubview(phoneNumberField!)
-        phoneNumberField?.alpha = 0
-        
         progressBar = UIProgressView(progressViewStyle: .default)
         progressBar?.progress = 0.25
         progressBar?.progressTintColor = UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00)
@@ -323,21 +366,23 @@ class LoginSignUpViewController: UIViewController {
         signUpButton?.translatesAutoresizingMaskIntoConstraints = false
         
         loginScreenContentView?.translatesAutoresizingMaskIntoConstraints = false
-        emailPhoneNumberLabel?.translatesAutoresizingMaskIntoConstraints = false
-        emailPhoneNumberTextField?.translatesAutoresizingMaskIntoConstraints = false
+        emailLabelLogin?.translatesAutoresizingMaskIntoConstraints = false
+        emailTextFieldLogin?.translatesAutoresizingMaskIntoConstraints = false
         passwordLabel?.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField?.translatesAutoresizingMaskIntoConstraints = false
+        loginPasswordHint?.translatesAutoresizingMaskIntoConstraints = false
         forgotPasswordButton?.translatesAutoresizingMaskIntoConstraints = false
         loginContinueButton?.translatesAutoresizingMaskIntoConstraints = false
         
         
         signUpScreenContentView?.translatesAutoresizingMaskIntoConstraints = false
-        emailLabel?.translatesAutoresizingMaskIntoConstraints = false
-        emailTextField?.translatesAutoresizingMaskIntoConstraints = false
+        emailLabelSignUp?.translatesAutoresizingMaskIntoConstraints = false
+        emailTextFieldSignUp?.translatesAutoresizingMaskIntoConstraints = false
         choosePasswordLabel?.translatesAutoresizingMaskIntoConstraints = false
         choosePasswordTextField?.translatesAutoresizingMaskIntoConstraints = false
         confirmPasswordLabel?.translatesAutoresizingMaskIntoConstraints = false
         confirmPasswordTextField?.translatesAutoresizingMaskIntoConstraints = false
+        passwordHint?.translatesAutoresizingMaskIntoConstraints = false
         
         firstNameLabel?.translatesAutoresizingMaskIntoConstraints = false
         firstNameField?.translatesAutoresizingMaskIntoConstraints = false
@@ -347,6 +392,7 @@ class LoginSignUpViewController: UIViewController {
         phoneNumberLabel?.translatesAutoresizingMaskIntoConstraints = false
         countryCodeLabel?.translatesAutoresizingMaskIntoConstraints = false
         phoneNumberField?.translatesAutoresizingMaskIntoConstraints = false
+        addressLabel?.translatesAutoresizingMaskIntoConstraints = false
         addressTextView?.translatesAutoresizingMaskIntoConstraints = false
         
         otpDetailsLabel?.translatesAutoresizingMaskIntoConstraints = false
@@ -397,33 +443,37 @@ class LoginSignUpViewController: UIViewController {
         
         
         //MARK: Constraints for login view
-        emailPhoneNumberLabel?.topAnchor.constraint(equalTo: loginButton!.bottomAnchor, constant: 22).isActive = true
-        emailPhoneNumberLabel?.leadingAnchor.constraint(equalTo: loginScreenContentView!.leadingAnchor, constant: 28).isActive = true
-        emailPhoneNumberLabel?.trailingAnchor.constraint(equalTo: loginScreenContentView!.trailingAnchor, constant: -28).isActive = true
+        emailLabelLogin?.topAnchor.constraint(equalTo: loginButton!.bottomAnchor, constant: 22).isActive = true
+        emailLabelLogin?.leadingAnchor.constraint(equalTo: loginScreenContentView!.leadingAnchor, constant: 28).isActive = true
+        emailLabelLogin?.trailingAnchor.constraint(equalTo: loginScreenContentView!.trailingAnchor, constant: -28).isActive = true
         
-        emailPhoneNumberTextField?.topAnchor.constraint(equalTo: emailPhoneNumberLabel!.bottomAnchor, constant: 5).isActive = true
-        emailPhoneNumberTextField?.leadingAnchor.constraint(equalTo: loginScreenContentView!.leadingAnchor, constant: 28).isActive = true
-        emailPhoneNumberTextField?.trailingAnchor.constraint(equalTo: loginScreenContentView!.trailingAnchor, constant: -28).isActive = true
-        emailPhoneNumberTextField?.heightAnchor.constraint(equalToConstant: 61).isActive = true
+        emailTextFieldLogin?.topAnchor.constraint(equalTo: emailLabelLogin!.bottomAnchor, constant: 5).isActive = true
+        emailTextFieldLogin?.leadingAnchor.constraint(equalTo: loginScreenContentView!.leadingAnchor, constant: 28).isActive = true
+        emailTextFieldLogin?.trailingAnchor.constraint(equalTo: loginScreenContentView!.trailingAnchor, constant: -28).isActive = true
+        emailTextFieldLogin?.heightAnchor.constraint(equalToConstant: 61).isActive = true
         
-        passwordLabel?.topAnchor.constraint(equalTo: emailPhoneNumberTextField!.bottomAnchor, constant: 15).isActive = true
-        passwordLabel?.leadingAnchor.constraint(equalTo: emailPhoneNumberLabel!.leadingAnchor).isActive = true
-        passwordLabel?.trailingAnchor.constraint(equalTo: emailPhoneNumberLabel!.trailingAnchor).isActive = true
+        passwordLabel?.topAnchor.constraint(equalTo: emailTextFieldLogin!.bottomAnchor, constant: 15).isActive = true
+        passwordLabel?.leadingAnchor.constraint(equalTo: emailLabelLogin!.leadingAnchor).isActive = true
+        passwordLabel?.trailingAnchor.constraint(equalTo: emailLabelLogin!.trailingAnchor).isActive = true
         
         passwordTextField?.topAnchor.constraint(equalTo: passwordLabel!.bottomAnchor, constant: 5).isActive = true
-        passwordTextField?.leadingAnchor.constraint(equalTo: emailPhoneNumberTextField!.leadingAnchor).isActive = true
-        passwordTextField?.trailingAnchor.constraint(equalTo: emailPhoneNumberTextField!.trailingAnchor).isActive = true
-        passwordTextField?.widthAnchor.constraint(equalTo: emailPhoneNumberTextField!.widthAnchor).isActive = true
-        passwordTextField?.heightAnchor.constraint(equalTo: emailPhoneNumberTextField!.heightAnchor).isActive = true
+        passwordTextField?.leadingAnchor.constraint(equalTo: emailTextFieldLogin!.leadingAnchor).isActive = true
+        passwordTextField?.trailingAnchor.constraint(equalTo: emailTextFieldLogin!.trailingAnchor).isActive = true
+        passwordTextField?.widthAnchor.constraint(equalTo: emailTextFieldLogin!.widthAnchor).isActive = true
+        passwordTextField?.heightAnchor.constraint(equalTo: emailTextFieldLogin!.heightAnchor).isActive = true
         
-        forgotPasswordButton?.topAnchor.constraint(equalTo: passwordTextField!.bottomAnchor, constant: 6).isActive = true
-        forgotPasswordButton?.leadingAnchor.constraint(equalTo: emailPhoneNumberTextField!.leadingAnchor).isActive = true
-        forgotPasswordButton?.trailingAnchor.constraint(equalTo: emailPhoneNumberTextField!.trailingAnchor).isActive = true
+        loginPasswordHint?.topAnchor.constraint(equalTo: passwordTextField!.bottomAnchor, constant: 5).isActive = true
+        loginPasswordHint?.leadingAnchor.constraint(equalTo: emailTextFieldLogin!.leadingAnchor, constant: 5).isActive = true
+        loginPasswordHint?.trailingAnchor.constraint(equalTo: emailTextFieldLogin!.trailingAnchor, constant: -5).isActive = true
+        
+        forgotPasswordButton?.topAnchor.constraint(equalTo: loginPasswordHint!.bottomAnchor, constant: 10).isActive = true
+        forgotPasswordButton?.leadingAnchor.constraint(equalTo: emailTextFieldLogin!.leadingAnchor).isActive = true
+        forgotPasswordButton?.trailingAnchor.constraint(equalTo: emailTextFieldLogin!.trailingAnchor).isActive = true
         
         loginContinueButton?.topAnchor.constraint(equalTo: forgotPasswordButton!.bottomAnchor, constant: 25).isActive = true
         
-        loginContinueButton?.leadingAnchor.constraint(equalTo: emailPhoneNumberTextField!.leadingAnchor).isActive = true
-        loginContinueButton?.trailingAnchor.constraint(equalTo: emailPhoneNumberTextField!.trailingAnchor).isActive = true
+        loginContinueButton?.leadingAnchor.constraint(equalTo: emailTextFieldLogin!.leadingAnchor).isActive = true
+        loginContinueButton?.trailingAnchor.constraint(equalTo: emailTextFieldLogin!.trailingAnchor).isActive = true
         loginContinueButton?.heightAnchor.constraint(equalToConstant: 56).isActive = true
         
         loginContinueButtonBottomConstraint = loginContinueButton?.bottomAnchor.constraint(equalTo: loginScreenContentView!.bottomAnchor, constant: -10)
@@ -434,9 +484,9 @@ class LoginSignUpViewController: UIViewController {
         
         initializeAndActivateViewConstraints(view: .signupInitialDetails)
         
-        progressBar?.leadingAnchor.constraint(equalTo: emailTextField!.leadingAnchor).isActive = true
-        progressBar?.trailingAnchor.constraint(equalTo: emailTextField!.trailingAnchor).isActive = true
-        progressBar?.widthAnchor.constraint(equalTo: emailTextField!.widthAnchor).isActive = true
+        progressBar?.leadingAnchor.constraint(equalTo: emailTextFieldSignUp!.leadingAnchor).isActive = true
+        progressBar?.trailingAnchor.constraint(equalTo: emailTextFieldSignUp!.trailingAnchor).isActive = true
+        progressBar?.widthAnchor.constraint(equalTo: emailTextFieldSignUp!.widthAnchor).isActive = true
         progressBar?.heightAnchor.constraint(equalToConstant: 5).isActive = true
         
         signupContinueButton?.topAnchor.constraint(equalTo: progressBar!.bottomAnchor, constant: 22).isActive = true
@@ -448,6 +498,10 @@ class LoginSignUpViewController: UIViewController {
     }
     
     @objc func loginButtonPressed() {
+        if activeView == .login {
+            return
+        }
+        
         if let presentationController = presentationController as? UISheetPresentationController {
             presentationController.animateChanges {
                 presentationController.selectedDetentIdentifier = .medium
@@ -482,9 +536,24 @@ class LoginSignUpViewController: UIViewController {
             //set active view
             self.activeView = .login
         })
+        
+        validator.unregisterField(emailTextFieldSignUp!)
+        validator.unregisterField(choosePasswordTextField!)
+        validator.unregisterField(confirmPasswordTextField!)
+        validator.unregisterField(firstNameField!)
+        validator.unregisterField(lastNameField!)
+        validator.unregisterField(phoneNumberField!)
+        validator.unregisterField(addressTextView!)
+        
+        validator.registerField(emailTextFieldLogin!, rules: [RequiredRule(), EmailRule()])
+        validator.registerField(passwordTextField!, rules: [RequiredRule(), PasswordRule()])
     }
     
     @objc func signUpButtonPressed() {
+        if activeView == .signupInitialDetails {
+            return
+        }
+        
         if let presentationController = presentationController as? UISheetPresentationController {
             presentationController.animateChanges {
                 presentationController.selectedDetentIdentifier = .large
@@ -519,20 +588,36 @@ class LoginSignUpViewController: UIViewController {
             //set active view
             self.activeView = .signupInitialDetails
         })
+        
+        validator.unregisterField(emailTextFieldLogin!)
+        validator.unregisterField(passwordTextField!)
+        
+        validator.registerField(emailTextFieldSignUp!, rules: [RequiredRule(), EmailRule()])
+        validator.registerField(choosePasswordTextField!, rules: [RequiredRule(), PasswordRule()])
+        validator.registerField(confirmPasswordTextField!, rules: [RequiredRule(), ConfirmationRule(confirmField: choosePasswordTextField!)])
+    }
+    
+    @objc func loginContinueButtonPressed() {
+        clearAllErrors()
+        validator.validate(self)
     }
     
     @objc func signUpContinueButtonPressed() {
-        if activeView == .signupInitialDetails {
+        clearAllErrors()
+        validator.validate(self)
+        
+        if !isValidationError && activeView == .signupInitialDetails {
             UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
                 self.pageTitle?.alpha = 0
                 self.loginButton?.alpha = 0
                 self.signUpButton?.alpha = 0
-                self.emailLabel?.alpha = 0
-                self.emailTextField?.alpha = 0
+                self.emailLabelSignUp?.alpha = 0
+                self.emailTextFieldSignUp?.alpha = 0
                 self.choosePasswordLabel?.alpha = 0
                 self.choosePasswordTextField?.alpha = 0
                 self.confirmPasswordLabel?.alpha = 0
                 self.confirmPasswordTextField?.alpha = 0
+                self.passwordHint?.alpha = 0
             }, completion: {
                 (finished: Bool) -> Void in
                 self.pageTitle?.text = "Enter your details"
@@ -542,7 +627,14 @@ class LoginSignUpViewController: UIViewController {
                     self.progressBar?.setProgress(0.50, animated: true)
                 }, completion: nil)
             })
-        } else if activeView == .signupPersonalDetails {
+            
+            validator.unregisterField(emailTextFieldSignUp!)
+            validator.unregisterField(choosePasswordTextField!)
+            validator.unregisterField(confirmPasswordTextField!)
+            
+            validator.registerField(firstNameField!, rules: [RequiredRule()])
+            validator.registerField(lastNameField!, rules: [RequiredRule()])
+        } else if !isValidationError && activeView == .signupPersonalDetails {
             UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
                 self.firstNameLabel?.alpha = 0
                 self.firstNameField?.alpha = 0
@@ -555,12 +647,19 @@ class LoginSignUpViewController: UIViewController {
                     self.progressBar?.setProgress(0.75, animated: true)
                 }, completion: nil)
             })
-        } else if activeView == .signupAddressDetails {
+            
+            validator.unregisterField(firstNameField!)
+            validator.unregisterField(lastNameField!)
+            
+            validator.registerField(phoneNumberField!, rules: [RequiredRule(), ExactLengthRule(length: 10)])
+            validator.registerField(addressTextView!, rules: [RequiredRule()])
+        } else if !isValidationError && activeView == .signupAddressDetails {
             UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
                 self.pageTitle?.alpha = 0
                 self.phoneNumberLabel?.alpha = 0
                 self.countryCodeLabel?.alpha = 0
                 self.phoneNumberField?.alpha = 0
+                self.addressLabel?.alpha = 0
                 self.addressTextView?.alpha = 0
             }, completion: {
                 (finished: Bool) -> Void in
@@ -571,7 +670,10 @@ class LoginSignUpViewController: UIViewController {
                     self.progressBar?.setProgress(0.87, animated: true)
                 }, completion: nil)
             })
-        } else if activeView == .signupOtpVerification {
+            
+            validator.unregisterField(phoneNumberField!)
+            validator.unregisterField(addressTextView!)
+        } else if !isValidationError && activeView == .signupOtpVerification {
             UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
                 self.progressBar?.setProgress(0.87, animated: true)
             }, completion: {
@@ -593,34 +695,38 @@ class LoginSignUpViewController: UIViewController {
         case .login:
             break
         case .signupInitialDetails:
-            emailLabel?.topAnchor.constraint(equalTo: loginButton!.bottomAnchor, constant: 22).isActive = true
-            emailLabel?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
-            emailLabel?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
+            emailLabelSignUp?.topAnchor.constraint(equalTo: loginButton!.bottomAnchor, constant: 22).isActive = true
+            emailLabelSignUp?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
+            emailLabelSignUp?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
             
-            emailTextField?.topAnchor.constraint(equalTo: emailLabel!.bottomAnchor, constant: 5).isActive = true
-            emailTextField?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
-            emailTextField?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
-            emailTextField?.heightAnchor.constraint(equalToConstant: 61).isActive = true
+            emailTextFieldSignUp?.topAnchor.constraint(equalTo: emailLabelSignUp!.bottomAnchor, constant: 5).isActive = true
+            emailTextFieldSignUp?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
+            emailTextFieldSignUp?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
+            emailTextFieldSignUp?.heightAnchor.constraint(equalToConstant: 61).isActive = true
             
-            choosePasswordLabel?.topAnchor.constraint(equalTo: emailTextField!.bottomAnchor, constant: 15).isActive = true
-            choosePasswordLabel?.leadingAnchor.constraint(equalTo: emailLabel!.leadingAnchor).isActive = true
-            choosePasswordLabel?.trailingAnchor.constraint(equalTo: emailLabel!.trailingAnchor).isActive = true
+            choosePasswordLabel?.topAnchor.constraint(equalTo: emailTextFieldSignUp!.bottomAnchor, constant: 15).isActive = true
+            choosePasswordLabel?.leadingAnchor.constraint(equalTo: emailLabelSignUp!.leadingAnchor).isActive = true
+            choosePasswordLabel?.trailingAnchor.constraint(equalTo: emailLabelSignUp!.trailingAnchor).isActive = true
             
             choosePasswordTextField?.topAnchor.constraint(equalTo: choosePasswordLabel!.bottomAnchor, constant: 5).isActive = true
-            choosePasswordTextField?.leadingAnchor.constraint(equalTo: emailTextField!.leadingAnchor).isActive = true
-            choosePasswordTextField?.trailingAnchor.constraint(equalTo: emailTextField!.trailingAnchor).isActive = true
-            choosePasswordTextField?.widthAnchor.constraint(equalTo: emailTextField!.widthAnchor).isActive = true
-            choosePasswordTextField?.heightAnchor.constraint(equalTo: emailTextField!.heightAnchor).isActive = true
+            choosePasswordTextField?.leadingAnchor.constraint(equalTo: emailTextFieldSignUp!.leadingAnchor).isActive = true
+            choosePasswordTextField?.trailingAnchor.constraint(equalTo: emailTextFieldSignUp!.trailingAnchor).isActive = true
+            choosePasswordTextField?.widthAnchor.constraint(equalTo: emailTextFieldSignUp!.widthAnchor).isActive = true
+            choosePasswordTextField?.heightAnchor.constraint(equalTo: emailTextFieldSignUp!.heightAnchor).isActive = true
             
-            confirmPasswordLabel?.topAnchor.constraint(equalTo: choosePasswordTextField!.bottomAnchor, constant: 15).isActive = true
-            confirmPasswordLabel?.leadingAnchor.constraint(equalTo: emailLabel!.leadingAnchor).isActive = true
-            confirmPasswordLabel?.trailingAnchor.constraint(equalTo: emailLabel!.trailingAnchor).isActive = true
+            passwordHint?.topAnchor.constraint(equalTo: choosePasswordTextField!.bottomAnchor, constant: 5).isActive = true
+            passwordHint?.leadingAnchor.constraint(equalTo: emailTextFieldSignUp!.leadingAnchor, constant: 5).isActive = true
+            passwordHint?.trailingAnchor.constraint(equalTo: emailTextFieldSignUp!.trailingAnchor, constant: -5).isActive = true
+            
+            confirmPasswordLabel?.topAnchor.constraint(equalTo: passwordHint!.bottomAnchor, constant: 15).isActive = true
+            confirmPasswordLabel?.leadingAnchor.constraint(equalTo: emailLabelSignUp!.leadingAnchor).isActive = true
+            confirmPasswordLabel?.trailingAnchor.constraint(equalTo: emailLabelSignUp!.trailingAnchor).isActive = true
             
             confirmPasswordTextField?.topAnchor.constraint(equalTo: confirmPasswordLabel!.bottomAnchor, constant: 5).isActive = true
-            confirmPasswordTextField?.leadingAnchor.constraint(equalTo: emailTextField!.leadingAnchor).isActive = true
-            confirmPasswordTextField?.trailingAnchor.constraint(equalTo: emailTextField!.trailingAnchor).isActive = true
-            confirmPasswordTextField?.widthAnchor.constraint(equalTo: emailTextField!.widthAnchor).isActive = true
-            confirmPasswordTextField?.heightAnchor.constraint(equalTo: emailTextField!.heightAnchor).isActive = true
+            confirmPasswordTextField?.leadingAnchor.constraint(equalTo: emailTextFieldSignUp!.leadingAnchor).isActive = true
+            confirmPasswordTextField?.trailingAnchor.constraint(equalTo: emailTextFieldSignUp!.trailingAnchor).isActive = true
+            confirmPasswordTextField?.widthAnchor.constraint(equalTo: emailTextFieldSignUp!.widthAnchor).isActive = true
+            confirmPasswordTextField?.heightAnchor.constraint(equalTo: emailTextFieldSignUp!.heightAnchor).isActive = true
             
             progressBarTopConstraint?.isActive = false
             progressBarTopConstraint = progressBar?.topAnchor.constraint(equalTo: confirmPasswordTextField!.bottomAnchor, constant: 29)
@@ -670,7 +776,11 @@ class LoginSignUpViewController: UIViewController {
             phoneNumberField?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
             phoneNumberField?.heightAnchor.constraint(equalToConstant: 61).isActive = true
             
-            addressTextView?.topAnchor.constraint(equalTo: phoneNumberField!.bottomAnchor, constant: 22).isActive = true
+            addressLabel?.topAnchor.constraint(equalTo: phoneNumberField!.bottomAnchor, constant: 22).isActive = true
+            addressLabel?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
+            addressLabel?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
+            
+            addressTextView?.topAnchor.constraint(equalTo: addressLabel!.bottomAnchor, constant: 7).isActive = true
             addressTextView?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
             addressTextView?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
             addressTextView?.heightAnchor.constraint(equalToConstant: 150).isActive = true
@@ -678,6 +788,7 @@ class LoginSignUpViewController: UIViewController {
             phoneNumberLabel?.alpha = 1
             countryCodeLabel?.alpha = 1
             phoneNumberField?.alpha = 1
+            addressLabel?.alpha = 1
             addressTextView?.alpha = 1
             
             progressBarTopConstraint?.isActive = false
@@ -730,9 +841,21 @@ class LoginSignUpViewController: UIViewController {
         scrollView!.contentInset = contentInsets
         scrollView!.scrollIndicatorInsets = contentInsets
     }
+    
+    func clearAllErrors() {
+        emailTextFieldLogin?.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
+        passwordTextField?.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
+        emailTextFieldSignUp?.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
+        choosePasswordTextField?.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
+        confirmPasswordTextField?.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
+        firstNameField?.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
+        lastNameField?.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
+        phoneNumberField?.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
+        addressTextView?.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
+    }
 }
 
-extension LoginSignUpViewController : UITextFieldDelegate, DPOTPViewDelegate {
+extension LoginSignUpViewController : UITextFieldDelegate, DPOTPViewDelegate, ValidationDelegate {
     // when user select a textfield, this method will be called
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // set the activeTextField to the selected textfield
@@ -766,4 +889,21 @@ extension LoginSignUpViewController : UITextFieldDelegate, DPOTPViewDelegate {
      func dpOTPViewResignFirstResponder() {
          
      }
+    
+    func validationSuccessful() {
+        isValidationError = false
+    }
+    
+    func validationFailed(_ errors: [(SwiftValidator.Validatable, SwiftValidator.ValidationError)]) {
+        isValidationError = true
+        for (field, error) in errors {
+            if let field = field as? UITextField {
+                field.layer.borderColor = UIColor.red.cgColor
+                field.layer.borderWidth = 1.0
+            } else if let field = field as? UITextView {
+                field.layer.borderColor = UIColor.red.cgColor
+                field.layer.borderWidth = 1.0
+            }
+        }
+    }
 }
