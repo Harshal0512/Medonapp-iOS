@@ -50,6 +50,7 @@ class UIButtonVariableBackgroundVariableCR: UIButton {
         case .blackBack:
             self.backgroundColor = .black
             self.setTitleColor(.white, for: .normal)
+            self.layer.borderWidth = 0
         }
         
         if titleColor != .clear {

@@ -17,6 +17,7 @@ class HomeTabViewController: UIViewController {
     var servicesTextLabel: UILabel?
     var doctorsTab: TabForServices_VariableColor?
     var reportsTab: TabForServices_VariableColor?
+    var banner: UIImageView?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -97,6 +98,11 @@ class HomeTabViewController: UIViewController {
         reportsTab = TabForServices_VariableColor()
         reportsTab?.initTabButton(variant: .sky, tabImage: UIImage(named: "reportHomeTabIcon")!.resizeImageTo(size: CGSize(width: 10, height: 14))!)
         contentView?.addSubview(reportsTab!)
+        
+        banner = UIImageView()
+        banner?.image = UIImage(named: "homeScreenBannerImage")
+        banner?.contentMode = .scaleAspectFill
+        contentView?.addSubview(banner!)
     }
     
     func setConstraints() {
@@ -109,6 +115,7 @@ class HomeTabViewController: UIViewController {
         servicesTextLabel?.translatesAutoresizingMaskIntoConstraints = false
         doctorsTab?.translatesAutoresizingMaskIntoConstraints = false
         reportsTab?.translatesAutoresizingMaskIntoConstraints = false
+        banner?.translatesAutoresizingMaskIntoConstraints = false
         
         
         
@@ -157,7 +164,11 @@ class HomeTabViewController: UIViewController {
         reportsTab?.widthAnchor.constraint(equalTo: doctorsTab!.widthAnchor).isActive = true
         reportsTab?.heightAnchor.constraint(equalTo: doctorsTab!.heightAnchor).isActive = true
         
-        doctorsTab?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -28).isActive = true
+        banner?.topAnchor.constraint(equalTo: doctorsTab!.bottomAnchor, constant: 30).isActive = true
+        banner?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 28).isActive = true
+        banner?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -28).isActive = true
+        banner?.heightAnchor.constraint(equalToConstant: 170).isActive = true
+        banner?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -20).isActive = true
     }
     
     @objc func goToDoctorsScreen(_ sender: UITapGestureRecognizer? = nil) {

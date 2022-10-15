@@ -147,8 +147,8 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegate,
         timeCollectionView?.trailingAnchor.constraint(equalTo: timeSelectView!.trailingAnchor, constant: -20).isActive = true
         
         makeAppointmentButton?.topAnchor.constraint(equalTo: timeCollectionView!.bottomAnchor, constant: 20).isActive = true
-        makeAppointmentButton?.leadingAnchor.constraint(equalTo: timeSelectView!.leadingAnchor, constant: 27).isActive = true
-        makeAppointmentButton?.trailingAnchor.constraint(equalTo: timeSelectView!.trailingAnchor, constant: -27).isActive = true
+        makeAppointmentButton?.leadingAnchor.constraint(equalTo: timeSelectView!.leadingAnchor, constant: 20).isActive = true
+        makeAppointmentButton?.trailingAnchor.constraint(equalTo: timeSelectView!.trailingAnchor, constant: -20).isActive = true
         makeAppointmentButton?.bottomAnchor.constraint(equalTo: timeSelectView!.bottomAnchor, constant: -20).isActive = true
         makeAppointmentButton?.heightAnchor.constraint(equalToConstant: 56).isActive = true
     }
