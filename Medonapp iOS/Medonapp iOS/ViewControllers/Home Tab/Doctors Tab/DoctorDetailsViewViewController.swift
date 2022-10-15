@@ -200,9 +200,9 @@ class DoctorDetailsViewViewController: UIViewController {
     }
     
     @objc func bookNowButtonPressed() {
-        let bookAppointmentVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "bookAppointmentVC") as? BookAppointmentViewController
+        let appointmentDetailsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "appointmentDetailsVC") as? AppointmentDetailsViewController
 //        doctorsScreenVC?.modalPresentationStyle = .fullScreen
 //        self.present(doctorsScreenVC!, animated: true, completion: nil)
-        self.navigationController?.pushViewController(bookAppointmentVC!, animated: true)
+        self.navigationController?.pushViewController(appointmentDetailsVC!, animated: true)
     }
 }

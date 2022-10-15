@@ -267,11 +267,9 @@ class LoginSignUpViewController: UIViewController {
         phoneNumberField?.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
         
         addressTextView = UITextViewWithPlaceholder_CR8()
-        addressTextView?.setPlaceholder(placeholder: "Address")
         addressTextView?.autocapitalizationType = .words
         addressTextView?.autocorrectionType = .no
         addressTextView?.keyboardType = .default
-        addressTextView?.font = UIFont(name: "NunitoSans-Bold", size: 18)
         signUpScreenContentView?.addSubview(addressTextView!)
         addressTextView?.alpha = 0
         
