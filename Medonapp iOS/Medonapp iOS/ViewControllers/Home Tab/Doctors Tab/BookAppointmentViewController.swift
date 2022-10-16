@@ -60,6 +60,8 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegate,
         datePicker = UIDatePicker()
         datePicker?.datePickerMode = .date
         datePicker?.preferredDatePickerStyle = .inline
+        datePicker?.minimumDate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())
+        datePicker?.maximumDate = Calendar.current.date(byAdding: .year, value: 1, to: Date())
         contentView?.addSubview(datePicker!)
         datePicker?.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         
