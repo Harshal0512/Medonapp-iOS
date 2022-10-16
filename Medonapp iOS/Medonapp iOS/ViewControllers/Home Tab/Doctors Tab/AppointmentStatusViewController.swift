@@ -15,6 +15,7 @@ class AppointmentStatusViewController: UIViewController {
     private var statusLabel: UILabel?
     private var subtitleLabel: UILabel?
     private var goToHomeButton: UIButtonVariableBackgroundVariableCR?
+    let generator = UINotificationFeedbackGenerator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +33,10 @@ class AppointmentStatusViewController: UIViewController {
             }, completion: {
                 (finished: Bool) -> Void in
             })
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            self.appointmentIsSuccess ? self.generator.notificationOccurred(.success) : self.generator.notificationOccurred(.error)
         }
     }
     
@@ -55,7 +60,7 @@ class AppointmentStatusViewController: UIViewController {
         
         if appointmentIsSuccess {
             animationView = .init(name: "checkMarkSuccess")
-            animationView!.animationSpeed = 0.7
+            animationView!.animationSpeed = 0.8
             statusLabel?.text = "Your appointment has been booked successfully!"
             subtitleLabel?.text = "Thank you for choosing us."
         } else {
