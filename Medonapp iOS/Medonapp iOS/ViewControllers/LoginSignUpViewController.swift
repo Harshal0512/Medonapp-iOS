@@ -68,6 +68,10 @@ class LoginSignUpViewController: UIViewController {
     var phoneNumberField: UITextFieldWithPlaceholder_CR8?
     var addressLabel: UILabel?
     var addressTextView: UITextViewWithPlaceholder_CR8?
+    var stateLabel: UILabel?
+    var stateField: UITextFieldWithPlaceholder_CR8?
+    var cityLabel: UILabel?
+    var cityField: UITextFieldWithPlaceholder_CR8?
     
     //otp verification
     var otpDetailsLabel: UILabel?
@@ -110,11 +114,6 @@ class LoginSignUpViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        emailTextFieldSignUp?.text = "harshal@gmail.com"
-        choosePasswordTextField?.text = "HK@123456"
-        confirmPasswordTextField?.text = "HK@123456"
-        firstNameField?.text = "Harshal"
-        lastNameField?.text = "Kulkarni"
     }
     
     private func initialise() {
@@ -324,6 +323,7 @@ class LoginSignUpViewController: UIViewController {
         bloodGroupDropdown?.leftView = paddingView
         bloodGroupDropdown?.leftViewMode = .always
         signUpScreenContentView?.addSubview(bloodGroupDropdown!)
+        bloodGroupDropdown?.alpha = 0
         
         weightLabel = UILabel()
         weightLabel?.text = "Weight (in Kg)"
@@ -383,6 +383,38 @@ class LoginSignUpViewController: UIViewController {
         addressTextView?.keyboardType = .default
         signUpScreenContentView?.addSubview(addressTextView!)
         addressTextView?.alpha = 0
+        
+        stateLabel = UILabel()
+        stateLabel?.text = "State"
+        stateLabel?.textColor = .black
+        stateLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
+        signUpScreenContentView?.addSubview(stateLabel!)
+        stateLabel?.alpha = 0
+        
+        stateField = UITextFieldWithPlaceholder_CR8()
+        stateField?.delegate = self
+        stateField?.setPlaceholder(placeholder: "State")
+        stateField?.autocapitalizationType = .words
+        stateField?.autocorrectionType = .no
+        stateField?.keyboardType = .default
+        signUpScreenContentView?.addSubview(stateField!)
+        stateField?.alpha = 0
+        
+        cityLabel = UILabel()
+        cityLabel?.text = "City"
+        cityLabel?.textColor = .black
+        cityLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
+        signUpScreenContentView?.addSubview(cityLabel!)
+        cityLabel?.alpha = 0
+        
+        cityField = UITextFieldWithPlaceholder_CR8()
+        cityField?.delegate = self
+        cityField?.setPlaceholder(placeholder: "City")
+        cityField?.autocapitalizationType = .words
+        cityField?.autocorrectionType = .no
+        cityField?.keyboardType = .default
+        signUpScreenContentView?.addSubview(cityField!)
+        cityField?.alpha = 0
         
         otpDetailsLabel = UILabel()
         otpDetailsLabel?.text = "Please enter Verification code sent to email "
@@ -464,6 +496,10 @@ class LoginSignUpViewController: UIViewController {
         phoneNumberField?.translatesAutoresizingMaskIntoConstraints = false
         addressLabel?.translatesAutoresizingMaskIntoConstraints = false
         addressTextView?.translatesAutoresizingMaskIntoConstraints = false
+        stateLabel?.translatesAutoresizingMaskIntoConstraints = false
+        stateField?.translatesAutoresizingMaskIntoConstraints = false
+        cityLabel?.translatesAutoresizingMaskIntoConstraints = false
+        cityField?.translatesAutoresizingMaskIntoConstraints = false
         
         otpDetailsLabel?.translatesAutoresizingMaskIntoConstraints = false
         txtOTPView?.translatesAutoresizingMaskIntoConstraints = false
@@ -615,6 +651,8 @@ class LoginSignUpViewController: UIViewController {
         validator.unregisterField(weightField!)
         validator.unregisterField(phoneNumberField!)
         validator.unregisterField(addressTextView!)
+        validator.unregisterField(stateField!)
+        validator.unregisterField(cityField!)
         
         validator.registerField(emailTextFieldLogin!, rules: [RequiredRule(), EmailRule()])
         validator.registerField(passwordTextField!, rules: [RequiredRule(), PasswordRule()])
@@ -732,6 +770,8 @@ class LoginSignUpViewController: UIViewController {
             
             validator.registerField(phoneNumberField!, rules: [RequiredRule(), ExactLengthRule(length: 10)])
             validator.registerField(addressTextView!, rules: [RequiredRule()])
+            validator.registerField(stateField!, rules: [RequiredRule()])
+            validator.registerField(cityField!, rules: [RequiredRule()])
         } else if !isValidationError && activeView == .signupAddressDetails {
             UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
                 self.pageTitle?.alpha = 0
@@ -740,6 +780,10 @@ class LoginSignUpViewController: UIViewController {
                 self.phoneNumberField?.alpha = 0
                 self.addressLabel?.alpha = 0
                 self.addressTextView?.alpha = 0
+                self.stateLabel?.alpha = 0
+                self.stateField?.alpha = 0
+                self.cityLabel?.alpha = 0
+                self.cityField?.alpha = 0
             }, completion: {
                 (finished: Bool) -> Void in
                 self.pageTitle?.text = "You’re all set"
@@ -752,6 +796,8 @@ class LoginSignUpViewController: UIViewController {
             
             validator.unregisterField(phoneNumberField!)
             validator.unregisterField(addressTextView!)
+            validator.unregisterField(stateField!)
+            validator.unregisterField(cityField!)
         } else if !isValidationError && activeView == .signupOtpVerification {
             UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
                 self.progressBar?.setProgress(0.87, animated: true)
@@ -840,7 +886,6 @@ class LoginSignUpViewController: UIViewController {
             
             bloodGroupLabel?.topAnchor.constraint(equalTo: dobPicker!.bottomAnchor, constant: 15).isActive = true
             bloodGroupLabel?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
-            bloodGroupLabel?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
             
             bloodGroupDropdown?.topAnchor.constraint(equalTo: bloodGroupLabel!.bottomAnchor, constant: 5).isActive = true
             bloodGroupDropdown?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
@@ -857,6 +902,7 @@ class LoginSignUpViewController: UIViewController {
             weightField?.leadingAnchor.constraint(greaterThanOrEqualTo: bloodGroupDropdown!.trailingAnchor, constant: 10).isActive = true
             
             weightLabel?.leadingAnchor.constraint(equalTo: weightField!.leadingAnchor).isActive = true
+            bloodGroupLabel?.trailingAnchor.constraint(equalTo: weightLabel!.leadingAnchor, constant: -10).isActive = true
             
             firstNameLabel?.alpha = 1
             firstNameField?.alpha = 1
@@ -899,14 +945,38 @@ class LoginSignUpViewController: UIViewController {
             addressTextView?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
             addressTextView?.heightAnchor.constraint(equalToConstant: 150).isActive = true
             
+            stateLabel?.topAnchor.constraint(equalTo: addressTextView!.bottomAnchor, constant: 15).isActive = true
+            stateLabel?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
+            
+            stateField?.topAnchor.constraint(equalTo: stateLabel!.bottomAnchor, constant: 5).isActive = true
+            stateField?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
+            stateField?.widthAnchor.constraint(equalToConstant: 148).isActive = true
+            stateField?.heightAnchor.constraint(equalToConstant: 61).isActive = true
+            
+            cityLabel?.topAnchor.constraint(equalTo: stateLabel!.topAnchor).isActive = true
+            cityLabel?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
+            
+            cityField?.topAnchor.constraint(equalTo: cityLabel!.bottomAnchor, constant: 5).isActive = true
+            cityField?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
+            cityField?.widthAnchor.constraint(equalToConstant: 148).isActive = true
+            cityField?.heightAnchor.constraint(equalToConstant: 61).isActive = true
+            cityField?.leadingAnchor.constraint(greaterThanOrEqualTo: stateField!.trailingAnchor, constant: 10).isActive = true
+            
+            cityLabel?.leadingAnchor.constraint(equalTo: cityField!.leadingAnchor).isActive = true
+            stateLabel?.trailingAnchor.constraint(equalTo: cityLabel!.leadingAnchor, constant: -10).isActive = true
+            
             phoneNumberLabel?.alpha = 1
             countryCodeLabel?.alpha = 1
             phoneNumberField?.alpha = 1
             addressLabel?.alpha = 1
             addressTextView?.alpha = 1
+            stateLabel?.alpha = 1
+            stateField?.alpha = 1
+            cityLabel?.alpha = 1
+            cityField?.alpha = 1
             
             progressBarTopConstraint?.isActive = false
-            progressBarTopConstraint = progressBar?.topAnchor.constraint(equalTo: addressTextView!.bottomAnchor, constant: 29)
+            progressBarTopConstraint = progressBar?.topAnchor.constraint(equalTo: stateField!.bottomAnchor, constant: 29)
             progressBarTopConstraint?.isActive = true
             
             self.activeView = .signupAddressDetails
@@ -971,6 +1041,8 @@ class LoginSignUpViewController: UIViewController {
         weightField?.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
         phoneNumberField?.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
         addressTextView?.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
+        stateField?.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
+        cityField?.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
     }
 }
 
