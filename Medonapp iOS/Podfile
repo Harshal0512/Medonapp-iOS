@@ -9,7 +9,6 @@ target 'Medonapp iOS' do
 
   pod 'Alamofire'
   pod 'Kingfisher', '~> 7.0'
-  pod 'SwiftyJSON', '~> 4.0'
   pod 'SwiftValidator', :git => 'https://github.com/jpotts18/SwiftValidator.git', :tag => '4.2.0'
 
 end
