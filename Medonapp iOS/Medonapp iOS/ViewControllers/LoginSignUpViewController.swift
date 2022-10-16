@@ -54,6 +54,8 @@ class LoginSignUpViewController: UIViewController {
     var firstNameField: UITextFieldWithPlaceholder_CR8?
     var lastNameLabel: UILabel?
     var lastNameField: UITextFieldWithPlaceholder_CR8?
+    var dobLabel: UILabel?
+    var dobPicker: UIDatePicker?
     
     //address details
     var phoneNumberLabel: UILabel?
@@ -277,6 +279,21 @@ class LoginSignUpViewController: UIViewController {
         signUpScreenContentView?.addSubview(lastNameField!)
         lastNameField?.alpha = 0
         
+        dobLabel = UILabel()
+        dobLabel?.text = "Date of Birth"
+        dobLabel?.textColor = .black
+        dobLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
+        signUpScreenContentView?.addSubview(dobLabel!)
+        dobLabel?.alpha = 0
+        
+        dobPicker = UIDatePicker()
+        dobPicker?.datePickerMode = .date
+        dobPicker?.preferredDatePickerStyle = .compact
+        dobPicker?.maximumDate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())
+        signUpScreenContentView?.addSubview(dobPicker!)
+        dobPicker?.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
+        dobPicker?.alpha = 0
+        
         phoneNumberLabel = UILabel()
         phoneNumberLabel?.text = "Phone Number"
         phoneNumberLabel?.textColor = .black
@@ -388,6 +405,8 @@ class LoginSignUpViewController: UIViewController {
         firstNameField?.translatesAutoresizingMaskIntoConstraints = false
         lastNameLabel?.translatesAutoresizingMaskIntoConstraints = false
         lastNameField?.translatesAutoresizingMaskIntoConstraints = false
+        dobLabel?.translatesAutoresizingMaskIntoConstraints = false
+        dobPicker?.translatesAutoresizingMaskIntoConstraints = false
         
         phoneNumberLabel?.translatesAutoresizingMaskIntoConstraints = false
         countryCodeLabel?.translatesAutoresizingMaskIntoConstraints = false
@@ -640,6 +659,8 @@ class LoginSignUpViewController: UIViewController {
                 self.firstNameField?.alpha = 0
                 self.lastNameLabel?.alpha = 0
                 self.lastNameField?.alpha = 0
+                self.dobLabel?.alpha = 0
+                self.dobPicker?.alpha = 0
             }, completion: {
                 (finished: Bool) -> Void in
                 UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
@@ -750,13 +771,24 @@ class LoginSignUpViewController: UIViewController {
             lastNameField?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
             lastNameField?.heightAnchor.constraint(equalToConstant: 61).isActive = true
             
+            dobLabel?.topAnchor.constraint(equalTo: lastNameField!.bottomAnchor, constant: 22).isActive = true
+            dobLabel?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
+            dobLabel?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
+            
+            dobPicker?.topAnchor.constraint(equalTo: dobLabel!.bottomAnchor, constant: 5).isActive = true
+            dobPicker?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
+            dobPicker?.widthAnchor.constraint(equalToConstant: 130).isActive = true
+            dobPicker?.heightAnchor.constraint(equalToConstant: 61).isActive = true
+            
             firstNameLabel?.alpha = 1
             firstNameField?.alpha = 1
             lastNameLabel?.alpha = 1
             lastNameField?.alpha = 1
+            dobLabel?.alpha = 1
+            dobPicker?.alpha = 1
             
             progressBarTopConstraint?.isActive = false
-            progressBarTopConstraint = progressBar?.topAnchor.constraint(equalTo: lastNameField!.bottomAnchor, constant: 29)
+            progressBarTopConstraint = progressBar?.topAnchor.constraint(equalTo: dobPicker!.bottomAnchor, constant: 29)
             progressBarTopConstraint?.isActive = true
             
             self.activeView = .signupPersonalDetails
@@ -840,6 +872,10 @@ class LoginSignUpViewController: UIViewController {
         // reset back the content inset to zero after keyboard is gone
         scrollView!.contentInset = contentInsets
         scrollView!.scrollIndicatorInsets = contentInsets
+    }
+    
+    @objc func dateChanged(_ sender: UIDatePicker) {
+        print(Date.ISOStringFromDate(date: sender.date))
     }
     
     func clearAllErrors() {
