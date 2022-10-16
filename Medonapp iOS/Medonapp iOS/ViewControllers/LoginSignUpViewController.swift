@@ -319,6 +319,7 @@ class LoginSignUpViewController: UIViewController {
         bloodGroupDropdown?.selectedIndex = 0
         bloodGroupDropdown?.selectedRowColor = .lightGray
         bloodGroupDropdown?.checkMarkEnabled = false
+        bloodGroupDropdown?.isSearchEnable = false
         let paddingView = UIView(frame: CGRectMake(0, 0, 15, bloodGroupDropdown!.frame.height))
         bloodGroupDropdown?.leftView = paddingView
         bloodGroupDropdown?.leftViewMode = .always
