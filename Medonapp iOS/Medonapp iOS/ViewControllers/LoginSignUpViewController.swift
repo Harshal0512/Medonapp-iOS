@@ -8,6 +8,7 @@
 import UIKit
 import SwiftValidator
 import DPOTPView
+import iOSDropDown
 
 enum views {
     case login
@@ -56,6 +57,10 @@ class LoginSignUpViewController: UIViewController {
     var lastNameField: UITextFieldWithPlaceholder_CR8?
     var dobLabel: UILabel?
     var dobPicker: UIDatePicker?
+    var bloodGroupLabel: UILabel?
+    var bloodGroupDropdown: DropDown?
+    var weightLabel: UILabel?
+    var weightField: UITextFieldWithPlaceholder_CR8?
     
     //address details
     var phoneNumberLabel: UILabel?
@@ -105,6 +110,11 @@ class LoginSignUpViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        emailTextFieldSignUp?.text = "harshal@gmail.com"
+        choosePasswordTextField?.text = "HK@123456"
+        confirmPasswordTextField?.text = "HK@123456"
+        firstNameField?.text = "Harshal"
+        lastNameField?.text = "Kulkarni"
     }
     
     private func initialise() {
@@ -294,6 +304,43 @@ class LoginSignUpViewController: UIViewController {
         dobPicker?.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         dobPicker?.alpha = 0
         
+        bloodGroupLabel = UILabel()
+        bloodGroupLabel?.text = "Blood Group"
+        bloodGroupLabel?.textColor = .black
+        bloodGroupLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
+        signUpScreenContentView?.addSubview(bloodGroupLabel!)
+        bloodGroupLabel?.alpha = 0
+        
+        bloodGroupDropdown = DropDown(frame: CGRect(x: 0, y: 0, width: 148, height: 61))
+        bloodGroupDropdown?.optionArray = ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]
+        bloodGroupDropdown?.borderWidth = 1
+        bloodGroupDropdown?.layer.cornerRadius = 10
+        bloodGroupDropdown?.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
+        bloodGroupDropdown?.font = UIFont(name: "NunitoSans-Bold", size: 16)
+        bloodGroupDropdown?.selectedIndex = 0
+        bloodGroupDropdown?.selectedRowColor = .lightGray
+        bloodGroupDropdown?.checkMarkEnabled = false
+        let paddingView = UIView(frame: CGRectMake(0, 0, 15, bloodGroupDropdown!.frame.height))
+        bloodGroupDropdown?.leftView = paddingView
+        bloodGroupDropdown?.leftViewMode = .always
+        signUpScreenContentView?.addSubview(bloodGroupDropdown!)
+        
+        weightLabel = UILabel()
+        weightLabel?.text = "Weight (in Kg)"
+        weightLabel?.textColor = .black
+        weightLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
+        signUpScreenContentView?.addSubview(weightLabel!)
+        weightLabel?.alpha = 0
+        
+        weightField = UITextFieldWithPlaceholder_CR8()
+        weightField?.delegate = self
+        weightField?.setPlaceholder(placeholder: "Weight (in Kg)")
+        weightField?.autocapitalizationType = .none
+        weightField?.autocorrectionType = .no
+        weightField?.keyboardType = .numberPad
+        signUpScreenContentView?.addSubview(weightField!)
+        weightField?.alpha = 0
+        
         phoneNumberLabel = UILabel()
         phoneNumberLabel?.text = "Phone Number"
         phoneNumberLabel?.textColor = .black
@@ -407,6 +454,10 @@ class LoginSignUpViewController: UIViewController {
         lastNameField?.translatesAutoresizingMaskIntoConstraints = false
         dobLabel?.translatesAutoresizingMaskIntoConstraints = false
         dobPicker?.translatesAutoresizingMaskIntoConstraints = false
+        bloodGroupLabel?.translatesAutoresizingMaskIntoConstraints = false
+        bloodGroupDropdown?.translatesAutoresizingMaskIntoConstraints = false
+        weightLabel?.translatesAutoresizingMaskIntoConstraints = false
+        weightField?.translatesAutoresizingMaskIntoConstraints = false
         
         phoneNumberLabel?.translatesAutoresizingMaskIntoConstraints = false
         countryCodeLabel?.translatesAutoresizingMaskIntoConstraints = false
@@ -561,6 +612,7 @@ class LoginSignUpViewController: UIViewController {
         validator.unregisterField(confirmPasswordTextField!)
         validator.unregisterField(firstNameField!)
         validator.unregisterField(lastNameField!)
+        validator.unregisterField(weightField!)
         validator.unregisterField(phoneNumberField!)
         validator.unregisterField(addressTextView!)
         
@@ -653,6 +705,7 @@ class LoginSignUpViewController: UIViewController {
             
             validator.registerField(firstNameField!, rules: [RequiredRule()])
             validator.registerField(lastNameField!, rules: [RequiredRule()])
+            validator.registerField(weightField!, rules: [RequiredRule(), FloatRule()])
         } else if !isValidationError && activeView == .signupPersonalDetails {
             UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
                 self.firstNameLabel?.alpha = 0
@@ -661,6 +714,10 @@ class LoginSignUpViewController: UIViewController {
                 self.lastNameField?.alpha = 0
                 self.dobLabel?.alpha = 0
                 self.dobPicker?.alpha = 0
+                self.bloodGroupLabel?.alpha = 0
+                self.bloodGroupDropdown?.alpha = 0
+                self.weightLabel?.alpha = 0
+                self.weightField?.alpha = 0
             }, completion: {
                 (finished: Bool) -> Void in
                 UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
@@ -671,6 +728,7 @@ class LoginSignUpViewController: UIViewController {
             
             validator.unregisterField(firstNameField!)
             validator.unregisterField(lastNameField!)
+            validator.unregisterField(weightField!)
             
             validator.registerField(phoneNumberField!, rules: [RequiredRule(), ExactLengthRule(length: 10)])
             validator.registerField(addressTextView!, rules: [RequiredRule()])
@@ -780,15 +838,39 @@ class LoginSignUpViewController: UIViewController {
             dobPicker?.widthAnchor.constraint(equalToConstant: 130).isActive = true
             dobPicker?.heightAnchor.constraint(equalToConstant: 61).isActive = true
             
+            bloodGroupLabel?.topAnchor.constraint(equalTo: dobPicker!.bottomAnchor, constant: 15).isActive = true
+            bloodGroupLabel?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
+            bloodGroupLabel?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
+            
+            bloodGroupDropdown?.topAnchor.constraint(equalTo: bloodGroupLabel!.bottomAnchor, constant: 5).isActive = true
+            bloodGroupDropdown?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
+            bloodGroupDropdown?.widthAnchor.constraint(equalToConstant: 148).isActive = true
+            bloodGroupDropdown?.heightAnchor.constraint(equalToConstant: 61).isActive = true
+            
+            weightLabel?.topAnchor.constraint(equalTo: bloodGroupLabel!.topAnchor).isActive = true
+            weightLabel?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
+            
+            weightField?.topAnchor.constraint(equalTo: weightLabel!.bottomAnchor, constant: 5).isActive = true
+            weightField?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
+            weightField?.widthAnchor.constraint(equalToConstant: 148).isActive = true
+            weightField?.heightAnchor.constraint(equalToConstant: 61).isActive = true
+            weightField?.leadingAnchor.constraint(greaterThanOrEqualTo: bloodGroupDropdown!.trailingAnchor, constant: 10).isActive = true
+            
+            weightLabel?.leadingAnchor.constraint(equalTo: weightField!.leadingAnchor).isActive = true
+            
             firstNameLabel?.alpha = 1
             firstNameField?.alpha = 1
             lastNameLabel?.alpha = 1
             lastNameField?.alpha = 1
             dobLabel?.alpha = 1
             dobPicker?.alpha = 1
+            bloodGroupLabel?.alpha = 1
+            bloodGroupDropdown?.alpha = 1
+            weightLabel?.alpha = 1
+            weightField?.alpha = 1
             
             progressBarTopConstraint?.isActive = false
-            progressBarTopConstraint = progressBar?.topAnchor.constraint(equalTo: dobPicker!.bottomAnchor, constant: 29)
+            progressBarTopConstraint = progressBar?.topAnchor.constraint(equalTo: bloodGroupDropdown!.bottomAnchor, constant: 29)
             progressBarTopConstraint?.isActive = true
             
             self.activeView = .signupPersonalDetails
@@ -886,6 +968,7 @@ class LoginSignUpViewController: UIViewController {
         confirmPasswordTextField?.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
         firstNameField?.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
         lastNameField?.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
+        weightField?.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
         phoneNumberField?.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
         addressTextView?.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
     }
