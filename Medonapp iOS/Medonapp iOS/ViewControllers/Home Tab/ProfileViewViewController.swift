@@ -84,11 +84,11 @@ class ProfileViewViewController: UIViewController {
         contentView?.addSubview(privacyPolicyButton!)
         
         referAFriendButton = WhiteBackgroundButtonWithIcon()
-        referAFriendButton?.initButton(title: "Refer a friend", icon: UIImage(named: "cardIcon"), iconSize: CGSize(width: 27, height: 21))
+        referAFriendButton?.initButton(title: "Refer a friend", icon: UIImage(named: "shareIcon"))
         contentView?.addSubview(referAFriendButton!)
         
         contactUsButton = WhiteBackgroundButtonWithIcon()
-        contactUsButton?.initButton(title: "Contact us", icon: UIImage(named: "cardIcon"), iconSize: CGSize(width: 27, height: 21))
+        contactUsButton?.initButton(title: "Contact us", icon: UIImage(named: "headphoneIcon"))
         contentView?.addSubview(contactUsButton!)
         
         logoutButton = UIImageView()
