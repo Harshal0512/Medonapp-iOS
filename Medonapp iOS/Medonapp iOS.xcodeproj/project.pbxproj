@@ -32,6 +32,7 @@
 		F83CBC4C28D88466005BA1B8 /* NunitoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F83CBC4A28D88466005BA1B8 /* NunitoSans-Bold.ttf */; };
 		F83CBC4D28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F83CBC4B28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf */; };
 		F840513228FABCB10051B636 /* iOSDropDown in Frameworks */ = {isa = PBXBuildFile; productRef = F840513128FABCB10051B636 /* iOSDropDown */; };
+		F840513528FD139F0051B636 /* Doctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F840513428FD139F0051B636 /* Doctor.swift */; };
 		F859AB3428EC2FA20069D247 /* UITextViewWithPlaceholder_CR8.swift in Sources */ = {isa = PBXBuildFile; fileRef = F859AB3328EC2FA10069D247 /* UITextViewWithPlaceholder_CR8.swift */; };
 		F85D9C3528F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85D9C3328F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.swift */; };
 		F85D9C3628F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F85D9C3428F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.xib */; };
@@ -94,6 +95,7 @@
 		F83CBC4728D87352005BA1B8 /* LoginSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignUpViewController.swift; sourceTree = "<group>"; };
 		F83CBC4A28D88466005BA1B8 /* NunitoSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-Bold.ttf"; sourceTree = "<group>"; };
 		F83CBC4B28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		F840513428FD139F0051B636 /* Doctor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctor.swift; sourceTree = "<group>"; };
 		F859AB3328EC2FA10069D247 /* UITextViewWithPlaceholder_CR8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewWithPlaceholder_CR8.swift; sourceTree = "<group>"; };
 		F85D9C3328F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTabDateCollectionViewCell.swift; sourceTree = "<group>"; };
 		F85D9C3428F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleTabDateCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				F8131B2A28D5AAF700B7558D /* Network */,
 				F8131B2928D5AACE00B7558D /* UIComponents */,
 				F8131B2828D5AAC500B7558D /* ViewControllers */,
+				F840513328FD13800051B636 /* Models */,
 				F8131B2728D5AABE00B7558D /* Fonts */,
 				F8131B1328D5A09F00B7558D /* AppDelegate.swift */,
 				F8131B1528D5A09F00B7558D /* SceneDelegate.swift */,
@@ -283,6 +286,14 @@
 				F8BC4A3E28F4211600440406 /* ReportCellWithIconAndDescription.xib */,
 			);
 			path = "Report Tab";
+			sourceTree = "<group>";
+		};
+		F840513328FD13800051B636 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F840513428FD139F0051B636 /* Doctor.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		F8AF821E28F5CAD400D62D98 /* Doctors Screen */ = {
@@ -514,6 +525,7 @@
 				F85D9C3828F33B6D008FBDE9 /* ReportTabViewController.swift in Sources */,
 				F8BC4A4228F4588A00440406 /* DoctorsScreenViewController.swift in Sources */,
 				F81BAAF328F9C09B0080BD21 /* AppointmentDetailsViewController.swift in Sources */,
+				F840513528FD139F0051B636 /* Doctor.swift in Sources */,
 				F8BC4A4428F460D600440406 /* StoryboardUtils.swift in Sources */,
 				F85D9C3528F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.swift in Sources */,
 				F8FB225E28F7D9C7003B9173 /* TabViewInContactScreen.swift in Sources */,
