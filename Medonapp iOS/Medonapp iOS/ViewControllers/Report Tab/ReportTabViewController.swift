@@ -28,6 +28,7 @@ class ReportTabViewController: UIViewController {
     
     var latestReportsLabel: UILabel?
     var userReports: ReportCellWithIconAndDescription?
+    var constraintsUserReports: [String: NSLayoutConstraint] = [:]
     var familyReports: ReportCellWithIconAndDescription?
 
     override func viewDidLoad() {
@@ -129,9 +130,15 @@ class ReportTabViewController: UIViewController {
         
         userReports = ReportCellWithIconAndDescription.instantiate(viewBackgroundColor: .white, icon: UIImage(named: "documentIcon")!.withTintColor(UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00)), iconBackgroundColor: UIColor(red: 0.86, green: 0.93, blue: 0.98, alpha: 1.00), title: "My Reports", numberOfFiles: 8)
         contentView?.addSubview(userReports!)
+        let userReportsTap = UITapGestureRecognizer(target: self, action: #selector(self.expandUserReports))
+        userReports?.addGestureRecognizer(userReportsTap)
+        userReports?.isUserInteractionEnabled = true
         
         familyReports = ReportCellWithIconAndDescription.instantiate(viewBackgroundColor: .white, icon: UIImage(named: "documentIcon")!.withTintColor(UIColor(red: 0.00, green: 0.54, blue: 0.37, alpha: 1.00)), iconBackgroundColor: UIColor(red: 0.84, green: 1.00, blue: 0.95, alpha: 1.00), title: "Family Reports", numberOfFiles: 8)
         contentView?.addSubview(familyReports!)
+        let familyReportsTap = UITapGestureRecognizer(target: self, action: #selector(self.expandFamilyReports))
+        familyReports?.addGestureRecognizer(familyReportsTap)
+        familyReports?.isUserInteractionEnabled = true
     }
     
     func setConstraints() {
@@ -233,16 +240,32 @@ class ReportTabViewController: UIViewController {
         latestReportsLabel?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 27).isActive = true
         latestReportsLabel?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -27).isActive = true
         
-        userReports?.topAnchor.constraint(equalTo: latestReportsLabel!.bottomAnchor, constant: 16).isActive = true
-        userReports?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 27).isActive = true
-        userReports?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -27).isActive = true
-        userReports?.heightAnchor.constraint(equalToConstant: 93).isActive = true
+        constraintsUserReports = ["top": userReports!.topAnchor.constraint(equalTo: latestReportsLabel!.bottomAnchor, constant: 16), "leading": userReports!.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 27), "trailing": userReports!.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -27), "height": userReports!.heightAnchor.constraint(equalToConstant: 93)]
+        constraintsUserReports["top"]?.isActive = true
+        constraintsUserReports["leading"]?.isActive = true
+        constraintsUserReports["trailing"]?.isActive = true
+        constraintsUserReports["height"]?.isActive = true
+        
         
         familyReports?.topAnchor.constraint(equalTo: userReports!.bottomAnchor, constant: 18).isActive = true
         familyReports?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 27).isActive = true
         familyReports?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -27).isActive = true
         familyReports?.heightAnchor.constraint(equalToConstant: 93).isActive = true
         familyReports?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -20).isActive = true
+    }
+    
+    @objc func expandUserReports() {
+        let reportDetailsVC = UIStoryboard.init(name: "ReportTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "reportDetails") as? ReportDetailsViewController
+        reportDetailsVC?.modalPresentationStyle = .fullScreen
+        reportDetailsVC?.reportsVariant = .user
+        self.present(reportDetailsVC!, animated: true)
+    }
+    
+    @objc func expandFamilyReports() {
+        let reportDetailsVC = UIStoryboard.init(name: "ReportTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "reportDetails") as? ReportDetailsViewController
+        reportDetailsVC?.modalPresentationStyle = .fullScreen
+        reportDetailsVC?.reportsVariant = .family
+        self.present(reportDetailsVC!, animated: true)
     }
 
 }

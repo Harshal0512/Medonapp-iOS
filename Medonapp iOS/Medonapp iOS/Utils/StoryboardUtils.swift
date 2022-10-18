@@ -20,6 +20,7 @@ enum StoryboardUtils : String {
 
     case Main
     case HomeTab
+    case ReportTab
     
     var instance: UIStoryboard {
         return UIStoryboard(name: self.rawValue, bundle: Bundle.main)
@@ -71,6 +72,10 @@ extension StoryboardUtils{
     
     static func getAppointmentStatusVC() -> UIViewController {
         return HomeTab.instance.instantiateViewController(withIdentifier: "appointmentStatusVC")
+    }
+    
+    static func getReportDetailsVC() -> UIViewController {
+        return ReportTab.instance.instantiateViewController(withIdentifier: "reportDetails")
     }
 }
 

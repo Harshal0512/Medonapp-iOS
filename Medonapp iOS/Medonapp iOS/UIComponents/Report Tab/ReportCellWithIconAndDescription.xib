@@ -93,6 +93,7 @@
                 <outlet property="containerView" destination="TRj-cL-BfP" id="xCk-48-MKz"/>
                 <outlet property="iconLabel" destination="5jl-ef-0Z4" id="xlR-FT-ysN"/>
                 <outlet property="iconView" destination="Vbl-hU-24S" id="6nf-pV-VbW"/>
+                <outlet property="moreIcon" destination="ukH-ES-ntH" id="qph-PT-WZE"/>
                 <outlet property="numberOfFilesLabel" destination="aQU-mA-JnU" id="vDk-Li-EuJ"/>
                 <outlet property="titleLabel" destination="EO6-Jc-thT" id="k3c-0h-131"/>
             </connections>
