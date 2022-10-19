@@ -17,16 +17,13 @@ class MonthViewAppointmentHistory: UIView {
     @IBOutlet private var rightArrow: UIImageView!
     
     private static let monthArray: [String] = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    private static let month_UpperEnd: Int = Calendar(identifier: .gregorian).dateComponents([.month], from: Date()).month! //use +1 when checking with array
-    private var month_CounterCurrent: Int = 0 {
+    private var month_CounterCurrent: Int = Calendar(identifier: .gregorian).dateComponents([.month], from: Date()).month! {
         didSet {
             updateMonth()
         }
     }
-    
-    private static let year_LowerEnd: Int = 2000
-    private static let year_UpperEnd: Int = Calendar(identifier: .gregorian).dateComponents([.year], from: Date()).year!
-    private var year_CounterCurrent: Int = 2000 {
+
+    private var year_CounterCurrent: Int = Calendar(identifier: .gregorian).dateComponents([.year], from: Date()).year! {
         didSet {
             updateYear()
         }
@@ -47,7 +44,6 @@ class MonthViewAppointmentHistory: UIView {
                           animations: {
             self.monthLabel.text = MonthViewAppointmentHistory.monthArray[self.month_CounterCurrent]
         }, completion: nil)
-        
     }
     
     func updateYear() {
@@ -61,9 +57,6 @@ class MonthViewAppointmentHistory: UIView {
     
     static func instantiate() -> MonthViewAppointmentHistory {
         let view: MonthViewAppointmentHistory = initFromNib()
-        
-        view.month_CounterCurrent = MonthViewAppointmentHistory.month_UpperEnd
-        view.year_CounterCurrent = MonthViewAppointmentHistory.year_UpperEnd
         
         view.leftArrow.isUserInteractionEnabled = true
         view.leftArrow.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.decrementMonth)))
