@@ -45,6 +45,7 @@ class AppointmentHistoryViewController: UIViewController {
         view.addSubview(navTitle!)
         
         monthView = MonthViewAppointmentHistory.shared
+        monthView?.delegate = self
         view.addSubview(monthView!)
         monthView?.isUserInteractionEnabled = true
     }
@@ -74,4 +75,11 @@ class AppointmentHistoryViewController: UIViewController {
         self.dismiss(animated: true)
     }
 
+}
+
+extension AppointmentHistoryViewController: MonthViewAppointmentHistoryDelegate {
+    func didMonthChange(sender: MonthViewAppointmentHistory) {
+        print(monthView?.getMonth())
+        print(monthView?.getYear())
+    }
 }

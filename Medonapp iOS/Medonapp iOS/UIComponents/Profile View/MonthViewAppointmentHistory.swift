@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol MonthViewAppointmentHistoryDelegate: AnyObject {
+  func didMonthChange(sender: MonthViewAppointmentHistory)
+}
+
 class MonthViewAppointmentHistory: UIView {
     
     static let shared = MonthViewAppointmentHistory.instantiate()
+    
+    weak var delegate: MonthViewAppointmentHistoryDelegate?
     
     @IBOutlet private var monthLabel: UILabel!
     @IBOutlet private var yearLabel: UILabel!
@@ -20,6 +26,7 @@ class MonthViewAppointmentHistory: UIView {
     private var month_CounterCurrent: Int = Calendar(identifier: .gregorian).dateComponents([.month], from: Date()).month! {
         didSet {
             updateMonth()
+            delegate?.didMonthChange(sender: self)
         }
     }
 
@@ -86,6 +93,14 @@ class MonthViewAppointmentHistory: UIView {
         } else {
             MonthViewAppointmentHistory.shared.month_CounterCurrent += 1
         }
+    }
+    
+    func getMonth() -> Int {
+        return month_CounterCurrent
+    }
+    
+    func getYear() -> Int {
+        return year_CounterCurrent
     }
     
 }
