@@ -40,7 +40,6 @@ class ProfileViewViewController: UIViewController {
     func setupUI() {
         scrollView = UIScrollView()
         contentView = UIView()
-        contentView?.isUserInteractionEnabled = true
         
         view.addSubview(scrollView!)
         scrollView?.addSubview(contentView!)
@@ -81,8 +80,10 @@ class ProfileViewViewController: UIViewController {
         contentView?.addSubview(accountSettingsButton!)
         
         appointmentHistory = WhiteBackgroundButtonWithIcon()
-        appointmentHistory?.initButton(title: "Appointment History", icon: UIImage(named: "scheduleTabIcon"))
+        appointmentHistory?.initButton(title: "Appointment History", icon: UIImage(named: "historyIcon"))
         contentView?.addSubview(appointmentHistory!)
+        appointmentHistory?.addTarget(self, action: #selector(openAppointmentHistory), for: .touchUpInside)
+        appointmentHistory?.isUserInteractionEnabled = true
         
         privacyPolicyButton = WhiteBackgroundButtonWithIcon()
         privacyPolicyButton?.initButton(title: "Privacy Policy", icon: UIImage(named: "compassIcon"))
@@ -136,7 +137,7 @@ class ProfileViewViewController: UIViewController {
         backButton?.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         profileImageView?.centerXAnchor.constraint(equalTo: contentView!.centerXAnchor).isActive = true
-        profileImageView?.topAnchor.constraint(equalTo: contentView!.topAnchor, constant: 100).isActive = true
+        profileImageView?.topAnchor.constraint(equalTo: contentView!.topAnchor, constant: 70).isActive = true
         profileImageView?.heightAnchor.constraint(equalToConstant: 77).isActive = true
         profileImageView?.widthAnchor.constraint(equalToConstant: 77).isActive = true
         
@@ -150,7 +151,7 @@ class ProfileViewViewController: UIViewController {
         emailLabel?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 10).isActive = true
         emailLabel?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -10).isActive = true
         
-        accountSettingsButton?.topAnchor.constraint(equalTo: emailLabel!.bottomAnchor, constant: 40).isActive = true
+        accountSettingsButton?.topAnchor.constraint(equalTo: emailLabel!.bottomAnchor, constant: 30).isActive = true
         accountSettingsButton?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 20).isActive = true
         accountSettingsButton?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -20).isActive = true
         accountSettingsButton?.heightAnchor.constraint(equalToConstant: 70).isActive = true
@@ -175,7 +176,7 @@ class ProfileViewViewController: UIViewController {
         contactUsButton?.trailingAnchor.constraint(equalTo: accountSettingsButton!.trailingAnchor).isActive = true
         contactUsButton?.heightAnchor.constraint(equalTo: accountSettingsButton!.heightAnchor).isActive = true
         
-        logoutButton?.topAnchor.constraint(equalTo: contactUsButton!.bottomAnchor, constant: 75).isActive = true
+        logoutButton?.topAnchor.constraint(equalTo: contactUsButton!.bottomAnchor, constant: 30).isActive = true
         logoutButton?.centerXAnchor.constraint(equalTo: contentView!.centerXAnchor).isActive = true
         logoutButton?.heightAnchor.constraint(equalToConstant: 28).isActive = true
         logoutButton?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -20).isActive = true
@@ -184,6 +185,11 @@ class ProfileViewViewController: UIViewController {
     @objc func handleBackAction(_ sender: UITapGestureRecognizer? = nil) {
 //        navigationController?.popViewController(animated: true)
         self.dismiss(animated: true)
+    }
+    
+    @objc func openAppointmentHistory() {
+        let appointmentHistoryVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "appointmentHistoryVC") as? AppointmentHistoryViewController
+        self.present(appointmentHistoryVC!, animated: true)
     }
     
 }

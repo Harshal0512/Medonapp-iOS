@@ -25,10 +25,10 @@
             </objects>
             <point key="canvasLocation" x="82" y="-751"/>
         </scene>
-        <!--View Controller-->
+        <!--Appointment History View Controller-->
         <scene sceneID="gDX-zM-CjN">
             <objects>
-                <viewController id="OvG-07-vfa" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="appointmentHistoryVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="OvG-07-vfa" customClass="AppointmentHistoryViewController" customModule="Medonapp_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="imR-Od-u2a">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
