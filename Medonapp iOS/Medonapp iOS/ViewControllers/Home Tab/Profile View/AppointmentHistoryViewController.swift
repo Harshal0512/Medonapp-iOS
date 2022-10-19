@@ -25,6 +25,12 @@ class AppointmentHistoryViewController: UIViewController {
         setConstraints()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        monthView?.resetToToday()
+    }
+    
     func initialise() {
     }
     

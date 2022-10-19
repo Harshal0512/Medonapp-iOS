@@ -62,6 +62,11 @@ class MonthViewAppointmentHistory: UIView {
         }, completion: nil)
     }
     
+    func resetToToday() {
+        self.year_CounterCurrent = Calendar(identifier: .gregorian).dateComponents([.year], from: Date()).year!
+        self.month_CounterCurrent = Calendar(identifier: .gregorian).dateComponents([.month], from: Date()).month!
+    }
+    
     static func instantiate() -> MonthViewAppointmentHistory {
         let view: MonthViewAppointmentHistory = initFromNib()
         
