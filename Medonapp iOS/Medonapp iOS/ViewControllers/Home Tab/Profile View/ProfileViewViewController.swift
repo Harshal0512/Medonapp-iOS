@@ -16,6 +16,7 @@ class ProfileViewViewController: UIViewController {
     private var nameLabel: UILabel?
     private var emailLabel: UILabel?
     private var accountSettingsButton: WhiteBackgroundButtonWithIcon?
+    private var appointmentHistory: WhiteBackgroundButtonWithIcon?
     private var privacyPolicyButton: WhiteBackgroundButtonWithIcon?
     private var referAFriendButton: WhiteBackgroundButtonWithIcon?
     private var contactUsButton: WhiteBackgroundButtonWithIcon?
@@ -79,6 +80,10 @@ class ProfileViewViewController: UIViewController {
         accountSettingsButton?.initButton(title: "Account Settings", icon: UIImage(named: "accountSettingsIcon"))
         contentView?.addSubview(accountSettingsButton!)
         
+        appointmentHistory = WhiteBackgroundButtonWithIcon()
+        appointmentHistory?.initButton(title: "Appointment History", icon: UIImage(named: "scheduleTabIcon"))
+        contentView?.addSubview(appointmentHistory!)
+        
         privacyPolicyButton = WhiteBackgroundButtonWithIcon()
         privacyPolicyButton?.initButton(title: "Privacy Policy", icon: UIImage(named: "compassIcon"))
         contentView?.addSubview(privacyPolicyButton!)
@@ -105,6 +110,7 @@ class ProfileViewViewController: UIViewController {
         nameLabel?.translatesAutoresizingMaskIntoConstraints = false
         emailLabel?.translatesAutoresizingMaskIntoConstraints = false
         accountSettingsButton?.translatesAutoresizingMaskIntoConstraints = false
+        appointmentHistory?.translatesAutoresizingMaskIntoConstraints = false
         privacyPolicyButton?.translatesAutoresizingMaskIntoConstraints = false
         referAFriendButton?.translatesAutoresizingMaskIntoConstraints = false
         contactUsButton?.translatesAutoresizingMaskIntoConstraints = false
@@ -149,7 +155,12 @@ class ProfileViewViewController: UIViewController {
         accountSettingsButton?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -20).isActive = true
         accountSettingsButton?.heightAnchor.constraint(equalToConstant: 70).isActive = true
         
-        privacyPolicyButton?.topAnchor.constraint(equalTo: accountSettingsButton!.bottomAnchor, constant: 20).isActive = true
+        appointmentHistory?.topAnchor.constraint(equalTo: accountSettingsButton!.bottomAnchor, constant: 20).isActive = true
+        appointmentHistory?.leadingAnchor.constraint(equalTo: accountSettingsButton!.leadingAnchor).isActive = true
+        appointmentHistory?.trailingAnchor.constraint(equalTo: accountSettingsButton!.trailingAnchor).isActive = true
+        appointmentHistory?.heightAnchor.constraint(equalTo: accountSettingsButton!.heightAnchor).isActive = true
+        
+        privacyPolicyButton?.topAnchor.constraint(equalTo: appointmentHistory!.bottomAnchor, constant: 20).isActive = true
         privacyPolicyButton?.leadingAnchor.constraint(equalTo: accountSettingsButton!.leadingAnchor).isActive = true
         privacyPolicyButton?.trailingAnchor.constraint(equalTo: accountSettingsButton!.trailingAnchor).isActive = true
         privacyPolicyButton?.heightAnchor.constraint(equalTo: accountSettingsButton!.heightAnchor).isActive = true
