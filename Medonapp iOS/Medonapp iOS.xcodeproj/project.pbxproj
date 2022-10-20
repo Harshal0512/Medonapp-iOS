@@ -52,6 +52,7 @@
 		F86A71CD28EC9C4E0083D12D /* DPOTPView in Frameworks */ = {isa = PBXBuildFile; productRef = F86A71CC28EC9C4E0083D12D /* DPOTPView */; };
 		F86A71CF28EE9C970083D12D /* HomeTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86A71CE28EE9C970083D12D /* HomeTabViewController.swift */; };
 		F86A71D728EEAF7B0083D12D /* NunitoSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F86A71D628EEAF7B0083D12D /* NunitoSans-SemiBold.ttf */; };
+		F87559412901290C00863554 /* RatingHalfScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87559402901290C00863554 /* RatingHalfScreenViewController.swift */; };
 		F89272BC28F157520063525E /* TabForServices_VariableColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89272BB28F157510063525E /* TabForServices_VariableColor.swift */; };
 		F89272BE28F1AC7B0063525E /* ScheduleTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89272BD28F1AC7B0063525E /* ScheduleTabViewController.swift */; };
 		F89272C128F1AEA50063525E /* ScheduleTabTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89272BF28F1AEA50063525E /* ScheduleTabTableViewCell.swift */; };
@@ -126,6 +127,7 @@
 		F85D9C3728F33B6D008FBDE9 /* ReportTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportTabViewController.swift; sourceTree = "<group>"; };
 		F86A71CE28EE9C970083D12D /* HomeTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabViewController.swift; sourceTree = "<group>"; };
 		F86A71D628EEAF7B0083D12D /* NunitoSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-SemiBold.ttf"; sourceTree = "<group>"; };
+		F87559402901290C00863554 /* RatingHalfScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingHalfScreenViewController.swift; sourceTree = "<group>"; };
 		F89272BB28F157510063525E /* TabForServices_VariableColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabForServices_VariableColor.swift; sourceTree = "<group>"; };
 		F89272BD28F1AC7B0063525E /* ScheduleTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTabViewController.swift; sourceTree = "<group>"; };
 		F89272BF28F1AEA50063525E /* ScheduleTabTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTabTableViewCell.swift; sourceTree = "<group>"; };
@@ -357,6 +359,7 @@
 			children = (
 				F8B96C2E28F699EF009E5198 /* ProfileViewViewController.swift */,
 				F844C65C28FFCF0500BBE5B0 /* AppointmentHistoryViewController.swift */,
+				F87559402901290C00863554 /* RatingHalfScreenViewController.swift */,
 			);
 			path = "Profile View";
 			sourceTree = "<group>";
@@ -602,6 +605,7 @@
 				F8131B1428D5A09F00B7558D /* AppDelegate.swift in Sources */,
 				F8131B1628D5A09F00B7558D /* SceneDelegate.swift in Sources */,
 				F89272C128F1AEA50063525E /* ScheduleTabTableViewCell.swift in Sources */,
+				F87559412901290C00863554 /* RatingHalfScreenViewController.swift in Sources */,
 				F8B96C2F28F699EF009E5198 /* ProfileViewViewController.swift in Sources */,
 				F8C75A6428EA016E00F5B2E2 /* UIButtonVariableBackgroundVariableCR.swift in Sources */,
 				F81BAADD28F928BF0080BD21 /* BookAppointmentViewController.swift in Sources */,

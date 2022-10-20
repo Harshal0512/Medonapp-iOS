@@ -137,12 +137,22 @@ extension AppointmentHistoryViewController: UITableViewDelegate, UITableViewData
         } else  {
             cell.configure(doctorImage: UIImage(named: "cat")!, time: "12:30 PM", doctorName: "Dr Suryansh Sharma", designation: "Cardiologist", isFeedbackDue: false)
         }
-        
+        cell.delegate = self
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         scheduleTable?.scrollToRow(at: indexPath, at: .middle, animated: true)
         scheduleTable?.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension AppointmentHistoryViewController: AppointmentHistoryCellProtocol {
+    func feedbackButtonDidSelect() {
+        // Create the view controller.
+        let sheetViewController = RatingHalfScreenViewController()
+        
+        // Present it w/o any adjustments so it uses the default sheet presentation.
+        present(sheetViewController, animated: true)
     }
 }

@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol AppointmentHistoryCellProtocol {
+    func feedbackButtonDidSelect() //TODO: ADD APPOINTMENT OBJECT AS PARAMETER
+}
+
 class AppointmentHistoryTableViewCell: UITableViewCell {
     
     static let identifier = "AppointmentHistoryTableViewCell"
@@ -21,6 +25,8 @@ class AppointmentHistoryTableViewCell: UITableViewCell {
     @IBOutlet private var doctorName: UILabel!
     @IBOutlet private var designationLabel: UILabel!
     @IBOutlet private var feedbackButton: UIButton!
+    
+    var delegate: AppointmentHistoryCellProtocol!
     
     public func configure(doctorImage: UIImage, time: String, doctorName: String, designation: String, isFeedbackDue: Bool) {
         self.containerView.backgroundColor = UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00)
@@ -50,6 +56,7 @@ class AppointmentHistoryTableViewCell: UITableViewCell {
             self.feedbackButton.setTitleColor(UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00), for: .normal)
             self.feedbackButton.setImage(nil, for: .normal)
             self.feedbackButton.isUserInteractionEnabled = true
+            self.feedbackButton.addTarget(self, action: #selector(feedbackButtonClicked), for: .touchUpInside)
         case false:
             self.feedbackButton.backgroundColor = .clear
             self.feedbackButton.layer.borderWidth = 2
@@ -61,6 +68,10 @@ class AppointmentHistoryTableViewCell: UITableViewCell {
             self.feedbackButton.setImageTintColor(UIColor(red: 0.85, green: 0.65, blue: 0.13, alpha: 1.00))
             self.feedbackButton.isUserInteractionEnabled = false
         }
+    }
+    
+    @objc func feedbackButtonClicked() {
+        self.delegate.feedbackButtonDidSelect() //TODO: RETURN APPOINTMENT OBJECT CURRENTLY SELECTED
     }
 
     override func awakeFromNib() {
