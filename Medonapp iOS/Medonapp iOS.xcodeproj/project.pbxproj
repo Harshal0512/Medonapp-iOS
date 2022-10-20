@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		08F565BC217C9820C601B123 /* Pods_Medonapp_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F28C35CFE676567ACC6FCEAF /* Pods_Medonapp_iOS.framework */; };
+		F80C19832900F3A000891800 /* StarRatingStackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F80C19802900F39F00891800 /* StarRatingStackView.xib */; };
+		F80C19842900F3A000891800 /* JStarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80C19812900F39F00891800 /* JStarRatingView.swift */; };
+		F80C19852900F3A000891800 /* StarRatingStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80C19822900F3A000891800 /* StarRatingStackView.swift */; };
 		F8131B1428D5A09F00B7558D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8131B1328D5A09F00B7558D /* AppDelegate.swift */; };
 		F8131B1628D5A09F00B7558D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8131B1528D5A09F00B7558D /* SceneDelegate.swift */; };
 		F8131B1828D5A09F00B7558D /* LandingPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8131B1728D5A09F00B7558D /* LandingPageView.swift */; };
@@ -78,6 +81,9 @@
 		2D67C0FA0307CC5CE71984A1 /* Pods-Medonapp iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Medonapp iOS.release.xcconfig"; path = "Target Support Files/Pods-Medonapp iOS/Pods-Medonapp iOS.release.xcconfig"; sourceTree = "<group>"; };
 		E47870D81D93ADDBC656900F /* Pods-Medonapp iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Medonapp iOS.debug.xcconfig"; path = "Target Support Files/Pods-Medonapp iOS/Pods-Medonapp iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		F28C35CFE676567ACC6FCEAF /* Pods_Medonapp_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Medonapp_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F80C19802900F39F00891800 /* StarRatingStackView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StarRatingStackView.xib; sourceTree = "<group>"; };
+		F80C19812900F39F00891800 /* JStarRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JStarRatingView.swift; sourceTree = "<group>"; };
+		F80C19822900F3A000891800 /* StarRatingStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarRatingStackView.swift; sourceTree = "<group>"; };
 		F8131B1028D5A09F00B7558D /* Medonapp iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Medonapp iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8131B1328D5A09F00B7558D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F8131B1528D5A09F00B7558D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -166,6 +172,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F80C197F2900F38C00891800 /* Rating Control */ = {
+			isa = PBXGroup;
+			children = (
+				F80C19812900F39F00891800 /* JStarRatingView.swift */,
+				F80C19822900F3A000891800 /* StarRatingStackView.swift */,
+				F80C19802900F39F00891800 /* StarRatingStackView.xib */,
+			);
+			path = "Rating Control";
+			sourceTree = "<group>";
+		};
 		F8131B0728D5A09F00B7558D = {
 			isa = PBXGroup;
 			children = (
@@ -230,6 +246,7 @@
 		F8131B2928D5AACE00B7558D /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				F80C197F2900F38C00891800 /* Rating Control */,
 				F8C75A5C28E97EC100F5B2E2 /* UITextFieldWithPlaceholder_CR8.swift */,
 				F8C75A6328EA016E00F5B2E2 /* UIButtonVariableBackgroundVariableCR.swift */,
 				F859AB3328EC2FA10069D247 /* UITextViewWithPlaceholder_CR8.swift */,
@@ -484,6 +501,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F80C19832900F3A000891800 /* StarRatingStackView.xib in Resources */,
 				F8FB226028F7D9D4003B9173 /* TabViewInContactScreen.xib in Resources */,
 				F83CBC4D28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf in Resources */,
 				F8131B2028D5A0A000B7558D /* LaunchScreen.storyboard in Resources */,
@@ -571,6 +589,7 @@
 				F8FB225C28F7CB7A003B9173 /* ContactDoctorViewController.swift in Sources */,
 				F8AF822128F5CB4900D62D98 /* DoctorDetailsScreenTopView.swift in Sources */,
 				F8C75A5D28E97EC100F5B2E2 /* UITextFieldWithPlaceholder_CR8.swift in Sources */,
+				F80C19852900F3A000891800 /* StarRatingStackView.swift in Sources */,
 				F8C75A6228E98BEB00F5B2E2 /* Utils.swift in Sources */,
 				F8131B1428D5A09F00B7558D /* AppDelegate.swift in Sources */,
 				F8131B1628D5A09F00B7558D /* SceneDelegate.swift in Sources */,
@@ -586,6 +605,7 @@
 				F85D9C3528F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.swift in Sources */,
 				F8FB225E28F7D9C7003B9173 /* TabViewInContactScreen.swift in Sources */,
 				F844C65328FEB25300BBE5B0 /* ReportDetailsViewController.swift in Sources */,
+				F80C19842900F3A000891800 /* JStarRatingView.swift in Sources */,
 				F844C65928FF0E1700BBE5B0 /* ReportTableViewCell.swift in Sources */,
 				F82AA0F628F490B100C7CE7F /* DoctorInfoTableViewCell.swift in Sources */,
 				F89272BE28F1AC7B0063525E /* ScheduleTabViewController.swift in Sources */,
