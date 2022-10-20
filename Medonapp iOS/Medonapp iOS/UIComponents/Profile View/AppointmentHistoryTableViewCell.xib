@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="NunitoSans-Bold.ttf">
+            <string>NunitoSans-Bold</string>
+        </array>
+        <array key="NunitoSans-Regular.ttf">
+            <string>NunitoSans-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AppointmentHistoryTableViewCell" customModule="Medonapp_iOS" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AppointmentHistoryTableViewCell" id="KGk-i7-Jjw" customClass="AppointmentHistoryTableViewCell" customModule="Medonapp_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="340" height="180"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="340" height="180"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z73-Oi-h9Y">
+                        <rect key="frame" x="10" y="10" width="320" height="160"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Y4Y-6e-Uqr">
+                                <rect key="frame" x="15" y="25" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="BSM-1a-cf7"/>
+                                    <constraint firstAttribute="width" constant="60" id="s3l-FO-9Ms"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gex-km-rh6">
+                                <rect key="frame" x="90" y="25" width="215" height="20"/>
+                                <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dr. Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Abq-BS-lYy">
+                                <rect key="frame" x="90" y="46" width="220" height="26"/>
+                                <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="19"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wlP-pA-aL2">
+                                <rect key="frame" x="15" y="110" width="290" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="YwY-lw-dCf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="14"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dept" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fuk-eq-RSA">
+                                <rect key="frame" x="90" y="74" width="215" height="21"/>
+                                <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="fuk-eq-RSA" firstAttribute="leading" secondItem="Y4Y-6e-Uqr" secondAttribute="trailing" constant="15" id="B5f-gt-kcU"/>
+                            <constraint firstAttribute="bottom" secondItem="wlP-pA-aL2" secondAttribute="bottom" constant="10" id="Blg-ha-Kbn"/>
+                            <constraint firstItem="fuk-eq-RSA" firstAttribute="top" secondItem="Abq-BS-lYy" secondAttribute="bottom" constant="2" id="Gws-Sy-mX1"/>
+                            <constraint firstAttribute="trailing" secondItem="fuk-eq-RSA" secondAttribute="trailing" constant="15" id="HXf-oS-8Ca"/>
+                            <constraint firstItem="Y4Y-6e-Uqr" firstAttribute="leading" secondItem="z73-Oi-h9Y" secondAttribute="leading" constant="15" id="Ie4-O4-Ohy"/>
+                            <constraint firstItem="Abq-BS-lYy" firstAttribute="top" secondItem="gex-km-rh6" secondAttribute="bottom" constant="1" id="Jv4-ce-p6t"/>
+                            <constraint firstItem="gex-km-rh6" firstAttribute="top" secondItem="Y4Y-6e-Uqr" secondAttribute="top" id="OC6-s8-105"/>
+                            <constraint firstAttribute="trailing" secondItem="Abq-BS-lYy" secondAttribute="trailing" constant="10" id="TTl-VB-O6h"/>
+                            <constraint firstItem="wlP-pA-aL2" firstAttribute="top" secondItem="fuk-eq-RSA" secondAttribute="bottom" constant="15" id="UVF-HA-ruq"/>
+                            <constraint firstAttribute="trailing" secondItem="wlP-pA-aL2" secondAttribute="trailing" constant="15" id="YeI-gm-Jq7"/>
+                            <constraint firstAttribute="trailing" secondItem="gex-km-rh6" secondAttribute="trailing" constant="15" id="izk-6Y-ggN"/>
+                            <constraint firstItem="gex-km-rh6" firstAttribute="leading" secondItem="Y4Y-6e-Uqr" secondAttribute="trailing" constant="15" id="k0U-yj-I63"/>
+                            <constraint firstItem="wlP-pA-aL2" firstAttribute="leading" secondItem="z73-Oi-h9Y" secondAttribute="leading" constant="15" id="w0l-4R-WT3"/>
+                            <constraint firstItem="Y4Y-6e-Uqr" firstAttribute="top" secondItem="z73-Oi-h9Y" secondAttribute="top" constant="25" id="w3D-ub-Nx4"/>
+                            <constraint firstItem="Abq-BS-lYy" firstAttribute="leading" secondItem="Y4Y-6e-Uqr" secondAttribute="trailing" constant="15" id="zCd-dM-YmP"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="z73-Oi-h9Y" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="0IZ-9f-7Qc"/>
+                    <constraint firstItem="z73-Oi-h9Y" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="RWE-XA-qYD"/>
+                    <constraint firstAttribute="bottom" secondItem="z73-Oi-h9Y" secondAttribute="bottom" constant="10" id="Uqa-l1-uef"/>
+                    <constraint firstAttribute="trailing" secondItem="z73-Oi-h9Y" secondAttribute="trailing" constant="10" id="xky-n3-9Jc"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="containerView" destination="z73-Oi-h9Y" id="S1Z-Zk-kk6"/>
+                <outlet property="designationLabel" destination="fuk-eq-RSA" id="Xxl-hm-kgm"/>
+                <outlet property="doctorImage" destination="Y4Y-6e-Uqr" id="P7g-AO-dJO"/>
+                <outlet property="doctorName" destination="Abq-BS-lYy" id="yt4-d9-rmj"/>
+                <outlet property="feedbackButton" destination="wlP-pA-aL2" id="i8D-A4-iaZ"/>
+                <outlet property="timeLabel" destination="gex-km-rh6" id="BtY-tU-bDA"/>
+            </connections>
+            <point key="canvasLocation" x="131" y="-12"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
