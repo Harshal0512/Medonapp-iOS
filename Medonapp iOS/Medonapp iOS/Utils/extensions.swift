@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SkeletonView
 
 extension UIViewController {
     func dismissKeyboard() {
@@ -25,6 +26,10 @@ extension UIImageView {
         self.layer.cornerRadius = rad
         self.clipsToBounds = true
     }
+    
+    func addSkeleton() {
+        self.isSkeletonable = true
+    }
 }
 
 extension UIImage {
@@ -36,6 +41,13 @@ extension UIImage {
         let resizedImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return resizedImage
+    }
+}
+
+extension UILabel {
+    func addSkeleton() {
+        self.isSkeletonable = true
+        self.linesCornerRadius = 7
     }
 }
 

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 class HomeTabViewController: UIViewController {
     var scrollView: UIScrollView?
@@ -21,6 +22,9 @@ class HomeTabViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+//        contentView?.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
+//        contentView?.hideSkeleton(transition: .crossDissolve(0.25))
+        
         let tabBarItems = tabBarController?.tabBar.items!
         tabBarItems![0].image = UIImage(named: "homeTabIcon")?.resizeImageTo(size: CGSize(width: 40, height: 40))?.withTintColor(UIColor(red: 0.48, green: 0.55, blue: 0.62, alpha: 1.00))
         tabBarItems![0].selectedImage = UIImage(named: "homeTabIcon")?.resizeImageTo(size: CGSize(width: 40, height: 40))?.withTintColor(UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00))
@@ -53,6 +57,7 @@ class HomeTabViewController: UIViewController {
     func setupUI() {
         scrollView = UIScrollView()
         contentView = UIView()
+        contentView?.isSkeletonable = true
         
         view.addSubview(scrollView!)
         scrollView?.addSubview(contentView!)
@@ -62,12 +67,14 @@ class HomeTabViewController: UIViewController {
         helloTextLabel?.textColor = .black
         helloTextLabel?.font = UIFont(name: "NunitoSans-SemiBold", size: 16)
         contentView?.addSubview(helloTextLabel!)
+        helloTextLabel?.addSkeleton()
         
         welcomeWithNameLabel = UILabel()
         welcomeWithNameLabel?.text = "Harshal Kulkarni"
         welcomeWithNameLabel?.textColor = .black
         welcomeWithNameLabel?.font = UIFont(name: "NunitoSans-Bold", size: 27)
         contentView?.addSubview(welcomeWithNameLabel!)
+        welcomeWithNameLabel?.addSkeleton()
         
         profileImageView = UIImageView()
         profileImageView?.image = UIImage(named: "cat")
@@ -77,6 +84,7 @@ class HomeTabViewController: UIViewController {
         let profileImageTap = UITapGestureRecognizer(target: self, action: #selector(self.goToProfileScreen(_:)))
         profileImageView?.addGestureRecognizer(profileImageTap)
         profileImageView?.isUserInteractionEnabled = true
+        profileImageView?.addSkeleton()
         
         searchBar = SearchBarWithSearchAndFilterIcon()
         searchBar?.setPlaceholder(placeholder: "Search medical")
