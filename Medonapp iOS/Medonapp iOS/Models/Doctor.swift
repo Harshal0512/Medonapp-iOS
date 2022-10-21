@@ -77,7 +77,7 @@ class Doctor: Codable {
     }
     
     static func refreshDoctors(completionHandler: @escaping () -> ()) {
-        //Refresh Doctors from API
+        //TODO: Refresh Doctors from API
     }
     
     static func initDoctors(doctors: [Doctor]) {

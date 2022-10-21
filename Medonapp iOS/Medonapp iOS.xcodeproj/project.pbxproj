@@ -448,6 +448,7 @@
 			buildConfigurationList = F8131B2428D5A0A000B7558D /* Build configuration list for PBXNativeTarget "Medonapp iOS" */;
 			buildPhases = (
 				12DEC2BB5240995B4C181143 /* [CP] Check Pods Manifest.lock */,
+				F88515F32902579D00D0ED00 /* ShellScript */,
 				F8131B0C28D5A09F00B7558D /* Sources */,
 				F8131B0D28D5A09F00B7558D /* Frameworks */,
 				F8131B0E28D5A09F00B7558D /* Resources */,
@@ -579,6 +580,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Medonapp iOS/Pods-Medonapp iOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		F88515F32902579D00D0ED00 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nTAGS=\"TODO:|FIXME:\"\nERRORTAG=\"ERROR:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$|($ERRORTAG).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\" | perl -p -e \"s/($ERRORTAG)/ error: \\$1/\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
