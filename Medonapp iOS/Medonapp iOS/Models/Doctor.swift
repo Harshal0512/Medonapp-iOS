@@ -26,10 +26,11 @@ import Alamofire
 class Doctor: Codable {
     var id: Int?
     var credential: Credential?
-    var profileImagePath: String?
+    var profileImage: ProfileImage?
     var name: Name?
     var address: Address?
-    var mobile, gender, specialization: String?
+    var mobile: Mobile?
+    var gender, specialization: String?
     var experience: Int?
     var about: [String]?
     var fees: Int?
@@ -40,11 +41,11 @@ class Doctor: Codable {
     var appointmentDuration: String?
     var weekdayAppointmentSlots, weekendAppointmentSlots: [String]?
     var patientCount: Int?
-
-    init(id: Int?, credential: Credential?, profileImagePath: String?, name: Name?, address: Address?, mobile: String?, gender: String?, specialization: String?, experience: Int?, about: [String]?, fees: Int?, liveStatus: Bool?, avgRating: Int?, availableFromInWeekdays: String?, availableFromInWeekends: String?, maxAppointmentsInWeekdays: Int?, maxAppointmentsInWeekends: Int?, appointmentDuration: String?, weekdayAppointmentSlots: [String]?, weekendAppointmentSlots: [String]?, patientCount: Int?) {
+    
+    init(id: Int?, credential: Credential?, profileImage: ProfileImage?, name: Name?, address: Address?, mobile: Mobile?, gender: String?, specialization: String?, experience: Int?, about: [String]?, fees: Int?, liveStatus: Bool?, avgRating: Int?, availableFromInWeekdays: String?, availableFromInWeekends: String?, maxAppointmentsInWeekdays: Int?, maxAppointmentsInWeekends: Int?, appointmentDuration: String?, weekdayAppointmentSlots: [String]?, weekendAppointmentSlots: [String]?, patientCount: Int?) {
         self.id = id
         self.credential = credential
-        self.profileImagePath = profileImagePath
+        self.profileImage = profileImage
         self.name = name
         self.address = address
         self.mobile = mobile
@@ -142,6 +143,17 @@ class Credential: Codable {
 //     }
 //   }
 
+// MARK: - Mobile
+class Mobile: Codable {
+    var contactNumber, countryCode, contactNumberWithCountryCode: String?
+
+    init(contactNumber: String?, countryCode: String?, contactNumberWithCountryCode: String?) {
+        self.contactNumber = contactNumber
+        self.countryCode = countryCode
+        self.contactNumberWithCountryCode = contactNumberWithCountryCode
+    }
+}
+
 // MARK: - Name
 class Name: Codable {
     var firstName, middleName, lastName, fullName: String?
@@ -153,3 +165,35 @@ class Name: Codable {
         self.fullName = fullName
     }
 }
+
+//
+// To parse values from Alamofire responses:
+//
+//   Alamofire.request(url).responseProfileImage { response in
+//     if let profileImage = response.result.value {
+//       ...
+//     }
+//   }
+
+// MARK: - ProfileImage
+class ProfileImage: Codable {
+    var fileName, filePath: String?
+    var fileDownloadURI: String?
+    var fileType: String?
+    var fileSize: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case fileName, filePath
+        case fileDownloadURI = "fileDownloadUri"
+        case fileType, fileSize
+    }
+
+    init(fileName: String?, filePath: String?, fileDownloadURI: String?, fileType: String?, fileSize: Int?) {
+        self.fileName = fileName
+        self.filePath = filePath
+        self.fileDownloadURI = fileDownloadURI
+        self.fileType = fileType
+        self.fileSize = fileSize
+    }
+}
+
