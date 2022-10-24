@@ -18,7 +18,7 @@ class ProfileViewViewController: UIViewController {
     private var accountSettingsButton: WhiteBackgroundButtonWithIcon?
     private var appointmentHistory: WhiteBackgroundButtonWithIcon?
     private var privacyPolicyButton: WhiteBackgroundButtonWithIcon?
-    private var referAFriendButton: WhiteBackgroundButtonWithIcon?
+    private var contactAFriendButton: WhiteBackgroundButtonWithIcon?
     private var contactUsButton: WhiteBackgroundButtonWithIcon?
     private var logoutButton: UIImageView?
 
@@ -89,9 +89,9 @@ class ProfileViewViewController: UIViewController {
         privacyPolicyButton?.initButton(title: "Privacy Policy", icon: UIImage(named: "compassIcon"))
         contentView?.addSubview(privacyPolicyButton!)
         
-        referAFriendButton = WhiteBackgroundButtonWithIcon()
-        referAFriendButton?.initButton(title: "Refer a friend", icon: UIImage(named: "shareIcon"))
-        contentView?.addSubview(referAFriendButton!)
+        contactAFriendButton = WhiteBackgroundButtonWithIcon()
+        contactAFriendButton?.initButton(title: "Tell a friend", icon: UIImage(named: "shareIcon"))
+        contentView?.addSubview(contactAFriendButton!)
         
         contactUsButton = WhiteBackgroundButtonWithIcon()
         contactUsButton?.initButton(title: "Contact us", icon: UIImage(named: "headphoneIcon"))
@@ -113,7 +113,7 @@ class ProfileViewViewController: UIViewController {
         accountSettingsButton?.translatesAutoresizingMaskIntoConstraints = false
         appointmentHistory?.translatesAutoresizingMaskIntoConstraints = false
         privacyPolicyButton?.translatesAutoresizingMaskIntoConstraints = false
-        referAFriendButton?.translatesAutoresizingMaskIntoConstraints = false
+        contactAFriendButton?.translatesAutoresizingMaskIntoConstraints = false
         contactUsButton?.translatesAutoresizingMaskIntoConstraints = false
         logoutButton?.translatesAutoresizingMaskIntoConstraints = false
         
@@ -166,12 +166,12 @@ class ProfileViewViewController: UIViewController {
         privacyPolicyButton?.trailingAnchor.constraint(equalTo: accountSettingsButton!.trailingAnchor).isActive = true
         privacyPolicyButton?.heightAnchor.constraint(equalTo: accountSettingsButton!.heightAnchor).isActive = true
         
-        referAFriendButton?.topAnchor.constraint(equalTo: privacyPolicyButton!.bottomAnchor, constant: 20).isActive = true
-        referAFriendButton?.leadingAnchor.constraint(equalTo: accountSettingsButton!.leadingAnchor).isActive = true
-        referAFriendButton?.trailingAnchor.constraint(equalTo: accountSettingsButton!.trailingAnchor).isActive = true
-        referAFriendButton?.heightAnchor.constraint(equalTo: accountSettingsButton!.heightAnchor).isActive = true
+        contactAFriendButton?.topAnchor.constraint(equalTo: privacyPolicyButton!.bottomAnchor, constant: 20).isActive = true
+        contactAFriendButton?.leadingAnchor.constraint(equalTo: accountSettingsButton!.leadingAnchor).isActive = true
+        contactAFriendButton?.trailingAnchor.constraint(equalTo: accountSettingsButton!.trailingAnchor).isActive = true
+        contactAFriendButton?.heightAnchor.constraint(equalTo: accountSettingsButton!.heightAnchor).isActive = true
         
-        contactUsButton?.topAnchor.constraint(equalTo: referAFriendButton!.bottomAnchor, constant: 20).isActive = true
+        contactUsButton?.topAnchor.constraint(equalTo: contactAFriendButton!.bottomAnchor, constant: 20).isActive = true
         contactUsButton?.leadingAnchor.constraint(equalTo: accountSettingsButton!.leadingAnchor).isActive = true
         contactUsButton?.trailingAnchor.constraint(equalTo: accountSettingsButton!.trailingAnchor).isActive = true
         contactUsButton?.heightAnchor.constraint(equalTo: accountSettingsButton!.heightAnchor).isActive = true
