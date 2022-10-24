@@ -153,6 +153,8 @@ extension AppointmentHistoryViewController: AppointmentHistoryCellProtocol {
         let sheetViewController = RatingHalfScreenViewController()
         
         // Present it w/o any adjustments so it uses the default sheet presentation.
-        present(sheetViewController, animated: true)
+        present(sheetViewController, animated: true) {
+            sheetViewController.isModalInPresentation = true
+        }
     }
 }
