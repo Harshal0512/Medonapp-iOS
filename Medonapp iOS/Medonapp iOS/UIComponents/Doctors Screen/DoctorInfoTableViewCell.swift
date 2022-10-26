@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class DoctorInfoTableViewCell: UITableViewCell {
 
@@ -20,15 +21,27 @@ class DoctorInfoTableViewCell: UITableViewCell {
     @IBOutlet private var designation: UILabel!
     @IBOutlet private var rating: UILabel!
     @IBOutlet private var numberOfReviews: UILabel!
+    
+    private var imageLink: String = ""
 
-    public func configure(doctorImage: UIImage, doctorName: String, designation: String, rating: Float, numberOfReviews: Int) {
-        self.doctorImage.image = doctorImage
+    public func configure(doctor: Doctor) {
+        imageLink = doctor.profileImage?.fileDownloadURI ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg"
+        KF.url(URL(string: imageLink))
+            .placeholder(UIImage(named: "doctorPlaceholder"))
+            .loadDiskFileSynchronously()
+            .cacheMemoryOnly()
+            .fade(duration: 0.25)
+            .onProgress { receivedSize, totalSize in }
+            .onSuccess { result in }
+            .onFailure { error in }
+            .set(to: self.doctorImage)
+        
         self.doctorImage.layer.cornerRadius = 26
         self.doctorImage.contentMode = .scaleAspectFill
-        self.doctorName.text = doctorName
-        self.designation.text = designation
-        self.rating.text = "\(rating)"
-        self.numberOfReviews.text = "\(numberOfReviews) reviews"
+        self.doctorName.text = (doctor.name?.firstName ?? "") + " " + (doctor.name?.lastName ?? "")
+        self.designation.text = doctor.specialization ?? ""
+        self.rating.text = "\(doctor.avgRating ?? 0)"
+        self.numberOfReviews.text = "\(0) reviews"
         
         self.doctorName.textColor = .black
         self.designation.textColor = UIColor(red: 0.29, green: 0.33, blue: 0.37, alpha: 1.00)

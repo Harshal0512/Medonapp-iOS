@@ -21,6 +21,8 @@ class DoctorDetailsViewViewController: UIViewController {
     private var aboutLabel: UILabel?
     private var aboutDescription: UILabel?
     private var bookNowButton: UIButtonVariableBackgroundVariableCR?
+    
+    public var doctor: Doctor?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,13 +35,15 @@ class DoctorDetailsViewViewController: UIViewController {
         initialise()
         setupUI()
         setConstraints()
+        
+        setAboutLabelText()
     }
     
     func initialise() {
     }
     
     func setupUI() {
-        topView = DoctorDetailsScreenTopView.instantiate(doctorImage: UIImage(named: "cat")!, doctorName: "Dr. Suryansh Sharma", doctorDesignation: "Cardiologist at Apollo Hospital")
+        topView = DoctorDetailsScreenTopView.instantiate(doctor: self.doctor!)
         view.addSubview(topView!)
         
         backButton = UIImageView()
@@ -71,13 +75,13 @@ class DoctorDetailsViewViewController: UIViewController {
         view.addSubview(scrollView!)
         scrollView?.addSubview(contentView!)
         
-        patientsGreyView = GreyViewDoctorDetails.instantiate(title: "Patients", metrics: "100+")
+        patientsGreyView = GreyViewDoctorDetails.instantiate(title: "Patients", metrics: "\(doctor?.patientCount ?? 0)")
         contentView?.addSubview(patientsGreyView!)
         
-        experienceGreyView = GreyViewDoctorDetails.instantiate(title: "Exp.", metrics: "10 yr")
+        experienceGreyView = GreyViewDoctorDetails.instantiate(title: "Exp.", metrics: "\(doctor?.experience ?? 0)")
         contentView?.addSubview(experienceGreyView!)
         
-        ratingsGreyView = GreyViewDoctorDetails.instantiate(title: "Rating", metrics: "4.67")
+        ratingsGreyView = GreyViewDoctorDetails.instantiate(title: "Rating", metrics: "\(doctor?.avgRating ?? 0)")
         contentView?.addSubview(ratingsGreyView!)
         
         aboutLabel = UILabel()
@@ -87,15 +91,7 @@ class DoctorDetailsViewViewController: UIViewController {
         contentView?.addSubview(aboutLabel!)
         
         aboutDescription = UILabel()
-        aboutDescription?.text =
-        """
-        MBBS, Ph.D., Fellow, International College of Surgeons.
-        
-        Ex- Professor & Head of Department
-        Department of Neurosurgery
-        Dhaka Medical College & Hospital
-        
-        """
+        aboutDescription?.text = ""
         aboutDescription?.textColor = UIColor(red: 0.29, green: 0.33, blue: 0.37, alpha: 1.00)
         aboutDescription?.numberOfLines = 0
         aboutDescription?.textColor = .black
@@ -194,15 +190,24 @@ class DoctorDetailsViewViewController: UIViewController {
     @objc func handleAnchorTapAction(_ sender: UITapGestureRecognizer? = nil) {
         // Create the view controller.
         let sheetViewController = ContactDoctorViewController()
-        
+        sheetViewController.doctor = self.doctor
         // Present it w/o any adjustments so it uses the default sheet presentation.
         present(sheetViewController, animated: true)
     }
     
     @objc func bookNowButtonPressed() {
         let appointmentDetailsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "appointmentDetailsVC") as? AppointmentDetailsViewController
+        appointmentDetailsVC?.doctor = self.doctor
 //        doctorsScreenVC?.modalPresentationStyle = .fullScreen
 //        self.present(doctorsScreenVC!, animated: true, completion: nil)
         self.navigationController?.pushViewController(appointmentDetailsVC!, animated: true)
+    }
+    
+    func setAboutLabelText() {
+        var text: String = ""
+        for line in (doctor?.about ?? [""]) {
+            text += line + "\n"
+        }
+        aboutDescription?.text = text
     }
 }

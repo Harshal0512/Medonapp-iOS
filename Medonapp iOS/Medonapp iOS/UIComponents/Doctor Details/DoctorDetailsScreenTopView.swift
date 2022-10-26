@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class DoctorDetailsScreenTopView: UIView {
 
@@ -14,6 +15,8 @@ class DoctorDetailsScreenTopView: UIView {
     @IBOutlet weak var doctorImage: UIImageView!
     @IBOutlet weak var doctorNameLabel: UILabel!
     @IBOutlet weak var doctorDesignationLabel: UILabel!
+    
+    var imageLink: String = ""
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -24,7 +27,7 @@ class DoctorDetailsScreenTopView: UIView {
         super.init(frame: frame)
     }
     
-    static func instantiate(doctorImage: UIImage, doctorName: String, doctorDesignation: String) -> DoctorDetailsScreenTopView {
+    static func instantiate(doctor: Doctor) -> DoctorDetailsScreenTopView {
         let view: DoctorDetailsScreenTopView = initFromNib()
         
         view.innerContainerView.layer.cornerRadius = 28
@@ -32,10 +35,19 @@ class DoctorDetailsScreenTopView: UIView {
 
         view.doctorImage.layer.cornerRadius = 26
         view.doctorImage.contentMode = .scaleAspectFill
-        view.doctorImage.image = doctorImage
+        view.imageLink = doctor.profileImage?.fileDownloadURI ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg"
+        KF.url(URL(string: view.imageLink))
+            .placeholder(UIImage(named: "doctorPlaceholder"))
+            .loadDiskFileSynchronously()
+            .cacheMemoryOnly()
+            .fade(duration: 0.25)
+            .onProgress { receivedSize, totalSize in  }
+            .onSuccess { result in  }
+            .onFailure { error in }
+            .set(to: view.doctorImage)
         
-        view.doctorNameLabel.text = doctorName
-        view.doctorDesignationLabel.text = doctorDesignation
+        view.doctorNameLabel.text = (doctor.name?.firstName ?? "") + " " + (doctor.name?.lastName ?? "")
+        view.doctorDesignationLabel.text = doctor.specialization ?? ""
         view.doctorDesignationLabel.textColor = UIColor(red: 0.29, green: 0.33, blue: 0.37, alpha: 1.00)
         return view
     }

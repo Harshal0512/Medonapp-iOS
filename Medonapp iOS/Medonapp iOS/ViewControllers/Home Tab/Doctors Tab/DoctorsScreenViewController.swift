@@ -7,7 +7,9 @@
 
 import UIKit
 
-class DoctorsScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
+class DoctorsScreenViewController: UIViewController {
+    
+    public var doctors: [Doctor] = []
     
     private var backButton: UIImageView?
     private var navTitle: UILabel?
@@ -17,7 +19,7 @@ class DoctorsScreenViewController: UIViewController, UITableViewDelegate, UITabl
     private var popularDoctorsLabel: UILabel?
     var doctorsTable: UITableView?
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,7 +29,7 @@ class DoctorsScreenViewController: UIViewController, UITableViewDelegate, UITabl
         navigationController?.isNavigationBarHidden = true
         
         self.dismissKeyboard()
-
+        
         initialise()
         setupUI()
         setConstraints()
@@ -39,6 +41,19 @@ class DoctorsScreenViewController: UIViewController, UITableViewDelegate, UITabl
         doctorsTable?.register(DoctorInfoTableViewCell.nib(), forCellReuseIdentifier: DoctorInfoTableViewCell.identifier)
         doctorsTable?.delegate = self
         doctorsTable?.dataSource = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let selectedIndexPath = doctorsTable?.indexPathForSelectedRow {
+            doctorsTable?.deselectRow(at: selectedIndexPath, animated: animated)
+        }
+        if let selectedIndexPath = doctorsCollectionView?.indexPathsForSelectedItems?.first {
+            doctorsCollectionView?.deselectItem(at: selectedIndexPath, animated: true)
+        }
+        
+        refreshData()
     }
     
     func initialise() {
@@ -81,6 +96,8 @@ class DoctorsScreenViewController: UIViewController, UITableViewDelegate, UITabl
         view.addSubview(doctorsCollectionView!)
         doctorsCollectionView?.showsHorizontalScrollIndicator = false
         doctorsCollectionView?.showsVerticalScrollIndicator = false
+        
+        //TODO: Hide Collection view and label if empty
         
         popularDoctorsLabel = UILabel()
         popularDoctorsLabel?.text = "Popular Doctors"
@@ -140,36 +157,30 @@ class DoctorsScreenViewController: UIViewController, UITableViewDelegate, UITabl
         navigationController?.popViewController(animated: true)
     }
     
-    
-    //MARK: Collection View Methods
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DoctorsScreenCarouselCollectionViewCell.identifier, for: indexPath) as! DoctorsScreenCarouselCollectionViewCell
-        cell.configure(doctorImage: UIImage(named: "cat")!)
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        doctorsCollectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-        refreshCollectionView()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            let doctorsDetailsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "doctorsDetailsVC") as? DoctorDetailsViewViewController
-            self.navigationController?.pushViewController(doctorsDetailsVC!, animated: true)
-            collectionView.deselectItem(at: indexPath, animated: true)
+    @objc func refreshData() {
+        Doctor.refreshDoctors { isSuccess in
+            self.doctors = Doctor.getDoctors()
+            print(self.doctors.count)
+            let range = NSMakeRange(0, self.doctorsTable!.numberOfSections)
+            let sections = NSIndexSet(indexesIn: range)
+            self.doctorsTable!.reloadSections(sections as IndexSet, with: .automatic)
+//            self.refreshControl.endRefreshing()
         }
     }
     
-    func refreshCollectionView() {
-        doctorsCollectionView?.reloadData()
+}
+
+extension DoctorsScreenViewController : UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
+}
+
+extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSource {
     
-    //MARK: Table View Methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return doctors.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -179,7 +190,7 @@ class DoctorsScreenViewController: UIViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tableCell = tableView.dequeueReusableCell(withIdentifier: DoctorInfoTableViewCell.identifier, for: indexPath) as! DoctorInfoTableViewCell
         
-        tableCell.configure(doctorImage: UIImage(named: "cat")!, doctorName: "Dr. Suryansh Sharma", designation: "Cardiologist at Apollo Hospital", rating: 4.5, numberOfReviews: 17)
+        tableCell.configure(doctor: doctors[indexPath.row])
         return tableCell
     }
     
@@ -189,20 +200,41 @@ class DoctorsScreenViewController: UIViewController, UITableViewDelegate, UITabl
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             let doctorsDetailsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "doctorsDetailsVC") as? DoctorDetailsViewViewController
+            doctorsDetailsVC?.doctor = self.doctors[indexPath.row]
             self.navigationController?.pushViewController(doctorsDetailsVC!, animated: true)
-            tableView.deselectRow(at: indexPath, animated: true)
         }
     }
     
     func refreshTableView() {
         doctorsTable?.reloadData()
     }
-    
 }
 
-extension DoctorsScreenViewController : UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return false
+extension DoctorsScreenViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return doctors.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DoctorsScreenCarouselCollectionViewCell.identifier, for: indexPath) as! DoctorsScreenCarouselCollectionViewCell
+        
+        cell.configure(doctor: doctors[indexPath.row])
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        doctorsCollectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        refreshCollectionView()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            let doctorsDetailsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "doctorsDetailsVC") as? DoctorDetailsViewViewController
+            doctorsDetailsVC?.doctor = self.doctors[indexPath.row]
+            self.navigationController?.pushViewController(doctorsDetailsVC!, animated: true)
+        }
+    }
+    
+    func refreshCollectionView() {
+        doctorsCollectionView?.reloadData()
     }
 }

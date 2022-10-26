@@ -17,6 +17,8 @@ class ContactDoctorViewController: UIViewController, MFMailComposeViewController
     private var whatsappTab: TabViewInContactScreen?
     private var shareButton: UIButtonVariableBackgroundVariableCR?
     
+    public var doctor: Doctor?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -137,13 +139,13 @@ class ContactDoctorViewController: UIViewController, MFMailComposeViewController
     }
     
     @objc func handleCallAction() {
-        Utils.dialNumber(number: "+919993299444")
+        Utils.dialNumber(number: doctor!.mobile!.contactNumberWithCountryCode!)
     }
     
     @objc func handleMailAction() {
         // Modify following variables with your text / recipient
-        let recipientEmail = "test@email.com"
-        let subject = "Send Email to Doctor"
+        let recipientEmail = doctor!.credential!.email!
+        let subject = "Email from Medonapp user"
         let body = """
         Greetings Doctor,
         
@@ -171,6 +173,6 @@ class ContactDoctorViewController: UIViewController, MFMailComposeViewController
     }
     
     @objc func handleWhatsAppAction() {
-        Utils.openWhatsApp(numberWithCountryCode: "+918982092922")
+        Utils.openWhatsApp(numberWithCountryCode: doctor!.mobile!.contactNumberWithCountryCode!)
     }
 }

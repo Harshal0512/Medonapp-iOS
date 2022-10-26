@@ -76,8 +76,18 @@ class Doctor: Codable {
         doctors = []
     }
     
-    static func refreshDoctors(completionHandler: @escaping () -> ()) {
-        //TODO: Refresh Doctors from API
+    static func refreshDoctors(completionHandler: @escaping (Bool) -> ()) {
+        APIService(data: [:], headers: ["Authorization" : "Bearer \(token)"], url: nil, service: .getAllDoctors, method: .get, isJSONRequest: false).executeQuery() { (result: Result<[Doctor], Error>) in
+            switch result{
+            case .success(let post):
+                try? Doctor.initDoctors(doctors: result.get())
+                completionHandler(true)
+                print(post)
+            case .failure(let error):
+                print(error)
+                completionHandler(false)
+            }
+        }
     }
     
     static func initDoctors(doctors: [Doctor]) {

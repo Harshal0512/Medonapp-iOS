@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class AppointmentDetailsViewController: UIViewController, UITextViewDelegate {
     
@@ -22,6 +23,8 @@ class AppointmentDetailsViewController: UIViewController, UITextViewDelegate {
     private var symptomsLabel: UILabel?
     private var symptomsTextView: UITextViewWithPlaceholder_CR8?
     private var bookNowButton: UIButtonVariableBackgroundVariableCR?
+    
+    public var doctor: Doctor?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +51,7 @@ class AppointmentDetailsViewController: UIViewController, UITextViewDelegate {
         backButton?.addGestureRecognizer(backTap)
         backButton?.isUserInteractionEnabled = true
         
-        priceLabel = PriceDisplayViewAppointmentDetails.instantiate(price: "500")
+        priceLabel = PriceDisplayViewAppointmentDetails.instantiate(price: "\(doctor!.fees ?? 0)")
         view?.addSubview(priceLabel!)
         
         scrollView = UIScrollView()
@@ -58,13 +61,21 @@ class AppointmentDetailsViewController: UIViewController, UITextViewDelegate {
         scrollView?.addSubview(contentView!)
         
         doctorImage = UIImageView()
-        doctorImage?.image = UIImage(named: "cat")
+        KF.url(URL(string: (doctor?.profileImage?.fileDownloadURI ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg")))
+            .placeholder(UIImage(named: "doctorPlaceholder"))
+            .loadDiskFileSynchronously()
+            .cacheMemoryOnly()
+            .fade(duration: 0.25)
+            .onProgress { receivedSize, totalSize in  }
+            .onSuccess { result in  }
+            .onFailure { error in }
+            .set(to: self.doctorImage!)
         doctorImage?.contentMode = .scaleAspectFill
         doctorImage?.makeRoundCorners(byRadius: 26)
         contentView?.addSubview(doctorImage!)
         
         doctorName = UILabel()
-        doctorName?.text = "Dr. Suryansh Sharma"
+        doctorName?.text = (doctor?.name?.firstName ?? "") + " " + (doctor?.name?.lastName ?? "")
         doctorName?.numberOfLines = 1
         doctorName?.font = UIFont(name: "NunitoSans-Bold", size: 22)
         doctorName?.textColor = .black
@@ -72,7 +83,7 @@ class AppointmentDetailsViewController: UIViewController, UITextViewDelegate {
         contentView?.addSubview(doctorName!)
         
         designation = UILabel()
-        designation?.text = "Cardiologist at Apollo Hospital"
+        designation?.text = doctor!.specialization!
         designation?.numberOfLines = 1
         designation?.font = UIFont(name: "NunitoSans-Regular", size: 14)
         designation?.textColor = UIColor(red: 0.48, green: 0.55, blue: 0.62, alpha: 1.00)
@@ -85,14 +96,14 @@ class AppointmentDetailsViewController: UIViewController, UITextViewDelegate {
         contentView?.addSubview(starIcon!)
         
         ratingLabel = UILabel()
-        ratingLabel?.text = "4.5"
+        ratingLabel?.text = "\(doctor?.avgRating ?? 0)"
         ratingLabel?.textColor = .black
         ratingLabel?.textAlignment = .center
         ratingLabel?.font = UIFont(name: "NunitoSans-Bold", size: 16)
         contentView?.addSubview(ratingLabel!)
         
         numberOfReviews = UILabel()
-        numberOfReviews?.text = "(17 reviews)"
+        numberOfReviews?.text = "(0 reviews)"
         numberOfReviews?.textColor = UIColor(red: 0.29, green: 0.33, blue: 0.37, alpha: 1.00)
         numberOfReviews?.font = UIFont(name: "NunitoSans-Regular", size: 14)
         contentView?.addSubview(numberOfReviews!)
