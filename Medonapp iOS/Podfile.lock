@@ -3,18 +3,21 @@ PODS:
   - Kingfisher (7.3.2)
   - SkeletonView (1.30.4)
   - SwiftValidator (4.0.0)
+  - Toast-Swift (5.0.1)
 
 DEPENDENCIES:
   - Alamofire
   - Kingfisher (~> 7.0)
   - SkeletonView
   - SwiftValidator (from `https://github.com/jpotts18/SwiftValidator.git`, tag `4.2.0`)
+  - Toast-Swift (~> 5.0.1)
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - Kingfisher
     - SkeletonView
+    - Toast-Swift
 
 EXTERNAL SOURCES:
   SwiftValidator:
@@ -31,7 +34,8 @@ SPEC CHECKSUMS:
   Kingfisher: 0086ad83719761ba9b2cdaf6ef4d5b4878cbae23
   SkeletonView: 5a050f6411e697abd4cda0a8d767013399dccd69
   SwiftValidator: 249b6b3ae3b294266c5b9de134d94f18f2d5aa47
+  Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: dc54e335d7ac6a15301bda29586660059b98ae25
+PODFILE CHECKSUM: 545f32869ca750a89f375bc8e3bdbae670f13c3f
 
 COCOAPODS: 1.11.3

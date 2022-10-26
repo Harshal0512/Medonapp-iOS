@@ -27,7 +27,7 @@ class Doctor: Codable {
     var credential: Credential?
     var profileImage: ProfileImage?
     var name: NameInclMiddleName?
-    var address: Address?
+    var address: FullAddress?
     var mobile: MobileWithCountryCode?
     var gender, specialization: String?
     var experience: Double?
@@ -42,7 +42,7 @@ class Doctor: Codable {
     var patientCount: Int?
     var reviewCount: Int?
     
-    init(id: Int?, credential: Credential?, profileImage: ProfileImage?, name: NameInclMiddleName?, address: Address?, mobile: MobileWithCountryCode?, gender: String?, specialization: String?, experience: Double?, about: [String]?, fees: Double?, liveStatus: Bool?, avgRating: Double?, availableFromInWeekdays: String?, availableFromInWeekends: String?, maxAppointmentsInWeekdays: Int?, maxAppointmentsInWeekends: Int?, appointmentDuration: String?, weekdayAppointmentSlots: [String]?, weekendAppointmentSlots: [String]?, patientCount: Int?, reviewCount: Int?) {
+    init(id: Int?, credential: Credential?, profileImage: ProfileImage?, name: NameInclMiddleName?, address: FullAddress?, mobile: MobileWithCountryCode?, gender: String?, specialization: String?, experience: Double?, about: [String]?, fees: Double?, liveStatus: Bool?, avgRating: Double?, availableFromInWeekdays: String?, availableFromInWeekends: String?, maxAppointmentsInWeekdays: Int?, maxAppointmentsInWeekends: Int?, appointmentDuration: String?, weekdayAppointmentSlots: [String]?, weekendAppointmentSlots: [String]?, patientCount: Int?, reviewCount: Int?) {
         self.id = id
         self.credential = credential
         self.profileImage = profileImage

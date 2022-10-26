@@ -9,6 +9,7 @@ import UIKit
 import SwiftValidator
 import DPOTPView
 import iOSDropDown
+import Toast_Swift
 
 enum views {
     case login
@@ -76,6 +77,7 @@ class LoginSignUpViewController: UIViewController {
     //otp verification
     var otpDetailsLabel: UILabel?
     var txtOTPView: DPOTPView?
+    private var otpFromServer: String = ""
     
     var signupContinueButton: UIButtonVariableBackgroundVariableCR?
     var progressBarTopConstraint: NSLayoutConstraint?
@@ -427,6 +429,7 @@ class LoginSignUpViewController: UIViewController {
         
         txtOTPView = DPOTPView()
         txtOTPView?.placeholder = "...."
+        txtOTPView?.dpOTPViewDelegate = self
         txtOTPView?.count = 4
         txtOTPView?.spacing = 15
         txtOTPView?.fontTextField = UIFont(name: "NunitoSans-ExtraBold", size: CGFloat(20.0))!
@@ -711,10 +714,13 @@ class LoginSignUpViewController: UIViewController {
         clearAllErrors()
         validator.validate(self)
         if !isValidationError {
+            self.view.hideAllToasts()
+            self.view.makeToastActivity(.center)
             APIService(data: ["username": emailTextFieldLogin!.text!, "password": passwordTextField!.text!], url: nil, service: .login, method: .post, isJSONRequest: true).executeQuery() { (result: Result<User, Error>) in
                 switch result{
                 case .success(let post):
                     try? User.setUserDetails(userDetails: result.get())
+                    self.view.hideToastActivity()
                     UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
                         self.dismiss(animated: true) {
                             NotificationCenter.default.post(name: Notification.Name("goToDashboard"), object: nil)
@@ -723,7 +729,8 @@ class LoginSignUpViewController: UIViewController {
                     print(post)
                 case .failure(let error):
                     print(error)
-                    //TODO: ADD ERROR FOR LOGIN FAILURE
+                    self.view.hideToastActivity()
+                    self.view.makeToast("Please enter correct email and/or password.", duration: 6.0, title: "Incorrect Details", image: UIImage(named: "AppIcon"), completion: nil)
                 }
             }
         }
@@ -802,6 +809,7 @@ class LoginSignUpViewController: UIViewController {
                 self.stateField?.alpha = 0
                 self.cityLabel?.alpha = 0
                 self.cityField?.alpha = 0
+                self.signupContinueButton?.alpha = 0
             }, completion: {
                 (finished: Bool) -> Void in
                 self.pageTitle?.text = "You’re all set"
@@ -816,20 +824,7 @@ class LoginSignUpViewController: UIViewController {
             validator.unregisterField(addressTextView!)
             validator.unregisterField(stateField!)
             validator.unregisterField(cityField!)
-        } else if !isValidationError && activeView == .signupOtpVerification {
-            UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
-                self.progressBar?.setProgress(0.87, animated: true)
-            }, completion: {
-                (finished: Bool) -> Void in
-                self.pageTitle?.text = "You’re all set"
-                UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
-                    self.dismiss(animated: true) {
-                        NotificationCenter.default.post(name: Notification.Name("goToDashboard"), object: nil)
-                    }
-                }, completion: nil)
-            })
         }
-        
         
     }
     
@@ -1019,6 +1014,17 @@ class LoginSignUpViewController: UIViewController {
             progressBarTopConstraint?.isActive = true
             
             self.activeView = .signupOtpVerification
+            
+            APIService(data: ["username": emailTextFieldSignUp!.text!, "password": ""], url: nil, service: .sendOtp, method: .post, isJSONRequest: true).executeQuery() { (result: Result<Int, Error>) in
+                switch result{
+                case .success(_):
+                    try? print(result.get())
+                    try? self.otpFromServer = "\(result.get())"
+                case .failure(let error):
+                    print(error)
+                }
+            }
+            
             break
         }
     }
@@ -1082,22 +1088,79 @@ extension LoginSignUpViewController : UITextFieldDelegate, DPOTPViewDelegate, Va
     }
     
     func dpOTPViewAddText(_ text: String, at position: Int) {
-         print("addText:- " + text + " at:- \(position)" )
-     }
-     
-     func dpOTPViewRemoveText(_ text: String, at position: Int) {
-         print("removeText:- " + text + " at:- \(position)" )
-     }
-     
-     func dpOTPViewChangePositionAt(_ position: Int) {
-         print("at:-\(position)")
-     }
-     func dpOTPViewBecomeFirstResponder() {
-         
-     }
-     func dpOTPViewResignFirstResponder() {
-         
-     }
+        if text == otpFromServer {
+            self.view.hideAllToasts()
+            self.view.makeToastActivity(.center)
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+                self.progressBar?.setProgress(0.1, animated: true)
+            }, completion: {
+                (finished: Bool) -> Void in
+            })
+            var dob = dobPicker!.date
+            // Convert model to JSON data
+            var model = SignUpModel(credential:
+                                CredentialShort(email: emailTextFieldSignUp!.text!,
+                                                password: choosePasswordTextField!.text!),
+                            name:
+                                NameExclMiddleName(firstName: firstNameField!.text!,
+                                                   lastName: lastNameField!.text!),
+                            address: Address(address: addressTextView!.text!,
+                                             state: stateField!.text!,
+                                             city: cityField!.text!,
+                                             postalCode: ""),
+                            gender: "male",
+                            mobile: MobileNumberShort(contactNumber: phoneNumberField!.text!,
+                                                      countryCode: countryCodeLabel!.text!),
+                            dob: "\(Date.getYearFromDate(date: dob))-\(Date.getMonthFromDate(date: dob))-\(Date.getDayFromDate(date: dob))",
+                            bloodGroup: bloodGroupDropdown!.text!,
+                            height: 0.0,
+                            weight: Double(weightField!.text!) ?? 0.0)
+            APIService(data: try! model.toDictionary(), url: nil, service: .signUp, method: .post, isJSONRequest: true).executeQuery() { (result: Result<User, Error>) in
+                switch result{
+                case .success(_):
+                    try? User.setUserDetails(userDetails: result.get())
+                    self.pageTitle?.text = "You’re all set"
+                    self.view.hideToastActivity()
+                    UIView.animate(withDuration: 0.0, delay: 0.3, options: UIView.AnimationOptions.curveEaseIn, animations: {
+                        self.dismiss(animated: true) {
+                            NotificationCenter.default.post(name: Notification.Name("goToDashboard"), object: nil)
+                        }
+                    }, completion: nil)
+                case .failure(let error):
+                    print(error)
+                    UIView.animate(withDuration: 0.1, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+                        self.progressBar?.setProgress(0.87, animated: true)
+                    }, completion: {
+                        (finished: Bool) -> Void in
+                        
+                    })
+                    self.view.hideToastActivity()
+                    self.view.makeToast("An Error has occured, please relaunch the app.", duration: 20.0, title: "Unknown Error", image: UIImage(named: "AppIcon"), completion: nil)
+                }
+            }
+            
+        } else {
+            if text.count == 4 {
+                UIView.animate(withDuration: 0.1, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+                    self.progressBar?.setProgress(0.1, animated: true)
+                }, completion: {
+                    (finished: Bool) -> Void in
+                    self.progressBar?.setProgress(0.87, animated: true)
+                })
+                self.view.makeToast("The OTP you entered is incorrect, please try again.", duration: 6.0, title: "OTP Incorrect", image: UIImage(named: "AppIcon"), completion: nil)
+            }
+        }
+    }
+    
+    func dpOTPViewRemoveText(_ text: String, at position: Int) {
+    }
+    
+    func dpOTPViewChangePositionAt(_ position: Int) {
+    }
+    func dpOTPViewBecomeFirstResponder() {
+    }
+    func dpOTPViewResignFirstResponder() {
+    }
     
     func validationSuccessful() {
         isValidationError = false
@@ -1105,7 +1168,7 @@ extension LoginSignUpViewController : UITextFieldDelegate, DPOTPViewDelegate, Va
     
     func validationFailed(_ errors: [(SwiftValidator.Validatable, SwiftValidator.ValidationError)]) {
         isValidationError = true
-        for (field, error) in errors {
+        for (field, _) in errors {
             if let field = field as? UITextField {
                 field.layer.borderColor = UIColor.red.cgColor
                 field.layer.borderWidth = 1.0

@@ -12,6 +12,8 @@ class APIService : NSObject{
     
     enum services :String{
         case login = "auth/login"
+        case signUp = "v1/patient/add"
+        case sendOtp = "auth/otp"
         case getAllDoctors = "v1/doctor/all"
     }
     var parameters = Parameters()

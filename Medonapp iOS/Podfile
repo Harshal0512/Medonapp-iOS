@@ -11,5 +11,6 @@ target 'Medonapp iOS' do
   pod 'Kingfisher', '~> 7.0'
   pod 'SwiftValidator', :git => 'https://github.com/jpotts18/SwiftValidator.git', :tag => '4.2.0'
   pod 'SkeletonView'
+  pod 'Toast-Swift', '~> 5.0.1'
 
 end

@@ -11,7 +11,7 @@ class Patient: Codable {
     var id: Int?
     var credential: Credential?
     var name: NameInclMiddleName?
-    var address: Address?
+    var address: FullAddress?
     var mobile: MobileWithCountryCode?
     var dob, bloodGroup, age, gender: String?
     var height: Double?
@@ -19,7 +19,7 @@ class Patient: Codable {
     var healthStatus: JSONNull?
     var profileImage: ProfileImage?
 
-    init(id: Int?, credential: Credential?, name: NameInclMiddleName?, address: Address?, mobile: MobileWithCountryCode?, dob: String?, bloodGroup: String?, age: String?, gender: String?, height: Double?, weight: Double?, healthStatus: JSONNull?, profileImage: ProfileImage?) {
+    init(id: Int?, credential: Credential?, name: NameInclMiddleName?, address: FullAddress?, mobile: MobileWithCountryCode?, dob: String?, bloodGroup: String?, age: String?, gender: String?, height: Double?, weight: Double?, healthStatus: JSONNull?, profileImage: ProfileImage?) {
         self.id = id
         self.credential = credential
         self.name = name

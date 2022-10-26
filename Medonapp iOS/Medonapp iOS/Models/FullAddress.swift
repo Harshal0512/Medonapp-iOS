@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Address: Codable {
+class FullAddress: Codable {
     var address, state, city, postalCode: String?
     var latitude, longitude: JSONNull?
     var fullAddressWithoutState, fullAddressWithoutPostalCode, fullAddress: String?

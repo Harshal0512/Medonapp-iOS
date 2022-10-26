@@ -55,7 +55,7 @@
 		F86A71D728EEAF7B0083D12D /* NunitoSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F86A71D628EEAF7B0083D12D /* NunitoSans-SemiBold.ttf */; };
 		F87559412901290C00863554 /* RatingHalfScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87559402901290C00863554 /* RatingHalfScreenViewController.swift */; };
 		F883FC0529091F8800B17D01 /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F883FC0429091F8800B17D01 /* Patient.swift */; };
-		F883FC07290921F100B17D01 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = F883FC06290921F100B17D01 /* Address.swift */; };
+		F883FC07290921F100B17D01 /* FullAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = F883FC06290921F100B17D01 /* FullAddress.swift */; };
 		F883FC092909222200B17D01 /* Credential.swift in Sources */ = {isa = PBXBuildFile; fileRef = F883FC082909222200B17D01 /* Credential.swift */; };
 		F883FC0B2909225E00B17D01 /* NameInclMiddleName.swift in Sources */ = {isa = PBXBuildFile; fileRef = F883FC0A2909225E00B17D01 /* NameInclMiddleName.swift */; };
 		F883FC0D2909227400B17D01 /* ProfileImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F883FC0C2909227400B17D01 /* ProfileImage.swift */; };
@@ -84,6 +84,11 @@
 		F8C75A6028E98B7000F5B2E2 /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C75A5F28E98B7000F5B2E2 /* extensions.swift */; };
 		F8C75A6228E98BEB00F5B2E2 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C75A6128E98BEB00F5B2E2 /* Utils.swift */; };
 		F8C75A6428EA016E00F5B2E2 /* UIButtonVariableBackgroundVariableCR.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C75A6328EA016E00F5B2E2 /* UIButtonVariableBackgroundVariableCR.swift */; };
+		F8F3ED3D290967DF001D6A4C /* SignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3ED3C290967DF001D6A4C /* SignUpModel.swift */; };
+		F8F3ED3F2909685C001D6A4C /* NameExclMiddleName.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3ED3E2909685C001D6A4C /* NameExclMiddleName.swift */; };
+		F8F3ED41290968D1001D6A4C /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3ED40290968D1001D6A4C /* Address.swift */; };
+		F8F3ED432909692B001D6A4C /* MobileNumberShort.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3ED422909692B001D6A4C /* MobileNumberShort.swift */; };
+		F8F3ED4529096A24001D6A4C /* CredentialShort.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3ED4429096A24001D6A4C /* CredentialShort.swift */; };
 		F8FB225C28F7CB7A003B9173 /* ContactDoctorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FB225B28F7CB7A003B9173 /* ContactDoctorViewController.swift */; };
 		F8FB225E28F7D9C7003B9173 /* TabViewInContactScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FB225D28F7D9C7003B9173 /* TabViewInContactScreen.swift */; };
 		F8FB226028F7D9D4003B9173 /* TabViewInContactScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8FB225F28F7D9D4003B9173 /* TabViewInContactScreen.xib */; };
@@ -139,7 +144,7 @@
 		F86A71D628EEAF7B0083D12D /* NunitoSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		F87559402901290C00863554 /* RatingHalfScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingHalfScreenViewController.swift; sourceTree = "<group>"; };
 		F883FC0429091F8800B17D01 /* Patient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Patient.swift; sourceTree = "<group>"; };
-		F883FC06290921F100B17D01 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		F883FC06290921F100B17D01 /* FullAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullAddress.swift; sourceTree = "<group>"; };
 		F883FC082909222200B17D01 /* Credential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credential.swift; sourceTree = "<group>"; };
 		F883FC0A2909225E00B17D01 /* NameInclMiddleName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameInclMiddleName.swift; sourceTree = "<group>"; };
 		F883FC0C2909227400B17D01 /* ProfileImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImage.swift; sourceTree = "<group>"; };
@@ -168,6 +173,11 @@
 		F8C75A5F28E98B7000F5B2E2 /* extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 		F8C75A6128E98BEB00F5B2E2 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		F8C75A6328EA016E00F5B2E2 /* UIButtonVariableBackgroundVariableCR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonVariableBackgroundVariableCR.swift; sourceTree = "<group>"; };
+		F8F3ED3C290967DF001D6A4C /* SignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpModel.swift; sourceTree = "<group>"; };
+		F8F3ED3E2909685C001D6A4C /* NameExclMiddleName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameExclMiddleName.swift; sourceTree = "<group>"; };
+		F8F3ED40290968D1001D6A4C /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		F8F3ED422909692B001D6A4C /* MobileNumberShort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileNumberShort.swift; sourceTree = "<group>"; };
+		F8F3ED4429096A24001D6A4C /* CredentialShort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialShort.swift; sourceTree = "<group>"; };
 		F8FB225B28F7CB7A003B9173 /* ContactDoctorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDoctorViewController.swift; sourceTree = "<group>"; };
 		F8FB225D28F7D9C7003B9173 /* TabViewInContactScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewInContactScreen.swift; sourceTree = "<group>"; };
 		F8FB225F28F7D9D4003B9173 /* TabViewInContactScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TabViewInContactScreen.xib; sourceTree = "<group>"; };
@@ -352,11 +362,12 @@
 				F840513428FD139F0051B636 /* Doctor.swift */,
 				F883FC102909248900B17D01 /* User.swift */,
 				F883FC0429091F8800B17D01 /* Patient.swift */,
-				F883FC06290921F100B17D01 /* Address.swift */,
+				F883FC06290921F100B17D01 /* FullAddress.swift */,
 				F883FC082909222200B17D01 /* Credential.swift */,
 				F883FC0A2909225E00B17D01 /* NameInclMiddleName.swift */,
 				F883FC0C2909227400B17D01 /* ProfileImage.swift */,
 				F883FC0E2909228F00B17D01 /* MobileWithCountryCode.swift */,
+				F8F3ED3B290967CD001D6A4C /* Outbound Models */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -456,6 +467,18 @@
 				F883FC122909260E00B17D01 /* Prefs.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		F8F3ED3B290967CD001D6A4C /* Outbound Models */ = {
+			isa = PBXGroup;
+			children = (
+				F8F3ED3C290967DF001D6A4C /* SignUpModel.swift */,
+				F8F3ED4429096A24001D6A4C /* CredentialShort.swift */,
+				F8F3ED3E2909685C001D6A4C /* NameExclMiddleName.swift */,
+				F8F3ED40290968D1001D6A4C /* Address.swift */,
+				F8F3ED422909692B001D6A4C /* MobileNumberShort.swift */,
+			);
+			path = "Outbound Models";
 			sourceTree = "<group>";
 		};
 		F982A52728DAF7636875B006 /* Pods */ = {
@@ -635,6 +658,7 @@
 				F8B96C3128F6A686009E5198 /* WhiteBackgroundButtonWithIcon.swift in Sources */,
 				F883FC0D2909227400B17D01 /* ProfileImage.swift in Sources */,
 				F81BAAE428F93BC90080BD21 /* AppointmentTimeCollectionViewCell.swift in Sources */,
+				F8F3ED4529096A24001D6A4C /* CredentialShort.swift in Sources */,
 				F859AB3428EC2FA20069D247 /* UITextViewWithPlaceholder_CR8.swift in Sources */,
 				F81BAAEA28F97E6B0080BD21 /* AppointmentStatusViewController.swift in Sources */,
 				F80C19882900F75500891800 /* AppointmentHistoryTableViewCell.swift in Sources */,
@@ -642,7 +666,7 @@
 				F83CBC4828D87352005BA1B8 /* LoginSignUpViewController.swift in Sources */,
 				F8131B1828D5A09F00B7558D /* LandingPageView.swift in Sources */,
 				F8AF821D28F553CA00D62D98 /* DoctorDetailsViewViewController.swift in Sources */,
-				F883FC07290921F100B17D01 /* Address.swift in Sources */,
+				F883FC07290921F100B17D01 /* FullAddress.swift in Sources */,
 				F89272BC28F157520063525E /* TabForServices_VariableColor.swift in Sources */,
 				F8FB225C28F7CB7A003B9173 /* ContactDoctorViewController.swift in Sources */,
 				F8AF822128F5CB4900D62D98 /* DoctorDetailsScreenTopView.swift in Sources */,
@@ -650,6 +674,7 @@
 				F80C19852900F3A000891800 /* StarRatingStackView.swift in Sources */,
 				F8C75A6228E98BEB00F5B2E2 /* Utils.swift in Sources */,
 				F80552782907BB060011EB6B /* APIService.swift in Sources */,
+				F8F3ED41290968D1001D6A4C /* Address.swift in Sources */,
 				F8131B1428D5A09F00B7558D /* AppDelegate.swift in Sources */,
 				F8131B1628D5A09F00B7558D /* SceneDelegate.swift in Sources */,
 				F89272C128F1AEA50063525E /* ScheduleTabTableViewCell.swift in Sources */,
@@ -659,10 +684,12 @@
 				F8C75A6428EA016E00F5B2E2 /* UIButtonVariableBackgroundVariableCR.swift in Sources */,
 				F81BAADD28F928BF0080BD21 /* BookAppointmentViewController.swift in Sources */,
 				F85D9C3828F33B6D008FBDE9 /* ReportTabViewController.swift in Sources */,
+				F8F3ED3F2909685C001D6A4C /* NameExclMiddleName.swift in Sources */,
 				F883FC092909222200B17D01 /* Credential.swift in Sources */,
 				F883FC112909248900B17D01 /* User.swift in Sources */,
 				F8BC4A4228F4588A00440406 /* DoctorsScreenViewController.swift in Sources */,
 				F81BAAF328F9C09B0080BD21 /* AppointmentDetailsViewController.swift in Sources */,
+				F8F3ED3D290967DF001D6A4C /* SignUpModel.swift in Sources */,
 				F883FC0B2909225E00B17D01 /* NameInclMiddleName.swift in Sources */,
 				F840513528FD139F0051B636 /* Doctor.swift in Sources */,
 				F8BC4A4428F460D600440406 /* StoryboardUtils.swift in Sources */,
@@ -680,6 +707,7 @@
 				F883FC132909260E00B17D01 /* Prefs.swift in Sources */,
 				F8C75A6028E98B7000F5B2E2 /* extensions.swift in Sources */,
 				F86A71CF28EE9C970083D12D /* HomeTabViewController.swift in Sources */,
+				F8F3ED432909692B001D6A4C /* MobileNumberShort.swift in Sources */,
 				F8A4F47828F14CE60032A87B /* SearchBarWithSearchAndFilterIcon.swift in Sources */,
 				F844C66028FFDD3E00BBE5B0 /* MonthViewAppointmentHistory.swift in Sources */,
 				F82AA0F128F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.swift in Sources */,
