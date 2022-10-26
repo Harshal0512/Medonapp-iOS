@@ -11,12 +11,13 @@ import Alamofire
 class APIService : NSObject{
     
     enum services :String{
-        case getAllDoctors = "doctor/all"
+        case login = "auth/login"
+        case getAllDoctors = "v1/doctor/all"
     }
     var parameters = Parameters()
     var headers = HTTPHeaders()
     var method: HTTPMethod!
-    var url :String! = "https://medonapp-backend.herokuapp.com/api/v1/"
+    var url :String! = "https://medonapp-backend.herokuapp.com/api/"
     var encoding: ParameterEncoding! = JSONEncoding.default
     
     init(data: [String:Any],headers: [String:String] = [:],url :String?,service :services? = nil, method: HTTPMethod = .post, isJSONRequest: Bool = true){
