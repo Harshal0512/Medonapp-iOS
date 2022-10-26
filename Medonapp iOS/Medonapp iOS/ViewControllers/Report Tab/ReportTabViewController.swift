@@ -30,6 +30,8 @@ class ReportTabViewController: UIViewController {
     var userReports: ReportCellWithIconAndDescription?
     var constraintsUserReports: [String: NSLayoutConstraint] = [:]
     var familyReports: ReportCellWithIconAndDescription?
+    
+    private var userDetails = User.getUserDetails()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,7 +95,7 @@ class ReportTabViewController: UIViewController {
         bloodGroupView?.addSubview(bloodGroupTitleLabel!)
         
         bloodGroupStatusLabel = UILabel()
-        bloodGroupStatusLabel?.text = "A+"
+        bloodGroupStatusLabel?.text = userDetails.patient?.bloodGroup ?? ""
         bloodGroupStatusLabel?.textColor = .black
         bloodGroupStatusLabel?.font = UIFont(name: "NunitoSans-Bold", size: 28)
         bloodGroupView?.addSubview(bloodGroupStatusLabel!)
@@ -116,7 +118,7 @@ class ReportTabViewController: UIViewController {
         weightView?.addSubview(weightTitleLabel!)
         
         weightStatusLabel = UILabel()
-        weightStatusLabel?.text = "80 kg"
+        weightStatusLabel?.text = "\(userDetails.patient?.weight ?? 0.0) kg"
         weightStatusLabel?.textColor = .black
         weightStatusLabel?.font = UIFont(name: "NunitoSans-Bold", size: 28)
         weightView?.addSubview(weightStatusLabel!)
