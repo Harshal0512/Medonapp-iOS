@@ -710,6 +710,23 @@ class LoginSignUpViewController: UIViewController {
     @objc func loginContinueButtonPressed() {
         clearAllErrors()
         validator.validate(self)
+        if !isValidationError {
+            APIService(data: ["username": emailTextFieldLogin!.text!, "password": passwordTextField!.text!], url: nil, service: .login, method: .post, isJSONRequest: true).executeQuery() { (result: Result<User, Error>) in
+                switch result{
+                case .success(let post):
+                    try? User.setUserDetails(userDetails: result.get())
+                    UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+                        self.dismiss(animated: true) {
+                            NotificationCenter.default.post(name: Notification.Name("goToDashboard"), object: nil)
+                        }
+                    }, completion: nil)
+                    print(post)
+                case .failure(let error):
+                    print(error)
+                    //TODO: ADD ERROR FOR LOGIN FAILURE
+                }
+            }
+        }
     }
     
     @objc func signUpContinueButtonPressed() {
