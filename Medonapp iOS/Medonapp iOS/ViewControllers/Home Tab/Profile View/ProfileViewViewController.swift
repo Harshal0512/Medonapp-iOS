@@ -7,8 +7,9 @@
 
 import UIKit
 import Kingfisher
+import MessageUI
 
-class ProfileViewViewController: UIViewController {
+class ProfileViewViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
     private var scrollView: UIScrollView?
     private var contentView: UIView?
@@ -19,7 +20,7 @@ class ProfileViewViewController: UIViewController {
     private var accountSettingsButton: WhiteBackgroundButtonWithIcon?
     private var appointmentHistory: WhiteBackgroundButtonWithIcon?
     private var privacyPolicyButton: WhiteBackgroundButtonWithIcon?
-    private var contactAFriendButton: WhiteBackgroundButtonWithIcon?
+    private var tellAFriendButton: WhiteBackgroundButtonWithIcon?
     private var contactUsButton: WhiteBackgroundButtonWithIcon?
     private var logoutButton: UIImageView?
     
@@ -100,13 +101,17 @@ class ProfileViewViewController: UIViewController {
         privacyPolicyButton?.initButton(title: "Privacy Policy", icon: UIImage(named: "compassIcon"))
         contentView?.addSubview(privacyPolicyButton!)
         
-        contactAFriendButton = WhiteBackgroundButtonWithIcon()
-        contactAFriendButton?.initButton(title: "Tell a friend", icon: UIImage(named: "shareIcon"))
-        contentView?.addSubview(contactAFriendButton!)
+        tellAFriendButton = WhiteBackgroundButtonWithIcon()
+        tellAFriendButton?.initButton(title: "Tell a friend", icon: UIImage(named: "shareIcon"))
+        contentView?.addSubview(tellAFriendButton!)
+        tellAFriendButton?.addTarget(self, action: #selector(openShareSheet), for: .touchUpInside)
+        tellAFriendButton?.isUserInteractionEnabled = true
         
         contactUsButton = WhiteBackgroundButtonWithIcon()
         contactUsButton?.initButton(title: "Contact us", icon: UIImage(named: "headphoneIcon"))
         contentView?.addSubview(contactUsButton!)
+        contactUsButton?.addTarget(self, action: #selector(handleMailAction), for: .touchUpInside)
+        contactUsButton?.isUserInteractionEnabled = true
         
         logoutButton = UIImageView()
         logoutButton?.image = UIImage(named: "logOutPng")!
@@ -127,7 +132,7 @@ class ProfileViewViewController: UIViewController {
         accountSettingsButton?.translatesAutoresizingMaskIntoConstraints = false
         appointmentHistory?.translatesAutoresizingMaskIntoConstraints = false
         privacyPolicyButton?.translatesAutoresizingMaskIntoConstraints = false
-        contactAFriendButton?.translatesAutoresizingMaskIntoConstraints = false
+        tellAFriendButton?.translatesAutoresizingMaskIntoConstraints = false
         contactUsButton?.translatesAutoresizingMaskIntoConstraints = false
         logoutButton?.translatesAutoresizingMaskIntoConstraints = false
         
@@ -180,12 +185,12 @@ class ProfileViewViewController: UIViewController {
         privacyPolicyButton?.trailingAnchor.constraint(equalTo: accountSettingsButton!.trailingAnchor).isActive = true
         privacyPolicyButton?.heightAnchor.constraint(equalTo: accountSettingsButton!.heightAnchor).isActive = true
         
-        contactAFriendButton?.topAnchor.constraint(equalTo: privacyPolicyButton!.bottomAnchor, constant: 20).isActive = true
-        contactAFriendButton?.leadingAnchor.constraint(equalTo: accountSettingsButton!.leadingAnchor).isActive = true
-        contactAFriendButton?.trailingAnchor.constraint(equalTo: accountSettingsButton!.trailingAnchor).isActive = true
-        contactAFriendButton?.heightAnchor.constraint(equalTo: accountSettingsButton!.heightAnchor).isActive = true
+        tellAFriendButton?.topAnchor.constraint(equalTo: privacyPolicyButton!.bottomAnchor, constant: 20).isActive = true
+        tellAFriendButton?.leadingAnchor.constraint(equalTo: accountSettingsButton!.leadingAnchor).isActive = true
+        tellAFriendButton?.trailingAnchor.constraint(equalTo: accountSettingsButton!.trailingAnchor).isActive = true
+        tellAFriendButton?.heightAnchor.constraint(equalTo: accountSettingsButton!.heightAnchor).isActive = true
         
-        contactUsButton?.topAnchor.constraint(equalTo: contactAFriendButton!.bottomAnchor, constant: 20).isActive = true
+        contactUsButton?.topAnchor.constraint(equalTo: tellAFriendButton!.bottomAnchor, constant: 20).isActive = true
         contactUsButton?.leadingAnchor.constraint(equalTo: accountSettingsButton!.leadingAnchor).isActive = true
         contactUsButton?.trailingAnchor.constraint(equalTo: accountSettingsButton!.trailingAnchor).isActive = true
         contactUsButton?.heightAnchor.constraint(equalTo: accountSettingsButton!.heightAnchor).isActive = true
@@ -210,6 +215,66 @@ class ProfileViewViewController: UIViewController {
     @objc func openAppointmentHistory() {
         let appointmentHistoryVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "appointmentHistoryVC") as? AppointmentHistoryViewController
         self.present(appointmentHistoryVC!, animated: true)
+    }
+    
+    @objc func openShareSheet() {
+        // text to share
+        let text = "Hey! I found an amazing app where you can meet top doctors, schedule appointments, get reports and many more.\n\nDownload & Register on Medonapp now!!"
+        
+        // set up activity view controller
+        let textToShare = [ text ]
+        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+        
+        // exclude some activity types from the list (optional)
+        activityViewController.excludedActivityTypes = [ ]
+        
+        // present the view controller
+        self.present(activityViewController, animated: true, completion: nil)
+    }
+    
+    @objc func handleMailAction() {
+        // Modify following variables with your text / recipient
+        let udid = UIDevice.current.identifierForVendor?.uuidString
+        let name = UIDevice.current.name
+        let version = UIDevice.current.systemVersion
+        let modelName = UIDevice.current.model
+        let recipientEmail = "project.medonapp@gmail.com"
+        let subject = "Email from Medonapp user"
+        let body = """
+        Device Details:
+        Device ID: \(udid!)
+        Device Model: \(name)
+        Device iOS Version: \(version)
+        Device Model Name: \(modelName)
+        -------------------------------------------------
+        
+        Start writing below the line
+        
+        
+        Describe your problem below:
+        
+        
+        """
+        
+        // Show default mail composer
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            mail.setToRecipients([recipientEmail])
+            mail.setSubject(subject)
+            mail.setMessageBody(body, isHTML: false)
+            
+            present(mail, animated: true)
+            
+            // Show third party email composer if default Mail app is not present
+        } else if let emailUrl = Utils.createEmailUrl(to: recipientEmail, subject: subject, body: body) {
+            UIApplication.shared.open(emailUrl)
+        }
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
     }
     
 }
