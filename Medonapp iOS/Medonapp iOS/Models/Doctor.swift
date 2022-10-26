@@ -30,18 +30,19 @@ class Doctor: Codable {
     var address: Address?
     var mobile: MobileWithCountryCode?
     var gender, specialization: String?
-    var experience: Int?
+    var experience: Double?
     var about: [String]?
-    var fees: Int?
+    var fees: Double?
     var liveStatus: Bool?
-    var avgRating: Int?
+    var avgRating: Double?
     var availableFromInWeekdays, availableFromInWeekends: String?
     var maxAppointmentsInWeekdays, maxAppointmentsInWeekends: Int?
     var appointmentDuration: String?
     var weekdayAppointmentSlots, weekendAppointmentSlots: [String]?
     var patientCount: Int?
+    var reviewCount: Int?
     
-    init(id: Int?, credential: Credential?, profileImage: ProfileImage?, name: NameInclMiddleName?, address: Address?, mobile: MobileWithCountryCode?, gender: String?, specialization: String?, experience: Int?, about: [String]?, fees: Int?, liveStatus: Bool?, avgRating: Int?, availableFromInWeekdays: String?, availableFromInWeekends: String?, maxAppointmentsInWeekdays: Int?, maxAppointmentsInWeekends: Int?, appointmentDuration: String?, weekdayAppointmentSlots: [String]?, weekendAppointmentSlots: [String]?, patientCount: Int?) {
+    init(id: Int?, credential: Credential?, profileImage: ProfileImage?, name: NameInclMiddleName?, address: Address?, mobile: MobileWithCountryCode?, gender: String?, specialization: String?, experience: Double?, about: [String]?, fees: Double?, liveStatus: Bool?, avgRating: Double?, availableFromInWeekdays: String?, availableFromInWeekends: String?, maxAppointmentsInWeekdays: Int?, maxAppointmentsInWeekends: Int?, appointmentDuration: String?, weekdayAppointmentSlots: [String]?, weekendAppointmentSlots: [String]?, patientCount: Int?, reviewCount: Int?) {
         self.id = id
         self.credential = credential
         self.profileImage = profileImage
@@ -63,6 +64,7 @@ class Doctor: Codable {
         self.weekdayAppointmentSlots = weekdayAppointmentSlots
         self.weekendAppointmentSlots = weekendAppointmentSlots
         self.patientCount = patientCount
+        self.reviewCount = reviewCount
     }
     
     static private var doctors: [Doctor] = []

@@ -60,6 +60,8 @@
 		F883FC0B2909225E00B17D01 /* NameInclMiddleName.swift in Sources */ = {isa = PBXBuildFile; fileRef = F883FC0A2909225E00B17D01 /* NameInclMiddleName.swift */; };
 		F883FC0D2909227400B17D01 /* ProfileImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F883FC0C2909227400B17D01 /* ProfileImage.swift */; };
 		F883FC0F2909228F00B17D01 /* MobileWithCountryCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F883FC0E2909228F00B17D01 /* MobileWithCountryCode.swift */; };
+		F883FC112909248900B17D01 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F883FC102909248900B17D01 /* User.swift */; };
+		F883FC132909260E00B17D01 /* Prefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F883FC122909260E00B17D01 /* Prefs.swift */; };
 		F89272BC28F157520063525E /* TabForServices_VariableColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89272BB28F157510063525E /* TabForServices_VariableColor.swift */; };
 		F89272BE28F1AC7B0063525E /* ScheduleTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89272BD28F1AC7B0063525E /* ScheduleTabViewController.swift */; };
 		F89272C128F1AEA50063525E /* ScheduleTabTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89272BF28F1AEA50063525E /* ScheduleTabTableViewCell.swift */; };
@@ -142,6 +144,8 @@
 		F883FC0A2909225E00B17D01 /* NameInclMiddleName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameInclMiddleName.swift; sourceTree = "<group>"; };
 		F883FC0C2909227400B17D01 /* ProfileImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImage.swift; sourceTree = "<group>"; };
 		F883FC0E2909228F00B17D01 /* MobileWithCountryCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileWithCountryCode.swift; sourceTree = "<group>"; };
+		F883FC102909248900B17D01 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		F883FC122909260E00B17D01 /* Prefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prefs.swift; sourceTree = "<group>"; };
 		F89272BB28F157510063525E /* TabForServices_VariableColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabForServices_VariableColor.swift; sourceTree = "<group>"; };
 		F89272BD28F1AC7B0063525E /* ScheduleTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTabViewController.swift; sourceTree = "<group>"; };
 		F89272BF28F1AEA50063525E /* ScheduleTabTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTabTableViewCell.swift; sourceTree = "<group>"; };
@@ -346,6 +350,7 @@
 			isa = PBXGroup;
 			children = (
 				F840513428FD139F0051B636 /* Doctor.swift */,
+				F883FC102909248900B17D01 /* User.swift */,
 				F883FC0429091F8800B17D01 /* Patient.swift */,
 				F883FC06290921F100B17D01 /* Address.swift */,
 				F883FC082909222200B17D01 /* Credential.swift */,
@@ -448,6 +453,7 @@
 				F8C75A5F28E98B7000F5B2E2 /* extensions.swift */,
 				F8C75A6128E98BEB00F5B2E2 /* Utils.swift */,
 				F8BC4A4328F460D600440406 /* StoryboardUtils.swift */,
+				F883FC122909260E00B17D01 /* Prefs.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -654,6 +660,7 @@
 				F81BAADD28F928BF0080BD21 /* BookAppointmentViewController.swift in Sources */,
 				F85D9C3828F33B6D008FBDE9 /* ReportTabViewController.swift in Sources */,
 				F883FC092909222200B17D01 /* Credential.swift in Sources */,
+				F883FC112909248900B17D01 /* User.swift in Sources */,
 				F8BC4A4228F4588A00440406 /* DoctorsScreenViewController.swift in Sources */,
 				F81BAAF328F9C09B0080BD21 /* AppointmentDetailsViewController.swift in Sources */,
 				F883FC0B2909225E00B17D01 /* NameInclMiddleName.swift in Sources */,
@@ -670,6 +677,7 @@
 				F81BAAF628F9C8A20080BD21 /* PriceDisplayViewAppointmentDetails.swift in Sources */,
 				F8BC4A3D28F420F000440406 /* ReportCellWithIconAndDescription.swift in Sources */,
 				F844C65D28FFCF0500BBE5B0 /* AppointmentHistoryViewController.swift in Sources */,
+				F883FC132909260E00B17D01 /* Prefs.swift in Sources */,
 				F8C75A6028E98B7000F5B2E2 /* extensions.swift in Sources */,
 				F86A71CF28EE9C970083D12D /* HomeTabViewController.swift in Sources */,
 				F8A4F47828F14CE60032A87B /* SearchBarWithSearchAndFilterIcon.swift in Sources */,

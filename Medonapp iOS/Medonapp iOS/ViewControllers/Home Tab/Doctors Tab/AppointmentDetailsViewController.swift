@@ -103,7 +103,7 @@ class AppointmentDetailsViewController: UIViewController, UITextViewDelegate {
         contentView?.addSubview(ratingLabel!)
         
         numberOfReviews = UILabel()
-        numberOfReviews?.text = "(0 reviews)"
+        numberOfReviews?.text = "(\(doctor?.reviewCount ?? 0) reviews)"
         numberOfReviews?.textColor = UIColor(red: 0.29, green: 0.33, blue: 0.37, alpha: 1.00)
         numberOfReviews?.font = UIFont(name: "NunitoSans-Regular", size: 14)
         contentView?.addSubview(numberOfReviews!)

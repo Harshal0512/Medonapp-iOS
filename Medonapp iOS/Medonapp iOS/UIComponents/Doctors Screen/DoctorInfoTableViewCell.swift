@@ -41,7 +41,7 @@ class DoctorInfoTableViewCell: UITableViewCell {
         self.doctorName.text = (doctor.name?.firstName ?? "") + " " + (doctor.name?.lastName ?? "")
         self.designation.text = doctor.specialization ?? ""
         self.rating.text = "\(doctor.avgRating ?? 0)"
-        self.numberOfReviews.text = "\(0) reviews"
+        self.numberOfReviews.text = "\(doctor.reviewCount ?? 0) reviews"
         
         self.doctorName.textColor = .black
         self.designation.textColor = UIColor(red: 0.29, green: 0.33, blue: 0.37, alpha: 1.00)
