@@ -112,6 +112,9 @@ class ProfileViewViewController: UIViewController {
         logoutButton?.image = UIImage(named: "logOutPng")!
         logoutButton?.contentMode = .scaleAspectFit
         contentView?.addSubview(logoutButton!)
+        let logoutTap = UITapGestureRecognizer(target: self, action: #selector(self.handleLogoutAction(_:)))
+        logoutButton?.addGestureRecognizer(logoutTap)
+        logoutButton?.isUserInteractionEnabled = true
     }
     
     func setConstraints() {
@@ -196,6 +199,12 @@ class ProfileViewViewController: UIViewController {
     @objc func handleBackAction(_ sender: UITapGestureRecognizer? = nil) {
 //        navigationController?.popViewController(animated: true)
         self.dismiss(animated: true)
+    }
+    
+    @objc func handleLogoutAction(_ sender: UITapGestureRecognizer? = nil) {
+        self.dismiss(animated: true) {
+            NotificationCenter.default.post(name: Notification.Name("logout"), object: nil)
+        }
     }
     
     @objc func openAppointmentHistory() {

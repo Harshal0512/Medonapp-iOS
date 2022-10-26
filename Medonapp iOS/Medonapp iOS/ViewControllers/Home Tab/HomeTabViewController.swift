@@ -50,8 +50,7 @@ class HomeTabViewController: UIViewController {
                     self.loadData()
                     self.view.hideToastActivity()
                 } else {
-                    User.clearUserDetails()
-                    self.performSegue(withIdentifier: "toLanding", sender: nil)
+                    self.logout()
                 }
             }
         }
@@ -90,6 +89,8 @@ class HomeTabViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(logout), name: Notification.Name("logout"), object: nil)
     }
     
     func setupUI() {
@@ -263,6 +264,11 @@ class HomeTabViewController: UIViewController {
         // reset back the content inset to zero after keyboard is gone
         scrollView!.contentInset = contentInsets
         scrollView!.scrollIndicatorInsets = contentInsets
+    }
+    
+    @objc func logout() {
+        User.clearUserDetails()
+        self.performSegue(withIdentifier: "toLanding", sender: nil)
     }
 
 }
