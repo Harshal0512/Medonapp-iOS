@@ -23,12 +23,14 @@ class AppointmentTimeCollectionViewCell: UICollectionViewCell {
         cellContentView?.layer.cornerRadius = 10
         cellContentView?.layer.borderWidth = 1
         cellContentView?.layer.borderColor = UIColor.white.cgColor
+        cellContentView?.backgroundColor = .clear
         
-        switch isActive {
-        case true:
-            cellContentView?.backgroundColor = UIColor(red: 0.88, green: 0.62, blue: 0.12, alpha: 1.00)
-        case false:
-            cellContentView?.backgroundColor = .clear
+        if isActive {
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+                self.cellContentView?.backgroundColor = UIColor(red: 0.88, green: 0.62, blue: 0.12, alpha: 1.00)
+            }, completion: {
+                (finished: Bool) -> Void in
+            })
         }
     }
     

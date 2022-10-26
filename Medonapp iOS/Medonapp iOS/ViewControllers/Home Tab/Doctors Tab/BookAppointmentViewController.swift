@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BookAppointmentViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class BookAppointmentViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     
     private var backButton: UIImageView?
     private var navTitle: UILabel?
@@ -18,10 +18,15 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegate,
     private var timeViewNavTitle: UILabel?
     private var timeCollectionView: UICollectionView?
     private var makeAppointmentButton: UIButtonVariableBackgroundVariableCR?
-
+    
+    var dayOfWeek: Int = 1
+    var activeItem: Int = -1
+    
+    public var doctor: Doctor?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         initialise()
         setupUI()
         setConstraints()
@@ -29,6 +34,8 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegate,
         timeCollectionView?.register(AppointmentTimeCollectionViewCell.nib(), forCellWithReuseIdentifier: AppointmentTimeCollectionViewCell.identifier)
         timeCollectionView?.delegate = self
         timeCollectionView?.dataSource = self
+        
+        dateChanged()
     }
     
     func initialise() {
@@ -63,7 +70,7 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegate,
         datePicker?.minimumDate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())
         datePicker?.maximumDate = Calendar.current.date(byAdding: .year, value: 1, to: Date())
         contentView?.addSubview(datePicker!)
-        datePicker?.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
+        datePicker?.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
         
         timeSelectView = UIView()
         timeSelectView?.backgroundColor = UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00)
@@ -71,23 +78,23 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegate,
         timeSelectView?.clipsToBounds = true
         timeSelectView?.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         contentView?.addSubview(timeSelectView!)
-
+        
         timeViewNavTitle = UILabel()
         timeViewNavTitle?.text = "Time"
         timeViewNavTitle?.textColor = .white
         timeViewNavTitle?.font = UIFont(name: "NunitoSans-ExtraBold", size: 24)
         timeSelectView?.addSubview(timeViewNavTitle!)
-
+        
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.itemSize = CGSize(width: 92, height: 42)
-//        layout.scrollDirection = .horizontal
-
+        //        layout.scrollDirection = .horizontal
+        
         timeCollectionView =  UICollectionView(frame: CGRect(x: 0, y: 0, width: contentView!.frame.width-45, height: 300), collectionViewLayout: layout)
         timeCollectionView?.backgroundColor = .clear
         timeSelectView?.addSubview(timeCollectionView!)
         timeCollectionView?.showsHorizontalScrollIndicator = false
-//        timeCollectionView?.showsVerticalScrollIndicator = false
+        //        timeCollectionView?.showsVerticalScrollIndicator = false
         
         makeAppointmentButton = UIButtonVariableBackgroundVariableCR()
         makeAppointmentButton?.initButton(title: "Make Appointment", cornerRadius: 14, variant: .whiteBack, titleColor: UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00))
@@ -139,11 +146,11 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegate,
         timeSelectView?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor).isActive = true
         timeSelectView?.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         timeSelectView?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor).isActive = true
-
+        
         timeViewNavTitle?.leadingAnchor.constraint(equalTo: timeSelectView!.leadingAnchor, constant: 30).isActive = true
         timeViewNavTitle?.topAnchor.constraint(equalTo: timeSelectView!.topAnchor, constant: 40).isActive = true
         timeViewNavTitle?.widthAnchor.constraint(equalToConstant: 70).isActive = true
-
+        
         timeCollectionView?.topAnchor.constraint(equalTo: timeViewNavTitle!.bottomAnchor, constant: 20).isActive = true
         timeCollectionView?.leadingAnchor.constraint(equalTo: timeSelectView!.leadingAnchor, constant: 20).isActive = true
         timeCollectionView?.trailingAnchor.constraint(equalTo: timeSelectView!.trailingAnchor, constant: -20).isActive = true
@@ -159,8 +166,10 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegate,
         navigationController?.popViewController(animated: true)
     }
     
-    @objc func dateChanged(_ sender: UIDatePicker) {
-        print(Date.ISOStringFromDate(date: sender.date))
+    @objc func dateChanged() {
+        dayOfWeek = Int(Date.getDayOfWeekFromDate(date: datePicker!.date))!
+        activeItem = -1
+        timeCollectionView?.reloadData()
     }
     
     @objc func goToAppointmentStatusVC() {
@@ -178,17 +187,25 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegate,
         self.navigationController?.popToRootViewController(animated: true)
     }
     
-    //MARK: Collection View Methods
+}
+
+extension BookAppointmentViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        if dayOfWeek == 1 || dayOfWeek == 7 {
+            return (doctor?.weekendAppointmentSlots?.count)!
+        } else {
+            return (doctor?.weekdayAppointmentSlots?.count)!
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppointmentTimeCollectionViewCell.identifier, for: indexPath) as! AppointmentTimeCollectionViewCell
-        if indexPath.row == 1 {
-            cell.configure(timeString: "10:30 AM", isActive: true)
+        
+        if dayOfWeek == 1 || dayOfWeek == 7 {
+            cell.configure(timeString: (doctor?.weekendAppointmentSlots![indexPath.row])!, isActive: (indexPath.row == activeItem) ? true : false)
         } else {
-            cell.configure(timeString: "09:30 AM", isActive: false)
+            cell.configure(timeString: (doctor?.weekdayAppointmentSlots![indexPath.row])!, isActive: (indexPath.row == activeItem) ? true : false)
         }
         
         return cell
@@ -205,5 +222,10 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegate,
             let widthPerItem = availableWidth / 3
             
             return CGSize(width: widthPerItem, height: 42)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        activeItem = indexPath.row
+        collectionView.reloadData()
     }
 }

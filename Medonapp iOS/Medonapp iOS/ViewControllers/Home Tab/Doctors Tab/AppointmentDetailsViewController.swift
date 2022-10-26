@@ -230,6 +230,7 @@ class AppointmentDetailsViewController: UIViewController, UITextViewDelegate {
 
     @objc func bookNowButtonPressed() {
         let bookAppointmentVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "bookAppointmentVC") as? BookAppointmentViewController
+        bookAppointmentVC?.doctor = self.doctor
         self.navigationController?.pushViewController(bookAppointmentVC!, animated: true)
     }
 }

@@ -128,6 +128,12 @@ extension Date {
         let components = calendar.dateComponents([.day], from: date)
         return "\(components.day!)"
     }
+    
+    static func getDayOfWeekFromDate(date: Date) -> String {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.weekday], from: date)
+        return "\(components.weekday!)"
+    }
 }
 
 extension Encodable {
