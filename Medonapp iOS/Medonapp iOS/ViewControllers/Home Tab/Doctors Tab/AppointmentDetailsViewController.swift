@@ -62,7 +62,7 @@ class AppointmentDetailsViewController: UIViewController, UITextViewDelegate {
         
         doctorImage = UIImageView()
         KF.url(URL(string: (doctor?.profileImage?.fileDownloadURI ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg")))
-            .placeholder(UIImage(named: "doctorPlaceholder"))
+            .placeholder(UIImage(named: (doctor?.gender!.lowercased() == "male") ? "userPlaceholder-male" : "userPlaceholder-female"))
             .loadDiskFileSynchronously()
             .cacheMemoryOnly()
             .fade(duration: 0.25)

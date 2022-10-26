@@ -7,6 +7,7 @@
 
 import UIKit
 import SkeletonView
+import Kingfisher
 
 class HomeTabViewController: UIViewController {
     var scrollView: UIScrollView?
@@ -19,6 +20,8 @@ class HomeTabViewController: UIViewController {
     var doctorsTab: TabForServices_VariableColor?
     var reportsTab: TabForServices_VariableColor?
     var banner: UIImageView?
+    
+    private var userDetails = User.getUserDetails()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -70,14 +73,13 @@ class HomeTabViewController: UIViewController {
         helloTextLabel?.addSkeleton()
         
         welcomeWithNameLabel = UILabel()
-        welcomeWithNameLabel?.text = "Harshal Kulkarni"
+        welcomeWithNameLabel?.text = (userDetails.patient?.name?.firstName ?? "") + " " + (userDetails.patient?.name?.lastName ?? "")
         welcomeWithNameLabel?.textColor = .black
         welcomeWithNameLabel?.font = UIFont(name: "NunitoSans-Bold", size: 27)
         contentView?.addSubview(welcomeWithNameLabel!)
         welcomeWithNameLabel?.addSkeleton()
         
         profileImageView = UIImageView()
-        profileImageView?.image = UIImage(named: "cat")
         profileImageView?.contentMode = .scaleAspectFill
         profileImageView?.makeRoundCorners(byRadius: 18)
         contentView?.addSubview(profileImageView!)
@@ -85,6 +87,15 @@ class HomeTabViewController: UIViewController {
         profileImageView?.addGestureRecognizer(profileImageTap)
         profileImageView?.isUserInteractionEnabled = true
         profileImageView?.addSkeleton()
+        KF.url(URL(string: userDetails.patient?.profileImage?.fileDownloadURI ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg"))
+            .placeholder(UIImage(named: (userDetails.patient!.gender!.lowercased() == "male") ? "userPlaceholder-male" : "userPlaceholder-female"))
+            .loadDiskFileSynchronously()
+            .cacheMemoryOnly()
+            .fade(duration: 0.25)
+            .onProgress { receivedSize, totalSize in  }
+            .onSuccess { result in  }
+            .onFailure { error in }
+            .set(to: profileImageView!)
         
         searchBar = SearchBarWithSearchAndFilterIcon()
         searchBar?.setPlaceholder(placeholder: "Search medical")

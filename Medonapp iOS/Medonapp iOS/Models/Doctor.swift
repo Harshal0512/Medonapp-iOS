@@ -78,7 +78,7 @@ class Doctor: Codable {
     }
     
     static func refreshDoctors(completionHandler: @escaping (Bool) -> ()) {
-        APIService(data: [:], headers: ["Authorization" : "Bearer \(token)"], url: nil, service: .getAllDoctors, method: .get, isJSONRequest: false).executeQuery() { (result: Result<[Doctor], Error>) in
+        APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .getAllDoctors, method: .get, isJSONRequest: false).executeQuery() { (result: Result<[Doctor], Error>) in
             switch result{
             case .success(let post):
                 try? Doctor.initDoctors(doctors: result.get())

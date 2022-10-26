@@ -37,7 +37,7 @@ class DoctorDetailsScreenTopView: UIView {
         view.doctorImage.contentMode = .scaleAspectFill
         view.imageLink = doctor.profileImage?.fileDownloadURI ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg"
         KF.url(URL(string: view.imageLink))
-            .placeholder(UIImage(named: "doctorPlaceholder"))
+            .placeholder(UIImage(named: (doctor.gender!.lowercased() == "male") ? "userPlaceholder-male" : "userPlaceholder-female"))
             .loadDiskFileSynchronously()
             .cacheMemoryOnly()
             .fade(duration: 0.25)

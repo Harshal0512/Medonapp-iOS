@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ProfileViewViewController: UIViewController {
     
@@ -21,6 +22,8 @@ class ProfileViewViewController: UIViewController {
     private var contactAFriendButton: WhiteBackgroundButtonWithIcon?
     private var contactUsButton: WhiteBackgroundButtonWithIcon?
     private var logoutButton: UIImageView?
+    
+    private var userDetails = User.getUserDetails()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,20 +59,28 @@ class ProfileViewViewController: UIViewController {
         backButton?.isUserInteractionEnabled = true
         
         profileImageView = UIImageView()
-        profileImageView?.image = UIImage(named: "cat")!
         profileImageView?.makeRoundCorners(byRadius: 26)
         profileImageView?.contentMode = .scaleAspectFill
         contentView?.addSubview(profileImageView!)
+        KF.url(URL(string: userDetails.patient?.profileImage?.fileDownloadURI ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg"))
+            .placeholder(UIImage(named: (userDetails.patient!.gender!.lowercased() == "male") ? "userPlaceholder-male" : "userPlaceholder-female"))
+            .loadDiskFileSynchronously()
+            .cacheMemoryOnly()
+            .fade(duration: 0.25)
+            .onProgress { receivedSize, totalSize in  }
+            .onSuccess { result in  }
+            .onFailure { error in }
+            .set(to: profileImageView!)
         
         nameLabel = UILabel()
-        nameLabel?.text = "Ritul Parmar"
+        nameLabel?.text = (userDetails.patient?.name?.firstName ?? "") + " " + (userDetails.patient?.name?.lastName ?? "")
         nameLabel?.textColor = .white
         nameLabel?.textAlignment = .center
         nameLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 20)
         contentView?.addSubview(nameLabel!)
         
         emailLabel = UILabel()
-        emailLabel?.text = "ritul.parmar18@nmims.edu.in"
+        emailLabel?.text = userDetails.patient?.credential?.email ?? ""
         emailLabel?.textColor = .white
         emailLabel?.textAlignment = .center
         emailLabel?.font = UIFont(name: "NunitoSans-Regular", size: 15)
