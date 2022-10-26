@@ -25,8 +25,6 @@ class HomeTabViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        contentView?.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
-//        contentView?.hideSkeleton(transition: .crossDissolve(0.25))
         
         let tabBarItems = tabBarController?.tabBar.items!
         tabBarItems![0].image = UIImage(named: "homeTabIcon")?.resizeImageTo(size: CGSize(width: 40, height: 40))?.withTintColor(UIColor(red: 0.48, green: 0.55, blue: 0.62, alpha: 1.00))
@@ -35,6 +33,41 @@ class HomeTabViewController: UIViewController {
         tabBarItems![1].selectedImage = UIImage(named: "scheduleTabIcon")?.resizeImageTo(size: CGSize(width: 40, height: 40))?.withTintColor(UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00))
         tabBarItems![2].image = UIImage(named: "reportTabIcon")?.resizeImageTo(size: CGSize(width: 40, height: 40))?.withTintColor(UIColor(red: 0.48, green: 0.55, blue: 0.62, alpha: 1.00))
         tabBarItems![2].selectedImage = UIImage(named: "reportTabIcon")?.resizeImageTo(size: CGSize(width: 40, height: 40))?.withTintColor(UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00))
+        
+        if userDetails.patient?.name == nil {
+            view.isUserInteractionEnabled = false
+            self.view.makeToastActivity(.center)
+            contentView?.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
+            tabBarItems![1].isEnabled = false
+            tabBarItems![2].isEnabled = false
+            
+            refreshUserDetails { isSuccess in
+                if isSuccess {
+                    tabBarItems![1].isEnabled = true
+                    tabBarItems![2].isEnabled = true
+                    self.view.isUserInteractionEnabled = true
+                    self.contentView?.hideSkeleton(transition: .crossDissolve(0.25))
+                    self.loadData()
+                    self.view.hideToastActivity()
+                } else {
+                    User.clearUserDetails()
+                    self.performSegue(withIdentifier: "toLanding", sender: nil)
+                }
+            }
+        }
+    }
+    
+    func refreshUserDetails(completionHandler: @escaping(Bool) -> ()) {
+        APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, appendToUrl: "\(userDetails.patient!.id!)", service: .getPatientWithID, method: .get, isJSONRequest: false).executeQuery() { (result: Result<Patient, Error>) in
+            switch result{
+            case .success(_):
+                try? User.setPatientDetails(patient: result.get())
+                completionHandler(true)
+            case .failure(let error):
+                print(error)
+                completionHandler(false)
+            }
+        }
     }
     
     override func viewDidLoad() {
@@ -49,6 +82,8 @@ class HomeTabViewController: UIViewController {
         initialise()
         setupUI()
         setConstraints()
+        
+        loadData()
     }
     
     func initialise() {
@@ -73,7 +108,7 @@ class HomeTabViewController: UIViewController {
         helloTextLabel?.addSkeleton()
         
         welcomeWithNameLabel = UILabel()
-        welcomeWithNameLabel?.text = (userDetails.patient?.name?.firstName ?? "") + " " + (userDetails.patient?.name?.lastName ?? "")
+        welcomeWithNameLabel?.text = " "
         welcomeWithNameLabel?.textColor = .black
         welcomeWithNameLabel?.font = UIFont(name: "NunitoSans-Bold", size: 27)
         contentView?.addSubview(welcomeWithNameLabel!)
@@ -87,15 +122,6 @@ class HomeTabViewController: UIViewController {
         profileImageView?.addGestureRecognizer(profileImageTap)
         profileImageView?.isUserInteractionEnabled = true
         profileImageView?.addSkeleton()
-        KF.url(URL(string: userDetails.patient?.profileImage?.fileDownloadURI ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg"))
-            .placeholder(UIImage(named: (userDetails.patient!.gender!.lowercased() == "male") ? "userPlaceholder-male" : "userPlaceholder-female"))
-            .loadDiskFileSynchronously()
-            .cacheMemoryOnly()
-            .fade(duration: 0.25)
-            .onProgress { receivedSize, totalSize in  }
-            .onSuccess { result in  }
-            .onFailure { error in }
-            .set(to: profileImageView!)
         
         searchBar = SearchBarWithSearchAndFilterIcon()
         searchBar?.setPlaceholder(placeholder: "Search medical")
@@ -188,6 +214,20 @@ class HomeTabViewController: UIViewController {
         banner?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -28).isActive = true
         banner?.heightAnchor.constraint(equalToConstant: 170).isActive = true
         banner?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -20).isActive = true
+    }
+    
+    func loadData() {
+        userDetails = User.getUserDetails()
+        welcomeWithNameLabel?.text = (userDetails.patient?.name?.firstName ?? "") + " " + (userDetails.patient?.name?.lastName ?? "")
+        KF.url(URL(string: userDetails.patient?.profileImage?.fileDownloadURI ?? ""))
+            .placeholder(UIImage(named: (userDetails.patient?.gender?.lowercased() ?? "male" == "male") ? "userPlaceholder-male" : "userPlaceholder-female"))
+            .loadDiskFileSynchronously()
+            .cacheMemoryOnly()
+            .fade(duration: 0.25)
+            .onProgress { receivedSize, totalSize in  }
+            .onSuccess { result in  }
+            .onFailure { error in }
+            .set(to: profileImageView!)
     }
     
     @objc func goToDoctorsScreen(_ sender: UITapGestureRecognizer? = nil) {

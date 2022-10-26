@@ -19,6 +19,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="5jT-xb-b5f"/>
                     <connections>
                         <segue destination="qWy-ls-zbj" kind="presentation" identifier="toDashboard" modalPresentationStyle="fullScreen" id="iZ4-XD-fqM"/>
                     </connections>
@@ -38,6 +39,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="d6P-Uy-hWt"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="toLanding" modalPresentationStyle="fullScreen" id="wRF-hF-8Ew"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Zb-SG-jyd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

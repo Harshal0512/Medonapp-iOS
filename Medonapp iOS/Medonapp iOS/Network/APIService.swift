@@ -15,6 +15,7 @@ class APIService : NSObject{
         case signUp = "v1/patient/add"
         case sendOtp = "auth/otp"
         case getAllDoctors = "v1/doctor/all"
+        case getPatientWithID = "v1/patient/"
     }
     var parameters = Parameters()
     var headers = HTTPHeaders()
@@ -22,12 +23,12 @@ class APIService : NSObject{
     var url :String! = "https://medonapp-backend.herokuapp.com/api/"
     var encoding: ParameterEncoding! = JSONEncoding.default
     
-    init(data: [String:Any],headers: [String:String] = [:],url :String?,service :services? = nil, method: HTTPMethod = .post, isJSONRequest: Bool = true){
+    init(data: [String:Any],headers: [String:String] = [:],url :String?, appendToUrl: String = "", service :services? = nil, method: HTTPMethod = .post, isJSONRequest: Bool = true){
         super.init()
         data.forEach{parameters.updateValue($0.value, forKey: $0.key)}
         headers.forEach({self.headers.add(name: $0.key, value: $0.value)})
         if url == nil, service != nil{
-            self.url += service!.rawValue
+            self.url += service!.rawValue + appendToUrl
         }else{
             self.url = url
         }

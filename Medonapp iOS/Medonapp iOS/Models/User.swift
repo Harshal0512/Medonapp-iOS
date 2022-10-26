@@ -17,8 +17,8 @@ class User: Codable {
     }
     
     init() {
+        patient = Patient()
         token = ""
-        patient = nil
     }
     
     static private var userDetails: User = User()
@@ -29,12 +29,31 @@ class User: Codable {
     
     static func clearUserDetails() {
         userDetails = User()
-//        saveToPrefs()
+        Prefs.authToken = ""
+        Prefs.userId = "0"
     }
     
     static func setUserDetails(userDetails: User) {
         self.userDetails.token = userDetails.token
         self.userDetails.patient = userDetails.patient
+        
+        saveToPrefs()
+    }
+    
+    static func setPatientDetails(patient: Patient) {
+        self.userDetails.patient = patient
+        
+        saveToPrefs()
+    }
+    
+    static func saveToPrefs() {
+        Prefs.authToken = userDetails.token ?? ""
+        Prefs.userId = "\(userDetails.patient?.id ?? 0)"
+    }
+    
+    static func loadFromPrefs() {
+        userDetails.token = Prefs.authToken
+        userDetails.patient?.id = Int(Prefs.userId)
     }
     
 //    static func saveToPrefs() {

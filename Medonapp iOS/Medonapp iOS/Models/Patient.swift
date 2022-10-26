@@ -34,4 +34,20 @@ class Patient: Codable {
         self.healthStatus = healthStatus
         self.profileImage = profileImage
     }
+    
+    init() {
+        self.id = 0
+        self.credential = nil
+        self.name = nil
+        self.address = nil
+        self.mobile = nil
+        self.dob = ""
+        self.bloodGroup = ""
+        self.age = ""
+        self.gender = ""
+        self.height = 0.0
+        self.weight = 0.0
+        self.healthStatus = nil
+        self.profileImage = nil
+    }
 }
