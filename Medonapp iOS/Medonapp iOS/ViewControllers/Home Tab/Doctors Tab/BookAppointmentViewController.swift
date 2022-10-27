@@ -174,13 +174,39 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegateF
     
     @objc func goToAppointmentStatusVC() {
         let appointmentSuccessVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "appointmentStatusVC") as? AppointmentStatusViewController
-        if true {
-            appointmentSuccessVC?.appointmentIsSuccess = true
+        
+        var selectedTime = ""
+        if dayOfWeek == 1 || dayOfWeek == 7 {
+            selectedTime = (doctor?.weekendAppointmentSlots![self.activeItem])!
         } else {
-            appointmentSuccessVC?.appointmentIsSuccess = false
+            selectedTime = (doctor?.weekdayAppointmentSlots![self.activeItem])!
         }
-        appointmentSuccessVC?.modalPresentationStyle = .fullScreen
-        self.present(appointmentSuccessVC!, animated: true, completion: nil)
+        
+        APIService(data: ["patientId": User.getUserDetails().patient!.id!,
+                          "doctorId": doctor!.id!,
+                          "startTime": Date.combineDateWithTimeReturnISO(date: Date.stringFromDate(date: datePicker!.date), time: selectedTime).appending("Z"),
+                          "endTime": Date.addMinutes(ISODateString: Date.combineDateWithTimeReturnISO(date: Date.stringFromDate(date: datePicker!.date), time: selectedTime), minutes: 30 * 60.0).appending("Z")],
+                   headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"],
+                   url: nil,
+                   service: .bookAppointment,
+                   method: .post,
+                   isJSONRequest: true).executeQuery() { (result: Result<Appointment, Error>) in
+            switch result{
+            case .success(let appointment):
+                if appointment.status?.lowercased() == "booked" {
+                    appointmentSuccessVC?.appointmentIsSuccess = true
+                } else {
+                    appointmentSuccessVC?.appointmentIsSuccess = false
+                }
+                
+            case .failure(let error):
+                print(error)
+                appointmentSuccessVC?.appointmentIsSuccess = false
+            }
+            
+            appointmentSuccessVC?.modalPresentationStyle = .fullScreen
+            self.present(appointmentSuccessVC!, animated: true, completion: nil)
+        }
     }
     
     @objc func goToDashboard() {
@@ -213,15 +239,15 @@ extension BookAppointmentViewController: UICollectionViewDelegate, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let sectionInsets = UIEdgeInsets(
-          top: 50.0,
-          left: 20.0,
-          bottom: 50.0,
-          right: 20.0)
+            top: 50.0,
+            left: 20.0,
+            bottom: 50.0,
+            right: 20.0)
         let paddingSpace = sectionInsets.left * (3 + 1)
-            let availableWidth = view.frame.width - paddingSpace
-            let widthPerItem = availableWidth / 3
-            
-            return CGSize(width: widthPerItem, height: 42)
+        let availableWidth = view.frame.width - paddingSpace
+        let widthPerItem = availableWidth / 3
+        
+        return CGSize(width: widthPerItem, height: 42)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
