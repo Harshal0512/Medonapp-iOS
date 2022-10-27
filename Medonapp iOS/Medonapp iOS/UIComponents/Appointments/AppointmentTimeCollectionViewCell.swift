@@ -19,7 +19,9 @@ class AppointmentTimeCollectionViewCell: UICollectionViewCell {
     @IBOutlet var timeLabel: UILabel?
     
     public func configure(timeString: String, isActive: Bool) {
-        timeLabel?.text = timeString
+        timeLabel?.text = Date.dateTimeChangeFormat(str: timeString,
+                                                    inDateFormat:  "HH:mm:ss",
+                                                    outDateFormat: "hh:mm a")
         cellContentView?.layer.cornerRadius = 10
         cellContentView?.layer.borderWidth = 1
         cellContentView?.layer.borderColor = UIColor.white.cgColor
