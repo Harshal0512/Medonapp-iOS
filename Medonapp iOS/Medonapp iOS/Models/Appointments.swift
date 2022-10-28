@@ -80,12 +80,13 @@ class AppointmentElement: Codable {
         self.appointments = appointments
     }
     
-    static func arrangeAppointmentsByDate(month: Int) {
+    static func arrangeAppointmentsByDate(month: Int, year: Int) {
         appointmentsByDate = [1 : [], 2 : [], 3 : [], 4 : [], 5 : [], 6 : [], 7 : [], 8 : [], 9 : [], 10 : [], 11 : [], 12 : [], 13 : [], 14 : [], 15 : [], 16 : [], 17 : [], 18 : [], 19 : [], 20 : [], 21 : [], 22 : [], 23 : [], 24 : [], 25 : [], 26 : [], 27 : [], 28 : [], 29 : [], 30 : [], 31 : []]
         for i in 1...31 {
             for index in stride(from: 0, to: appointments.count, by: 1) {
                 if Int(Date.getDayFromDate(date: Date.dateFromISOString(string: appointments[index].startTime!)!)) == i &&
-                    Int(Date.getMonthFromDate(date: Date.dateFromISOString(string: appointments[index].startTime!)!)) == month{
+                    Int(Date.getMonthFromDate(date: Date.dateFromISOString(string: appointments[index].startTime!)!)) == month &&
+                    Int(Date.getYearFromDate(date: Date.dateFromISOString(string: appointments[index].startTime!)!)) == year {
                     appointmentsByDate[i]?.append(index)
                 }
             }

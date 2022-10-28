@@ -59,6 +59,15 @@
                     <imageReference key="image" image="chevron.left" catalog="system" symbolScale="small"/>
                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small" weight="ultraLight"/>
                 </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Present" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z6g-lq-Xgu">
+                    <rect key="frame" x="92.666666666666671" y="3" width="70.000000000000014" height="20.666666666666668"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="70" id="EPo-L3-DNp"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
@@ -66,8 +75,10 @@
                 <constraint firstItem="BqL-pU-GFM" firstAttribute="leading" secondItem="sci-hv-VJ0" secondAttribute="trailing" constant="10" id="Cg9-9G-IwP"/>
                 <constraint firstItem="BqL-pU-GFM" firstAttribute="centerX" secondItem="itw-jO-Bws" secondAttribute="centerX" id="ExZ-X7-FiM"/>
                 <constraint firstAttribute="trailing" secondItem="BuZ-3n-bIV" secondAttribute="trailing" constant="5" id="FRT-pB-XIp"/>
+                <constraint firstItem="Z6g-lq-Xgu" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="3" id="III-up-C1l"/>
                 <constraint firstItem="BuZ-3n-bIV" firstAttribute="leading" secondItem="BqL-pU-GFM" secondAttribute="trailing" constant="10" id="Ik3-30-0he"/>
                 <constraint firstAttribute="bottom" secondItem="itw-jO-Bws" secondAttribute="bottom" id="MBQ-dZ-Sx5"/>
+                <constraint firstItem="Z6g-lq-Xgu" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="NgN-0t-LAt"/>
                 <constraint firstItem="sci-hv-VJ0" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="UFk-Mo-oLu"/>
                 <constraint firstItem="BqL-pU-GFM" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-5" id="Wc7-W4-skH"/>
                 <constraint firstAttribute="trailing" secondItem="BuZ-3n-bIV" secondAttribute="trailing" constant="5" id="Y1G-pg-nTK"/>
@@ -80,6 +91,7 @@
             <connections>
                 <outlet property="leftArrow" destination="sci-hv-VJ0" id="Pi6-si-wxr"/>
                 <outlet property="monthLabel" destination="BqL-pU-GFM" id="f5q-WY-FXO"/>
+                <outlet property="presentLabel" destination="Z6g-lq-Xgu" id="cQq-bN-bxw"/>
                 <outlet property="rightArrow" destination="BuZ-3n-bIV" id="jgL-kg-H9k"/>
                 <outlet property="yearLabel" destination="itw-jO-Bws" id="04T-WV-9t4"/>
             </connections>

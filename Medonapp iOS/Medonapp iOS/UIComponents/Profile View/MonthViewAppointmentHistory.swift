@@ -21,11 +21,27 @@ class MonthViewAppointmentHistory: UIView {
     @IBOutlet private var yearLabel: UILabel!
     @IBOutlet private var leftArrow: UIImageView!
     @IBOutlet private var rightArrow: UIImageView!
+    @IBOutlet private var presentLabel: UILabel!
     
     private static let monthArray: [String] = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     private var month_CounterCurrent: Int = Calendar(identifier: .gregorian).dateComponents([.month], from: Date()).month! {
         didSet {
             updateMonth()
+            if month_CounterCurrent == Calendar(identifier: .gregorian).dateComponents([.month], from: Date()).month! && year_CounterCurrent == Calendar(identifier: .gregorian).dateComponents([.year], from: Date()).year! {
+                UIView.transition(with: self.presentLabel,
+                                  duration: 0.25,
+                                  options: .transitionFlipFromBottom,
+                                  animations: {
+                    self.presentLabel.alpha = 1
+                }, completion: nil)
+            } else {
+                UIView.transition(with: self.presentLabel,
+                                  duration: 0.25,
+                                  options: .transitionFlipFromBottom,
+                                  animations: {
+                    self.presentLabel.alpha = 0
+                }, completion: nil)
+            }
             delegate?.didMonthChange(sender: self)
         }
     }

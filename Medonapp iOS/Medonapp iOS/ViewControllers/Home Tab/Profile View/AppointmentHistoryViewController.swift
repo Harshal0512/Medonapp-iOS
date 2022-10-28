@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Toast_Swift
 
 class AppointmentHistoryViewController: UIViewController {
     
@@ -40,7 +41,9 @@ class AppointmentHistoryViewController: UIViewController {
     }
     
     @objc func refreshData() {
+        view.makeToastActivity(.center)
         AppointmentElement.refreshAppointments { isSuccess in
+            self.view.hideToastActivity()
             self.appointments = AppointmentElement.getAppointments()
             self.monthView?.resetToToday()
         }
@@ -110,12 +113,12 @@ class AppointmentHistoryViewController: UIViewController {
 
 extension AppointmentHistoryViewController: MonthViewAppointmentHistoryDelegate {
     func didMonthChange(sender: MonthViewAppointmentHistory) {
-        AppointmentElement.arrangeAppointmentsByDate(month: monthView!.getMonth())
+        AppointmentElement.arrangeAppointmentsByDate(month: monthView!.getMonth(), year: monthView!.getYear())
         self.appointmentsByDate = AppointmentElement.getAppointmentDate()
-        self.scheduleTable!.reloadData()
-        let range = NSMakeRange(0, self.scheduleTable!.numberOfSections)
-        let sections = NSIndexSet(indexesIn: range)
-        self.scheduleTable!.reloadSections(sections as IndexSet, with: .automatic)
+        UIView.transition(with: scheduleTable!, duration: 0.15, options: .transitionCrossDissolve, animations: {self.scheduleTable!.reloadData()}, completion: nil)
+//        let range = NSMakeRange(0, self.scheduleTable!.numberOfSections)
+//        let sections = NSIndexSet(indexesIn: range)
+//        self.scheduleTable!.reloadSections(sections as IndexSet, with: .automatic)
 //        print(monthView?.getMonth())
 //        print(monthView?.getYear())
     }
@@ -140,7 +143,7 @@ extension AppointmentHistoryViewController: UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if appointmentsByDate[section]?.count ?? 0 > 0 {
-            return 50
+            return 40
         } else {
             return 0
         }
