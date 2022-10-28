@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 protocol MonthViewAppointmentHistoryDelegate: AnyObject {
   func didMonthChange(sender: MonthViewAppointmentHistory)
@@ -21,7 +22,7 @@ class MonthViewAppointmentHistory: UIView {
     @IBOutlet private var yearLabel: UILabel!
     @IBOutlet private var leftArrow: UIImageView!
     @IBOutlet private var rightArrow: UIImageView!
-    @IBOutlet private var presentLabel: UILabel!
+    @IBOutlet public var presentLabel: UILabel!
     
     private static let monthArray: [String] = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     private var month_CounterCurrent: Int = Calendar(identifier: .gregorian).dateComponents([.month], from: Date()).month! {
@@ -85,6 +86,9 @@ class MonthViewAppointmentHistory: UIView {
     
     static func instantiate() -> MonthViewAppointmentHistory {
         let view: MonthViewAppointmentHistory = initFromNib()
+        view.isSkeletonable = true
+        
+        view.presentLabel.alpha = 0
         
         view.leftArrow.isUserInteractionEnabled = true
         view.leftArrow.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.decrementMonth)))
@@ -93,6 +97,8 @@ class MonthViewAppointmentHistory: UIView {
         view.rightArrow.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.incrementMonth)))
         
         view.monthLabel.text = MonthViewAppointmentHistory.monthArray[view.month_CounterCurrent]
+        view.monthLabel.isSkeletonable = true
+        view.yearLabel.isSkeletonable = true
         view.yearLabel.text = "\(view.year_CounterCurrent)"
         
         return view

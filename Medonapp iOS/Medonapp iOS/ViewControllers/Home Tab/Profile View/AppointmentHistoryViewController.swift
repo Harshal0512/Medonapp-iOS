@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SkeletonView
 import Toast_Swift
 
 class AppointmentHistoryViewController: UIViewController {
@@ -40,10 +41,20 @@ class AppointmentHistoryViewController: UIViewController {
         refreshData()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        monthView?.presentLabel.alpha = 0
+    }
+    
     @objc func refreshData() {
+        view.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
+        monthView?.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
         view.makeToastActivity(.center)
         AppointmentElement.refreshAppointments { isSuccess in
             self.view.hideToastActivity()
+            self.monthView?.hideSkeleton(transition: .crossDissolve(0.25))
+            self.view.hideSkeleton(transition: .crossDissolve(0.25))
             self.appointments = AppointmentElement.getAppointments()
             self.monthView?.resetToToday()
         }
@@ -53,6 +64,8 @@ class AppointmentHistoryViewController: UIViewController {
     }
     
     func setupUI() {
+        view.isSkeletonable = true
+        
         backButton = UIImageView()
         backButton?.image = UIImage(named: "backIcon_White")?.resizeImageTo(size: CGSize(width: 50, height: 50))
         backButton?.contentMode = .scaleAspectFit
@@ -115,12 +128,7 @@ extension AppointmentHistoryViewController: MonthViewAppointmentHistoryDelegate 
     func didMonthChange(sender: MonthViewAppointmentHistory) {
         AppointmentElement.arrangeAppointmentsByDate(month: monthView!.getMonth(), year: monthView!.getYear())
         self.appointmentsByDate = AppointmentElement.getAppointmentDate()
-        UIView.transition(with: scheduleTable!, duration: 0.15, options: .transitionCrossDissolve, animations: {self.scheduleTable!.reloadData()}, completion: nil)
-//        let range = NSMakeRange(0, self.scheduleTable!.numberOfSections)
-//        let sections = NSIndexSet(indexesIn: range)
-//        self.scheduleTable!.reloadSections(sections as IndexSet, with: .automatic)
-//        print(monthView?.getMonth())
-//        print(monthView?.getYear())
+        UIView.transition(with: scheduleTable!, duration: 0.15, options: .transitionCrossDissolve, animations: {self.scheduleTable!.reloadData()}, completion: nil)]
     }
 }
 
@@ -137,7 +145,7 @@ extension AppointmentHistoryViewController: UITableViewDelegate, UITableViewData
         if appointmentsByDate[section]?.count ?? 0 > 0 {
             return "\(section)/\(monthView!.getMonth())/\(monthView!.getYear()) ------------------"
         } else {
-            return""
+            return ""
         }
     }
     

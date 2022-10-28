@@ -59,7 +59,7 @@
                     <imageReference key="image" image="chevron.left" catalog="system" symbolScale="small"/>
                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small" weight="ultraLight"/>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Present" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z6g-lq-Xgu">
+                <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Present" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z6g-lq-Xgu">
                     <rect key="frame" x="92.666666666666671" y="3" width="70.000000000000014" height="20.666666666666668"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="70" id="EPo-L3-DNp"/>
