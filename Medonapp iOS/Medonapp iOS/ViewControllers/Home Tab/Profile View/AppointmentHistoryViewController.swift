@@ -13,6 +13,9 @@ class AppointmentHistoryViewController: UIViewController {
     private var navTitle: UILabel?
     private var monthView: MonthViewAppointmentHistory?
     private var scheduleTable: UITableView?
+    
+    private var appointments: Appointments = []
+    private var appointmentsByDate: [Int: [Int]] = [:]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +36,14 @@ class AppointmentHistoryViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        monthView?.resetToToday()
+        refreshData()
+    }
+    
+    @objc func refreshData() {
+        AppointmentElement.refreshAppointments { isSuccess in
+            self.appointments = AppointmentElement.getAppointments()
+            self.monthView?.resetToToday()
+        }
     }
     
     func initialise() {
@@ -100,30 +110,44 @@ class AppointmentHistoryViewController: UIViewController {
 
 extension AppointmentHistoryViewController: MonthViewAppointmentHistoryDelegate {
     func didMonthChange(sender: MonthViewAppointmentHistory) {
-        print(monthView?.getMonth())
-        print(monthView?.getYear())
+        AppointmentElement.arrangeAppointmentsByDate(month: monthView!.getMonth())
+        self.appointmentsByDate = AppointmentElement.getAppointmentDate()
+        self.scheduleTable!.reloadData()
+        let range = NSMakeRange(0, self.scheduleTable!.numberOfSections)
+        let sections = NSIndexSet(indexesIn: range)
+        self.scheduleTable!.reloadSections(sections as IndexSet, with: .automatic)
+//        print(monthView?.getMonth())
+//        print(monthView?.getYear())
     }
 }
 
 extension AppointmentHistoryViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        if (monthView?.getMonth())! % 2 == 0 {
+            return 30
+        } else {
+            return 31
+        }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return "19/03/2022 -------------"
-        } else if section == 1 {
-            return "20/03/2022 -------------"
-        } else if section == 2 {
-            return "21/03/2022 -------------"
+        if appointmentsByDate[section]?.count ?? 0 > 0 {
+            return "\(section)/\(monthView!.getMonth())/\(monthView!.getYear()) ------------------"
         } else {
-            return ""
+            return""
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if appointmentsByDate[section]?.count ?? 0 > 0 {
+            return 50
+        } else {
+            return 0
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return appointmentsByDate[section]?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -132,11 +156,10 @@ extension AppointmentHistoryViewController: UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = scheduleTable!.dequeueReusableCell(withIdentifier: AppointmentHistoryTableViewCell.identifier, for: indexPath) as! AppointmentHistoryTableViewCell
-        if indexPath.section == 0 {
-            cell.configure(doctorImage: UIImage(named: "cat")!, time: "12:30 PM", doctorName: "Dr Suryansh Sharma", designation: "Cardiologist", isFeedbackDue: true)
-        } else  {
-            cell.configure(doctorImage: UIImage(named: "cat")!, time: "12:30 PM", doctorName: "Dr Suryansh Sharma", designation: "Cardiologist", isFeedbackDue: false)
-        }
+        
+        let array = appointmentsByDate[indexPath.section]
+        
+        cell.configure(appointment: appointments[array![indexPath.row]], isFeedbackDue: false)
         cell.delegate = self
         return cell
     }

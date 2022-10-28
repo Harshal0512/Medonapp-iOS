@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 protocol AppointmentHistoryCellProtocol {
     func feedbackButtonDidSelect() //TODO: ADD APPOINTMENT OBJECT AS PARAMETER
@@ -28,11 +29,20 @@ class AppointmentHistoryTableViewCell: UITableViewCell {
     
     var delegate: AppointmentHistoryCellProtocol!
     
-    public func configure(doctorImage: UIImage, time: String, doctorName: String, designation: String, isFeedbackDue: Bool) {
+    public func configure(appointment: AppointmentElement, isFeedbackDue: Bool) {
         self.containerView.backgroundColor = UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00)
         self.containerView.layer.cornerRadius = 28
         
-        self.doctorImage.image = doctorImage
+        KF.url(URL(string: appointment.doctor?.profileImage?.fileDownloadURI ?? ""))
+            .placeholder(UIImage(named: (appointment.doctor?.gender?.lowercased() ?? "male" == "male") ? "userPlaceholder-male" : "userPlaceholder-female"))
+            .loadDiskFileSynchronously()
+            .cacheMemoryOnly()
+            .fade(duration: 0.25)
+            .onProgress { receivedSize, totalSize in  }
+            .onSuccess { result in  }
+            .onFailure { error in }
+            .set(to: self.doctorImage)
+        
         self.doctorImage.contentMode = .scaleAspectFill
         self.doctorImage.makeRoundCorners(byRadius: 20)
         
@@ -41,9 +51,9 @@ class AppointmentHistoryTableViewCell: UITableViewCell {
         self.designationLabel.textColor = .white
         self.designationLabel.alpha = 0.65
         
-        self.timeLabel.text = time
-        self.doctorName.text = doctorName
-        self.designationLabel.text = designation
+        self.timeLabel.text = "\(Date.getTimeFromDate(dateString: appointment.startTime!))"
+        self.doctorName.text = (appointment.doctor?.name?.firstName ?? "") + " " + (appointment.doctor?.name?.lastName ?? "")
+        self.designationLabel.text = appointment.doctor?.specialization ?? ""
         
         self.feedbackButton.titleLabel?.font = UIFont(name: "NunitoSans-Bold", size: 14)
         self.feedbackButton.layer.cornerRadius = 14

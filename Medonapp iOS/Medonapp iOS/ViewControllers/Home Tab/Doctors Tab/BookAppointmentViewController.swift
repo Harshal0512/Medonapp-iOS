@@ -190,9 +190,11 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegateF
                    url: nil,
                    service: .bookAppointment,
                    method: .post,
-                   isJSONRequest: true).executeQuery() { (result: Result<Appointment, Error>) in
+                   isJSONRequest: true).executeQuery() { (result: Result<AppointmentElement, Error>) in
             switch result{
             case .success(let appointment):
+                print(appointment.status)
+                
                 if appointment.status?.lowercased() == "booked" {
                     appointmentSuccessVC?.appointmentIsSuccess = true
                 } else {

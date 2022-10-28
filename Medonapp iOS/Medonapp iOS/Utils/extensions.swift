@@ -99,7 +99,13 @@ extension Date {
         dateFormatter.timeZone = TimeZone(abbreviation: "IST")
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
         
-        return dateFormatter.string(from: date)
+        var finalDate = dateFormatter.string(from: date)
+        if finalDate == nil {
+            dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            finalDate = dateFormatter.string(from: date)
+        }
+         return finalDate
     }
     
     static func stringFromDate(date: Date) -> String {
@@ -117,7 +123,23 @@ extension Date {
         dateFormatter.timeZone = TimeZone(abbreviation: "IST")
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
         
-        return dateFormatter.date(from: string)
+        var finalDate = dateFormatter.date(from: string)
+        if finalDate == nil {
+            dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            finalDate = dateFormatter.date(from: string)
+        }
+         return finalDate
+    }
+    
+    static func getTimeFromDate(dateString: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = TimeZone(abbreviation: "IST")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        var temp = dateFormatter.date(from: dateString)!
+        dateFormatter.dateFormat = "hh:mm a"
+        return dateFormatter.string(from: temp)
     }
     
     static func getYearFromDate(date: Date) -> String {
