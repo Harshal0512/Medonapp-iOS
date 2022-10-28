@@ -128,7 +128,7 @@ extension AppointmentHistoryViewController: MonthViewAppointmentHistoryDelegate 
     func didMonthChange(sender: MonthViewAppointmentHistory) {
         AppointmentElement.arrangeAppointmentsByDate(month: monthView!.getMonth(), year: monthView!.getYear())
         self.appointmentsByDate = AppointmentElement.getAppointmentDate()
-        UIView.transition(with: scheduleTable!, duration: 0.15, options: .transitionCrossDissolve, animations: {self.scheduleTable!.reloadData()}, completion: nil)]
+        UIView.transition(with: scheduleTable!, duration: 0.15, options: .transitionCrossDissolve, animations: {self.scheduleTable!.reloadData()}, completion: nil)
     }
 }
 
