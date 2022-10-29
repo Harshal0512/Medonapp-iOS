@@ -164,15 +164,15 @@ extension AppointmentHistoryViewController: UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if appointmentsByDate[section]?.count ?? 0 > 0 {
-            return "\(section)/\(monthView!.getMonth())/\(monthView!.getYear()) ------------------"
+        if appointmentsByDate[section + 1]?.count ?? 0 > 0 {
+            return "\(section + 1)/\(monthView!.getMonth())/\(monthView!.getYear()) ------------------"
         } else {
             return ""
         }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if appointmentsByDate[section]?.count ?? 0 > 0 {
+        if appointmentsByDate[section + 1]?.count ?? 0 > 0 {
             return 40
         } else {
             return 0
