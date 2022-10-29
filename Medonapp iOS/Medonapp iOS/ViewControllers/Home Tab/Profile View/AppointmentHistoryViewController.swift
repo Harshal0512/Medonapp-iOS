@@ -170,7 +170,7 @@ extension AppointmentHistoryViewController: UITableViewDelegate, UITableViewData
         
         let array = appointmentsByDate[indexPath.section]
         
-        cell.configure(appointment: appointments[array![indexPath.row]], isFeedbackDue: false)
+        cell.configure(appointment: appointments[array![indexPath.row]])
         cell.delegate = self
         return cell
     }

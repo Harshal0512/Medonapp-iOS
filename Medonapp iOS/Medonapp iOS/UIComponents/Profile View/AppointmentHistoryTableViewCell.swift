@@ -29,7 +29,7 @@ class AppointmentHistoryTableViewCell: UITableViewCell {
     
     var delegate: AppointmentHistoryCellProtocol!
     
-    public func configure(appointment: AppointmentElement, isFeedbackDue: Bool) {
+    public func configure(appointment: AppointmentElement) {
         self.containerView.backgroundColor = UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00)
         self.containerView.layer.cornerRadius = 28
         
@@ -58,6 +58,10 @@ class AppointmentHistoryTableViewCell: UITableViewCell {
         self.feedbackButton.titleLabel?.font = UIFont(name: "NunitoSans-Bold", size: 14)
         self.feedbackButton.layer.cornerRadius = 14
         
+        var isFeedbackDue: Bool = false
+        
+        isFeedbackDue = appointment.review != nil ? false : true
+        
         switch isFeedbackDue {
         case true:
             self.feedbackButton.backgroundColor = .white
@@ -71,7 +75,7 @@ class AppointmentHistoryTableViewCell: UITableViewCell {
             self.feedbackButton.backgroundColor = .clear
             self.feedbackButton.layer.borderWidth = 2
             self.feedbackButton.layer.borderColor = UIColor.white.cgColor
-            self.feedbackButton.setTitle("  4.5", for: .normal)
+            self.feedbackButton.setTitle("  \(appointment.review!)", for: .normal)
             self.feedbackButton.setTitleColor(.white, for: .normal)
             self.feedbackButton.setImage(UIImage(named: "starIcon")?.resizeImageTo(size: CGSize(width: 13, height: 13)), for: .normal)
             self.feedbackButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 2, right: 0)
