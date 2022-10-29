@@ -46,15 +46,12 @@ class ScheduleTabViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     @objc func refreshData() {
-//        view.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
-//        monthView?.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
         view.makeToastActivity(.center)
         AppointmentElement.refreshAppointments { isSuccess in
             self.view.hideToastActivity()
-//            self.monthView?.hideSkeleton(transition: .crossDissolve(0.25))
-//            self.view.hideSkeleton(transition: .crossDissolve(0.25))
             self.appointments = AppointmentElement.getAppointments()
-//            self.monthView?.resetToToday() //TODO: HERE UPDATE COLLECTION VIEW MONTH
+            self.daysCollectionView?.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: UICollectionView.ScrollPosition.centeredHorizontally)
+            self.refreshTableView()
         }
     }
     
@@ -135,9 +132,7 @@ class ScheduleTabViewController: UIViewController, UICollectionViewDelegate, UIC
         daysCollectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         activeDateIndex = indexPath.row
         refreshCollectionView()
-        AppointmentElement.arrangeAppointmentsByDate(month: Calendar.current.component(.month, from: Date()), year: Calendar.current.component(.year, from: Date()))
-        self.appointmentsByDate = AppointmentElement.getAppointmentDate()
-        UIView.transition(with: scheduleTable!, duration: 0.15, options: .transitionCrossDissolve, animations: {self.scheduleTable!.reloadData()}, completion: nil)
+        refreshTableView()
     }
     
     func refreshCollectionView() {
@@ -181,5 +176,11 @@ class ScheduleTabViewController: UIViewController, UICollectionViewDelegate, UIC
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         scheduleTable?.scrollToRow(at: indexPath, at: .middle, animated: true)
+    }
+    
+    func refreshTableView() {
+        AppointmentElement.arrangeAppointmentsByDate(month: Calendar.current.component(.month, from: Date()), year: Calendar.current.component(.year, from: Date()))
+        self.appointmentsByDate = AppointmentElement.getAppointmentDate()
+        UIView.transition(with: self.scheduleTable!, duration: 0.15, options: .transitionCrossDissolve, animations: {self.scheduleTable!.reloadData()}, completion: nil)
     }
 }
