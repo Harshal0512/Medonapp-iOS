@@ -137,7 +137,7 @@ extension Date {
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.timeZone = TimeZone(abbreviation: "IST")
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        var temp = dateFormatter.date(from: dateString)!
+        let temp = dateFormatter.date(from: dateString)!
         dateFormatter.dateFormat = "hh:mm a"
         return dateFormatter.string(from: temp)
     }

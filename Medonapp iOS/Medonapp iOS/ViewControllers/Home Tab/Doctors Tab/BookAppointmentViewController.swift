@@ -22,6 +22,7 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegateF
     var dayOfWeek: Int = 1
     var activeItem: Int = -1
     
+    public var symptoms: String = ""
     public var doctor: Doctor?
     
     override func viewDidLoad() {
@@ -185,7 +186,8 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegateF
         APIService(data: ["patientId": User.getUserDetails().patient!.id!,
                           "doctorId": doctor!.id!,
                           "startTime": Date.combineDateWithTimeReturnISO(date: Date.stringFromDate(date: datePicker!.date), time: selectedTime).appending("Z"),
-                          "endTime": Date.addMinutes(ISODateString: Date.combineDateWithTimeReturnISO(date: Date.stringFromDate(date: datePicker!.date), time: selectedTime), minutes: 30 * 60.0).appending("Z")],
+                          "endTime": Date.addMinutes(ISODateString: Date.combineDateWithTimeReturnISO(date: Date.stringFromDate(date: datePicker!.date), time: selectedTime), minutes: 30 * 60.0).appending("Z"),
+                          "symptoms": symptoms],
                    headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"],
                    url: nil,
                    service: .bookAppointment,
@@ -193,8 +195,6 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegateF
                    isJSONRequest: true).executeQuery() { (result: Result<AppointmentElement, Error>) in
             switch result{
             case .success(let appointment):
-                print(appointment.status)
-                
                 if appointment.status?.lowercased() == "booked" {
                     appointmentSuccessVC?.appointmentIsSuccess = true
                 } else {
