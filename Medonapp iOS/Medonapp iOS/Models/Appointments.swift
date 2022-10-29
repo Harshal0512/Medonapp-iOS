@@ -27,16 +27,17 @@ class AppointmentElement: Codable {
     var patient: Patient?
     var doctor: Doctor?
     var startTime, endTime, status, duration: String?
-    var review: Double?
+    var review: Review?
+    var symptoms: String?
 
     enum CodingKeys: String, CodingKey {
         case id
         case doctorID = "doctorId"
         case patientID = "patientId"
-        case patient, doctor, startTime, endTime, status, duration, review
+        case patient, doctor, startTime, endTime, status, duration, review, symptoms
     }
 
-    init(id: Int?, doctorID: Int?, patientID: Int?, patient: Patient?, doctor: Doctor?, startTime: String?, endTime: String?, status: String?, duration: String?, review: Double?) {
+    init(id: Int?, doctorID: Int?, patientID: Int?, patient: Patient?, doctor: Doctor?, startTime: String?, endTime: String?, status: String?, duration: String?, review: Review?, symptoms: String?    ) {
         self.id = id
         self.doctorID = doctorID
         self.patientID = patientID
@@ -47,6 +48,7 @@ class AppointmentElement: Codable {
         self.status = status
         self.duration = duration
         self.review = review
+        self.symptoms = symptoms
     }
     
     static private var appointments: Appointments = []

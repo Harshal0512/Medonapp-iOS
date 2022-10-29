@@ -93,6 +93,24 @@ extension UIView {
 }
 
 extension Date {
+    static var yesterday: Date { return Date().dayBefore }
+    static var tomorrow:  Date { return Date().dayAfter }
+    var dayBefore: Date {
+        return Calendar.current.date(byAdding: .day, value: -1, to: noon)!
+    }
+    var dayAfter: Date {
+        return Calendar.current.date(byAdding: .day, value: 1, to: noon)!
+    }
+    var noon: Date {
+        return Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: self)!
+    }
+    var month: Int {
+        return Calendar.current.component(.month,  from: self)
+    }
+    var isLastDayOfMonth: Bool {
+        return dayAfter.month != month
+    }
+    
     static func ISOStringFromDate(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
@@ -105,7 +123,7 @@ extension Date {
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
             finalDate = dateFormatter.string(from: date)
         }
-         return finalDate
+        return finalDate
     }
     
     static func stringFromDate(date: Date) -> String {
@@ -129,7 +147,7 @@ extension Date {
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
             finalDate = dateFormatter.date(from: string)
         }
-         return finalDate
+        return finalDate
     }
     
     static func getTimeFromDate(dateString: String) -> String {
@@ -170,11 +188,11 @@ extension Date {
         let inFormatter = DateFormatter()
         inFormatter.locale = Locale(identifier: "en_US_POSIX")
         inFormatter.dateFormat = inDateFormat
-
+        
         let outFormatter = DateFormatter()
         outFormatter.locale = Locale(identifier: "en_US_POSIX")
         outFormatter.dateFormat = outDateFormat
-
+        
         let inStr = stringWithDate
         let date = inFormatter.date(from: inStr)!
         return outFormatter.string(from: date)
@@ -199,7 +217,7 @@ extension Date {
 }
 
 extension Encodable {
-
+    
     /// Converting object to postable dictionary
     func toDictionary(_ encoder: JSONEncoder = JSONEncoder()) throws -> [String: Any] {
         let data = try encoder.encode(self)

@@ -35,6 +35,7 @@
 		F82AA0F628F490B100C7CE7F /* DoctorInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82AA0F428F490B100C7CE7F /* DoctorInfoTableViewCell.swift */; };
 		F82AA0F728F490B100C7CE7F /* DoctorInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F82AA0F528F490B100C7CE7F /* DoctorInfoTableViewCell.xib */; };
 		F8308050290A76390088CDB8 /* Appointments.swift in Sources */ = {isa = PBXBuildFile; fileRef = F830804F290A76390088CDB8 /* Appointments.swift */; };
+		F834BEE2290CFC0F0073FCAC /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = F834BEE1290CFC0F0073FCAC /* Review.swift */; };
 		F83CBC4828D87352005BA1B8 /* LoginSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83CBC4728D87352005BA1B8 /* LoginSignUpViewController.swift */; };
 		F83CBC4C28D88466005BA1B8 /* NunitoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F83CBC4A28D88466005BA1B8 /* NunitoSans-Bold.ttf */; };
 		F83CBC4D28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F83CBC4B28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf */; };
@@ -127,6 +128,7 @@
 		F82AA0F428F490B100C7CE7F /* DoctorInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorInfoTableViewCell.swift; sourceTree = "<group>"; };
 		F82AA0F528F490B100C7CE7F /* DoctorInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DoctorInfoTableViewCell.xib; sourceTree = "<group>"; };
 		F830804F290A76390088CDB8 /* Appointments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appointments.swift; sourceTree = "<group>"; };
+		F834BEE1290CFC0F0073FCAC /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		F83CBC4728D87352005BA1B8 /* LoginSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignUpViewController.swift; sourceTree = "<group>"; };
 		F83CBC4A28D88466005BA1B8 /* NunitoSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-Bold.ttf"; sourceTree = "<group>"; };
 		F83CBC4B28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-ExtraBold.ttf"; sourceTree = "<group>"; };
@@ -273,7 +275,7 @@
 			children = (
 				F83CBC4728D87352005BA1B8 /* LoginSignUpViewController.swift */,
 				F8BC4A4028F4585700440406 /* Home Tab */,
-				F89272BD28F1AC7B0063525E /* ScheduleTabViewController.swift */,
+				F834BEE0290CF4460073FCAC /* Schedule Tab */,
 				F844C65128FEB22A00BBE5B0 /* Report Tab */,
 			);
 			path = ViewControllers;
@@ -358,6 +360,14 @@
 			path = "Report Tab";
 			sourceTree = "<group>";
 		};
+		F834BEE0290CF4460073FCAC /* Schedule Tab */ = {
+			isa = PBXGroup;
+			children = (
+				F89272BD28F1AC7B0063525E /* ScheduleTabViewController.swift */,
+			);
+			path = "Schedule Tab";
+			sourceTree = "<group>";
+		};
 		F840513328FD13800051B636 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -370,6 +380,7 @@
 				F883FC0C2909227400B17D01 /* ProfileImage.swift */,
 				F883FC0E2909228F00B17D01 /* MobileWithCountryCode.swift */,
 				F830804F290A76390088CDB8 /* Appointments.swift */,
+				F834BEE1290CFC0F0073FCAC /* Review.swift */,
 				F8F3ED3B290967CD001D6A4C /* Outbound Models */,
 			);
 			path = Models;
@@ -681,6 +692,7 @@
 				F8131B1428D5A09F00B7558D /* AppDelegate.swift in Sources */,
 				F8131B1628D5A09F00B7558D /* SceneDelegate.swift in Sources */,
 				F89272C128F1AEA50063525E /* ScheduleTabTableViewCell.swift in Sources */,
+				F834BEE2290CFC0F0073FCAC /* Review.swift in Sources */,
 				F87559412901290C00863554 /* RatingHalfScreenViewController.swift in Sources */,
 				F8B96C2F28F699EF009E5198 /* ProfileViewViewController.swift in Sources */,
 				F883FC0529091F8800B17D01 /* Patient.swift in Sources */,

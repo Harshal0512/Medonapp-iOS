@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 enum cellVariants {
     case blue
@@ -28,12 +29,20 @@ class ScheduleTabTableViewCell: UITableViewCell {
     @IBOutlet private var typeOfDoctor: UILabel!
     @IBOutlet private var accessoryButton: UIButton!
 
-    public func configure(doctorImage: UIImage, appointmentTime: String, doctorName: String, typeOfDoctor: String, cellVariant: cellVariants) {
+    public func configure(appointment: AppointmentElement, cellVariant: cellVariants) {
         cellContentView.layer.cornerRadius = 28
-        self.doctorImage.image = doctorImage
-        self.appointmentTime.text = appointmentTime
-        self.doctorName.text = doctorName
-        self.typeOfDoctor.text = typeOfDoctor
+        KF.url(URL(string: appointment.doctor?.profileImage?.fileDownloadURI ?? ""))
+            .placeholder(UIImage(named: (appointment.doctor?.gender?.lowercased() ?? "male" == "male") ? "userPlaceholder-male" : "userPlaceholder-female"))
+            .loadDiskFileSynchronously()
+            .cacheMemoryOnly()
+            .fade(duration: 0.25)
+            .onProgress { receivedSize, totalSize in  }
+            .onSuccess { result in  }
+            .onFailure { error in }
+            .set(to: doctorImage)
+        self.appointmentTime.text = "\(Date.getTimeFromDate(dateString: appointment.startTime!))"
+        self.doctorName.text = (appointment.doctor?.name?.firstName ?? "") + " " + (appointment.doctor?.name?.lastName ?? "")
+        self.typeOfDoctor.text = appointment.doctor?.specialization ?? ""
         
         self.appointmentTime.textColor = .black
         self.doctorName.textColor = .black
