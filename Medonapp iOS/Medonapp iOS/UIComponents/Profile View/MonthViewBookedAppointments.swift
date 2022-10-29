@@ -1,5 +1,5 @@
 //
-//  MonthViewAppointmentHistory.swift
+//  MonthViewBookedAppointments.swift
 //  Medonapp iOS
 //
 //  Created by Harshal Kulkarni on 19/10/22.
@@ -8,15 +8,15 @@
 import UIKit
 import SkeletonView
 
-protocol MonthViewAppointmentHistoryDelegate: AnyObject {
-  func didMonthChange(sender: MonthViewAppointmentHistory)
+protocol MonthViewBookedAppointmentsDelegate: AnyObject {
+  func didMonthChange(sender: MonthViewBookedAppointments)
 }
 
-class MonthViewAppointmentHistory: UIView {
+class MonthViewBookedAppointments: UIView {
     
-    static let shared = MonthViewAppointmentHistory.instantiate()
+    static let shared = MonthViewBookedAppointments.instantiate()
     
-    weak var delegate: MonthViewAppointmentHistoryDelegate?
+    weak var delegate: MonthViewBookedAppointmentsDelegate?
     
     @IBOutlet private var monthLabel: UILabel!
     @IBOutlet private var yearLabel: UILabel!
@@ -70,7 +70,7 @@ class MonthViewAppointmentHistory: UIView {
                           duration: 0.25,
                           options: .transitionFlipFromBottom,
                           animations: {
-            self.monthLabel.text = MonthViewAppointmentHistory.monthArray[self.month_CounterCurrent]
+            self.monthLabel.text = MonthViewBookedAppointments.monthArray[self.month_CounterCurrent]
         }, completion: nil)
     }
     
@@ -88,8 +88,8 @@ class MonthViewAppointmentHistory: UIView {
         self.month_CounterCurrent = Calendar(identifier: .gregorian).dateComponents([.month], from: Date()).month!
     }
     
-    static func instantiate() -> MonthViewAppointmentHistory {
-        let view: MonthViewAppointmentHistory = initFromNib()
+    static func instantiate() -> MonthViewBookedAppointments {
+        let view: MonthViewBookedAppointments = initFromNib()
         view.isSkeletonable = true
         
         view.presentLabel.alpha = 0
@@ -100,7 +100,7 @@ class MonthViewAppointmentHistory: UIView {
         view.rightArrow.isUserInteractionEnabled = true
         view.rightArrow.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.incrementMonth)))
         
-        view.monthLabel.text = MonthViewAppointmentHistory.monthArray[view.month_CounterCurrent]
+        view.monthLabel.text = MonthViewBookedAppointments.monthArray[view.month_CounterCurrent]
         view.monthLabel.isSkeletonable = true
         view.yearLabel.isSkeletonable = true
         view.yearLabel.text = "\(view.year_CounterCurrent)"
@@ -109,39 +109,39 @@ class MonthViewAppointmentHistory: UIView {
     }
     
     @objc static func decrementMonth() {
-        let tempMonth = MonthViewAppointmentHistory.shared.month_CounterCurrent
-        let tempYear = MonthViewAppointmentHistory.shared.year_CounterCurrent
+        let tempMonth = MonthViewBookedAppointments.shared.month_CounterCurrent
+        let tempYear = MonthViewBookedAppointments.shared.year_CounterCurrent
         
-        if MonthViewAppointmentHistory.shared.month_CounterCurrent == 1 {
-            MonthViewAppointmentHistory.shared.year_CounterCurrent -= 1
-            MonthViewAppointmentHistory.shared.month_CounterCurrent = MonthViewAppointmentHistory.monthArray.count - 1
+        if MonthViewBookedAppointments.shared.month_CounterCurrent == 1 {
+            MonthViewBookedAppointments.shared.year_CounterCurrent -= 1
+            MonthViewBookedAppointments.shared.month_CounterCurrent = MonthViewBookedAppointments.monthArray.count - 1
         } else {
-            MonthViewAppointmentHistory.shared.month_CounterCurrent -= 1
+            MonthViewBookedAppointments.shared.month_CounterCurrent -= 1
         }
         
-        if MonthViewAppointmentHistory.shared.month_CounterCurrent < MonthViewAppointmentHistory.shared.lowerLimitMonth &&
-            MonthViewAppointmentHistory.shared.year_CounterCurrent <= MonthViewAppointmentHistory.shared.lowerLimitYear {
-            MonthViewAppointmentHistory.shared.month_CounterCurrent = tempMonth
-            MonthViewAppointmentHistory.shared.year_CounterCurrent = tempYear
+        if MonthViewBookedAppointments.shared.month_CounterCurrent < MonthViewBookedAppointments.shared.lowerLimitMonth &&
+            MonthViewBookedAppointments.shared.year_CounterCurrent <= MonthViewBookedAppointments.shared.lowerLimitYear {
+            MonthViewBookedAppointments.shared.month_CounterCurrent = tempMonth
+            MonthViewBookedAppointments.shared.year_CounterCurrent = tempYear
         }
     }
     
     @objc static func incrementMonth() {
-        let tempMonth = MonthViewAppointmentHistory.shared.month_CounterCurrent
-        let tempYear = MonthViewAppointmentHistory.shared.year_CounterCurrent
+        let tempMonth = MonthViewBookedAppointments.shared.month_CounterCurrent
+        let tempYear = MonthViewBookedAppointments.shared.year_CounterCurrent
         
-        if MonthViewAppointmentHistory.shared.month_CounterCurrent == MonthViewAppointmentHistory.monthArray.count - 1 {
-            MonthViewAppointmentHistory.shared.year_CounterCurrent += 1
-            MonthViewAppointmentHistory.shared.month_CounterCurrent = 1
+        if MonthViewBookedAppointments.shared.month_CounterCurrent == MonthViewBookedAppointments.monthArray.count - 1 {
+            MonthViewBookedAppointments.shared.year_CounterCurrent += 1
+            MonthViewBookedAppointments.shared.month_CounterCurrent = 1
         } else {
-            MonthViewAppointmentHistory.shared.month_CounterCurrent += 1
+            MonthViewBookedAppointments.shared.month_CounterCurrent += 1
         }
         
-        if MonthViewAppointmentHistory.shared.month_CounterCurrent > Calendar(identifier: .gregorian).dateComponents([.month], from: Date()).month! &&
-            MonthViewAppointmentHistory.shared.year_CounterCurrent >= Calendar(identifier: .gregorian).dateComponents([.year], from: Date()).year! {
-            MonthViewAppointmentHistory.shared.month_CounterCurrent = tempMonth
-            MonthViewAppointmentHistory.shared.year_CounterCurrent = tempYear
-        }
+//        if MonthViewBookedAppointments.shared.month_CounterCurrent > Calendar(identifier: .gregorian).dateComponents([.month], from: Date()).month! &&
+//            MonthViewBookedAppointments.shared.year_CounterCurrent >= Calendar(identifier: .gregorian).dateComponents([.year], from: Date()).year! {
+//            MonthViewBookedAppointments.shared.month_CounterCurrent = tempMonth
+//            MonthViewBookedAppointments.shared.year_CounterCurrent = tempYear
+//        }
     }
     
     func getMonth() -> Int {

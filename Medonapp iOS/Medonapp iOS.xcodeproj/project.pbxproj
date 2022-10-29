@@ -12,8 +12,8 @@
 		F80C19832900F3A000891800 /* StarRatingStackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F80C19802900F39F00891800 /* StarRatingStackView.xib */; };
 		F80C19842900F3A000891800 /* JStarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80C19812900F39F00891800 /* JStarRatingView.swift */; };
 		F80C19852900F3A000891800 /* StarRatingStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80C19822900F3A000891800 /* StarRatingStackView.swift */; };
-		F80C19882900F75500891800 /* AppointmentHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80C19862900F75500891800 /* AppointmentHistoryTableViewCell.swift */; };
-		F80C19892900F75500891800 /* AppointmentHistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F80C19872900F75500891800 /* AppointmentHistoryTableViewCell.xib */; };
+		F80C19882900F75500891800 /* BookedAppointmentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80C19862900F75500891800 /* BookedAppointmentsTableViewCell.swift */; };
+		F80C19892900F75500891800 /* BookedAppointmentsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F80C19872900F75500891800 /* BookedAppointmentsTableViewCell.xib */; };
 		F8131B1428D5A09F00B7558D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8131B1328D5A09F00B7558D /* AppDelegate.swift */; };
 		F8131B1628D5A09F00B7558D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8131B1528D5A09F00B7558D /* SceneDelegate.swift */; };
 		F8131B1828D5A09F00B7558D /* LandingPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8131B1728D5A09F00B7558D /* LandingPageView.swift */; };
@@ -45,9 +45,9 @@
 		F844C65528FEB27000BBE5B0 /* ReportTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F844C65428FEB27000BBE5B0 /* ReportTab.storyboard */; };
 		F844C65928FF0E1700BBE5B0 /* ReportTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F844C65728FF0E1700BBE5B0 /* ReportTableViewCell.swift */; };
 		F844C65A28FF0E1700BBE5B0 /* ReportTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F844C65828FF0E1700BBE5B0 /* ReportTableViewCell.xib */; };
-		F844C65D28FFCF0500BBE5B0 /* AppointmentHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F844C65C28FFCF0500BBE5B0 /* AppointmentHistoryViewController.swift */; };
-		F844C66028FFDD3E00BBE5B0 /* MonthViewAppointmentHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F844C65F28FFDD3E00BBE5B0 /* MonthViewAppointmentHistory.swift */; };
-		F844C66228FFDD6700BBE5B0 /* MonthViewAppointmentHistory.xib in Resources */ = {isa = PBXBuildFile; fileRef = F844C66128FFDD6700BBE5B0 /* MonthViewAppointmentHistory.xib */; };
+		F844C65D28FFCF0500BBE5B0 /* BookedAppointmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F844C65C28FFCF0500BBE5B0 /* BookedAppointmentsViewController.swift */; };
+		F844C66028FFDD3E00BBE5B0 /* MonthViewBookedAppointments.swift in Sources */ = {isa = PBXBuildFile; fileRef = F844C65F28FFDD3E00BBE5B0 /* MonthViewBookedAppointments.swift */; };
+		F844C66228FFDD6700BBE5B0 /* MonthViewBookedAppointments.xib in Resources */ = {isa = PBXBuildFile; fileRef = F844C66128FFDD6700BBE5B0 /* MonthViewBookedAppointments.xib */; };
 		F859AB3428EC2FA20069D247 /* UITextViewWithPlaceholder_CR8.swift in Sources */ = {isa = PBXBuildFile; fileRef = F859AB3328EC2FA10069D247 /* UITextViewWithPlaceholder_CR8.swift */; };
 		F85D9C3528F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85D9C3328F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.swift */; };
 		F85D9C3628F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F85D9C3428F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.xib */; };
@@ -104,8 +104,8 @@
 		F80C19802900F39F00891800 /* StarRatingStackView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StarRatingStackView.xib; sourceTree = "<group>"; };
 		F80C19812900F39F00891800 /* JStarRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JStarRatingView.swift; sourceTree = "<group>"; };
 		F80C19822900F3A000891800 /* StarRatingStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarRatingStackView.swift; sourceTree = "<group>"; };
-		F80C19862900F75500891800 /* AppointmentHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentHistoryTableViewCell.swift; sourceTree = "<group>"; };
-		F80C19872900F75500891800 /* AppointmentHistoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppointmentHistoryTableViewCell.xib; sourceTree = "<group>"; };
+		F80C19862900F75500891800 /* BookedAppointmentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookedAppointmentsTableViewCell.swift; sourceTree = "<group>"; };
+		F80C19872900F75500891800 /* BookedAppointmentsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookedAppointmentsTableViewCell.xib; sourceTree = "<group>"; };
 		F8131B1028D5A09F00B7558D /* Medonapp iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Medonapp iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8131B1328D5A09F00B7558D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F8131B1528D5A09F00B7558D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -137,9 +137,9 @@
 		F844C65428FEB27000BBE5B0 /* ReportTab.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ReportTab.storyboard; sourceTree = "<group>"; };
 		F844C65728FF0E1700BBE5B0 /* ReportTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportTableViewCell.swift; sourceTree = "<group>"; };
 		F844C65828FF0E1700BBE5B0 /* ReportTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReportTableViewCell.xib; sourceTree = "<group>"; };
-		F844C65C28FFCF0500BBE5B0 /* AppointmentHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentHistoryViewController.swift; sourceTree = "<group>"; };
-		F844C65F28FFDD3E00BBE5B0 /* MonthViewAppointmentHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthViewAppointmentHistory.swift; sourceTree = "<group>"; };
-		F844C66128FFDD6700BBE5B0 /* MonthViewAppointmentHistory.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MonthViewAppointmentHistory.xib; sourceTree = "<group>"; };
+		F844C65C28FFCF0500BBE5B0 /* BookedAppointmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookedAppointmentsViewController.swift; sourceTree = "<group>"; };
+		F844C65F28FFDD3E00BBE5B0 /* MonthViewBookedAppointments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthViewBookedAppointments.swift; sourceTree = "<group>"; };
+		F844C66128FFDD6700BBE5B0 /* MonthViewBookedAppointments.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MonthViewBookedAppointments.xib; sourceTree = "<group>"; };
 		F859AB3328EC2FA10069D247 /* UITextViewWithPlaceholder_CR8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewWithPlaceholder_CR8.swift; sourceTree = "<group>"; };
 		F85D9C3328F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTabDateCollectionViewCell.swift; sourceTree = "<group>"; };
 		F85D9C3428F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleTabDateCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -409,7 +409,7 @@
 			isa = PBXGroup;
 			children = (
 				F8B96C2E28F699EF009E5198 /* ProfileViewViewController.swift */,
-				F844C65C28FFCF0500BBE5B0 /* AppointmentHistoryViewController.swift */,
+				F844C65C28FFCF0500BBE5B0 /* BookedAppointmentsViewController.swift */,
 				F87559402901290C00863554 /* RatingHalfScreenViewController.swift */,
 			);
 			path = "Profile View";
@@ -418,10 +418,10 @@
 		F844C65E28FFDD0A00BBE5B0 /* Profile View */ = {
 			isa = PBXGroup;
 			children = (
-				F844C65F28FFDD3E00BBE5B0 /* MonthViewAppointmentHistory.swift */,
-				F844C66128FFDD6700BBE5B0 /* MonthViewAppointmentHistory.xib */,
-				F80C19862900F75500891800 /* AppointmentHistoryTableViewCell.swift */,
-				F80C19872900F75500891800 /* AppointmentHistoryTableViewCell.xib */,
+				F844C65F28FFDD3E00BBE5B0 /* MonthViewBookedAppointments.swift */,
+				F844C66128FFDD6700BBE5B0 /* MonthViewBookedAppointments.xib */,
+				F80C19862900F75500891800 /* BookedAppointmentsTableViewCell.swift */,
+				F80C19872900F75500891800 /* BookedAppointmentsTableViewCell.xib */,
 			);
 			path = "Profile View";
 			sourceTree = "<group>";
@@ -584,12 +584,12 @@
 				F81BAAF828F9C8C40080BD21 /* PriceDisplayViewAppointmentDetails.xib in Resources */,
 				F8131B1D28D5A0A000B7558D /* Assets.xcassets in Resources */,
 				F844C65528FEB27000BBE5B0 /* ReportTab.storyboard in Resources */,
-				F80C19892900F75500891800 /* AppointmentHistoryTableViewCell.xib in Resources */,
+				F80C19892900F75500891800 /* BookedAppointmentsTableViewCell.xib in Resources */,
 				F82AA0F228F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.xib in Resources */,
 				F89272C428F1B0F80063525E /* NunitoSans-Regular.ttf in Resources */,
 				F8131B1B28D5A09F00B7558D /* Main.storyboard in Resources */,
 				F8BC4A4628F4614800440406 /* HomeTab.storyboard in Resources */,
-				F844C66228FFDD6700BBE5B0 /* MonthViewAppointmentHistory.xib in Resources */,
+				F844C66228FFDD6700BBE5B0 /* MonthViewBookedAppointments.xib in Resources */,
 				F81BAAF128F982870080BD21 /* errorFailure.json in Resources */,
 				F89272C228F1AEA50063525E /* ScheduleTabTableViewCell.xib in Resources */,
 				F8AF822328F5CB6300D62D98 /* DoctorDetailsScreenTopView.xib in Resources */,
@@ -675,7 +675,7 @@
 				F8F3ED4529096A24001D6A4C /* CredentialShort.swift in Sources */,
 				F859AB3428EC2FA20069D247 /* UITextViewWithPlaceholder_CR8.swift in Sources */,
 				F81BAAEA28F97E6B0080BD21 /* AppointmentStatusViewController.swift in Sources */,
-				F80C19882900F75500891800 /* AppointmentHistoryTableViewCell.swift in Sources */,
+				F80C19882900F75500891800 /* BookedAppointmentsTableViewCell.swift in Sources */,
 				F8B96C2628F5D557009E5198 /* GreyViewDoctorDetails.swift in Sources */,
 				F83CBC4828D87352005BA1B8 /* LoginSignUpViewController.swift in Sources */,
 				F8131B1828D5A09F00B7558D /* LandingPageView.swift in Sources */,
@@ -719,13 +719,13 @@
 				F81BAAF628F9C8A20080BD21 /* PriceDisplayViewAppointmentDetails.swift in Sources */,
 				F8BC4A3D28F420F000440406 /* ReportCellWithIconAndDescription.swift in Sources */,
 				F8308050290A76390088CDB8 /* Appointments.swift in Sources */,
-				F844C65D28FFCF0500BBE5B0 /* AppointmentHistoryViewController.swift in Sources */,
+				F844C65D28FFCF0500BBE5B0 /* BookedAppointmentsViewController.swift in Sources */,
 				F883FC132909260E00B17D01 /* Prefs.swift in Sources */,
 				F8C75A6028E98B7000F5B2E2 /* extensions.swift in Sources */,
 				F86A71CF28EE9C970083D12D /* HomeTabViewController.swift in Sources */,
 				F8F3ED432909692B001D6A4C /* MobileNumberShort.swift in Sources */,
 				F8A4F47828F14CE60032A87B /* SearchBarWithSearchAndFilterIcon.swift in Sources */,
-				F844C66028FFDD3E00BBE5B0 /* MonthViewAppointmentHistory.swift in Sources */,
+				F844C66028FFDD3E00BBE5B0 /* MonthViewBookedAppointments.swift in Sources */,
 				F82AA0F128F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

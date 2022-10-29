@@ -14,7 +14,7 @@ class AppointmentHistoryViewController: UIViewController {
     private var backButton: UIImageView?
     private var navTitle: UILabel?
     private var todayButton: UIImageView?
-    private var monthView: MonthViewAppointmentHistory?
+    private var monthView: MonthViewBookedAppointments?
     private var scheduleTable: UITableView?
     
     private var appointments: Appointments = []
@@ -31,7 +31,7 @@ class AppointmentHistoryViewController: UIViewController {
         setupUI()
         setConstraints()
         
-        scheduleTable?.register(AppointmentHistoryTableViewCell.nib(), forCellReuseIdentifier: AppointmentHistoryTableViewCell.identifier)
+        scheduleTable?.register(BookedAppointmentsTableViewCell.nib(), forCellReuseIdentifier: BookedAppointmentsTableViewCell.identifier)
         scheduleTable?.delegate = self
         scheduleTable?.dataSource = self
     }
@@ -76,21 +76,21 @@ class AppointmentHistoryViewController: UIViewController {
         backButton?.isUserInteractionEnabled = true
         
         navTitle = UILabel()
-        navTitle?.text = "Apppointment History"
+        navTitle?.text = "Booked Appointments"
         navTitle?.textAlignment = .center
         navTitle?.textColor = .black
         navTitle?.font = UIFont(name: "NunitoSans-Bold", size: 18)
         view.addSubview(navTitle!)
         
         todayButton = UIImageView()
-        todayButton?.image = UIImage(named: "calendarIcon")
+        todayButton?.image = UIImage(named: "calendarIconWithTick")
         todayButton?.contentMode = .scaleAspectFit
         view.addSubview(todayButton!)
         let todayTap = UITapGestureRecognizer(target: self, action: #selector(self.handleTodayTapAction(_:)))
         todayButton?.addGestureRecognizer(todayTap)
         todayButton?.isUserInteractionEnabled = true
         
-        monthView = MonthViewAppointmentHistory.shared
+        monthView = MonthViewBookedAppointments.shared
         monthView?.delegate = self
         view.addSubview(monthView!)
         monthView?.isUserInteractionEnabled = true
@@ -117,7 +117,7 @@ class AppointmentHistoryViewController: UIViewController {
         navTitle?.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         navTitle?.widthAnchor.constraint(equalToConstant: 200).isActive = true
         
-        todayButton?.topAnchor.constraint(equalTo: view.topAnchor, constant: 30).isActive = true
+        todayButton?.topAnchor.constraint(equalTo: view.topAnchor, constant: 35).isActive = true
         todayButton?.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -28).isActive = true
         todayButton?.widthAnchor.constraint(equalToConstant: 40).isActive = true
         todayButton?.heightAnchor.constraint(equalToConstant: 40).isActive = true
@@ -143,8 +143,8 @@ class AppointmentHistoryViewController: UIViewController {
 
 }
 
-extension AppointmentHistoryViewController: MonthViewAppointmentHistoryDelegate {
-    func didMonthChange(sender: MonthViewAppointmentHistory) {
+extension AppointmentHistoryViewController: MonthViewBookedAppointmentsDelegate {
+    func didMonthChange(sender: MonthViewBookedAppointments) {
         AppointmentElement.arrangeAppointmentsByDate(month: monthView!.getMonth(), year: monthView!.getYear())
         self.appointmentsByDate = AppointmentElement.getAppointmentDate()
         UIView.transition(with: scheduleTable!, duration: 0.15, options: .transitionCrossDissolve, animations: {self.scheduleTable!.reloadData()}, completion: nil)
@@ -188,7 +188,7 @@ extension AppointmentHistoryViewController: UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = scheduleTable!.dequeueReusableCell(withIdentifier: AppointmentHistoryTableViewCell.identifier, for: indexPath) as! AppointmentHistoryTableViewCell
+        let cell = scheduleTable!.dequeueReusableCell(withIdentifier: BookedAppointmentsTableViewCell.identifier, for: indexPath) as! BookedAppointmentsTableViewCell
         
         let array = appointmentsByDate[indexPath.section + 1]
         
@@ -203,7 +203,7 @@ extension AppointmentHistoryViewController: UITableViewDelegate, UITableViewData
     }
 }
 
-extension AppointmentHistoryViewController: AppointmentHistoryCellProtocol {
+extension AppointmentHistoryViewController: BookedAppointmentsCellProtocol {
     func feedbackButtonDidSelect() {
         // Create the view controller.
         let sheetViewController = RatingHalfScreenViewController()

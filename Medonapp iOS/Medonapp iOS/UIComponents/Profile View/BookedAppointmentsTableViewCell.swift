@@ -14,16 +14,16 @@ enum feedbackStates {
     case notYet
 }
 
-protocol AppointmentHistoryCellProtocol {
+protocol BookedAppointmentsCellProtocol {
     func feedbackButtonDidSelect() //TODO: ADD APPOINTMENT OBJECT AS PARAMETER
 }
 
-class AppointmentHistoryTableViewCell: UITableViewCell {
+class BookedAppointmentsTableViewCell: UITableViewCell {
     
-    static let identifier = "AppointmentHistoryTableViewCell"
+    static let identifier = "BookedAppointmentsTableViewCell"
     
     static func nib() -> UINib {
-        return UINib(nibName: "AppointmentHistoryTableViewCell", bundle: nil)
+        return UINib(nibName: "BookedAppointmentsTableViewCell", bundle: nil)
     }
     
     @IBOutlet private var containerView: UIView!
@@ -33,7 +33,7 @@ class AppointmentHistoryTableViewCell: UITableViewCell {
     @IBOutlet private var designationLabel: UILabel!
     @IBOutlet private var feedbackButton: UIButton!
     
-    var delegate: AppointmentHistoryCellProtocol!
+    var delegate: BookedAppointmentsCellProtocol!
     
     public func configure(appointment: AppointmentElement) {
         self.containerView.backgroundColor = UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00)
