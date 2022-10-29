@@ -13,6 +13,7 @@ class AppointmentHistoryViewController: UIViewController {
     
     private var backButton: UIImageView?
     private var navTitle: UILabel?
+    private var todayButton: UIImageView?
     private var monthView: MonthViewAppointmentHistory?
     private var scheduleTable: UITableView?
     
@@ -81,6 +82,14 @@ class AppointmentHistoryViewController: UIViewController {
         navTitle?.font = UIFont(name: "NunitoSans-Bold", size: 18)
         view.addSubview(navTitle!)
         
+        todayButton = UIImageView()
+        todayButton?.image = UIImage(named: "calendarIcon")
+        todayButton?.contentMode = .scaleAspectFit
+        view.addSubview(todayButton!)
+        let todayTap = UITapGestureRecognizer(target: self, action: #selector(self.handleTodayTapAction(_:)))
+        todayButton?.addGestureRecognizer(todayTap)
+        todayButton?.isUserInteractionEnabled = true
+        
         monthView = MonthViewAppointmentHistory.shared
         monthView?.delegate = self
         view.addSubview(monthView!)
@@ -94,6 +103,7 @@ class AppointmentHistoryViewController: UIViewController {
     func setConstraints() {
         backButton?.translatesAutoresizingMaskIntoConstraints = false
         navTitle?.translatesAutoresizingMaskIntoConstraints = false
+        todayButton?.translatesAutoresizingMaskIntoConstraints = false
         monthView?.translatesAutoresizingMaskIntoConstraints = false
         scheduleTable?.translatesAutoresizingMaskIntoConstraints = false
         
@@ -106,6 +116,11 @@ class AppointmentHistoryViewController: UIViewController {
         navTitle?.topAnchor.constraint(equalTo: view.topAnchor, constant: 43).isActive = true
         navTitle?.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         navTitle?.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        
+        todayButton?.topAnchor.constraint(equalTo: view.topAnchor, constant: 30).isActive = true
+        todayButton?.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -28).isActive = true
+        todayButton?.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        todayButton?.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         monthView?.topAnchor.constraint(equalTo: navTitle!.bottomAnchor, constant: 20).isActive = true
         monthView?.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -120,6 +135,10 @@ class AppointmentHistoryViewController: UIViewController {
     
     @objc func handleBackAction(_ sender: UITapGestureRecognizer? = nil) {
         self.dismiss(animated: true)
+    }
+    
+    @objc func handleTodayTapAction(_ sender: UITapGestureRecognizer? = nil) {
+        self.monthView?.resetToToday()
     }
 
 }
