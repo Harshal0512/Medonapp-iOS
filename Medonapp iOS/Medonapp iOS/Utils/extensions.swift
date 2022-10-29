@@ -135,10 +135,10 @@ extension Date {
         return dateFormatter.string(from: date)
     }
     
-    static func dateFromISOString(string: String) -> Date? {
+    static func dateFromISOString(string: String, timezone: String = "IST") -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.timeZone = TimeZone(abbreviation: "IST")
+        dateFormatter.timeZone = TimeZone(abbreviation: timezone)
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
         
         var finalDate = dateFormatter.date(from: string)

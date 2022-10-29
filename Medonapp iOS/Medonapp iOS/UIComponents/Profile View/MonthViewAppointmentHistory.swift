@@ -53,6 +53,10 @@ class MonthViewAppointmentHistory: UIView {
         }
     }
     
+    private var lowerLimitMonth: Int = Calendar(identifier: .gregorian).dateComponents([.month], from: Date.dateFromISOString(string: (User.getUserDetails().patient?.credential?.createdOn!)!, timezone: "GMT")!).month!
+    private var lowerLimitYear: Int = Calendar(identifier: .gregorian).dateComponents([.year], from: Date.dateFromISOString(string: (User.getUserDetails().patient?.credential?.createdOn!)!, timezone: "GMT")!).year!
+    
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -105,20 +109,38 @@ class MonthViewAppointmentHistory: UIView {
     }
     
     @objc static func decrementMonth() {
+        let tempMonth = MonthViewAppointmentHistory.shared.month_CounterCurrent
+        let tempYear = MonthViewAppointmentHistory.shared.year_CounterCurrent
+        
         if MonthViewAppointmentHistory.shared.month_CounterCurrent == 1 {
             MonthViewAppointmentHistory.shared.year_CounterCurrent -= 1
             MonthViewAppointmentHistory.shared.month_CounterCurrent = MonthViewAppointmentHistory.monthArray.count - 1
         } else {
             MonthViewAppointmentHistory.shared.month_CounterCurrent -= 1
         }
+        
+        if MonthViewAppointmentHistory.shared.month_CounterCurrent < MonthViewAppointmentHistory.shared.lowerLimitMonth &&
+            MonthViewAppointmentHistory.shared.year_CounterCurrent <= MonthViewAppointmentHistory.shared.lowerLimitYear {
+            MonthViewAppointmentHistory.shared.month_CounterCurrent = tempMonth
+            MonthViewAppointmentHistory.shared.year_CounterCurrent = tempYear
+        }
     }
     
     @objc static func incrementMonth() {
+        let tempMonth = MonthViewAppointmentHistory.shared.month_CounterCurrent
+        let tempYear = MonthViewAppointmentHistory.shared.year_CounterCurrent
+        
         if MonthViewAppointmentHistory.shared.month_CounterCurrent == MonthViewAppointmentHistory.monthArray.count - 1 {
             MonthViewAppointmentHistory.shared.year_CounterCurrent += 1
             MonthViewAppointmentHistory.shared.month_CounterCurrent = 1
         } else {
             MonthViewAppointmentHistory.shared.month_CounterCurrent += 1
+        }
+        
+        if MonthViewAppointmentHistory.shared.month_CounterCurrent > Calendar(identifier: .gregorian).dateComponents([.month], from: Date()).month! &&
+            MonthViewAppointmentHistory.shared.year_CounterCurrent >= Calendar(identifier: .gregorian).dateComponents([.year], from: Date()).year! {
+            MonthViewAppointmentHistory.shared.month_CounterCurrent = tempMonth
+            MonthViewAppointmentHistory.shared.year_CounterCurrent = tempYear
         }
     }
     
