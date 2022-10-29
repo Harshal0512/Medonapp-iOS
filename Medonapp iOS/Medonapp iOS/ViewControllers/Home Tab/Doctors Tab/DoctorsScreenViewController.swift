@@ -10,6 +10,7 @@ import UIKit
 class DoctorsScreenViewController: UIViewController {
     
     public var doctors: [Doctor] = []
+    private var liveDoctors: [Doctor] = []
     
     private var backButton: UIImageView?
     private var navTitle: UILabel?
@@ -160,11 +161,14 @@ class DoctorsScreenViewController: UIViewController {
     @objc func refreshData() {
         Doctor.refreshDoctors { isSuccess in
             self.doctors = Doctor.getDoctors()
-            print(self.doctors.count)
-            let range = NSMakeRange(0, self.doctorsTable!.numberOfSections)
-            let sections = NSIndexSet(indexesIn: range)
+            self.liveDoctors = Doctor.getLiveDoctors()
+            var range = NSMakeRange(0, self.doctorsTable!.numberOfSections)
+            var sections = NSIndexSet(indexesIn: range)
             self.doctorsTable!.reloadSections(sections as IndexSet, with: .automatic)
-//            self.refreshControl.endRefreshing()
+            
+            range = NSMakeRange(0, self.doctorsCollectionView!.numberOfSections)
+            sections = NSIndexSet(indexesIn: range)
+            self.doctorsCollectionView!.reloadSections(sections as IndexSet)
         }
     }
     
@@ -213,13 +217,13 @@ extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSourc
 extension DoctorsScreenViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return doctors.count
+        return liveDoctors.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DoctorsScreenCarouselCollectionViewCell.identifier, for: indexPath) as! DoctorsScreenCarouselCollectionViewCell
         
-        cell.configure(doctor: doctors[indexPath.row])
+        cell.configure(doctor: liveDoctors[indexPath.row])
         return cell
     }
     
@@ -229,7 +233,7 @@ extension DoctorsScreenViewController: UICollectionViewDelegate, UICollectionVie
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             let doctorsDetailsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "doctorsDetailsVC") as? DoctorDetailsViewViewController
-            doctorsDetailsVC?.doctor = self.doctors[indexPath.row]
+            doctorsDetailsVC?.doctor = self.liveDoctors[indexPath.row]
             self.navigationController?.pushViewController(doctorsDetailsVC!, animated: true)
         }
     }

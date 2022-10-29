@@ -68,13 +68,19 @@ class Doctor: Codable {
     }
     
     static private var doctors: [Doctor] = []
+    static private var liveDoctors: [Doctor] = []
     
     static func getDoctors() -> [Doctor] {
         return doctors
     }
     
+    static func getLiveDoctors() -> [Doctor] {
+        return liveDoctors
+    }
+    
     static func clearDoctors() {
         doctors = []
+        liveDoctors = []
     }
     
     static func refreshDoctors(completionHandler: @escaping (Bool) -> ()) {
@@ -82,10 +88,20 @@ class Doctor: Codable {
             switch result{
             case .success(_):
                 try? Doctor.initDoctors(doctors: result.get())
+                Doctor.calculateLiveStatus()
                 completionHandler(true)
             case .failure(let error):
                 print(error)
                 completionHandler(false)
+            }
+        }
+    }
+    
+    static func calculateLiveStatus() {
+        liveDoctors = []
+        for doctor in doctors {
+            if doctor.liveStatus == true {
+                liveDoctors.append(doctor)
             }
         }
     }
