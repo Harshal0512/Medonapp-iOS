@@ -91,14 +91,14 @@ class ScheduleTabViewController: UIViewController, UICollectionViewDelegate, UIC
     
     //MARK: CollectionView Methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if Calendar.current.component(.month, from: Date()) == 2 {
-            return 28 - Calendar.current.component(.day, from: Date().dayBefore)
-        }
-        else if Calendar.current.component(.month, from: Date()) % 2 == 0 {
-            return 30 - Calendar.current.component(.day, from: Date().dayBefore)
-        } else {
-            return 31 - Calendar.current.component(.day, from: Date().dayBefore)
-        }
+        let dateComponents = DateComponents(year: Calendar.current.component(.year, from: Date()), month: Calendar.current.component(.month, from: Date()))
+        let calendar = Calendar.current
+        let date = calendar.date(from: dateComponents)!
+
+        let range = calendar.range(of: .day, in: .month, for: date)!
+        let numDays = range.count
+        
+        return numDays - Calendar.current.component(.day, from: Date().dayBefore)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

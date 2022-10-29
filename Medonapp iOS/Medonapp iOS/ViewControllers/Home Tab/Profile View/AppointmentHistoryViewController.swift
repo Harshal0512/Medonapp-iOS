@@ -153,11 +153,14 @@ extension AppointmentHistoryViewController: MonthViewAppointmentHistoryDelegate 
 
 extension AppointmentHistoryViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        if (monthView?.getMonth())! % 2 == 0 {
-            return 30
-        } else {
-            return 31
-        }
+        let dateComponents = DateComponents(year: monthView!.getYear(), month: monthView!.getMonth())
+        let calendar = Calendar.current
+        let date = calendar.date(from: dateComponents)!
+
+        let range = calendar.range(of: .day, in: .month, for: date)!
+        let numDays = range.count
+        
+        return numDays
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -177,7 +180,7 @@ extension AppointmentHistoryViewController: UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return appointmentsByDate[section]?.count ?? 0
+        return appointmentsByDate[section + 1]?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -187,7 +190,7 @@ extension AppointmentHistoryViewController: UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = scheduleTable!.dequeueReusableCell(withIdentifier: AppointmentHistoryTableViewCell.identifier, for: indexPath) as! AppointmentHistoryTableViewCell
         
-        let array = appointmentsByDate[indexPath.section]
+        let array = appointmentsByDate[indexPath.section + 1]
         
         cell.configure(appointment: appointments[array![indexPath.row]])
         cell.delegate = self

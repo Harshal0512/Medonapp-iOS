@@ -8,6 +8,12 @@
 import UIKit
 import Kingfisher
 
+enum feedbackStates {
+    case due
+    case completed
+    case notYet
+}
+
 protocol AppointmentHistoryCellProtocol {
     func feedbackButtonDidSelect() //TODO: ADD APPOINTMENT OBJECT AS PARAMETER
 }
@@ -58,12 +64,18 @@ class AppointmentHistoryTableViewCell: UITableViewCell {
         self.feedbackButton.titleLabel?.font = UIFont(name: "NunitoSans-Bold", size: 14)
         self.feedbackButton.layer.cornerRadius = 14
         
-        var isFeedbackDue: Bool = false
+        var isFeedbackDue: feedbackStates = .notYet
         
-        isFeedbackDue = appointment.review != nil ? false : true
+        if appointment.review != nil && Date.dateFromISOString(string: appointment.endTime!)! < Date() {
+            isFeedbackDue = .due
+        } else if Date.dateFromISOString(string: appointment.endTime!)! > Date() {
+            isFeedbackDue = .notYet
+        } else {
+            isFeedbackDue = .completed
+        }
         
         switch isFeedbackDue {
-        case true:
+        case .due:
             self.feedbackButton.backgroundColor = .white
             self.feedbackButton.setTitle("Give Feedback", for: .normal)
             self.feedbackButton.layer.borderWidth = 0
@@ -71,7 +83,7 @@ class AppointmentHistoryTableViewCell: UITableViewCell {
             self.feedbackButton.setImage(nil, for: .normal)
             self.feedbackButton.isUserInteractionEnabled = true
             self.feedbackButton.addTarget(self, action: #selector(feedbackButtonClicked), for: .touchUpInside)
-        case false:
+        case .completed:
             self.feedbackButton.backgroundColor = .clear
             self.feedbackButton.layer.borderWidth = 2
             self.feedbackButton.layer.borderColor = UIColor.white.cgColor
@@ -80,6 +92,13 @@ class AppointmentHistoryTableViewCell: UITableViewCell {
             self.feedbackButton.setImage(UIImage(named: "starIcon")?.resizeImageTo(size: CGSize(width: 13, height: 13)), for: .normal)
             self.feedbackButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 2, right: 0)
             self.feedbackButton.setImageTintColor(UIColor(red: 0.85, green: 0.65, blue: 0.13, alpha: 1.00))
+            self.feedbackButton.isUserInteractionEnabled = false
+        case .notYet:
+            self.feedbackButton.backgroundColor = .white
+            self.feedbackButton.setTitle("Appointment Booked", for: .normal)
+            self.feedbackButton.layer.borderWidth = 0
+            self.feedbackButton.setTitleColor(UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00), for: .normal)
+            self.feedbackButton.setImage(nil, for: .normal)
             self.feedbackButton.isUserInteractionEnabled = false
         }
     }
