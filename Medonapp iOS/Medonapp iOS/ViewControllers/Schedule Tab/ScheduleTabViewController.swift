@@ -98,7 +98,7 @@ class ScheduleTabViewController: UIViewController, UICollectionViewDelegate, UIC
         let range = calendar.range(of: .day, in: .month, for: date)!
         let numDays = range.count
         
-        return numDays - Calendar.current.component(.day, from: Date().localDate().dayBefore)
+        return numDays - Calendar.current.component(.day, from: Date().localDate().dayBefore) + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -107,7 +107,7 @@ class ScheduleTabViewController: UIViewController, UICollectionViewDelegate, UIC
         var dateComponents = DateComponents()
         dateComponents.year = Calendar.current.component(.year, from: Date().localDate())
         dateComponents.month = Calendar.current.component(.month, from: Date().localDate())
-        dateComponents.day = dates[indexPath.row + Calendar.current.component(.day, from: Date().localDate().dayBefore)]
+        dateComponents.day = dates[indexPath.row + Calendar.current.component(.day, from: Date().localDate().dayBefore) - 1]
         dateComponents.timeZone = TimeZone(abbreviation: "IST")
         
         let userCalendar = Calendar(identifier: .gregorian)
@@ -117,9 +117,9 @@ class ScheduleTabViewController: UIViewController, UICollectionViewDelegate, UIC
         dateFormatter.dateFormat = "E"
         let dayOfTheWeekString = dateFormatter.string(from: date!)
         if indexPath.row == activeDateIndex {
-            cell.configure(date: "\(dates[indexPath.row + Calendar.current.component(.day, from: Date().localDate().dayBefore)])", day: dayOfTheWeekString, isActive: true)
+            cell.configure(date: "\(dates[indexPath.row + Calendar.current.component(.day, from: Date().localDate().dayBefore) - 1])", day: dayOfTheWeekString, isActive: true)
         } else {
-            cell.configure(date: "\(dates[indexPath.row + Calendar.current.component(.day, from: Date().localDate().dayBefore)])", day: dayOfTheWeekString, isActive: false)
+            cell.configure(date: "\(dates[indexPath.row + Calendar.current.component(.day, from: Date().localDate().dayBefore) - 1])", day: dayOfTheWeekString, isActive: false)
         }
         
         return cell
@@ -150,7 +150,7 @@ class ScheduleTabViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return appointmentsByDate[dates[activeDateIndex + Calendar.current.component(.day, from: Date().localDate().dayBefore)]]?.count ?? 0
+        return appointmentsByDate[dates[activeDateIndex + Calendar.current.component(.day, from: Date().localDate().dayBefore) - 1]]?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -160,7 +160,7 @@ class ScheduleTabViewController: UIViewController, UICollectionViewDelegate, UIC
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = scheduleTable!.dequeueReusableCell(withIdentifier: ScheduleTabTableViewCell.identifier, for: indexPath) as! ScheduleTabTableViewCell
         
-        let array = appointmentsByDate[dates[activeDateIndex + Calendar.current.component(.day, from: Date().localDate().dayBefore)]]
+        let array = appointmentsByDate[dates[activeDateIndex + Calendar.current.component(.day, from: Date().localDate().dayBefore) - 1]]
         
         if appointments[array![indexPath.row]].doctor?.gender?.lowercased() ?? "male" == "female" {
             cell.configure(appointment: appointments[array![indexPath.row]], cellVariant: .pink)
