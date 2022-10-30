@@ -51,7 +51,7 @@ class AppointmentDetailsViewController: UIViewController, UITextViewDelegate {
         backButton?.addGestureRecognizer(backTap)
         backButton?.isUserInteractionEnabled = true
         
-        priceLabel = PriceDisplayViewAppointmentDetails.instantiate(price: "\(doctor!.fees ?? 0)")
+        priceLabel = PriceDisplayViewAppointmentDetails.instantiate(price: String(format: "%.2f", doctor!.fees ?? 0))
         view?.addSubview(priceLabel!)
         
         scrollView = UIScrollView()
@@ -96,7 +96,7 @@ class AppointmentDetailsViewController: UIViewController, UITextViewDelegate {
         contentView?.addSubview(starIcon!)
         
         ratingLabel = UILabel()
-        ratingLabel?.text = "\(doctor?.avgRating ?? 0)"
+        ratingLabel?.text = String(format: "%.2f", doctor?.avgRating ?? 0)
         ratingLabel?.textColor = .black
         ratingLabel?.textAlignment = .center
         ratingLabel?.font = UIFont(name: "NunitoSans-Bold", size: 16)

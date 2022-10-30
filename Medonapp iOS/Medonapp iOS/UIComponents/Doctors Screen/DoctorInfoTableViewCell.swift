@@ -40,7 +40,7 @@ class DoctorInfoTableViewCell: UITableViewCell {
         self.doctorImage.contentMode = .scaleAspectFill
         self.doctorName.text = (doctor.name?.firstName ?? "") + " " + (doctor.name?.lastName ?? "")
         self.designation.text = doctor.specialization ?? ""
-        self.rating.text = "\(doctor.avgRating ?? 0)"
+        self.rating.text = String(format: "%.2f", doctor.avgRating ?? 0)
         self.numberOfReviews.text = "\(doctor.reviewCount ?? 0) reviews"
         
         self.doctorName.textColor = .black
