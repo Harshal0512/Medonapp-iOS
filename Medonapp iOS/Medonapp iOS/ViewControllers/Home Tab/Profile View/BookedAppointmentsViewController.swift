@@ -221,7 +221,7 @@ extension BookedAppointmentsViewController: BookedAppointmentsCellProtocol {
 extension BookedAppointmentsViewController: RatingHalfScreenDelegate {
     func feedbackClosed(isSuccess: Bool) {
         if isSuccess {
-            self.view.makeToast("Feedback Recorded Successfully", duration: 64.0, title: "Success", image: UIImage(named: "AppIcon"), completion: nil)
+            self.view.makeToast("Feedback Recorded Successfully", duration: 6.0, title: "Success", image: UIImage(named: "AppIcon"), completion: nil)
             self.refreshData()
         } else {
             self.view.makeToast("Unknown Error Occured", duration: 5.0, title: "Error", image: UIImage(named: "AppIcon"), completion: nil)
