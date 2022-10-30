@@ -17,6 +17,7 @@ class DoctorsScreenViewController: UIViewController {
     private var searchField: SearchBarWithSearchAndFilterIcon?
     private var liveDoctorsLabel: UILabel?
     private var doctorsCollectionView: UICollectionView?
+    private var noLiveDoctorsLabel: UILabel?
     private var popularDoctorsLabel: UILabel?
     var doctorsTable: UITableView?
     
@@ -98,7 +99,12 @@ class DoctorsScreenViewController: UIViewController {
         doctorsCollectionView?.showsHorizontalScrollIndicator = false
         doctorsCollectionView?.showsVerticalScrollIndicator = false
         
-        //TODO: Hide Collection view and label if empty
+        noLiveDoctorsLabel = UILabel()
+        noLiveDoctorsLabel?.text = "No live doctors right now."
+        noLiveDoctorsLabel?.textAlignment = .center
+        noLiveDoctorsLabel?.textColor = .gray
+        noLiveDoctorsLabel?.font = UIFont(name: "NunitoSans-Regular", size: 16)
+        view.addSubview(noLiveDoctorsLabel!)
         
         popularDoctorsLabel = UILabel()
         popularDoctorsLabel?.text = "Popular Doctors"
@@ -117,6 +123,7 @@ class DoctorsScreenViewController: UIViewController {
         searchField?.translatesAutoresizingMaskIntoConstraints = false
         liveDoctorsLabel?.translatesAutoresizingMaskIntoConstraints = false
         doctorsCollectionView?.translatesAutoresizingMaskIntoConstraints = false
+        noLiveDoctorsLabel?.translatesAutoresizingMaskIntoConstraints = false
         popularDoctorsLabel?.translatesAutoresizingMaskIntoConstraints = false
         doctorsTable?.translatesAutoresizingMaskIntoConstraints = false
         
@@ -144,6 +151,10 @@ class DoctorsScreenViewController: UIViewController {
         doctorsCollectionView?.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -27).isActive = true
         doctorsCollectionView?.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
+        noLiveDoctorsLabel?.topAnchor.constraint(equalTo: liveDoctorsLabel!.bottomAnchor, constant: 60).isActive = true
+        noLiveDoctorsLabel?.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 27).isActive = true
+        noLiveDoctorsLabel?.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -27).isActive = true
+        
         popularDoctorsLabel?.topAnchor.constraint(equalTo: doctorsCollectionView!.bottomAnchor, constant: 30).isActive = true
         popularDoctorsLabel?.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 27).isActive = true
         popularDoctorsLabel?.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -27).isActive = true
@@ -169,6 +180,12 @@ class DoctorsScreenViewController: UIViewController {
             range = NSMakeRange(0, self.doctorsCollectionView!.numberOfSections)
             sections = NSIndexSet(indexesIn: range)
             self.doctorsCollectionView!.reloadSections(sections as IndexSet)
+            
+            if self.liveDoctors.count < 1 {
+                self.noLiveDoctorsLabel?.isHidden = false
+            } else {
+                self.noLiveDoctorsLabel?.isHidden = true
+            }
         }
     }
     
@@ -240,5 +257,6 @@ extension DoctorsScreenViewController: UICollectionViewDelegate, UICollectionVie
     
     func refreshCollectionView() {
         doctorsCollectionView?.reloadData()
+        
     }
 }
