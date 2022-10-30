@@ -24,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Month" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BqL-pU-GFM">
-                    <rect key="frame" x="35" y="17.666666666666671" width="185" height="35"/>
+                    <rect key="frame" x="55" y="17.666666666666671" width="145" height="35"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="35" id="RiJ-di-5oI"/>
                     </constraints>
@@ -39,22 +39,22 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BuZ-3n-bIV">
-                    <rect key="frame" x="230" y="24" width="20" height="32"/>
+                    <rect key="frame" x="210" y="14" width="40" height="52"/>
                     <color key="tintColor" red="0.29019607843137252" green="0.32941176470588235" blue="0.36862745098039218" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="CSi-iX-zVN"/>
-                        <constraint firstAttribute="width" constant="20" id="tA2-KM-cIb"/>
+                        <constraint firstAttribute="height" constant="60" id="CSi-iX-zVN"/>
+                        <constraint firstAttribute="width" constant="40" id="tA2-KM-cIb"/>
                     </constraints>
                     <imageReference key="image" image="chevron.right" catalog="system" symbolScale="small"/>
                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small" weight="ultraLight"/>
                 </imageView>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sci-hv-VJ0">
-                    <rect key="frame" x="5" y="24" width="20" height="32"/>
+                    <rect key="frame" x="5" y="14" width="40" height="52"/>
                     <color key="tintColor" red="0.2901960784" green="0.3294117647" blue="0.36862745099999999" alpha="0.84705882349999995" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="7v9-kW-ANa"/>
-                        <constraint firstAttribute="width" constant="20" id="Mvl-ff-958"/>
-                        <constraint firstAttribute="height" constant="40" id="kfC-8i-ZUm"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="7v9-kW-ANa"/>
+                        <constraint firstAttribute="width" constant="40" id="Mvl-ff-958"/>
+                        <constraint firstAttribute="height" constant="60" id="kfC-8i-ZUm"/>
                     </constraints>
                     <imageReference key="image" image="chevron.left" catalog="system" symbolScale="small"/>
                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small" weight="ultraLight"/>
