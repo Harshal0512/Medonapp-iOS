@@ -72,12 +72,17 @@ class AppointmentElement: Codable {
             switch result{
             case .success(let app):
                 AppointmentElement.initAppointments(appointments: app)
+                AppointmentElement.sortAppointments(order: .orderedAscending)
                 completionHandler(true)
             case .failure(let error):
                 print(error)
                 completionHandler(false)
             }
         }
+    }
+    
+    static func sortAppointments(order: ComparisonResult) {
+        appointments = appointments.sorted(by: { Date.dateFromISOString(string: $0.startTime!, timezone: "GMT")!.compare(Date.dateFromISOString(string: $1.startTime!, timezone: "GMT")!) == order })
     }
     
     static func initAppointments(appointments: Appointments) {

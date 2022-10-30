@@ -93,8 +93,8 @@ extension UIView {
 }
 
 extension Date {
-    static var yesterday: Date { return Date().dayBefore }
-    static var tomorrow:  Date { return Date().dayAfter }
+    static var yesterday: Date { return Date().localDate().dayBefore }
+    static var tomorrow:  Date { return Date().localDate().dayAfter }
     var dayBefore: Date {
         return Calendar.current.date(byAdding: .day, value: -1, to: noon)!
     }
@@ -110,20 +110,20 @@ extension Date {
     var isLastDayOfMonth: Bool {
         return dayAfter.month != month
     }
+    func localDate() -> Date {
+        let nowUTC = Date()
+        let timeZoneOffset = Double(TimeZone.current.secondsFromGMT(for: nowUTC))
+        guard let localDate = Calendar.current.date(byAdding: .second, value: Int(timeZoneOffset), to: nowUTC) else {return Date()}
+        
+        return localDate
+    }
     
-    static func ISOStringFromDate(date: Date) -> String {
+    static func ISOStringFromDate(date: Date, ending: String = "") -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.timeZone = TimeZone(abbreviation: "IST")
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
-        
-        var finalDate = dateFormatter.string(from: date)
-        if finalDate == nil {
-            dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-            finalDate = dateFormatter.string(from: date)
-        }
-        return finalDate
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss\(ending)"
+        return dateFormatter.string(from: date)
     }
     
     static func stringFromDate(date: Date) -> String {
@@ -135,19 +135,12 @@ extension Date {
         return dateFormatter.string(from: date)
     }
     
-    static func dateFromISOString(string: String, timezone: String = "IST") -> Date? {
+    static func dateFromISOString(string: String, timezone: String = "IST", ending: String = "") -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.timeZone = TimeZone(abbreviation: timezone)
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
-        
-        var finalDate = dateFormatter.date(from: string)
-        if finalDate == nil {
-            dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-            finalDate = dateFormatter.date(from: string)
-        }
-        return finalDate
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss\(ending)"
+        return dateFormatter.date(from: string)
     }
     
     static func getTimeFromDate(dateString: String) -> String {
@@ -202,6 +195,7 @@ extension Date {
         let string = date + " " + time
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = TimeZone(abbreviation: "IST")
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let finalDate = dateFormatter.date(from: string)!
         return ISOStringFromDate(date: finalDate)
@@ -209,9 +203,7 @@ extension Date {
     
     static func addMinutes(ISODateString: String, minutes: Double) -> String {
         var date = Date.dateFromISOString(string: ISODateString)
-        print(date)
         date = date?.addingTimeInterval(minutes)
-        print(date)
         return Date.ISOStringFromDate(date: date!)
     }
 }

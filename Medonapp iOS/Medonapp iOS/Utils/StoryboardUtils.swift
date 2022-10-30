@@ -74,8 +74,8 @@ extension StoryboardUtils{
         return HomeTab.instance.instantiateViewController(withIdentifier: "appointmentStatusVC")
     }
     
-    static func getAppointmentHistoryVC() -> UIViewController {
-        return HomeTab.instance.instantiateViewController(withIdentifier: "appointmentHistoryVC")
+    static func getBookedAppointmentsVC() -> UIViewController {
+        return HomeTab.instance.instantiateViewController(withIdentifier: "BookedAppointmentsVC")
     }
     
     static func getReportDetailsVC() -> UIViewController {

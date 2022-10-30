@@ -213,8 +213,8 @@ class ProfileViewViewController: UIViewController, MFMailComposeViewControllerDe
     }
     
     @objc func openAppointmentHistory() {
-        let appointmentHistoryVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "appointmentHistoryVC") as? AppointmentHistoryViewController
-        self.present(appointmentHistoryVC!, animated: true)
+        let BookedAppointmentsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "BookedAppointmentsVC") as? BookedAppointmentsViewController
+        self.present(BookedAppointmentsVC!, animated: true)
     }
     
     @objc func openShareSheet() {

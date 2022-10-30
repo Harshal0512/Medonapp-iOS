@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Toast_Swift
 
 class BookAppointmentViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     
@@ -68,8 +69,8 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegateF
         datePicker = UIDatePicker()
         datePicker?.datePickerMode = .date
         datePicker?.preferredDatePickerStyle = .inline
-        datePicker?.minimumDate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())
-        datePicker?.maximumDate = Calendar.current.date(byAdding: .year, value: 1, to: Date())
+        datePicker?.minimumDate = Calendar.current.date(byAdding: .hour, value: 1, to: Date().localDate())
+        datePicker?.maximumDate = Calendar.current.date(byAdding: .year, value: 1, to: Date().localDate())
         contentView?.addSubview(datePicker!)
         datePicker?.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
         
@@ -174,6 +175,9 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegateF
     }
     
     @objc func goToAppointmentStatusVC() {
+        view.isUserInteractionEnabled = false
+        view.makeToastActivity(.center)
+        
         let appointmentSuccessVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "appointmentStatusVC") as? AppointmentStatusViewController
         
         var selectedTime = ""

@@ -25,10 +25,10 @@ class MonthViewBookedAppointments: UIView {
     @IBOutlet public var presentLabel: UILabel!
     
     private static let monthArray: [String] = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    private var month_CounterCurrent: Int = Calendar(identifier: .gregorian).dateComponents([.month], from: Date()).month! {
+    private var month_CounterCurrent: Int = Calendar(identifier: .gregorian).dateComponents([.month], from: Date().localDate()).month! {
         didSet {
             updateMonth()
-            if month_CounterCurrent == Calendar(identifier: .gregorian).dateComponents([.month], from: Date()).month! && year_CounterCurrent == Calendar(identifier: .gregorian).dateComponents([.year], from: Date()).year! {
+            if month_CounterCurrent == Calendar(identifier: .gregorian).dateComponents([.month], from: Date().localDate()).month! && year_CounterCurrent == Calendar(identifier: .gregorian).dateComponents([.year], from: Date().localDate()).year! {
                 UIView.transition(with: self.presentLabel,
                                   duration: 0.25,
                                   options: .transitionFlipFromBottom,
@@ -47,14 +47,14 @@ class MonthViewBookedAppointments: UIView {
         }
     }
 
-    private var year_CounterCurrent: Int = Calendar(identifier: .gregorian).dateComponents([.year], from: Date()).year! {
+    private var year_CounterCurrent: Int = Calendar(identifier: .gregorian).dateComponents([.year], from: Date().localDate()).year! {
         didSet {
             updateYear()
         }
     }
     
-    private var lowerLimitMonth: Int = Calendar(identifier: .gregorian).dateComponents([.month], from: Date.dateFromISOString(string: (User.getUserDetails().patient?.credential?.createdOn!)!, timezone: "GMT")!).month!
-    private var lowerLimitYear: Int = Calendar(identifier: .gregorian).dateComponents([.year], from: Date.dateFromISOString(string: (User.getUserDetails().patient?.credential?.createdOn!)!, timezone: "GMT")!).year!
+    private var lowerLimitMonth: Int = Calendar(identifier: .gregorian).dateComponents([.month], from: Date.dateFromISOString(string: (User.getUserDetails().patient?.credential?.createdOn!)!, timezone: "IST", ending: ".SSS")!).month!
+    private var lowerLimitYear: Int = Calendar(identifier: .gregorian).dateComponents([.year], from: Date.dateFromISOString(string: (User.getUserDetails().patient?.credential?.createdOn!)!, timezone: "IST", ending: ".SSS")!).year!
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -84,8 +84,8 @@ class MonthViewBookedAppointments: UIView {
     }
     
     func resetToToday() {
-        self.year_CounterCurrent = Calendar(identifier: .gregorian).dateComponents([.year], from: Date()).year!
-        self.month_CounterCurrent = Calendar(identifier: .gregorian).dateComponents([.month], from: Date()).month!
+        self.year_CounterCurrent = Calendar(identifier: .gregorian).dateComponents([.year], from: Date().localDate()).year!
+        self.month_CounterCurrent = Calendar(identifier: .gregorian).dateComponents([.month], from: Date().localDate()).month!
     }
     
     static func instantiate() -> MonthViewBookedAppointments {
@@ -137,8 +137,8 @@ class MonthViewBookedAppointments: UIView {
             MonthViewBookedAppointments.shared.month_CounterCurrent += 1
         }
         
-//        if MonthViewBookedAppointments.shared.month_CounterCurrent > Calendar(identifier: .gregorian).dateComponents([.month], from: Date()).month! &&
-//            MonthViewBookedAppointments.shared.year_CounterCurrent >= Calendar(identifier: .gregorian).dateComponents([.year], from: Date()).year! {
+//        if MonthViewBookedAppointments.shared.month_CounterCurrent > Calendar(identifier: .gregorian).dateComponents([.month], from: Date().localDate()).month! &&
+//            MonthViewBookedAppointments.shared.year_CounterCurrent >= Calendar(identifier: .gregorian).dateComponents([.year], from: Date().localDate()).year! {
 //            MonthViewBookedAppointments.shared.month_CounterCurrent = tempMonth
 //            MonthViewBookedAppointments.shared.year_CounterCurrent = tempYear
 //        }

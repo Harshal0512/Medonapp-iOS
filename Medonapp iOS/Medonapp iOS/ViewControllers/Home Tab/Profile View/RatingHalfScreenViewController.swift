@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol RatingHalfScreenDelegate {
+    func feedbackClosed(isSuccess: Bool)
+}
+
 class RatingHalfScreenViewController: UIViewController {
     
     private var backButton: UIImageView?
@@ -17,6 +21,10 @@ class RatingHalfScreenViewController: UIViewController {
     private var feedbackTextView: UITextViewWithPlaceholder_CR8?
     private var submitButton: UIButton?
 
+    public var appointment: AppointmentElement?
+    
+    var delegate: RatingHalfScreenDelegate!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -66,10 +74,11 @@ class RatingHalfScreenViewController: UIViewController {
         vcTitle?.textColor = .white
         contentView?.addSubview(vcTitle!)
         
-        ratingControl = JStarRatingView(frame: CGRect(origin: .zero, size: CGSize(width: 250, height: 50)), rating: 0, color: UIColor.systemOrange, starRounding: .roundToHalfStar)
+        ratingControl = JStarRatingView(frame: CGRect(origin: .zero, size: CGSize(width: 250, height: 50)), rating: 0.5, color: UIColor.systemOrange, starRounding: .roundToHalfStar)
         contentView?.addSubview(ratingControl!)
         
         feedbackTextView = UITextViewWithPlaceholder_CR8()
+        feedbackTextView?.text = ""
         feedbackTextView?.autocapitalizationType = .sentences
         feedbackTextView?.autocorrectionType = .yes
         feedbackTextView?.keyboardType = .default
@@ -86,6 +95,7 @@ class RatingHalfScreenViewController: UIViewController {
         submitButton?.setImage(nil, for: .normal)
         submitButton?.isUserInteractionEnabled = true
         contentView?.addSubview(submitButton!)
+        submitButton?.addTarget(self, action: #selector(handleSubmitAction), for: .touchUpInside)
     }
     
     func setConstraints() {
@@ -160,6 +170,38 @@ class RatingHalfScreenViewController: UIViewController {
     @objc func handleBackAction(_ sender: UITapGestureRecognizer? = nil) {
 //        navigationController?.popViewController(animated: true)
         self.dismiss(animated: true)
+    }
+    
+    @objc func handleSubmitAction() {
+        view.isUserInteractionEnabled = false
+        view.makeToastActivity(.center)
+        
+        var rating = ratingControl!.rating
+        
+        if rating <= 0.5 {
+            rating = 0.5
+        } else if rating > 5 {
+            rating = 5
+        }
+        
+        APIService(data: ["appointmentId": appointment!.id!,
+                          "rating": rating,
+                          "review": feedbackTextView!.text!],
+                   headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"],
+                   url: nil,
+                   service: .postReview,
+                   method: .post,
+                   isJSONRequest: true).executeQuery() { (result: Result<Review, Error>) in
+            switch result{
+            case .success(_):
+                self.delegate.feedbackClosed(isSuccess: true)
+                self.dismiss(animated: true)
+            case .failure(let error):
+                print(error)
+                self.delegate.feedbackClosed(isSuccess: false)
+                self.dismiss(animated: true)
+            }
+        }
     }
 }
 

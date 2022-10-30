@@ -9,7 +9,7 @@ import UIKit
 import SkeletonView
 import Toast_Swift
 
-class AppointmentHistoryViewController: UIViewController {
+class BookedAppointmentsViewController: UIViewController {
     
     private var backButton: UIImageView?
     private var navTitle: UILabel?
@@ -143,7 +143,7 @@ class AppointmentHistoryViewController: UIViewController {
 
 }
 
-extension AppointmentHistoryViewController: MonthViewBookedAppointmentsDelegate {
+extension BookedAppointmentsViewController: MonthViewBookedAppointmentsDelegate {
     func didMonthChange(sender: MonthViewBookedAppointments) {
         AppointmentElement.arrangeAppointmentsByDate(month: monthView!.getMonth(), year: monthView!.getYear())
         self.appointmentsByDate = AppointmentElement.getAppointmentDate()
@@ -151,7 +151,7 @@ extension AppointmentHistoryViewController: MonthViewBookedAppointmentsDelegate 
     }
 }
 
-extension AppointmentHistoryViewController: UITableViewDelegate, UITableViewDataSource {
+extension BookedAppointmentsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         let dateComponents = DateComponents(year: monthView!.getYear(), month: monthView!.getMonth())
         let calendar = Calendar.current
@@ -203,14 +203,29 @@ extension AppointmentHistoryViewController: UITableViewDelegate, UITableViewData
     }
 }
 
-extension AppointmentHistoryViewController: BookedAppointmentsCellProtocol {
-    func feedbackButtonDidSelect() {
+extension BookedAppointmentsViewController: BookedAppointmentsCellProtocol {
+    func feedbackButtonDidSelect(appointment: AppointmentElement) {
         // Create the view controller.
         let sheetViewController = RatingHalfScreenViewController()
+        
+        sheetViewController.appointment = appointment
+        sheetViewController.delegate = self
         
         // Present it w/o any adjustments so it uses the default sheet presentation.
         present(sheetViewController, animated: true) {
             sheetViewController.isModalInPresentation = true
+        }
+    }
+}
+
+extension BookedAppointmentsViewController: RatingHalfScreenDelegate {
+    func feedbackClosed(isSuccess: Bool) {
+        if isSuccess {
+            self.view.makeToast("Feedback Recorded Successfully", duration: 64.0, title: "Success", image: UIImage(named: "AppIcon"), completion: nil)
+            self.refreshData()
+        } else {
+            self.view.makeToast("Unknown Error Occured", duration: 5.0, title: "Error", image: UIImage(named: "AppIcon"), completion: nil)
+            self.refreshData()
         }
     }
 }

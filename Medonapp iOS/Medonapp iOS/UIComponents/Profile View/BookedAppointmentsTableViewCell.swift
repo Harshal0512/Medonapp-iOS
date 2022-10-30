@@ -15,7 +15,7 @@ enum feedbackStates {
 }
 
 protocol BookedAppointmentsCellProtocol {
-    func feedbackButtonDidSelect() //TODO: ADD APPOINTMENT OBJECT AS PARAMETER
+    func feedbackButtonDidSelect(appointment: AppointmentElement)
 }
 
 class BookedAppointmentsTableViewCell: UITableViewCell {
@@ -35,7 +35,11 @@ class BookedAppointmentsTableViewCell: UITableViewCell {
     
     var delegate: BookedAppointmentsCellProtocol!
     
+    var appointment: AppointmentElement?
+    
     public func configure(appointment: AppointmentElement) {
+        self.appointment = appointment
+        
         self.containerView.backgroundColor = UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00)
         self.containerView.layer.cornerRadius = 28
         
@@ -65,10 +69,9 @@ class BookedAppointmentsTableViewCell: UITableViewCell {
         self.feedbackButton.layer.cornerRadius = 14
         
         var isFeedbackDue: feedbackStates = .notYet
-        
-        if appointment.review != nil && Date.dateFromISOString(string: appointment.endTime!)! < Date() {
+        if appointment.review == nil && Date.dateFromISOString(string: appointment.startTime!, timezone: "GMT")! < Date().localDate() {
             isFeedbackDue = .due
-        } else if Date.dateFromISOString(string: appointment.endTime!)! > Date() {
+        } else if Date.dateFromISOString(string: appointment.startTime!, timezone: "GMT")! > Date().localDate() {
             isFeedbackDue = .notYet
         } else {
             isFeedbackDue = .completed
@@ -104,7 +107,7 @@ class BookedAppointmentsTableViewCell: UITableViewCell {
     }
     
     @objc func feedbackButtonClicked() {
-        self.delegate.feedbackButtonDidSelect() //TODO: RETURN APPOINTMENT OBJECT CURRENTLY SELECTED
+        self.delegate.feedbackButtonDidSelect(appointment: self.appointment!)
     }
 
     override func awakeFromNib() {

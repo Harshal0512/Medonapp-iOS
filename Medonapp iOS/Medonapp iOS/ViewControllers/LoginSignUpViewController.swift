@@ -300,7 +300,7 @@ class LoginSignUpViewController: UIViewController {
         dobPicker = UIDatePicker()
         dobPicker?.datePickerMode = .date
         dobPicker?.preferredDatePickerStyle = .compact
-        dobPicker?.maximumDate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())
+        dobPicker?.maximumDate = Calendar.current.date(byAdding: .hour, value: 1, to: Date().localDate())
         signUpScreenContentView?.addSubview(dobPicker!)
         dobPicker?.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         dobPicker?.alpha = 0
@@ -1096,9 +1096,9 @@ extension LoginSignUpViewController : UITextFieldDelegate, DPOTPViewDelegate, Va
             }, completion: {
                 (finished: Bool) -> Void in
             })
-            var dob = dobPicker!.date
+            let dob = dobPicker!.date
             // Convert model to JSON data
-            var model = SignUpModel(credential:
+            let model = SignUpModel(credential:
                                 CredentialShort(email: emailTextFieldSignUp!.text!,
                                                 password: choosePasswordTextField!.text!),
                             name:

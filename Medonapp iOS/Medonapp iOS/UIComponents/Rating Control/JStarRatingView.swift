@@ -19,7 +19,7 @@ public enum StarRounding: Int {
 @IBDesignable
 class JStarRatingView: UIView {
     
-    @IBInspectable var rating: Float = 0 {
+    @IBInspectable var rating: Float = 0.5 {
         didSet {
             setStarsFor(rating: rating)
         }
@@ -127,19 +127,16 @@ class JStarRatingView: UIView {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("touches began")
         guard let touch = touches.first else {return}
         touched(touch: touch, moveTouch: false)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("touched moved")
         guard let touch = touches.first else {return}
         touched(touch: touch, moveTouch: true)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("touched ended")
         guard let touch = touches.first else {return}
         touched(touch: touch, moveTouch: false)
     }
@@ -147,7 +144,6 @@ class JStarRatingView: UIView {
     var lastTouch: Date?
     fileprivate func touched(touch: UITouch, moveTouch: Bool) {
         guard !moveTouch || lastTouch == nil || lastTouch!.timeIntervalSince(Date()) < -0.1 else { return }
-        print("processing touch")
         guard let hs = self.hstack else { return }
         let touchX = touch.location(in: hs).x
         let ratingFromTouch = 5*touchX/hs.frame.width

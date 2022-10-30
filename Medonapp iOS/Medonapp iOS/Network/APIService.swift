@@ -17,6 +17,7 @@ class APIService : NSObject{
         case getAllDoctors = "v1/doctor/all"
         case getPatientWithID = "v1/patient/"
         case bookAppointment = "v1/appointment/add"
+        case postReview = "v1/review/add"
     }
     var parameters = Parameters()
     var headers = HTTPHeaders()

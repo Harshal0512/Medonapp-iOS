@@ -168,7 +168,7 @@ extension Prefs {
         let earlyDate = Calendar.current.date(
             byAdding: .day,
             value: 2,
-            to: Date())
+            to: Date().localDate())
         Prefs.isRefreshedAppVersionInfo = earlyDate?.timeIntervalSince1970 ?? 0
     }
     
@@ -178,7 +178,7 @@ extension Prefs {
         }
         let refreshedTimeStamp = Prefs.isRefreshedAppVersionInfo
         let dateRefreshed: Date = Date.init(timeIntervalSince1970: refreshedTimeStamp)
-        if Date() >  dateRefreshed {
+        if Date().localDate() >  dateRefreshed {
             return true
         }
         return false
