@@ -10,6 +10,7 @@ import UIKit
 class DoctorsScreenViewController: UIViewController {
     
     public var doctors: [Doctor] = []
+    private var doctorsSet: Set<Doctor> = []
     private var liveDoctors: [Doctor] = []
     
     private var backButton: UIImageView?
@@ -82,6 +83,7 @@ class DoctorsScreenViewController: UIViewController {
         searchField?.delegate = self
         searchField?.setPlaceholder(placeholder: "Search Doctor")
         view.addSubview(searchField!)
+        searchField?.addTarget(self, action: #selector(searchFieldDidChange(_:)), for: .allEditingEvents)
         
         liveDoctorsLabel = UILabel()
         liveDoctorsLabel?.text = "Live Doctors"
@@ -172,6 +174,7 @@ class DoctorsScreenViewController: UIViewController {
     @objc func refreshData() {
         Doctor.refreshDoctors { isSuccess in
             self.doctors = Doctor.getDoctors()
+            self.doctorsSet = Set(self.doctors.map { $0 })
             self.liveDoctors = Doctor.getLiveDoctors()
             var range = NSMakeRange(0, self.doctorsTable!.numberOfSections)
             var sections = NSIndexSet(indexesIn: range)
@@ -189,6 +192,30 @@ class DoctorsScreenViewController: UIViewController {
         }
     }
     
+    @objc func searchFieldDidChange(_ textField: UITextField) {
+        doctorsSet = []
+        var textToSearch: String = textField.text ?? ""
+        if textToSearch.count < 1 {
+            doctorsSet = Set(doctors.map { $0 })
+            var range = NSMakeRange(0, self.doctorsTable!.numberOfSections)
+            var sections = NSIndexSet(indexesIn: range)
+            self.doctorsTable!.reloadSections(sections as IndexSet, with: .automatic)
+            return
+        }
+        for doctor in self.doctors {
+            if doctor.name!.fullName!.contains(textToSearch) {
+                doctorsSet.insert(doctor)
+            }
+            if doctor.specialization!.contains(textToSearch) {
+                doctorsSet.insert(doctor)
+            }
+        }
+        
+        var range = NSMakeRange(0, self.doctorsTable!.numberOfSections)
+        var sections = NSIndexSet(indexesIn: range)
+        self.doctorsTable!.reloadSections(sections as IndexSet, with: .automatic)
+    }
+    
 }
 
 extension DoctorsScreenViewController : UITextFieldDelegate {
@@ -201,7 +228,7 @@ extension DoctorsScreenViewController : UITextFieldDelegate {
 extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return doctors.count
+        return doctorsSet.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -211,7 +238,7 @@ extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tableCell = tableView.dequeueReusableCell(withIdentifier: DoctorInfoTableViewCell.identifier, for: indexPath) as! DoctorInfoTableViewCell
         
-        tableCell.configure(doctor: doctors[indexPath.row])
+        tableCell.configure(doctor: Array(doctorsSet)[indexPath.row])
         return tableCell
     }
     
@@ -221,7 +248,7 @@ extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSourc
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             let doctorsDetailsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "doctorsDetailsVC") as? DoctorDetailsViewViewController
-            doctorsDetailsVC?.doctor = self.doctors[indexPath.row]
+            doctorsDetailsVC?.doctor = Array(self.doctorsSet)[indexPath.row]
             self.navigationController?.pushViewController(doctorsDetailsVC!, animated: true)
         }
     }

@@ -22,7 +22,15 @@
 import Foundation
 import Alamofire
 
-class Doctor: Codable {
+class Doctor: Codable, Hashable {
+    static func == (lhs: Doctor, rhs: Doctor) -> Bool {
+        return lhs.id! == rhs.id! && lhs.credential!.email! == rhs.credential!.email!
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        return hasher.combine(id)
+    }
+    
     var id: Int?
     var credential: Credential?
     var profileImage: ProfileImage?
