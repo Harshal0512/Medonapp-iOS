@@ -175,6 +175,7 @@ class DoctorsScreenViewController: UIViewController {
         Doctor.refreshDoctors { isSuccess in
             self.doctors = Doctor.getDoctors()
             self.doctorsSet = Set(self.doctors.map { $0 })
+            self.searchFieldDidChange(self.searchField!)
             self.liveDoctors = Doctor.getLiveDoctors()
             var range = NSMakeRange(0, self.doctorsTable!.numberOfSections)
             var sections = NSIndexSet(indexesIn: range)
