@@ -117,6 +117,22 @@ class LoginSignUpViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if PrefDataManager.currentApplicationMode() == .testing {
+            emailTextFieldLogin?.text = "patient1@test.com"
+            passwordTextField?.text = "patient1Pass@123"
+            emailTextFieldSignUp?.text = "harshal.kulkarni14@nmims.edu.in"
+            choosePasswordTextField?.text = "patient1Pass@123"
+            confirmPasswordTextField?.text = "patient1Pass@123"
+            firstNameField?.text = "Harshal"
+            lastNameField?.text = "Kulkarni"
+            weightField?.text = "50"
+            bloodGroupDropdown?.text = "O+"
+            phoneNumberField?.text = "9999999999"
+            addressTextView?.text = "Some Address"
+            stateField?.text = "MP"
+            cityField?.text = "Indore"
+        }
     }
     
     private func initialise() {
