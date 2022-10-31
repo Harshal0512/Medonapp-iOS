@@ -55,13 +55,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Report Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jp5-X0-baa">
-                                <rect key="frame" x="89" y="46.666666666666664" width="220" height="25.999999999999993"/>
+                                <rect key="frame" x="89" y="46.666666666666664" width="185" height="25.999999999999993"/>
                                 <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="19"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="moreIcon" translatesAutoresizingMaskIntoConstraints="NO" id="dNm-gw-DaY">
-                                <rect key="frame" x="284" y="15" width="20" height="20"/>
+                                <rect key="frame" x="284" y="46.666666666666664" width="20" height="19.999999999999993"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="MkG-gk-tmD"/>
                                     <constraint firstAttribute="width" constant="20" id="Nu6-EB-345"/>
@@ -70,14 +70,14 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="dNm-gw-DaY" firstAttribute="top" secondItem="keV-Ni-Kyj" secondAttribute="top" constant="15" id="6SS-8b-OoB"/>
-                            <constraint firstAttribute="trailing" secondItem="Jp5-X0-baa" secondAttribute="trailing" constant="10" id="CHz-F1-WMs"/>
                             <constraint firstItem="jn4-sW-6i9" firstAttribute="leading" secondItem="keV-Ni-Kyj" secondAttribute="leading" constant="10" id="Fn1-YO-omB"/>
                             <constraint firstItem="jn4-sW-6i9" firstAttribute="centerY" secondItem="keV-Ni-Kyj" secondAttribute="centerY" id="Hmg-M1-SDy"/>
                             <constraint firstItem="DOW-mD-QVu" firstAttribute="leading" secondItem="jn4-sW-6i9" secondAttribute="trailing" constant="15" id="N59-yQ-39o"/>
                             <constraint firstItem="Jp5-X0-baa" firstAttribute="leading" secondItem="DOW-mD-QVu" secondAttribute="leading" id="NQD-5L-TUd"/>
+                            <constraint firstItem="dNm-gw-DaY" firstAttribute="leading" secondItem="Jp5-X0-baa" secondAttribute="trailing" constant="10" id="Yz6-EK-rpU"/>
                             <constraint firstItem="Jp5-X0-baa" firstAttribute="top" secondItem="DOW-mD-QVu" secondAttribute="bottom" constant="2" id="fWE-Fg-ej1"/>
                             <constraint firstItem="dNm-gw-DaY" firstAttribute="leading" secondItem="DOW-mD-QVu" secondAttribute="trailing" constant="10" id="gza-J4-UzW"/>
+                            <constraint firstItem="dNm-gw-DaY" firstAttribute="centerY" secondItem="keV-Ni-Kyj" secondAttribute="centerY" id="kEp-GZ-6cX"/>
                             <constraint firstItem="DOW-mD-QVu" firstAttribute="top" secondItem="jn4-sW-6i9" secondAttribute="top" id="tUM-My-IAn"/>
                             <constraint firstAttribute="trailing" secondItem="dNm-gw-DaY" secondAttribute="trailing" constant="15" id="wr1-6r-M2L"/>
                         </constraints>

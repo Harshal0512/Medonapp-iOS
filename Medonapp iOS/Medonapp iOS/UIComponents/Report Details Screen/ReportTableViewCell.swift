@@ -24,7 +24,6 @@ class ReportTableViewCell: UITableViewCell {
     public func configure(icon: UIImage, reportTitle: String, reportCellVariant: reportVariant) {
         cellContentView.layer.cornerRadius = 28
         self.iconImage.image = icon
-        self.moreIcon.transform = moreIcon.transform.rotated(by: CGFloat(Double.pi / 2))
         
         self.iconView.backgroundColor = .clear
         self.iconView.layer.cornerRadius = 20
