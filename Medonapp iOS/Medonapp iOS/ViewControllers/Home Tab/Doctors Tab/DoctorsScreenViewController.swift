@@ -239,7 +239,7 @@ extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tableCell = tableView.dequeueReusableCell(withIdentifier: DoctorInfoTableViewCell.identifier, for: indexPath) as! DoctorInfoTableViewCell
         
-        tableCell.configure(doctor: Array(doctorsSet)[indexPath.row])
+        tableCell.configure(doctor: Doctor.sortDoctors(doctors: Array(doctorsSet))[indexPath.row])
         return tableCell
     }
     
@@ -249,7 +249,7 @@ extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSourc
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             let doctorsDetailsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "doctorsDetailsVC") as? DoctorDetailsViewViewController
-            doctorsDetailsVC?.doctor = Array(self.doctorsSet)[indexPath.row]
+            doctorsDetailsVC?.doctor = Doctor.sortDoctors(doctors: Array(self.doctorsSet))[indexPath.row]
             self.navigationController?.pushViewController(doctorsDetailsVC!, animated: true)
         }
     }
