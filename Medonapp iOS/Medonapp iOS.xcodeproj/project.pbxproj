@@ -79,6 +79,7 @@
 		F8BC4A4228F4588A00440406 /* DoctorsScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC4A4128F4588A00440406 /* DoctorsScreenViewController.swift */; };
 		F8BC4A4428F460D600440406 /* StoryboardUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC4A4328F460D600440406 /* StoryboardUtils.swift */; };
 		F8BC4A4628F4614800440406 /* HomeTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8BC4A4528F4614800440406 /* HomeTab.storyboard */; };
+		F8C4398929102FEB0091FBE3 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C4398829102FEB0091FBE3 /* SplashScreenViewController.swift */; };
 		F8C75A5D28E97EC100F5B2E2 /* UITextFieldWithPlaceholder_CR8.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C75A5C28E97EC100F5B2E2 /* UITextFieldWithPlaceholder_CR8.swift */; };
 		F8C75A6028E98B7000F5B2E2 /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C75A5F28E98B7000F5B2E2 /* extensions.swift */; };
 		F8C75A6228E98BEB00F5B2E2 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C75A6128E98BEB00F5B2E2 /* Utils.swift */; };
@@ -172,6 +173,7 @@
 		F8BC4A4128F4588A00440406 /* DoctorsScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorsScreenViewController.swift; sourceTree = "<group>"; };
 		F8BC4A4328F460D600440406 /* StoryboardUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardUtils.swift; sourceTree = "<group>"; };
 		F8BC4A4528F4614800440406 /* HomeTab.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeTab.storyboard; sourceTree = "<group>"; };
+		F8C4398829102FEB0091FBE3 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
 		F8C75A5C28E97EC100F5B2E2 /* UITextFieldWithPlaceholder_CR8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldWithPlaceholder_CR8.swift; sourceTree = "<group>"; };
 		F8C75A5F28E98B7000F5B2E2 /* extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 		F8C75A6128E98BEB00F5B2E2 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 				F8131B1328D5A09F00B7558D /* AppDelegate.swift */,
 				F8131B1528D5A09F00B7558D /* SceneDelegate.swift */,
 				F8131B1728D5A09F00B7558D /* LandingPageView.swift */,
+				F8C4398829102FEB0091FBE3 /* SplashScreenViewController.swift */,
 				F8131B1928D5A09F00B7558D /* Main.storyboard */,
 				F8131B1C28D5A0A000B7558D /* Assets.xcassets */,
 				F8131B1E28D5A0A000B7558D /* LaunchScreen.storyboard */,
@@ -674,6 +677,7 @@
 				F859AB3428EC2FA20069D247 /* UITextViewWithPlaceholder_CR8.swift in Sources */,
 				F81BAAEA28F97E6B0080BD21 /* AppointmentStatusViewController.swift in Sources */,
 				F80C19882900F75500891800 /* BookedAppointmentsTableViewCell.swift in Sources */,
+				F8C4398929102FEB0091FBE3 /* SplashScreenViewController.swift in Sources */,
 				F8B96C2628F5D557009E5198 /* GreyViewDoctorDetails.swift in Sources */,
 				F83CBC4828D87352005BA1B8 /* LoginSignUpViewController.swift in Sources */,
 				F8131B1828D5A09F00B7558D /* LandingPageView.swift in Sources */,
