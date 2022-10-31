@@ -733,7 +733,6 @@ class LoginSignUpViewController: UIViewController {
                             NotificationCenter.default.post(name: Notification.Name("goToDashboard"), object: nil)
                         }
                     }, completion: nil)
-                    print(post)
                 case .failure(let error):
                     print(error)
                     self.view.hideToastActivity()

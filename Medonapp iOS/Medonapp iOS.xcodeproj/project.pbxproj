@@ -23,7 +23,6 @@
 		F81BAADD28F928BF0080BD21 /* BookAppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81BAADC28F928BF0080BD21 /* BookAppointmentViewController.swift */; };
 		F81BAAE428F93BC90080BD21 /* AppointmentTimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81BAAE228F93BC90080BD21 /* AppointmentTimeCollectionViewCell.swift */; };
 		F81BAAE528F93BC90080BD21 /* AppointmentTimeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F81BAAE328F93BC90080BD21 /* AppointmentTimeCollectionViewCell.xib */; };
-		F81BAAE828F97DFE0080BD21 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = F81BAAE728F97DFE0080BD21 /* Lottie */; };
 		F81BAAEA28F97E6B0080BD21 /* AppointmentStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81BAAE928F97E6B0080BD21 /* AppointmentStatusViewController.swift */; };
 		F81BAAEE28F97F720080BD21 /* checkMarkSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = F81BAAED28F97F720080BD21 /* checkMarkSuccess.json */; };
 		F81BAAF128F982870080BD21 /* errorFailure.json in Resources */ = {isa = PBXBuildFile; fileRef = F81BAAF028F982870080BD21 /* errorFailure.json */; };
@@ -39,7 +38,6 @@
 		F83CBC4828D87352005BA1B8 /* LoginSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83CBC4728D87352005BA1B8 /* LoginSignUpViewController.swift */; };
 		F83CBC4C28D88466005BA1B8 /* NunitoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F83CBC4A28D88466005BA1B8 /* NunitoSans-Bold.ttf */; };
 		F83CBC4D28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F83CBC4B28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf */; };
-		F840513228FABCB10051B636 /* iOSDropDown in Frameworks */ = {isa = PBXBuildFile; productRef = F840513128FABCB10051B636 /* iOSDropDown */; };
 		F840513528FD139F0051B636 /* Doctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F840513428FD139F0051B636 /* Doctor.swift */; };
 		F844C65328FEB25300BBE5B0 /* ReportDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F844C65228FEB25300BBE5B0 /* ReportDetailsViewController.swift */; };
 		F844C65528FEB27000BBE5B0 /* ReportTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F844C65428FEB27000BBE5B0 /* ReportTab.storyboard */; };
@@ -52,7 +50,6 @@
 		F85D9C3528F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85D9C3328F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.swift */; };
 		F85D9C3628F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F85D9C3428F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.xib */; };
 		F85D9C3828F33B6D008FBDE9 /* ReportTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85D9C3728F33B6D008FBDE9 /* ReportTabViewController.swift */; };
-		F86A71CD28EC9C4E0083D12D /* DPOTPView in Frameworks */ = {isa = PBXBuildFile; productRef = F86A71CC28EC9C4E0083D12D /* DPOTPView */; };
 		F86A71CF28EE9C970083D12D /* HomeTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86A71CE28EE9C970083D12D /* HomeTabViewController.swift */; };
 		F86A71D728EEAF7B0083D12D /* NunitoSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F86A71D628EEAF7B0083D12D /* NunitoSans-SemiBold.ttf */; };
 		F87559412901290C00863554 /* RatingHalfScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87559402901290C00863554 /* RatingHalfScreenViewController.swift */; };
@@ -86,6 +83,8 @@
 		F8C75A6028E98B7000F5B2E2 /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C75A5F28E98B7000F5B2E2 /* extensions.swift */; };
 		F8C75A6228E98BEB00F5B2E2 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C75A6128E98BEB00F5B2E2 /* Utils.swift */; };
 		F8C75A6428EA016E00F5B2E2 /* UIButtonVariableBackgroundVariableCR.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C75A6328EA016E00F5B2E2 /* UIButtonVariableBackgroundVariableCR.swift */; };
+		F8D5EB8A290FE35000942AE6 /* iOSDropDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D5EB89290FE35000942AE6 /* iOSDropDown.framework */; };
+		F8D5EB8E290FE3C200942AE6 /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D5EB8D290FE3C200942AE6 /* Lottie.framework */; };
 		F8F3ED3D290967DF001D6A4C /* SignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3ED3C290967DF001D6A4C /* SignUpModel.swift */; };
 		F8F3ED3F2909685C001D6A4C /* NameExclMiddleName.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3ED3E2909685C001D6A4C /* NameExclMiddleName.swift */; };
 		F8F3ED41290968D1001D6A4C /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3ED40290968D1001D6A4C /* Address.swift */; };
@@ -177,6 +176,9 @@
 		F8C75A5F28E98B7000F5B2E2 /* extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 		F8C75A6128E98BEB00F5B2E2 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		F8C75A6328EA016E00F5B2E2 /* UIButtonVariableBackgroundVariableCR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonVariableBackgroundVariableCR.swift; sourceTree = "<group>"; };
+		F8D5EB89290FE35000942AE6 /* iOSDropDown.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSDropDown.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8D5EB8B290FE38500942AE6 /* Lottie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Lottie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8D5EB8D290FE3C200942AE6 /* Lottie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Lottie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8F3ED3C290967DF001D6A4C /* SignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpModel.swift; sourceTree = "<group>"; };
 		F8F3ED3E2909685C001D6A4C /* NameExclMiddleName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameExclMiddleName.swift; sourceTree = "<group>"; };
 		F8F3ED40290968D1001D6A4C /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
@@ -192,10 +194,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8D5EB8E290FE3C200942AE6 /* Lottie.framework in Frameworks */,
+				F8D5EB8A290FE35000942AE6 /* iOSDropDown.framework in Frameworks */,
 				08F565BC217C9820C601B123 /* Pods_Medonapp_iOS.framework in Frameworks */,
-				F86A71CD28EC9C4E0083D12D /* DPOTPView in Frameworks */,
-				F81BAAE828F97DFE0080BD21 /* Lottie in Frameworks */,
-				F840513228FABCB10051B636 /* iOSDropDown in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,6 +206,9 @@
 		715EF0606B2F25A3E1918308 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F8D5EB8D290FE3C200942AE6 /* Lottie.framework */,
+				F8D5EB8B290FE38500942AE6 /* Lottie.framework */,
+				F8D5EB89290FE35000942AE6 /* iOSDropDown.framework */,
 				F28C35CFE676567ACC6FCEAF /* Pods_Medonapp_iOS.framework */,
 			);
 			name = Frameworks;
@@ -524,9 +528,6 @@
 			);
 			name = "Medonapp iOS";
 			packageProductDependencies = (
-				F86A71CC28EC9C4E0083D12D /* DPOTPView */,
-				F81BAAE728F97DFE0080BD21 /* Lottie */,
-				F840513128FABCB10051B636 /* iOSDropDown */,
 			);
 			productName = "Medonapp iOS";
 			productReference = F8131B1028D5A09F00B7558D /* Medonapp iOS.app */;
@@ -557,9 +558,6 @@
 			);
 			mainGroup = F8131B0728D5A09F00B7558D;
 			packageReferences = (
-				F86A71CB28EC9C4E0083D12D /* XCRemoteSwiftPackageReference "DPOTPView" */,
-				F81BAAE628F97DFE0080BD21 /* XCRemoteSwiftPackageReference "lottie-ios" */,
-				F840513028FABCB10051B636 /* XCRemoteSwiftPackageReference "iOSDropDown" */,
 			);
 			productRefGroup = F8131B1128D5A09F00B7558D /* Products */;
 			projectDirPath = "";
@@ -948,51 +946,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		F81BAAE628F97DFE0080BD21 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
-			};
-		};
-		F840513028FABCB10051B636 /* XCRemoteSwiftPackageReference "iOSDropDown" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/jriosdev/iOSDropDown.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.4.0;
-			};
-		};
-		F86A71CB28EC9C4E0083D12D /* XCRemoteSwiftPackageReference "DPOTPView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Datt1994/DPOTPView.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		F81BAAE728F97DFE0080BD21 /* Lottie */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F81BAAE628F97DFE0080BD21 /* XCRemoteSwiftPackageReference "lottie-ios" */;
-			productName = Lottie;
-		};
-		F840513128FABCB10051B636 /* iOSDropDown */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F840513028FABCB10051B636 /* XCRemoteSwiftPackageReference "iOSDropDown" */;
-			productName = iOSDropDown;
-		};
-		F86A71CC28EC9C4E0083D12D /* DPOTPView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F86A71CB28EC9C4E0083D12D /* XCRemoteSwiftPackageReference "DPOTPView" */;
-			productName = DPOTPView;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F8131B0828D5A09F00B7558D /* Project object */;
 }

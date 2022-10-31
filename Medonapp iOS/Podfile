@@ -7,9 +7,12 @@ target 'Medonapp iOS' do
 
   # Pods for Medonapp iOS
 
-  pod 'Alamofire'
+  pod 'Alamofire', '>= 5.6.2'
   pod 'Kingfisher', '~> 7.0'
   pod 'SwiftValidator', :git => 'https://github.com/jpotts18/SwiftValidator.git', :tag => '4.2.0'
+  pod 'DPOTPView'
+  pod 'lottie-ios'
+  pod 'iOSDropDown'
   pod 'SkeletonView'
   pod 'Toast-Swift', '~> 5.0.1'
 

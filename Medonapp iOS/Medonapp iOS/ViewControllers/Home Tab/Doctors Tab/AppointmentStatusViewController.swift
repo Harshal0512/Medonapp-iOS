@@ -10,7 +10,7 @@ import Lottie
 
 class AppointmentStatusViewController: UIViewController {
     
-    private var animationView: LottieAnimationView?
+    private var animationView: AnimationView?
     var appointmentIsSuccess: Bool = false
     private var statusLabel: UILabel?
     private var subtitleLabel: UILabel?
