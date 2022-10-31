@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CryptoKit
 import SwiftValidator
 import DPOTPView
 import iOSDropDown
@@ -716,7 +717,13 @@ class LoginSignUpViewController: UIViewController {
         if !isValidationError {
             self.view.hideAllToasts()
             self.view.makeToastActivity(.center)
-            APIService(data: ["username": emailTextFieldLogin!.text!, "password": passwordTextField!.text!], url: nil, service: .login, method: .post, isJSONRequest: true).executeQuery() { (result: Result<User, Error>) in
+            let hashedPassword = SHA512.hash(data: Data(passwordTextField!.text!.utf8))
+            APIService(data: ["username": emailTextFieldLogin!.text!,
+                              "password": hashedPassword.compactMap { String(format: "%02x", $0) }.joined()],
+                       url: nil,
+                       service: .login,
+                       method: .post,
+                       isJSONRequest: true).executeQuery() { (result: Result<User, Error>) in
                 switch result{
                 case .success(let post):
                     try? User.setUserDetails(userDetails: result.get())
@@ -1097,10 +1104,11 @@ extension LoginSignUpViewController : UITextFieldDelegate, DPOTPViewDelegate, Va
                 (finished: Bool) -> Void in
             })
             let dob = dobPicker!.date
+            let hashedPassword = SHA512.hash(data: Data(choosePasswordTextField!.text!.utf8))
             // Convert model to JSON data
             let model = SignUpModel(credential:
                                 CredentialShort(email: emailTextFieldSignUp!.text!,
-                                                password: choosePasswordTextField!.text!),
+                                                password: hashedPassword.compactMap { String(format: "%02x", $0) }.joined()),
                             name:
                                 NameExclMiddleName(firstName: firstNameField!.text!,
                                                    lastName: lastNameField!.text!),
