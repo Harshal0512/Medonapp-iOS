@@ -127,8 +127,8 @@ class MonthViewBookedAppointments: UIView {
     }
     
     @objc static func incrementMonth() {
-        let tempMonth = MonthViewBookedAppointments.shared.month_CounterCurrent
-        let tempYear = MonthViewBookedAppointments.shared.year_CounterCurrent
+//        let tempMonth = MonthViewBookedAppointments.shared.month_CounterCurrent
+//        let tempYear = MonthViewBookedAppointments.shared.year_CounterCurrent
         
         if MonthViewBookedAppointments.shared.month_CounterCurrent == MonthViewBookedAppointments.monthArray.count - 1 {
             MonthViewBookedAppointments.shared.year_CounterCurrent += 1

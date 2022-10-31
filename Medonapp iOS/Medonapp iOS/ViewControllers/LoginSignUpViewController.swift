@@ -741,7 +741,7 @@ class LoginSignUpViewController: UIViewController {
                        method: .post,
                        isJSONRequest: true).executeQuery() { (result: Result<User, Error>) in
                 switch result{
-                case .success(let post):
+                case .success:
                     try? User.setUserDetails(userDetails: result.get())
                     self.view.hideToastActivity()
                     UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {

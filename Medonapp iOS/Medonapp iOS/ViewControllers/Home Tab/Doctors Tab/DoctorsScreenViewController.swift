@@ -195,11 +195,11 @@ class DoctorsScreenViewController: UIViewController {
     
     @objc func searchFieldDidChange(_ textField: UITextField) {
         doctorsSet = []
-        var textToSearch: String = textField.text ?? ""
+        let textToSearch: String = textField.text ?? ""
         if textToSearch.count < 1 {
             doctorsSet = Set(doctors.map { $0 })
-            var range = NSMakeRange(0, self.doctorsTable!.numberOfSections)
-            var sections = NSIndexSet(indexesIn: range)
+            let range = NSMakeRange(0, self.doctorsTable!.numberOfSections)
+            let sections = NSIndexSet(indexesIn: range)
             self.doctorsTable!.reloadSections(sections as IndexSet, with: .automatic)
             return
         }
@@ -212,8 +212,8 @@ class DoctorsScreenViewController: UIViewController {
             }
         }
         
-        var range = NSMakeRange(0, self.doctorsTable!.numberOfSections)
-        var sections = NSIndexSet(indexesIn: range)
+        let range = NSMakeRange(0, self.doctorsTable!.numberOfSections)
+        let sections = NSIndexSet(indexesIn: range)
         self.doctorsTable!.reloadSections(sections as IndexSet, with: .automatic)
     }
     
