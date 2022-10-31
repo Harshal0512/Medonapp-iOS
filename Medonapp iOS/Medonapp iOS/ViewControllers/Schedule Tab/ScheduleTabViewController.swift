@@ -50,7 +50,9 @@ class ScheduleTabViewController: UIViewController, UICollectionViewDelegate, UIC
         AppointmentElement.refreshAppointments { isSuccess in
             self.view.hideToastActivity()
             self.appointments = AppointmentElement.getAppointments()
-            self.daysCollectionView?.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: UICollectionView.ScrollPosition.centeredHorizontally)
+            if self.appointments.count > 0 {
+                self.daysCollectionView?.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: UICollectionView.ScrollPosition.centeredHorizontally)
+            }
             self.refreshTableView()
         }
     }
