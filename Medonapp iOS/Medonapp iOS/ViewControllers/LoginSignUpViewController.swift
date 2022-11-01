@@ -1121,8 +1121,16 @@ extension LoginSignUpViewController : UITextFieldDelegate, DPOTPViewDelegate, Va
             let dob = dobPicker!.date
             let hashedPassword = SHA512.hash(data: Data(choosePasswordTextField!.text!.utf8))
             // Convert model to JSON data
+            var day = Date.getDayFromDate(date: dob)
+            if Int(Date.getDayFromDate(date: dob))! < 10 {
+                day = "0" + day
+            }
+            var month = Date.getMonthFromDate(date: dob)
+            if Int(Date.getMonthFromDate(date: dob))! < 10 {
+                month = "0" + month
+            }
             let model = SignUpModel(credential:
-                                CredentialShort(email: emailTextFieldSignUp!.text!,
+                                CredentialShort(email: "\(emailTextFieldSignUp!.text!)",
                                                 password: hashedPassword.compactMap { String(format: "%02x", $0) }.joined()),
                             name:
                                 NameExclMiddleName(firstName: firstNameField!.text!,
@@ -1134,7 +1142,7 @@ extension LoginSignUpViewController : UITextFieldDelegate, DPOTPViewDelegate, Va
                             gender: "male",
                             mobile: MobileNumberShort(contactNumber: phoneNumberField!.text!,
                                                       countryCode: countryCodeLabel!.text!),
-                            dob: "\(Date.getYearFromDate(date: dob))-\(Date.getMonthFromDate(date: dob))-\(Date.getDayFromDate(date: dob))",
+                            dob: "\(Date.getYearFromDate(date: dob))-\(month)-\(day)",
                             bloodGroup: bloodGroupDropdown!.text!,
                             height: 0.0,
                             weight: Double(weightField!.text!) ?? 0.0)
