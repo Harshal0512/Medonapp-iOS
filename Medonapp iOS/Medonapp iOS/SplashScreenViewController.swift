@@ -15,21 +15,23 @@ class SplashScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        UIView.animate(withDuration: 0.3, delay: 0.7, animations: {
+        UIView.animate(withDuration: 0.2, delay: 0.7, animations: {
             self.nameLabel.alpha = 0
-        })
-        
-        UIView.animate(withDuration: 0.5, delay: 0.9, options: .curveEaseOut, animations: {
-            self.nameLabel.alpha = 0
-            self.appIcon.transform = CGAffineTransform(scaleX: 20, y: 20)
-            self.appIcon.alpha = 0
+            self.appIcon.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
         }) { _ in
-            if Prefs.authToken.count > 0 {
-                User.loadFromPrefs()
-                self.performSegue(withIdentifier: "splashToDashboard", sender: nil) //directly to dashboard
-            } else {
-                self.performSegue(withIdentifier: "splashToLanding", sender: nil)
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+                self.appIcon.transform = CGAffineTransform(scaleX: 20, y: 20)
+                self.appIcon.alpha = 0
+            }) { _ in
+                if Prefs.authToken.count > 0 {
+                    User.loadFromPrefs()
+                    self.performSegue(withIdentifier: "splashToDashboard", sender: nil) //directly to dashboard
+                } else {
+                    self.performSegue(withIdentifier: "splashToLanding", sender: nil)
+                }
             }
         }
+        
+        
     }
 }
