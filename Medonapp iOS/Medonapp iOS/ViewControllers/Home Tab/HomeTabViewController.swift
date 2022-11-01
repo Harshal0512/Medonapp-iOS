@@ -43,7 +43,7 @@ class HomeTabViewController: UIViewController {
             
             refreshUserDetails { isSuccess in
                 if isSuccess {
-                    tabBarItems![1].isEnabled = true
+//                    tabBarItems![1].isEnabled = true
                     tabBarItems![2].isEnabled = true
                     self.view.isUserInteractionEnabled = true
                     self.contentView?.hideSkeleton(transition: .crossDissolve(0.25))
