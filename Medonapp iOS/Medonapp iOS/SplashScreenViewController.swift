@@ -19,7 +19,7 @@ class SplashScreenViewController: UIViewController {
             self.nameLabel.alpha = 0
         })
         
-        UIView.animate(withDuration: 0.5, delay: 0.9, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0.9, options: .curveEaseOut, animations: {
             self.nameLabel.alpha = 0
             self.appIcon.transform = CGAffineTransform(scaleX: 20, y: 20)
             self.appIcon.alpha = 0
@@ -32,5 +32,4 @@ class SplashScreenViewController: UIViewController {
             }
         }
     }
-    
 }
