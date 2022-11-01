@@ -33,7 +33,7 @@ class HomeTabViewController: UIViewController {
         tabBarItems![1].selectedImage = UIImage(named: "scheduleTabIcon")?.resizeImageTo(size: CGSize(width: 40, height: 40))?.withTintColor(UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00))
         tabBarItems![2].image = UIImage(named: "reportTabIcon")?.resizeImageTo(size: CGSize(width: 40, height: 40))?.withTintColor(UIColor(red: 0.48, green: 0.55, blue: 0.62, alpha: 1.00))
         tabBarItems![2].selectedImage = UIImage(named: "reportTabIcon")?.resizeImageTo(size: CGSize(width: 40, height: 40))?.withTintColor(UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00))
-        tabBarItems![2].isEnabled = false
+        tabBarItems![1].isEnabled = false
         
         if userDetails.patient?.name == nil {
             view.isUserInteractionEnabled = false
