@@ -175,6 +175,9 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegateF
     }
     
     @objc func goToAppointmentStatusVC() {
+        if activeItem < 0 {
+            return
+        }
         view.isUserInteractionEnabled = false
         view.makeToastActivity(.center)
         
