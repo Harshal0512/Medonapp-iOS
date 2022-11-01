@@ -78,7 +78,7 @@ class DoctorDetailsViewViewController: UIViewController {
         patientsGreyView = GreyViewDoctorDetails.instantiate(title: "Patients", metrics: "\(doctor?.patientCount ?? 0)")
         contentView?.addSubview(patientsGreyView!)
         
-        experienceGreyView = GreyViewDoctorDetails.instantiate(title: "Exp.", metrics: String(format: "%.2f", doctor?.experience ?? 0))
+        experienceGreyView = GreyViewDoctorDetails.instantiate(title: "Exp.", metrics: String(format: "%d yr", Int(doctor?.experience ?? 0)))
         contentView?.addSubview(experienceGreyView!)
         
         ratingsGreyView = GreyViewDoctorDetails.instantiate(title: "Rating", metrics: String(format: "%.2f", doctor?.avgRating ?? 0))
