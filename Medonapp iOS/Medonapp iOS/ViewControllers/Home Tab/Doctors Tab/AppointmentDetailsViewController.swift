@@ -51,7 +51,7 @@ class AppointmentDetailsViewController: UIViewController, UITextViewDelegate {
         backButton?.addGestureRecognizer(backTap)
         backButton?.isUserInteractionEnabled = true
         
-        priceLabel = PriceDisplayViewAppointmentDetails.instantiate(price: String(format: "%.2f", doctor!.fees ?? 0))
+        priceLabel = PriceDisplayViewAppointmentDetails.instantiate(price: doctor!.fees!.clean)
         view?.addSubview(priceLabel!)
         
         scrollView = UIScrollView()
