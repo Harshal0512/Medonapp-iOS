@@ -118,10 +118,10 @@ extension Date {
         return localDate
     }
     
-    static func ISOStringFromDate(date: Date, ending: String = "") -> String {
+    static func ISOStringFromDate(date: Date, timezone: String = "IST", ending: String = "") -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.timeZone = TimeZone(abbreviation: "IST")
+        dateFormatter.timeZone = TimeZone(abbreviation: timezone)
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss\(ending)"
         return dateFormatter.string(from: date)
     }
@@ -143,10 +143,10 @@ extension Date {
         return dateFormatter.date(from: string)
     }
     
-    static func getTimeFromDate(dateString: String) -> String {
+    static func getTimeFromDate(dateString: String, timezone: String = "IST") -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.timeZone = TimeZone(abbreviation: "IST")
+        dateFormatter.timeZone = TimeZone(abbreviation: timezone)
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         let temp = dateFormatter.date(from: dateString)!
         dateFormatter.dateFormat = "hh:mm a"

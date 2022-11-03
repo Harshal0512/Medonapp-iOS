@@ -238,9 +238,37 @@ extension BookAppointmentViewController: UICollectionViewDelegate, UICollectionV
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppointmentTimeCollectionViewCell.identifier, for: indexPath) as! AppointmentTimeCollectionViewCell
         
         if dayOfWeek == 1 || dayOfWeek == 7 {
-            cell.configure(timeString: (doctor?.weekendAppointmentSlots![indexPath.row])!, isActive: (indexPath.row == activeItem) ? true : false)
+            var isAvailable = true
+            for bookedSlot in doctor!.bookedSlots ?? [] {
+                if (
+                    Int(Date.getDayFromDate(date: datePicker!.date)) == Int(Date.getDayFromDate(date: Date.dateFromISOString(string: bookedSlot, timezone: "GMT")!)) &&
+                    Int(Date.getMonthFromDate(date: datePicker!.date)) == Int(Date.getMonthFromDate(date: Date.dateFromISOString(string: bookedSlot, timezone: "GMT")!)) &&
+                    Int(Date.getYearFromDate(date: datePicker!.date)) == Int(Date.getYearFromDate(date: Date.dateFromISOString(string: bookedSlot, timezone: "GMT")!)) &&
+                    Date.getTimeFromDate(dateString: (doctor?.weekendAppointmentSlots![indexPath.row])!) == Date.getTimeFromDate(dateString: bookedSlot)
+                ) {
+                    isAvailable = false
+                    break
+                }
+            }
+            cell.configure(timeString: (doctor?.weekendAppointmentSlots![indexPath.row])!, isActive: (indexPath.row == activeItem) ? true : false, isAvailable: isAvailable)
         } else {
-            cell.configure(timeString: (doctor?.weekdayAppointmentSlots![indexPath.row])!, isActive: (indexPath.row == activeItem) ? true : false)
+            var isAvailable = true
+            for bookedSlot in doctor!.bookedSlots ?? [] {
+                if (
+                    Int(Date.getDayFromDate(date: datePicker!.date)) == Int(Date.getDayFromDate(date: Date.dateFromISOString(string: bookedSlot, timezone: "GMT")!)) &&
+                    Int(Date.getMonthFromDate(date: datePicker!.date)) == Int(Date.getMonthFromDate(date: Date.dateFromISOString(string: bookedSlot, timezone: "GMT")!)) &&
+                    Int(Date.getYearFromDate(date: datePicker!.date)) == Int(Date.getYearFromDate(date: Date.dateFromISOString(string: bookedSlot, timezone: "GMT")!)) &&
+                    Date.dateTimeChangeFormat(str: (doctor?.weekdayAppointmentSlots![indexPath.row])!,
+                                                                               inDateFormat:  "HH:mm:ss",
+                                                                               outDateFormat: "hh:mm a") == Date.dateTimeChangeFormat(str: bookedSlot,
+                                                                                                                                      inDateFormat:  "yyyy-MM-dd'T'HH:mm:ss",
+                                                                                                                                      outDateFormat: "hh:mm a")
+                ) {
+                    isAvailable = false
+                    break
+                }
+            }
+            cell.configure(timeString: (doctor?.weekdayAppointmentSlots![indexPath.row])!, isActive: (indexPath.row == activeItem) ? true : false, isAvailable: isAvailable)
         }
         
         return cell
@@ -260,7 +288,12 @@ extension BookAppointmentViewController: UICollectionViewDelegate, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        activeItem = indexPath.row
-        collectionView.reloadData()
+        view.hideToast()
+        if (collectionView.cellForItem(at: indexPath) as! AppointmentTimeCollectionViewCell).isAvailable {
+            activeItem = indexPath.row
+            collectionView.reloadData()
+        } else {
+            view.makeToast("This time slot is already booked")
+        }
     }
 }

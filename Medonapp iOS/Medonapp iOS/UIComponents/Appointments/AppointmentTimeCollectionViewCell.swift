@@ -18,7 +18,9 @@ class AppointmentTimeCollectionViewCell: UICollectionViewCell {
     @IBOutlet var cellContentView: UIView?
     @IBOutlet var timeLabel: UILabel?
     
-    public func configure(timeString: String, isActive: Bool) {
+    public var isAvailable: Bool = true
+    
+    public func configure(timeString: String, isActive: Bool, isAvailable: Bool) {
         timeLabel?.text = Date.dateTimeChangeFormat(str: timeString,
                                                     inDateFormat:  "HH:mm:ss",
                                                     outDateFormat: "hh:mm a")
@@ -26,6 +28,16 @@ class AppointmentTimeCollectionViewCell: UICollectionViewCell {
         cellContentView?.layer.borderWidth = 1
         cellContentView?.layer.borderColor = UIColor.white.cgColor
         cellContentView?.backgroundColor = .clear
+        
+        self.isAvailable = isAvailable
+        
+        if !isAvailable {
+            cellContentView?.backgroundColor = .white.withAlphaComponent(0.2)
+            cellContentView?.alpha = 0.4
+        } else {
+            cellContentView?.backgroundColor = .clear
+            cellContentView?.alpha = 1
+        }
         
         if isActive {
             UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {

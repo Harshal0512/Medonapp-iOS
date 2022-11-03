@@ -46,11 +46,11 @@ class Doctor: Codable, Hashable {
     var availableFromInWeekdays, availableFromInWeekends: String?
     var maxAppointmentsInWeekdays, maxAppointmentsInWeekends: Int?
     var appointmentDuration: String?
-    var weekdayAppointmentSlots, weekendAppointmentSlots: [String]?
+    var weekdayAppointmentSlots, weekendAppointmentSlots, bookedSlots: [String]?
     var patientCount: Int?
     var reviewCount: Int?
     
-    init(id: Int?, credential: Credential?, profileImage: ProfileImage?, name: NameInclMiddleName?, address: FullAddress?, mobile: MobileWithCountryCode?, gender: String?, specialization: String?, experience: Double?, about: [String]?, fees: Double?, liveStatus: Bool?, avgRating: Double?, availableFromInWeekdays: String?, availableFromInWeekends: String?, maxAppointmentsInWeekdays: Int?, maxAppointmentsInWeekends: Int?, appointmentDuration: String?, weekdayAppointmentSlots: [String]?, weekendAppointmentSlots: [String]?, patientCount: Int?, reviewCount: Int?) {
+    init(id: Int?, credential: Credential?, profileImage: ProfileImage?, name: NameInclMiddleName?, address: FullAddress?, mobile: MobileWithCountryCode?, gender: String?, specialization: String?, experience: Double?, about: [String]?, fees: Double?, liveStatus: Bool?, avgRating: Double?, availableFromInWeekdays: String?, availableFromInWeekends: String?, maxAppointmentsInWeekdays: Int?, maxAppointmentsInWeekends: Int?, appointmentDuration: String?, weekdayAppointmentSlots: [String]?, weekendAppointmentSlots: [String]?, bookedSlots: [String]?, patientCount: Int?, reviewCount: Int?) {
         self.id = id
         self.credential = credential
         self.profileImage = profileImage
@@ -71,6 +71,7 @@ class Doctor: Codable, Hashable {
         self.appointmentDuration = appointmentDuration
         self.weekdayAppointmentSlots = weekdayAppointmentSlots
         self.weekendAppointmentSlots = weekendAppointmentSlots
+        self.bookedSlots = bookedSlots
         self.patientCount = patientCount
         self.reviewCount = reviewCount
     }
