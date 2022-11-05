@@ -124,7 +124,7 @@ class ContactDoctorViewController: UIViewController, MFMailComposeViewController
     
     @objc func openShareSheet() {
         // text to share
-        let text = "Hey! I met Dr. \((doctor?.name?.firstName ?? "") + " " + (doctor?.name?.lastName ?? "")) on Medonapp!\n\(doctor?.gender?.lowercased() == "male" ? "He" : "She") is rated \(String(format: "%.2f", doctor?.avgRating ?? 0)) and has \(String(format: "%.2f", doctor?.experience ?? 0)) years of experience.\n\nYou can contact them throught the following channels:\nNumber: \(doctor!.mobile!.contactNumberWithCountryCode!)\nEmail: \(doctor!.credential!.email!)\n\nDownload Medonapp now!!"
+        let text = "Hey! I met Dr. \((doctor?.name?.firstName ?? "") + " " + (doctor?.name?.lastName ?? "")) on Medonapp!\n\(doctor?.gender?.lowercased() == "male" ? "He" : "She") is rated \(doctor!.avgRating!.clean) stars and has \(doctor!.experience!.clean)+ years of experience.\n\nYou can contact them through the following channels:\nNumber: \(doctor!.mobile!.contactNumberWithCountryCode!)\nEmail: \(doctor!.credential!.email!)\n\nDownload Medonapp now!!"
         
         // set up activity view controller
         let textToShare = [ text ]
