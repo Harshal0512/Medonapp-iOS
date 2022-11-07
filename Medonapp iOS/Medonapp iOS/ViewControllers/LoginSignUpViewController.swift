@@ -317,7 +317,8 @@ class LoginSignUpViewController: UIViewController {
         dobPicker = UIDatePicker()
         dobPicker?.datePickerMode = .date
         dobPicker?.preferredDatePickerStyle = .compact
-        dobPicker?.maximumDate = Calendar.current.date(byAdding: .hour, value: 1, to: Date().localDate())
+        dobPicker?.set18YearValidation()
+        //        dobPicker?.maximumDate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())
         signUpScreenContentView?.addSubview(dobPicker!)
         dobPicker?.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         dobPicker?.alpha = 0
@@ -1130,22 +1131,22 @@ extension LoginSignUpViewController : UITextFieldDelegate, DPOTPViewDelegate, Va
                 month = "0" + month
             }
             let model = SignUpModel(credential:
-                                CredentialShort(email: "\(emailTextFieldSignUp!.text!)",
-                                                password: hashedPassword.compactMap { String(format: "%02x", $0) }.joined()),
-                            name:
-                                NameExclMiddleName(firstName: firstNameField!.text!,
-                                                   lastName: lastNameField!.text!),
-                            address: Address(address: addressTextView!.text!,
-                                             state: stateField!.text!,
-                                             city: cityField!.text!,
-                                             postalCode: ""),
-                            gender: "male",
-                            mobile: MobileNumberShort(contactNumber: phoneNumberField!.text!,
-                                                      countryCode: countryCodeLabel!.text!),
-                            dob: "\(Date.getYearFromDate(date: dob))-\(month)-\(day)",
-                            bloodGroup: bloodGroupDropdown!.text!,
-                            height: 0.0,
-                            weight: Double(weightField!.text!) ?? 0.0)
+                                        CredentialShort(email: "\(emailTextFieldSignUp!.text!)",
+                                                        password: hashedPassword.compactMap { String(format: "%02x", $0) }.joined()),
+                                    name:
+                                        NameExclMiddleName(firstName: firstNameField!.text!,
+                                                           lastName: lastNameField!.text!),
+                                    address: Address(address: addressTextView!.text!,
+                                                     state: stateField!.text!,
+                                                     city: cityField!.text!,
+                                                     postalCode: ""),
+                                    gender: "male",
+                                    mobile: MobileNumberShort(contactNumber: phoneNumberField!.text!,
+                                                              countryCode: countryCodeLabel!.text!),
+                                    dob: "\(Date.getYearFromDate(date: dob))-\(month)-\(day)",
+                                    bloodGroup: bloodGroupDropdown!.text!,
+                                    height: 0.0,
+                                    weight: Double(weightField!.text!) ?? 0.0)
             APIService(data: try! model.toDictionary(), url: nil, service: .signUp, method: .post, isJSONRequest: true).executeQuery() { (result: Result<User, Error>) in
                 switch result{
                 case .success(_):

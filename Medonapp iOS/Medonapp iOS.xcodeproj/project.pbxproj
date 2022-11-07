@@ -91,6 +91,7 @@
 		F8F3ED41290968D1001D6A4C /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3ED40290968D1001D6A4C /* Address.swift */; };
 		F8F3ED432909692B001D6A4C /* MobileNumberShort.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3ED422909692B001D6A4C /* MobileNumberShort.swift */; };
 		F8F3ED4529096A24001D6A4C /* CredentialShort.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3ED4429096A24001D6A4C /* CredentialShort.swift */; };
+		F8F4C3E12919750F00EF17EA /* Popover Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F4C3E02919750F00EF17EA /* Popover Utils.swift */; };
 		F8FB225C28F7CB7A003B9173 /* ContactDoctorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FB225B28F7CB7A003B9173 /* ContactDoctorViewController.swift */; };
 		F8FB225E28F7D9C7003B9173 /* TabViewInContactScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FB225D28F7D9C7003B9173 /* TabViewInContactScreen.swift */; };
 		F8FB226028F7D9D4003B9173 /* TabViewInContactScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8FB225F28F7D9D4003B9173 /* TabViewInContactScreen.xib */; };
@@ -186,6 +187,7 @@
 		F8F3ED40290968D1001D6A4C /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		F8F3ED422909692B001D6A4C /* MobileNumberShort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileNumberShort.swift; sourceTree = "<group>"; };
 		F8F3ED4429096A24001D6A4C /* CredentialShort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialShort.swift; sourceTree = "<group>"; };
+		F8F4C3E02919750F00EF17EA /* Popover Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Popover Utils.swift"; sourceTree = "<group>"; };
 		F8FB225B28F7CB7A003B9173 /* ContactDoctorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDoctorViewController.swift; sourceTree = "<group>"; };
 		F8FB225D28F7D9C7003B9173 /* TabViewInContactScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewInContactScreen.swift; sourceTree = "<group>"; };
 		F8FB225F28F7D9D4003B9173 /* TabViewInContactScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TabViewInContactScreen.xib; sourceTree = "<group>"; };
@@ -486,6 +488,7 @@
 				F8C75A6128E98BEB00F5B2E2 /* Utils.swift */,
 				F8BC4A4328F460D600440406 /* StoryboardUtils.swift */,
 				F883FC122909260E00B17D01 /* Prefs.swift */,
+				F8F4C3E02919750F00EF17EA /* Popover Utils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -676,6 +679,7 @@
 				F8F3ED4529096A24001D6A4C /* CredentialShort.swift in Sources */,
 				F859AB3428EC2FA20069D247 /* UITextViewWithPlaceholder_CR8.swift in Sources */,
 				F81BAAEA28F97E6B0080BD21 /* AppointmentStatusViewController.swift in Sources */,
+				F8F4C3E12919750F00EF17EA /* Popover Utils.swift in Sources */,
 				F80C19882900F75500891800 /* BookedAppointmentsTableViewCell.swift in Sources */,
 				F8C4398929102FEB0091FBE3 /* SplashScreenViewController.swift in Sources */,
 				F8B96C2628F5D557009E5198 /* GreyViewDoctorDetails.swift in Sources */,

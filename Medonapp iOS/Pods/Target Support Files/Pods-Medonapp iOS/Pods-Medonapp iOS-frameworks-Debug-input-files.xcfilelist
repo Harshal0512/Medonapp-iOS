@@ -2,6 +2,7 @@ ${PODS_ROOT}/Target Support Files/Pods-Medonapp iOS/Pods-Medonapp iOS-frameworks
 ${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
 ${BUILT_PRODUCTS_DIR}/DPOTPView/DPOTPView.framework
 ${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework
+${BUILT_PRODUCTS_DIR}/Popovers/Popovers.framework
 ${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework
 ${BUILT_PRODUCTS_DIR}/SwiftValidator/SwiftValidator.framework
 ${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework
