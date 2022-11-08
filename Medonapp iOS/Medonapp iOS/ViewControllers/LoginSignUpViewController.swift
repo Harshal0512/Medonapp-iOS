@@ -358,7 +358,7 @@ class LoginSignUpViewController: UIViewController {
         weightField?.setPlaceholder(placeholder: "Weight (in Kg)")
         weightField?.autocapitalizationType = .none
         weightField?.autocorrectionType = .no
-        weightField?.keyboardType = .numberPad
+        weightField?.keyboardType = .decimalPad
         signUpScreenContentView?.addSubview(weightField!)
         weightField?.alpha = 0
         
@@ -793,6 +793,10 @@ class LoginSignUpViewController: UIViewController {
             validator.registerField(lastNameField!, rules: [RequiredRule()])
             validator.registerField(weightField!, rules: [RequiredRule(), FloatRule()])
         } else if !isValidationError && activeView == .signupPersonalDetails {
+            if Double((self.weightField?.text)!)! <= 0.0 || Double((self.weightField?.text)!)! > 1000.0 {
+                self.view.makeToast("Please enter valid weight.")
+                return
+            }
             UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
                 self.firstNameLabel?.alpha = 0
                 self.firstNameField?.alpha = 0
