@@ -78,6 +78,8 @@ class LoginSignUpViewController: UIViewController {
     //otp verification
     var otpDetailsLabel: UILabel?
     var txtOTPView: DPOTPView?
+    var resendOtp: LinksLabel?
+    var timer = Timer()
     private var otpFromServer: String = ""
     
     var signupContinueButton: UIButtonVariableBackgroundVariableCR?
@@ -438,7 +440,7 @@ class LoginSignUpViewController: UIViewController {
         cityField?.alpha = 0
         
         otpDetailsLabel = UILabel()
-        otpDetailsLabel?.text = "Please enter Verification code sent to email "
+        otpDetailsLabel?.text = "Please enter Verification code sent to your email."
         otpDetailsLabel?.textColor = .black
         otpDetailsLabel?.numberOfLines = 0
         otpDetailsLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
@@ -463,6 +465,13 @@ class LoginSignUpViewController: UIViewController {
         //txtOTPView.isCircleTextField = true
         signUpScreenContentView?.addSubview(txtOTPView!)
         txtOTPView?.alpha = 0
+        
+        resendOtp = LinksLabel()
+        resendOtp?.font = UIFont(name: "NunitoSans-Bold", size: CGFloat(15.0))!
+        resendOtp?.textAlignment = .center
+        resendOtp?.numberOfLines = 0
+        resendOtp?.alpha = 0
+        signUpScreenContentView?.addSubview(resendOtp!)
         
         progressBar = UIProgressView(progressViewStyle: .default)
         progressBar?.progress = 0.25
@@ -525,6 +534,7 @@ class LoginSignUpViewController: UIViewController {
         
         otpDetailsLabel?.translatesAutoresizingMaskIntoConstraints = false
         txtOTPView?.translatesAutoresizingMaskIntoConstraints = false
+        resendOtp?.translatesAutoresizingMaskIntoConstraints = false
         
         progressBar?.translatesAutoresizingMaskIntoConstraints = false
         signupContinueButton?.translatesAutoresizingMaskIntoConstraints = false
@@ -1033,26 +1043,74 @@ class LoginSignUpViewController: UIViewController {
             txtOTPView?.centerXAnchor.constraint(equalTo: signUpScreenContentView!.centerXAnchor).isActive = true
             txtOTPView?.heightAnchor.constraint(equalToConstant: 60).isActive = true
             
+            resendOtp?.topAnchor.constraint(equalTo: txtOTPView!.bottomAnchor, constant: 50).isActive = true
+            resendOtp?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
+            resendOtp?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
+            
             otpDetailsLabel?.alpha = 1
             txtOTPView?.alpha = 1
+            resendOtp?.alpha = 1
             
             progressBarTopConstraint?.isActive = false
-            progressBarTopConstraint = progressBar?.topAnchor.constraint(equalTo: txtOTPView!.bottomAnchor, constant: 29)
+            progressBarTopConstraint = progressBar?.topAnchor.constraint(equalTo: resendOtp!.bottomAnchor, constant: 40)
             progressBarTopConstraint?.isActive = true
             
             self.activeView = .signupOtpVerification
             
-            APIService(data: ["username": emailTextFieldSignUp!.text!, "password": ""], url: nil, service: .sendOtp, method: .post, isJSONRequest: true).executeQuery() { (result: Result<Int, Error>) in
-                switch result{
-                case .success(_):
-                    try? print(result.get())
-                    try? self.otpFromServer = "\(result.get())"
-                case .failure(let error):
-                    print(error)
-                }
-            }
+            sendOTP()
             
             break
+        }
+    }
+    var counter = 0
+    
+    @objc func timerAction() {
+        if counter < 1 {
+            timer.invalidate()
+            let mainString = "Didn't receive the OTP? Resend OTP"
+            let stringOne = "Resend OTP"
+            
+            var range = (mainString as NSString).range(of: stringOne)
+            let temp = NSMutableAttributedString.init(string: mainString)
+            temp.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor(red: 0.00, green: 0.75, blue: 1.00, alpha: 1.00), range: range)
+            //        resendOtp?.setAttribute(link: Constants.BASE_SERVER_HOST + "/site/cc_terms.html", range: range)
+            
+            resendOtp?.attributedText = temp
+            resendOtp?.alpha = 1
+            resendOtp?.isUserInteractionEnabled = true
+            resendOtp?.isTappable = true
+            resendOtp?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(sendOTP)))
+        } else {
+            counter -= 1
+            resendOtp?.alpha = 0.4
+            resendOtp?.text = "Resend OTP in \(counter) secs"
+            resendOtp?.isUserInteractionEnabled = false
+            resendOtp?.isTappable = false
+        }
+    }
+    
+    @objc func sendOTP() {
+        self.view.isUserInteractionEnabled = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.view.makeToastActivity(.center)
+        }
+        APIService(data: ["username": emailTextFieldSignUp!.text!, "password": ""], url: nil, service: .sendOtp, method: .post, isJSONRequest: true).executeQuery() { (result: Result<Int, Error>) in
+            switch result{
+            case .success(_):
+                try? print(result.get())
+                try? self.otpFromServer = "\(result.get())"
+                self.view.makeToast("OTP Sent Successfully.", duration: 6.0, title: "Sent OTP", image: UIImage(named: "AppIcon"), completion: nil)
+                
+                self.timer.invalidate() // just in case this button is tapped multiple times
+                self.counter = 30
+                
+                // start the timer
+                self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timerAction), userInfo: nil, repeats: true)
+            case .failure(let error):
+                print(error)
+            }
+            self.view.hideToastActivity()
+            self.view.isUserInteractionEnabled = true
         }
     }
     

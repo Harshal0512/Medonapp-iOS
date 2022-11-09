@@ -62,6 +62,26 @@ class Utils {
             }
         }
     }
+    
+    class func openURL(_ string: String?){
+        
+        guard let val = string else {return}
+        var formattedUrl = val
+        if(!formattedUrl.hasPrefix("http")) {
+            formattedUrl = "https://" + formattedUrl
+        }
+        guard let url = URL(string: formattedUrl) else { return }
+        
+        let application = UIApplication.shared
+        
+        if (application.canOpenURL(url)){
+            if #available(iOS 10, *){
+                application.open(url, options: [:], completionHandler: nil)
+            }else{
+                application.openURL(url)
+            }
+        }
+    }
 }
 
 

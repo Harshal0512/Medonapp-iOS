@@ -242,3 +242,101 @@ extension Double {
        return self.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
     }
 }
+
+extension String {
+    func isUrl() -> Bool {
+        var url = self.lowercased()
+        if(!url.hasPrefix("http://") && !url.hasPrefix("https://")) {
+            url = "http://" + url
+        }
+        
+        let urlRegEx = "^(https?://)?(www\\.)?([-a-z0-9]{1,63}\\.)*?[a-z0-9][-a-z0-9]{0,61}[a-z0-9]\\.[a-z]{2,6}(/[-\\w@\\+\\.~#\\?&/=%]*)?$"
+        //        let urlRegEx = "((?:http|https)://)?(?:www\\.)?[\\w\\d\\-_]+\\.\\w{2,3}(\\.\\w{2})?(/(?<=/)(?:[\\w\\d\\-./_]+)?)?"
+        return NSPredicate(format: "SELF MATCHES %@", urlRegEx).evaluate(with: url)
+    }
+}
+
+extension StringProtocol {
+    func index<S: StringProtocol>(of string: S, options: String.CompareOptions = []) -> Index? {
+        range(of: string, options: options)?.lowerBound
+    }
+    func endIndex<S: StringProtocol>(of string: S, options: String.CompareOptions = []) -> Index? {
+        range(of: string, options: options)?.upperBound
+    }
+    func indices<S: StringProtocol>(of string: S, options: String.CompareOptions = []) -> [Index] {
+        ranges(of: string, options: options).map(\.lowerBound)
+    }
+    func ranges<S: StringProtocol>(of string: S, options: String.CompareOptions = []) -> [Range<Index>] {
+        var result: [Range<Index>] = []
+        var startIndex = self.startIndex
+        while startIndex < endIndex,
+              let range = self[startIndex...]
+                .range(of: string, options: options) {
+            result.append(range)
+            startIndex = range.lowerBound < range.upperBound ? range.upperBound :
+            index(range.lowerBound, offsetBy: 1, limitedBy: endIndex) ?? endIndex
+        }
+        return result
+    }
+    
+    func distance(of element: Element) -> Int? {
+        firstIndex(of: element)?.distance(in: self)
+    }
+    
+    func distance<S: StringProtocol>(of string: S) -> Int? {
+        range(of: string)?.lowerBound.distance(in: self)
+    }
+    
+    func indexOf(_ str: String) -> Int {
+        if let distance = distance(of: str) {
+            return distance
+        }
+        return -1
+    }
+}
+
+extension Collection {
+    func distance(to index: Index) -> Int { distance(from: startIndex, to: index) }
+}
+
+extension String.Index {
+    func distance<S: StringProtocol>(in string: S) -> Int { string.distance(to: self) }
+}
+
+extension UITapGestureRecognizer {
+    
+    func didTapAttributedTextInLabel(label: UILabel, inRange targetRange: NSRange) -> Bool {
+        // Create instances of NSLayoutManager, NSTextContainer and NSTextStorage
+        let layoutManager = NSLayoutManager()
+        let textContainer = NSTextContainer(size: CGSize.zero)
+        let textStorage = NSTextStorage(attributedString: label.attributedText!)
+        
+        // Configure layoutManager and textStorage
+        layoutManager.addTextContainer(textContainer)
+        textStorage.addLayoutManager(layoutManager)
+        
+        // Configure textContainer
+        textContainer.lineFragmentPadding = 0.0
+        textContainer.lineBreakMode = label.lineBreakMode
+        textContainer.maximumNumberOfLines = label.numberOfLines
+        let labelSize = label.bounds.size
+        textContainer.size = labelSize
+        
+        // Find the tapped character location and compare it to the specified range
+        let locationOfTouchInLabel = self.location(in: label)
+        let textBoundingBox = layoutManager.usedRect(for: textContainer)
+        let textContainerOffset = CGPoint(
+            x: (labelSize.width - textBoundingBox.size.width) * 0.5 - textBoundingBox.origin.x,
+            y: (labelSize.height - textBoundingBox.size.height) * 0.5 - textBoundingBox.origin.y
+        )
+        let locationOfTouchInTextContainer = CGPoint(
+            x: locationOfTouchInLabel.x + textContainerOffset.x*0,
+            y: locationOfTouchInLabel.y + textContainerOffset.y*0
+        )
+        let indexOfCharacter = layoutManager.characterIndex(for: locationOfTouchInTextContainer, in: textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
+        
+        let locInRange = NSLocationInRange(indexOfCharacter, targetRange)
+        return locInRange
+    }
+    
+}

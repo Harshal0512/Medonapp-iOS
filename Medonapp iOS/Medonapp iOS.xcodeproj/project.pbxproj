@@ -84,6 +84,7 @@
 		F8C75A6028E98B7000F5B2E2 /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C75A5F28E98B7000F5B2E2 /* extensions.swift */; };
 		F8C75A6228E98BEB00F5B2E2 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C75A6128E98BEB00F5B2E2 /* Utils.swift */; };
 		F8C75A6428EA016E00F5B2E2 /* UIButtonVariableBackgroundVariableCR.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C75A6328EA016E00F5B2E2 /* UIButtonVariableBackgroundVariableCR.swift */; };
+		F8D088FB291C2DAD00424977 /* LinksLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D088FA291C2DAD00424977 /* LinksLabel.swift */; };
 		F8D5EB8A290FE35000942AE6 /* iOSDropDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D5EB89290FE35000942AE6 /* iOSDropDown.framework */; };
 		F8D5EB8E290FE3C200942AE6 /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D5EB8D290FE3C200942AE6 /* Lottie.framework */; };
 		F8F3ED3D290967DF001D6A4C /* SignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3ED3C290967DF001D6A4C /* SignUpModel.swift */; };
@@ -179,6 +180,7 @@
 		F8C75A5F28E98B7000F5B2E2 /* extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 		F8C75A6128E98BEB00F5B2E2 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		F8C75A6328EA016E00F5B2E2 /* UIButtonVariableBackgroundVariableCR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonVariableBackgroundVariableCR.swift; sourceTree = "<group>"; };
+		F8D088FA291C2DAD00424977 /* LinksLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinksLabel.swift; sourceTree = "<group>"; };
 		F8D5EB89290FE35000942AE6 /* iOSDropDown.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSDropDown.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8D5EB8B290FE38500942AE6 /* Lottie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Lottie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8D5EB8D290FE3C200942AE6 /* Lottie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Lottie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -307,6 +309,7 @@
 				F8B96C3028F6A686009E5198 /* WhiteBackgroundButtonWithIcon.swift */,
 				F844C65628FF0DF100BBE5B0 /* Report Details Screen */,
 				F844C65E28FFDD0A00BBE5B0 /* Profile View */,
+				F8D088FA291C2DAD00424977 /* LinksLabel.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -719,6 +722,7 @@
 				F844C65328FEB25300BBE5B0 /* ReportDetailsViewController.swift in Sources */,
 				F80C19842900F3A000891800 /* JStarRatingView.swift in Sources */,
 				F844C65928FF0E1700BBE5B0 /* ReportTableViewCell.swift in Sources */,
+				F8D088FB291C2DAD00424977 /* LinksLabel.swift in Sources */,
 				F82AA0F628F490B100C7CE7F /* DoctorInfoTableViewCell.swift in Sources */,
 				F89272BE28F1AC7B0063525E /* ScheduleTabViewController.swift in Sources */,
 				F883FC0F2909228F00B17D01 /* MobileWithCountryCode.swift in Sources */,
