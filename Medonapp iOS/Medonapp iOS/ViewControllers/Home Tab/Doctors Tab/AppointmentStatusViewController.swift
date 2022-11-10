@@ -12,6 +12,7 @@ class AppointmentStatusViewController: UIViewController {
     
     private var animationView: AnimationView?
     var appointmentIsSuccess: Bool = false
+    var reminderIsSet: Bool = false
     private var statusLabel: UILabel?
     private var subtitleLabel: UILabel?
     private var goToHomeButton: UIButtonVariableBackgroundVariableCR?
@@ -62,7 +63,7 @@ class AppointmentStatusViewController: UIViewController {
             animationView = .init(name: "checkMarkSuccess")
             animationView!.animationSpeed = 0.8
             statusLabel?.text = "Your appointment has been booked successfully!"
-            subtitleLabel?.text = "Thank you for choosing us."
+            subtitleLabel?.text = reminderIsSet ? "We've set a reminder in your default calendar app to remind you on the day of appointment." : "Thank you for choosing us."
         } else {
             animationView = .init(name: "errorFailure")
             animationView!.animationSpeed = 1.0

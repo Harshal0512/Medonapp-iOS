@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import EventKit
+
 import Toast_Swift
 
 class BookAppointmentViewController: UIViewController, UICollectionViewDelegateFlowLayout {
@@ -26,6 +28,9 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegateF
     public var symptoms: String = ""
     public var doctor: Doctor?
     
+    let eventStore = EKEventStore()
+    var isRemindersAccess: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,6 +43,23 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegateF
         timeCollectionView?.dataSource = self
         
         dateChanged()
+        
+        askForPermission {
+            self.isRemindersAccess = true
+        }
+    }
+    
+    func askForPermission(grantedAction: @escaping () -> Void) {
+        eventStore.requestAccess(to: .event) { (granted, error) in
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            if granted {
+                grantedAction()
+            }
+        }
     }
     
     func initialise() {
@@ -181,7 +203,7 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegateF
         view.isUserInteractionEnabled = false
         view.makeToastActivity(.center)
         
-        let appointmentSuccessVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "appointmentStatusVC") as? AppointmentStatusViewController
+        let appointmentStatusVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "appointmentStatusVC") as? AppointmentStatusViewController
         
         var selectedTime = ""
         if dayOfWeek == 1 || dayOfWeek == 7 {
@@ -193,28 +215,43 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegateF
         APIService(data: ["patientId": User.getUserDetails().patient!.id!,
                           "doctorId": doctor!.id!,
                           "startTime": Date.combineDateWithTimeReturnISO(date: Date.stringFromDate(date: datePicker!.date), time: selectedTime).appending("Z"),
+                          //TODO: Change end time if time duration of appointment changes in future
                           "endTime": Date.addMinutes(ISODateString: Date.combineDateWithTimeReturnISO(date: Date.stringFromDate(date: datePicker!.date), time: selectedTime), minutes: 30 * 60.0).appending("Z"),
                           "symptoms": symptoms],
                    headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"],
                    url: nil,
                    service: .bookAppointment,
                    method: .post,
-                   isJSONRequest: true).executeQuery() { (result: Result<AppointmentElement, Error>) in
+                   isJSONRequest: true).executeQuery() { [self] (result: Result<AppointmentElement, Error>) in
             switch result{
             case .success(let appointment):
                 if appointment.status?.lowercased() == "booked" {
-                    appointmentSuccessVC?.appointmentIsSuccess = true
+                    appointmentStatusVC?.appointmentIsSuccess = true
+                    guard let calendar = self.eventStore.defaultCalendarForNewEvents else { break }
+                    let appointmentReminder = EKEvent(eventStore: self.eventStore)
+                    appointmentReminder.calendar = calendar
+                    appointmentReminder.title = "Appointment with Dr. \((self.doctor!.name?.firstName ?? "") + " " + (self.doctor!.name?.lastName ?? ""))"
+                    appointmentReminder.startDate = Date.dateFromISOString(string: Date.combineDateWithTimeReturnISO(date: Date.stringFromDate(date: datePicker!.date), time: selectedTime))!
+                    appointmentReminder.endDate = Date.dateFromISOString(string: Date.addMinutes(ISODateString: Date.combineDateWithTimeReturnISO(date: Date.stringFromDate(date: datePicker!.date), time: selectedTime), minutes: 30 * 60.0))!
+                    let alarm = EKAlarm.init(absoluteDate: Date.init(timeInterval: -3600, since: appointmentReminder.startDate))
+                    appointmentReminder.addAlarm(alarm)
+                    
+                    //TODO: Add Doctor Address to reminder, also mention type of doctor in notes
+//                    appointmentReminder.notes = //add doctor's address here
+//                    appointmentReminder.location = //add Doctor's location
+                    try! self.eventStore.save(appointmentReminder, span: .thisEvent)
+                    appointmentStatusVC?.reminderIsSet = true
                 } else {
-                    appointmentSuccessVC?.appointmentIsSuccess = false
+                    appointmentStatusVC?.appointmentIsSuccess = false
                 }
                 
             case .failure(let error):
                 print(error)
-                appointmentSuccessVC?.appointmentIsSuccess = false
+                appointmentStatusVC?.appointmentIsSuccess = false
             }
             
-            appointmentSuccessVC?.modalPresentationStyle = .fullScreen
-            self.present(appointmentSuccessVC!, animated: true, completion: nil)
+            appointmentStatusVC?.modalPresentationStyle = .fullScreen
+            self.present(appointmentStatusVC!, animated: true, completion: nil)
         }
     }
     
@@ -259,10 +296,10 @@ extension BookAppointmentViewController: UICollectionViewDelegate, UICollectionV
                     Int(Date.getMonthFromDate(date: datePicker!.date)) == Int(Date.getMonthFromDate(date: Date.dateFromISOString(string: bookedSlot, timezone: "GMT")!)) &&
                     Int(Date.getYearFromDate(date: datePicker!.date)) == Int(Date.getYearFromDate(date: Date.dateFromISOString(string: bookedSlot, timezone: "GMT")!)) &&
                     Date.dateTimeChangeFormat(str: (doctor?.weekdayAppointmentSlots![indexPath.row])!,
-                                                                               inDateFormat:  "HH:mm:ss",
-                                                                               outDateFormat: "hh:mm a") == Date.dateTimeChangeFormat(str: bookedSlot,
-                                                                                                                                      inDateFormat:  "yyyy-MM-dd'T'HH:mm:ss",
-                                                                                                                                      outDateFormat: "hh:mm a")
+                                              inDateFormat:  "HH:mm:ss",
+                                              outDateFormat: "hh:mm a") == Date.dateTimeChangeFormat(str: bookedSlot,
+                                                                                                     inDateFormat:  "yyyy-MM-dd'T'HH:mm:ss",
+                                                                                                     outDateFormat: "hh:mm a")
                 ) {
                     isAvailable = false
                     break

@@ -2,14 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-        <string>googlegmail</string>
-        <string>ms-outlook</string>
-        <string>readdle-spark</string>
-        <string>ymail</string>
-        <string>whatsapp</string>
-    </array>
+	<key>NSCalendarsUsageDescription</key>
+	<string>We need this permission to add appointment reminders to your iPhone.</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>googlegmail</string>
+		<string>ms-outlook</string>
+		<string>readdle-spark</string>
+		<string>ymail</string>
+		<string>whatsapp</string>
+	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
 	<key>CFBundleIdentifier</key>
