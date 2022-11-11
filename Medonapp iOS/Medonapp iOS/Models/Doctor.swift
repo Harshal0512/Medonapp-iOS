@@ -77,7 +77,6 @@ class Doctor: Codable, Hashable {
     }
     
     static private var doctors: [Doctor] = []
-    static private var liveDoctors: [Doctor] = []
     
     static func sortDoctors(doctors: [Doctor]) -> [Doctor] {
         return doctors.sorted(by: { $0.avgRating! > $1.avgRating! })
@@ -87,13 +86,8 @@ class Doctor: Codable, Hashable {
         return doctors
     }
     
-    static func getLiveDoctors() -> [Doctor] {
-        return liveDoctors
-    }
-    
     static func clearDoctors() {
         doctors = []
-        liveDoctors = []
     }
     
     static func refreshDoctors(completionHandler: @escaping (Bool) -> ()) {
@@ -101,20 +95,10 @@ class Doctor: Codable, Hashable {
             switch result{
             case .success(_):
                 try? Doctor.initDoctors(doctors: result.get())
-                Doctor.calculateLiveStatus()
                 completionHandler(true)
             case .failure(let error):
                 print(error)
                 completionHandler(false)
-            }
-        }
-    }
-    
-    static func calculateLiveStatus() {
-        liveDoctors = []
-        for doctor in doctors {
-            if doctor.liveStatus == true {
-                liveDoctors.append(doctor)
             }
         }
     }

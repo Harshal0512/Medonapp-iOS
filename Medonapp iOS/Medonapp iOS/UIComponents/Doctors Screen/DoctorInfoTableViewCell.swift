@@ -17,6 +17,7 @@ class DoctorInfoTableViewCell: UITableViewCell {
     }
     
     @IBOutlet private var doctorImage: UIImageView!
+    @IBOutlet private var onlineStatusIcon: UIImageView!
     @IBOutlet private var doctorName: UILabel!
     @IBOutlet private var designation: UILabel!
     @IBOutlet private var rating: UILabel!
@@ -36,6 +37,9 @@ class DoctorInfoTableViewCell: UITableViewCell {
             .onSuccess { result in }
             .onFailure { error in }
             .set(to: self.doctorImage)
+        if !doctor.liveStatus! {
+            onlineStatusIcon.alpha = 0
+        }
         
         self.doctorImage.layer.cornerRadius = 26
         self.doctorImage.contentMode = .scaleAspectFill

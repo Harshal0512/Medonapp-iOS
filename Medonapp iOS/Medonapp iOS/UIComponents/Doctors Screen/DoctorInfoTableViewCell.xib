@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -84,6 +84,13 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="onlineStatusIcon" translatesAutoresizingMaskIntoConstraints="NO" id="ZsC-8V-XXc">
+                        <rect key="frame" x="113" y="105.66666666666667" width="22" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="22" id="bHy-fA-N1Y"/>
+                            <constraint firstAttribute="width" constant="22" id="iKj-LV-4jn"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="gsy-37-7hv" firstAttribute="leading" secondItem="rgc-vZ-LDk" secondAttribute="trailing" constant="1" id="7cw-oC-zuU"/>
@@ -96,7 +103,9 @@
                     <constraint firstAttribute="trailing" secondItem="iba-Zj-R4y" secondAttribute="trailing" constant="10" id="LIH-pb-WFr"/>
                     <constraint firstItem="ieL-Iz-8PX" firstAttribute="top" secondItem="iba-Zj-R4y" secondAttribute="bottom" constant="9.5" id="LUT-Py-y4x"/>
                     <constraint firstItem="rgc-vZ-LDk" firstAttribute="leading" secondItem="lBu-wU-QHz" secondAttribute="trailing" constant="20" id="LvW-rT-eWp"/>
+                    <constraint firstItem="ZsC-8V-XXc" firstAttribute="trailing" secondItem="lBu-wU-QHz" secondAttribute="trailing" id="RLu-3y-yrP"/>
                     <constraint firstItem="6iR-1t-gnN" firstAttribute="top" secondItem="iba-Zj-R4y" secondAttribute="bottom" constant="9.5" id="SjA-E4-A0i"/>
+                    <constraint firstItem="ZsC-8V-XXc" firstAttribute="bottom" secondItem="lBu-wU-QHz" secondAttribute="bottom" id="YE5-l6-jTO"/>
                     <constraint firstItem="mv7-eW-OK0" firstAttribute="top" secondItem="ieL-Iz-8PX" secondAttribute="bottom" constant="11" id="awa-hJ-2XB"/>
                     <constraint firstItem="T2q-5F-ucu" firstAttribute="leading" secondItem="6iR-1t-gnN" secondAttribute="trailing" constant="8" id="bHe-k0-q82"/>
                     <constraint firstAttribute="trailingMargin" secondItem="ieL-Iz-8PX" secondAttribute="trailing" constant="10" id="c7E-Jz-c9W"/>
@@ -117,12 +126,14 @@
                 <outlet property="doctorName" destination="jsy-t5-6fm" id="gB7-SP-Jfn"/>
                 <outlet property="feesLabel" destination="gsy-37-7hv" id="1Sr-ST-eaM"/>
                 <outlet property="numberOfReviews" destination="ieL-Iz-8PX" id="GJs-mf-HQI"/>
+                <outlet property="onlineStatusIcon" destination="ZsC-8V-XXc" id="npH-9I-9wk"/>
                 <outlet property="rating" destination="T2q-5F-ucu" id="pQ6-jG-PXf"/>
             </connections>
             <point key="canvasLocation" x="81.538461538461533" y="-12.796208530805687"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="onlineStatusIcon" width="44" height="44"/>
         <image name="starIcon" width="30" height="29"/>
     </resources>
 </document>
