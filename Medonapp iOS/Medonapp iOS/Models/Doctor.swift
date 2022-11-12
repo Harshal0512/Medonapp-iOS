@@ -79,7 +79,7 @@ class Doctor: Codable, Hashable {
     static private var doctors: [Doctor] = []
     
     static func sortDoctors(doctors: [Doctor]) -> [Doctor] {
-        return doctors.sorted(by: { $0.fees! < $1.fees! }).sorted(by: { $0.avgRating! > $1.avgRating! })
+        return doctors.sorted(by: { $0.fees! < $1.fees! }).sorted(by: { $0.reviewCount! > $1.reviewCount! }).sorted(by: { $0.avgRating! > $1.avgRating! })
     }
     
     static func getDoctors() -> [Doctor] {
