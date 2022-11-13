@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import CoreLocation
 
 class DoctorsScreenViewController: UIViewController {
     
+    let locationManager = CLLocationManager()
+    
     public var doctors: [Doctor] = []
     private var doctorsSet: Set<Doctor> = []
-    private var liveDoctors: [Doctor] = []
     
     private var backButton: UIImageView?
     private var navTitle: UILabel?
@@ -36,6 +38,25 @@ class DoctorsScreenViewController: UIViewController {
         doctorsTable?.register(DoctorInfoTableViewCell.nib(), forCellReuseIdentifier: DoctorInfoTableViewCell.identifier)
         doctorsTable?.delegate = self
         doctorsTable?.dataSource = self
+        
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.delegate = self
+        DispatchQueue.global().async { [self] in
+            if CLLocationManager.locationServicesEnabled() {
+                switch locationManager.authorizationStatus {
+                case .notDetermined, .restricted, .denied:
+                    Prefs.showDistanceFromUser = false
+                case .authorizedAlways, .authorizedWhenInUse:
+                    Prefs.showDistanceFromUser = true
+                    locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+                    locationManager.startUpdatingLocation()
+                @unknown default:
+                    break
+                }
+            } else {
+                Prefs.showDistanceFromUser = false
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,6 +97,7 @@ class DoctorsScreenViewController: UIViewController {
         
         doctorsTable = UITableView()
         doctorsTable?.separatorStyle = .none
+        doctorsTable?.showsVerticalScrollIndicator = false
         view.addSubview(doctorsTable!)
     }
     
@@ -113,8 +135,11 @@ class DoctorsScreenViewController: UIViewController {
     @objc func refreshData() {
         Doctor.refreshDoctors { isSuccess in
             self.doctors = Doctor.getDoctors()
+            if Prefs.showDistanceFromUser == true {
+                Doctor.getDistanceFromUser()
+            }
             self.doctorsSet = Set(self.doctors.map { $0 })
-            self.calculateLiveStatus() //Calculate doctor live status
+            Doctor.calculateLiveStatus() //Calculate doctor live status
             self.searchFieldDidChange(self.searchField!)
             let sections = NSIndexSet(indexesIn: NSMakeRange(0, self.doctorsTable!.numberOfSections))
             self.doctorsTable!.reloadSections(sections as IndexSet, with: .automatic)
@@ -145,15 +170,14 @@ class DoctorsScreenViewController: UIViewController {
         self.doctorsTable!.reloadSections(sections as IndexSet, with: .automatic)
     }
     
-    func calculateLiveStatus() {
-        liveDoctors = []
-        for doctor in doctors {
-            if doctor.liveStatus == true {
-                liveDoctors.append(doctor)
-            }
-        }
+}
+
+extension DoctorsScreenViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location: CLLocation = manager.location else { return }
+        self.locationManager.stopUpdatingLocation()
+        User.getUserDetails().patient?.setUserLocation(userLocation: UserLocation(longitude: location.coordinate.longitude, latitude: location.coordinate.latitude))
     }
-    
 }
 
 extension DoctorsScreenViewController : UITextFieldDelegate {

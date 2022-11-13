@@ -29,6 +29,7 @@
 		F81BAAF328F9C09B0080BD21 /* AppointmentDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81BAAF228F9C09B0080BD21 /* AppointmentDetailsViewController.swift */; };
 		F81BAAF628F9C8A20080BD21 /* PriceDisplayViewAppointmentDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81BAAF528F9C8A20080BD21 /* PriceDisplayViewAppointmentDetails.swift */; };
 		F81BAAF828F9C8C40080BD21 /* PriceDisplayViewAppointmentDetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = F81BAAF728F9C8C40080BD21 /* PriceDisplayViewAppointmentDetails.xib */; };
+		F81F0515292137340077CE52 /* UserLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81F0514292137340077CE52 /* UserLocation.swift */; };
 		F82AA0F128F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82AA0EF28F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.swift */; };
 		F82AA0F228F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F82AA0F028F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.xib */; };
 		F82AA0F628F490B100C7CE7F /* DoctorInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82AA0F428F490B100C7CE7F /* DoctorInfoTableViewCell.swift */; };
@@ -125,6 +126,7 @@
 		F81BAAF228F9C09B0080BD21 /* AppointmentDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentDetailsViewController.swift; sourceTree = "<group>"; };
 		F81BAAF528F9C8A20080BD21 /* PriceDisplayViewAppointmentDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceDisplayViewAppointmentDetails.swift; sourceTree = "<group>"; };
 		F81BAAF728F9C8C40080BD21 /* PriceDisplayViewAppointmentDetails.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PriceDisplayViewAppointmentDetails.xib; sourceTree = "<group>"; };
+		F81F0514292137340077CE52 /* UserLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocation.swift; sourceTree = "<group>"; };
 		F82AA0EF28F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorsScreenCarouselCollectionViewCell.swift; sourceTree = "<group>"; };
 		F82AA0F028F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DoctorsScreenCarouselCollectionViewCell.xib; sourceTree = "<group>"; };
 		F82AA0F428F490B100C7CE7F /* DoctorInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -394,6 +396,7 @@
 				F830804F290A76390088CDB8 /* Appointments.swift */,
 				F834BEE1290CFC0F0073FCAC /* Review.swift */,
 				F8F3ED3B290967CD001D6A4C /* Outbound Models */,
+				F81F0514292137340077CE52 /* UserLocation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -717,6 +720,7 @@
 				F883FC0B2909225E00B17D01 /* NameInclMiddleName.swift in Sources */,
 				F840513528FD139F0051B636 /* Doctor.swift in Sources */,
 				F8BC4A4428F460D600440406 /* StoryboardUtils.swift in Sources */,
+				F81F0515292137340077CE52 /* UserLocation.swift in Sources */,
 				F85D9C3528F2F7FE008FBDE9 /* ScheduleTabDateCollectionViewCell.swift in Sources */,
 				F8FB225E28F7D9C7003B9173 /* TabViewInContactScreen.swift in Sources */,
 				F844C65328FEB25300BBE5B0 /* ReportDetailsViewController.swift in Sources */,

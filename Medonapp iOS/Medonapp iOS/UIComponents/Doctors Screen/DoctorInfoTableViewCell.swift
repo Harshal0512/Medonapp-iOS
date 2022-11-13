@@ -23,6 +23,7 @@ class DoctorInfoTableViewCell: UITableViewCell {
     @IBOutlet private var rating: UILabel!
     @IBOutlet private var numberOfReviews: UILabel!
     @IBOutlet private var feesLabel: UILabel!
+    @IBOutlet private var distanceLabel: UILabel!
     
     private var imageLink: String = ""
 
@@ -40,6 +41,7 @@ class DoctorInfoTableViewCell: UITableViewCell {
         if !doctor.liveStatus! {
             onlineStatusIcon.alpha = 0
         }
+        distanceLabel.alpha = Prefs.showDistanceFromUser ? 1 : 0
         
         self.doctorImage.layer.cornerRadius = 26
         self.doctorImage.contentMode = .scaleAspectFill
@@ -51,8 +53,11 @@ class DoctorInfoTableViewCell: UITableViewCell {
         
         self.doctorName.textColor = .black
         self.designation.textColor = UIColor(red: 0.29, green: 0.33, blue: 0.37, alpha: 1.00)
+        self.distanceLabel.textColor = UIColor(red: 0.29, green: 0.33, blue: 0.37, alpha: 1.00)
         self.rating.textColor = .black
         self.numberOfReviews.textColor = UIColor(red: 0.29, green: 0.33, blue: 0.37, alpha: 1.00)
+        
+        self.distanceLabel.set(text: String(format: "%.2f kms", doctor.distanceFromUser/1000), leftIcon: UIImage(systemName: "location.fill")?.resizeImageTo(size: CGSize(width: 13, height: 13))?.withTintColor(UIColor(red: 0.29, green: 0.33, blue: 0.37, alpha: 1.00)))
     }
     
     override func awakeFromNib() {

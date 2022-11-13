@@ -13,11 +13,28 @@ class Patient: Codable {
     var name: NameInclMiddleName?
     var address: FullAddress?
     var mobile: MobileWithCountryCode?
+    var currentUserlocation: UserLocation = UserLocation()
     var dob, bloodGroup, age, gender: String?
     var height: Double?
     var weight: Double?
     var healthStatus: JSONNull?
     var profileImage: ProfileImage?
+    
+    enum CodingKeys: CodingKey {
+        case id
+        case credential
+        case name
+        case address
+        case mobile
+        case dob
+        case bloodGroup
+        case age
+        case gender
+        case height
+        case weight
+        case healthStatus
+        case profileImage
+    }
 
     init(id: Int?, credential: Credential?, name: NameInclMiddleName?, address: FullAddress?, mobile: MobileWithCountryCode?, dob: String?, bloodGroup: String?, age: String?, gender: String?, height: Double?, weight: Double?, healthStatus: JSONNull?, profileImage: ProfileImage?) {
         self.id = id
@@ -49,5 +66,9 @@ class Patient: Codable {
         self.weight = 0.0
         self.healthStatus = nil
         self.profileImage = nil
+    }
+    
+    func setUserLocation(userLocation: UserLocation) {
+        self.currentUserlocation = userLocation
     }
 }

@@ -20,6 +20,7 @@
 //   }
 
 import Foundation
+import CoreLocation
 import Alamofire
 
 class Doctor: Codable, Hashable {
@@ -49,6 +50,33 @@ class Doctor: Codable, Hashable {
     var weekdayAppointmentSlots, weekendAppointmentSlots, bookedSlots: [String]?
     var patientCount: Int?
     var reviewCount: Int?
+    var distanceFromUser: Double = 0.0
+    
+    enum CodingKeys: CodingKey {
+        case id
+        case credential
+        case profileImage
+        case name
+        case address
+        case mobile
+        case gender
+        case specialization
+        case experience
+        case about
+        case fees
+        case liveStatus
+        case avgRating
+        case availableFromInWeekdays
+        case availableFromInWeekends
+        case maxAppointmentsInWeekdays
+        case maxAppointmentsInWeekends
+        case appointmentDuration
+        case weekdayAppointmentSlots
+        case weekendAppointmentSlots
+        case bookedSlots
+        case patientCount
+        case reviewCount
+    }
     
     init(id: Int?, credential: Credential?, profileImage: ProfileImage?, name: NameInclMiddleName?, address: FullAddress?, mobile: MobileWithCountryCode?, gender: String?, specialization: String?, experience: Double?, about: [String]?, fees: Double?, liveStatus: Bool?, avgRating: Double?, availableFromInWeekdays: String?, availableFromInWeekends: String?, maxAppointmentsInWeekdays: Int?, maxAppointmentsInWeekends: Int?, appointmentDuration: String?, weekdayAppointmentSlots: [String]?, weekendAppointmentSlots: [String]?, bookedSlots: [String]?, patientCount: Int?, reviewCount: Int?) {
         self.id = id
@@ -77,9 +105,29 @@ class Doctor: Codable, Hashable {
     }
     
     static private var doctors: [Doctor] = []
+    static private var liveDoctors: [Doctor] = []
     
     static func sortDoctors(doctors: [Doctor]) -> [Doctor] {
         return doctors.sorted(by: { $0.fees! < $1.fees! }).sorted(by: { $0.reviewCount! > $1.reviewCount! }).sorted(by: { $0.avgRating! > $1.avgRating! })
+    }
+    
+    static func calculateLiveStatus() {
+        liveDoctors = []
+        for doctor in doctors {
+            if doctor.liveStatus == true {
+                liveDoctors.append(doctor)
+            }
+        }
+    }
+    
+    static func getDistanceFromUser() {
+        for doctor in doctors {
+            doctor.distanceFromUser = CLLocation(latitude: doctor.address!.latitude!,
+                                                 longitude: doctor.address!.longitude!)
+                                    .distance(from: CLLocation(latitude: User.getUserDetails().patient!.currentUserlocation.latitude,
+                                    longitude: User.getUserDetails().patient!.currentUserlocation.longitude))
+        }
+        
     }
     
     static func getDoctors() -> [Doctor] {

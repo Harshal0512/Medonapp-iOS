@@ -49,6 +49,48 @@ extension UILabel {
         self.isSkeletonable = true
         self.linesCornerRadius = 7
     }
+    
+    func set(text:String, leftIcon: UIImage? = nil, rightIcon: UIImage? = nil) {
+        
+        let leftAttachment = NSTextAttachment()
+        leftAttachment.image = leftIcon
+        leftAttachment.bounds = CGRect(x: 0, y: -2.5, width: 20, height: 20)
+        if let leftIcon = leftIcon {
+            leftAttachment.bounds = CGRect(x: 0, y: -2.5, width: leftIcon.size.width, height: leftIcon.size.height)
+        }
+        let leftAttachmentStr = NSAttributedString(attachment: leftAttachment)
+        
+        let myString = NSMutableAttributedString(string: "")
+        
+        let rightAttachment = NSTextAttachment()
+        rightAttachment.image = rightIcon
+        rightAttachment.bounds = CGRect(x: 0, y: -5, width: 20, height: 20)
+        let rightAttachmentStr = NSAttributedString(attachment: rightAttachment)
+        
+        
+        if semanticContentAttribute == .forceRightToLeft {
+            if rightIcon != nil {
+                myString.append(rightAttachmentStr)
+                myString.append(NSAttributedString(string: " "))
+            }
+            myString.append(NSAttributedString(string: text))
+            if leftIcon != nil {
+                myString.append(NSAttributedString(string: " "))
+                myString.append(leftAttachmentStr)
+            }
+        } else {
+            if leftIcon != nil {
+                myString.append(leftAttachmentStr)
+                myString.append(NSAttributedString(string: " "))
+            }
+            myString.append(NSAttributedString(string: text))
+            if rightIcon != nil {
+                myString.append(NSAttributedString(string: " "))
+                myString.append(rightAttachmentStr)
+            }
+        }
+        attributedText = myString
+    }
 }
 
 extension UIButton{
@@ -106,6 +148,21 @@ extension UIDatePicker {
         self.minimumDate = minDate
         self.maximumDate = maxDate
     } }
+
+extension DispatchQueue {
+    
+    static func background(delay: Double = 0.0, background: (()->Void)? = nil, completion: (() -> Void)? = nil) {
+        DispatchQueue.global(qos: .background).async {
+            background?()
+            if let completion = completion {
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
+                    completion()
+                })
+            }
+        }
+    }
+    
+}
 
 extension Date {
     static var yesterday: Date { return Date().localDate().dayBefore }
@@ -239,7 +296,7 @@ extension Encodable {
 
 extension Double {
     var clean: String {
-       return self.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
+        return self.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
     }
 }
 
@@ -271,7 +328,7 @@ extension StringProtocol {
         var startIndex = self.startIndex
         while startIndex < endIndex,
               let range = self[startIndex...]
-                .range(of: string, options: options) {
+            .range(of: string, options: options) {
             result.append(range)
             startIndex = range.lowerBound < range.upperBound ? range.upperBound :
             index(range.lowerBound, offsetBy: 1, limitedBy: endIndex) ?? endIndex

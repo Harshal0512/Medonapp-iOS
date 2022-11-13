@@ -62,6 +62,9 @@ struct Prefs {
     @Storage(key: "applicationMode", defaultValue: .production)
     static var applicationMode: applicationModes
     
+    @Storage(key: "showDistanceFromUser", defaultValue: false)
+    static var showDistanceFromUser: Bool
+    
     //    @EncryptedStringStorage(key: "password_key")
     //    static var password: String
     

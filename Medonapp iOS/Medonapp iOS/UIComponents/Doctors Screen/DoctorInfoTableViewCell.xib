@@ -67,19 +67,22 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="₹" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rgc-vZ-LDk">
-                        <rect key="frame" x="155" y="99.333333333333329" width="7" height="14.333333333333329"/>
+                        <rect key="frame" x="257" y="103.33333333333333" width="7" height="14.333333333333329"/>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="/Ap" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mv7-eW-OK0">
-                        <rect key="frame" x="202" y="100.66666666666667" width="16" height="12"/>
+                        <rect key="frame" x="304" y="104" width="16" height="12"/>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="5000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gsy-37-7hv">
-                        <rect key="frame" x="163" y="96" width="36" height="20.666666666666671"/>
+                        <rect key="frame" x="265" y="99.666666666666671" width="36" height="20.666666666666671"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="40" id="Iii-7k-46e"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="NunitoSans-ExtraBold" family="Nunito Sans" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -91,8 +94,18 @@
                             <constraint firstAttribute="width" constant="22" id="iKj-LV-4jn"/>
                         </constraints>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oqr-Yp-H4M" userLabel="distanceLabel">
+                        <rect key="frame" x="155" y="101" width="90" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="90" id="xGw-Fp-f4W"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="oqr-Yp-H4M" firstAttribute="leading" secondItem="iba-Zj-R4y" secondAttribute="leading" id="5sF-lI-zCr"/>
                     <constraint firstItem="gsy-37-7hv" firstAttribute="leading" secondItem="rgc-vZ-LDk" secondAttribute="trailing" constant="1" id="7cw-oC-zuU"/>
                     <constraint firstItem="ieL-Iz-8PX" firstAttribute="leading" secondItem="T2q-5F-ucu" secondAttribute="trailing" constant="7" id="GKG-wn-Fh5"/>
                     <constraint firstItem="jsy-t5-6fm" firstAttribute="leading" secondItem="lBu-wU-QHz" secondAttribute="trailing" constant="19" id="HQy-TT-LtE"/>
@@ -102,26 +115,28 @@
                     <constraint firstItem="lBu-wU-QHz" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="JLy-50-Wfq"/>
                     <constraint firstAttribute="trailing" secondItem="iba-Zj-R4y" secondAttribute="trailing" constant="10" id="LIH-pb-WFr"/>
                     <constraint firstItem="ieL-Iz-8PX" firstAttribute="top" secondItem="iba-Zj-R4y" secondAttribute="bottom" constant="9.5" id="LUT-Py-y4x"/>
-                    <constraint firstItem="rgc-vZ-LDk" firstAttribute="leading" secondItem="lBu-wU-QHz" secondAttribute="trailing" constant="20" id="LvW-rT-eWp"/>
                     <constraint firstItem="ZsC-8V-XXc" firstAttribute="trailing" secondItem="lBu-wU-QHz" secondAttribute="trailing" id="RLu-3y-yrP"/>
                     <constraint firstItem="6iR-1t-gnN" firstAttribute="top" secondItem="iba-Zj-R4y" secondAttribute="bottom" constant="9.5" id="SjA-E4-A0i"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="oqr-Yp-H4M" secondAttribute="bottom" constant="11" id="Y7J-1F-L2e"/>
                     <constraint firstItem="ZsC-8V-XXc" firstAttribute="bottom" secondItem="lBu-wU-QHz" secondAttribute="bottom" id="YE5-l6-jTO"/>
-                    <constraint firstItem="mv7-eW-OK0" firstAttribute="top" secondItem="ieL-Iz-8PX" secondAttribute="bottom" constant="11" id="awa-hJ-2XB"/>
+                    <constraint firstItem="mv7-eW-OK0" firstAttribute="top" secondItem="ieL-Iz-8PX" secondAttribute="bottom" constant="14.5" id="awa-hJ-2XB"/>
                     <constraint firstItem="T2q-5F-ucu" firstAttribute="leading" secondItem="6iR-1t-gnN" secondAttribute="trailing" constant="8" id="bHe-k0-q82"/>
                     <constraint firstAttribute="trailingMargin" secondItem="ieL-Iz-8PX" secondAttribute="trailing" constant="10" id="c7E-Jz-c9W"/>
                     <constraint firstItem="iba-Zj-R4y" firstAttribute="leading" secondItem="lBu-wU-QHz" secondAttribute="trailing" constant="20" id="cnM-Br-ZVg"/>
-                    <constraint firstItem="gsy-37-7hv" firstAttribute="top" secondItem="T2q-5F-ucu" secondAttribute="bottom" constant="4.5" id="jFs-TU-LwR"/>
-                    <constraint firstItem="rgc-vZ-LDk" firstAttribute="top" secondItem="6iR-1t-gnN" secondAttribute="bottom" constant="12" id="jrL-rA-nDd"/>
+                    <constraint firstItem="gsy-37-7hv" firstAttribute="top" secondItem="T2q-5F-ucu" secondAttribute="bottom" constant="8" id="jFs-TU-LwR"/>
+                    <constraint firstItem="rgc-vZ-LDk" firstAttribute="top" secondItem="6iR-1t-gnN" secondAttribute="bottom" constant="16" id="jrL-rA-nDd"/>
                     <constraint firstItem="iba-Zj-R4y" firstAttribute="top" secondItem="jsy-t5-6fm" secondAttribute="bottom" constant="3" id="qo4-sg-Hqs"/>
                     <constraint firstItem="6iR-1t-gnN" firstAttribute="leading" secondItem="lBu-wU-QHz" secondAttribute="trailing" constant="19" id="r32-kC-fq6"/>
                     <constraint firstItem="lBu-wU-QHz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="rpJ-fE-3aX"/>
                     <constraint firstItem="mv7-eW-OK0" firstAttribute="leading" secondItem="gsy-37-7hv" secondAttribute="trailing" constant="3" id="tcq-ZK-7Q9"/>
                     <constraint firstItem="T2q-5F-ucu" firstAttribute="top" secondItem="iba-Zj-R4y" secondAttribute="bottom" constant="7.5" id="wae-0z-xdu"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="mv7-eW-OK0" secondAttribute="trailing" id="xou-cr-A14"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="designation" destination="iba-Zj-R4y" id="kd2-3X-SD9"/>
+                <outlet property="distanceLabel" destination="oqr-Yp-H4M" id="0gl-bZ-P6o"/>
                 <outlet property="doctorImage" destination="lBu-wU-QHz" id="GPd-ty-X0w"/>
                 <outlet property="doctorName" destination="jsy-t5-6fm" id="gB7-SP-Jfn"/>
                 <outlet property="feesLabel" destination="gsy-37-7hv" id="1Sr-ST-eaM"/>
