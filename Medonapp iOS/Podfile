@@ -16,5 +16,6 @@ target 'Medonapp iOS' do
   pod 'SkeletonView'
   pod 'Toast-Swift', '~> 5.0.1'
   pod 'Popovers'
+  pod 'FaveButton'
 
 end

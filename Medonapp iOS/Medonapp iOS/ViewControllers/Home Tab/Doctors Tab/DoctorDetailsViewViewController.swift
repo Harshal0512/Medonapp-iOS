@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FaveButton
 
 class DoctorDetailsViewViewController: UIViewController {
     
@@ -21,6 +22,8 @@ class DoctorDetailsViewViewController: UIViewController {
     private var aboutLabel: UILabel?
     private var aboutDescription: UILabel?
     private var bookNowButton: UIButtonVariableBackgroundVariableCR?
+    private var favoriteView: UIView?
+    private var favoriteButton: FaveButton?
     
     public var doctor: Doctor?
 
@@ -102,6 +105,16 @@ class DoctorDetailsViewViewController: UIViewController {
         bookNowButton?.initButton(title: "Book Now", cornerRadius: 14, variant: .blueBack)
         contentView?.addSubview(bookNowButton!)
         bookNowButton?.addTarget(self, action: #selector(bookNowButtonPressed), for: .touchUpInside)
+        
+        favoriteView = UIView()
+        favoriteView?.backgroundColor = .clear
+        favoriteView?.layer.cornerRadius = 14
+        contentView?.addSubview(favoriteView!)
+        
+        favoriteButton = FaveButton(frame: CGRect(x:200, y:200, width: 44, height: 44), faveIconNormal: UIImage(named: "heart"))
+//        favoriteButton?.selectedColor = UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00)
+        favoriteButton?.delegate = self
+        favoriteView?.addSubview(favoriteButton!)
     }
     
     func setConstraints() {
@@ -117,6 +130,8 @@ class DoctorDetailsViewViewController: UIViewController {
         aboutLabel?.translatesAutoresizingMaskIntoConstraints = false
         aboutDescription?.translatesAutoresizingMaskIntoConstraints = false
         bookNowButton?.translatesAutoresizingMaskIntoConstraints = false
+        favoriteView?.translatesAutoresizingMaskIntoConstraints = false
+        favoriteButton?.translatesAutoresizingMaskIntoConstraints = false
         
         
         topView?.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
@@ -178,9 +193,20 @@ class DoctorDetailsViewViewController: UIViewController {
         
         bookNowButton?.topAnchor.constraint(equalTo: aboutDescription!.bottomAnchor, constant: 43).isActive = true
         bookNowButton?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 27).isActive = true
-        bookNowButton?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -27).isActive = true
+//        bookNowButton?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -27).isActive = true
         bookNowButton?.heightAnchor.constraint(equalToConstant: 56).isActive = true
         bookNowButton?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -20).isActive = true
+        bookNowButton?.widthAnchor.constraint(equalTo: favoriteButton!.widthAnchor, multiplier: 5).isActive = true
+        
+        favoriteView?.topAnchor.constraint(equalTo: bookNowButton!.topAnchor).isActive = true
+        favoriteView?.leadingAnchor.constraint(equalTo: bookNowButton!.trailingAnchor, constant: 10).isActive = true
+        favoriteView?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -27).isActive = true
+        favoriteView?.heightAnchor.constraint(equalToConstant: 56).isActive = true
+        
+        favoriteButton?.topAnchor.constraint(equalTo: favoriteView!.topAnchor, constant: 1).isActive = true
+        favoriteButton?.leadingAnchor.constraint(equalTo: favoriteView!.leadingAnchor, constant: 1).isActive = true
+        favoriteButton?.trailingAnchor.constraint(equalTo: favoriteView!.trailingAnchor, constant: -1).isActive = true
+        favoriteButton?.bottomAnchor.constraint(equalTo: favoriteView!.bottomAnchor, constant: -1).isActive = true
     }
     
     @objc func handleBackAction(_ sender: UITapGestureRecognizer? = nil) {
@@ -209,5 +235,11 @@ class DoctorDetailsViewViewController: UIViewController {
             text += line + "\n"
         }
         aboutDescription?.text = text
+    }
+}
+
+extension DoctorDetailsViewViewController: FaveButtonDelegate {
+    func faveButton(_ faveButton: FaveButton, didSelected selected: Bool) {
+        //TODO: actions when favorite button clicked
     }
 }
