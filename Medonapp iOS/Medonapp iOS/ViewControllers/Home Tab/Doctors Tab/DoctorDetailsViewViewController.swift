@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import MapKit
+import CoreLocation
 import FaveButton
 
 class DoctorDetailsViewViewController: UIViewController {
@@ -21,6 +23,9 @@ class DoctorDetailsViewViewController: UIViewController {
     private var ratingsGreyView: GreyViewDoctorDetails?
     private var aboutLabel: UILabel?
     private var aboutDescription: UILabel?
+    private var locationTextLabel: UILabel?
+    private var locationView: UIView?
+    private var locationMapView: MKMapView?
     private var bookNowButton: UIButtonVariableBackgroundVariableCR?
     private var favoriteView: UIView?
     private var favoriteButton: FaveButton?
@@ -38,6 +43,13 @@ class DoctorDetailsViewViewController: UIViewController {
         initialise()
         setupUI()
         setConstraints()
+        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2D(latitude: (doctor?.address!.latitude!)!, longitude: (doctor?.address!.longitude!)!)
+        annotation.title = "Dr. \((doctor?.name?.firstName ?? "") + " " + (doctor?.name?.lastName ?? ""))"
+        self.locationMapView?.addAnnotation(annotation)
+        let coordinateRegion = MKCoordinateRegion(center: annotation.coordinate, latitudinalMeters: doctor!.distanceFromUser*3, longitudinalMeters: doctor!.distanceFromUser*3)
+        self.locationMapView?.setRegion(coordinateRegion, animated: true)
         
         setAboutLabelText()
     }
@@ -101,6 +113,24 @@ class DoctorDetailsViewViewController: UIViewController {
         aboutDescription?.font = UIFont(name: "NunitoSans-Regular", size: 14)
         contentView?.addSubview(aboutDescription!)
         
+        locationTextLabel = UILabel()
+        locationTextLabel?.text = "Location"
+        locationTextLabel?.textColor = .black
+        locationTextLabel?.font = UIFont(name: "NunitoSans-Bold", size: 17)
+        contentView?.addSubview(locationTextLabel!)
+        
+        locationView = UIView()
+        locationView?.backgroundColor = .gray
+        locationView?.layer.cornerRadius = 28
+        contentView?.addSubview(locationView!)
+        locationView?.isUserInteractionEnabled = true
+        locationView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openGoogleMap)))
+        
+        locationMapView = MKMapView()
+        locationMapView?.showsUserLocation = true
+        locationMapView?.layer.cornerRadius = 28
+        locationView?.addSubview(locationMapView!)
+        
         bookNowButton = UIButtonVariableBackgroundVariableCR()
         bookNowButton?.initButton(title: "Book Now", cornerRadius: 14, variant: .blueBack)
         contentView?.addSubview(bookNowButton!)
@@ -129,6 +159,9 @@ class DoctorDetailsViewViewController: UIViewController {
         ratingsGreyView?.translatesAutoresizingMaskIntoConstraints = false
         aboutLabel?.translatesAutoresizingMaskIntoConstraints = false
         aboutDescription?.translatesAutoresizingMaskIntoConstraints = false
+        locationTextLabel?.translatesAutoresizingMaskIntoConstraints = false
+        locationView?.translatesAutoresizingMaskIntoConstraints = false
+        locationMapView?.translatesAutoresizingMaskIntoConstraints = false
         bookNowButton?.translatesAutoresizingMaskIntoConstraints = false
         favoriteView?.translatesAutoresizingMaskIntoConstraints = false
         favoriteButton?.translatesAutoresizingMaskIntoConstraints = false
@@ -191,7 +224,21 @@ class DoctorDetailsViewViewController: UIViewController {
         aboutDescription?.leadingAnchor.constraint(equalTo: aboutLabel!.leadingAnchor).isActive = true
         aboutDescription?.trailingAnchor.constraint(equalTo: aboutLabel!.trailingAnchor).isActive = true
         
-        bookNowButton?.topAnchor.constraint(equalTo: aboutDescription!.bottomAnchor, constant: 43).isActive = true
+        locationTextLabel?.topAnchor.constraint(equalTo: aboutDescription!.bottomAnchor, constant: 23).isActive = true
+        locationTextLabel?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 27).isActive = true
+        locationTextLabel?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -27).isActive = true
+        
+        locationView?.topAnchor.constraint(equalTo: locationTextLabel!.bottomAnchor, constant: 12).isActive = true
+        locationView?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 28).isActive = true
+        locationView?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -28).isActive = true
+        locationView?.heightAnchor.constraint(equalToConstant: 180).isActive = true
+        
+        locationMapView?.topAnchor.constraint(equalTo: locationView!.topAnchor).isActive = true
+        locationMapView?.leadingAnchor.constraint(equalTo: locationView!.leadingAnchor).isActive = true
+        locationMapView?.trailingAnchor.constraint(equalTo: locationView!.trailingAnchor).isActive = true
+        locationMapView?.bottomAnchor.constraint(equalTo: locationView!.bottomAnchor).isActive = true
+        
+        bookNowButton?.topAnchor.constraint(equalTo: locationMapView!.bottomAnchor, constant: 43).isActive = true
         bookNowButton?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 27).isActive = true
 //        bookNowButton?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -27).isActive = true
         bookNowButton?.heightAnchor.constraint(equalToConstant: 56).isActive = true
@@ -235,6 +282,20 @@ class DoctorDetailsViewViewController: UIViewController {
             text += line + "\n"
         }
         aboutDescription?.text = text
+    }
+    
+    @objc func openGoogleMap() {
+        if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {  //if phone has an app
+            
+            if let url = URL(string: "comgooglemaps-x-callback://?saddr=&daddr=\(doctor!.address!.latitude!),\(doctor!.address!.longitude!)&directionsmode=driving") {
+                UIApplication.shared.open(url, options: [:])
+            }}
+        else {
+            //Open in browser
+            if let urlDestination = URL.init(string: "https://www.google.co.in/maps/dir/?saddr=&daddr=\(doctor!.address!.latitude!),\(doctor!.address!.longitude!)&directionsmode=driving") {
+                UIApplication.shared.open(urlDestination)
+            }
+        }
     }
 }
 
