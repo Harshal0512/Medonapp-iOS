@@ -375,6 +375,7 @@ extension HomeTabViewController: CLLocationManagerDelegate {
 extension HomeTabViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if let annotation = view.annotation {
+            guard !(annotation is MKUserLocation) else { return }
             if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {  //if phone has an app
                 
                 if let url = URL(string: "comgooglemaps-x-callback://?saddr=&daddr=\(annotation.coordinate.latitude),\(annotation.coordinate.longitude)&directionsmode=driving") {
