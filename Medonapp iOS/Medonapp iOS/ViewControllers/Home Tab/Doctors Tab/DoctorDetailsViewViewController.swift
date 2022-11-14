@@ -26,6 +26,7 @@ class DoctorDetailsViewViewController: UIViewController {
     private var locationTextLabel: UILabel?
     private var locationView: UIView?
     private var locationMapView: MKMapView?
+    private var bottomView: UIView?
     private var bookNowButton: UIButtonVariableBackgroundVariableCR?
     private var favoriteView: UIView?
     private var favoriteButton: FaveButton?
@@ -131,15 +132,19 @@ class DoctorDetailsViewViewController: UIViewController {
         locationMapView?.layer.cornerRadius = 28
         locationView?.addSubview(locationMapView!)
         
+        bottomView = UIView()
+        bottomView?.backgroundColor = .white
+        view?.addSubview(bottomView!)
+        
         bookNowButton = UIButtonVariableBackgroundVariableCR()
         bookNowButton?.initButton(title: "Book Now", cornerRadius: 14, variant: .blueBack)
-        contentView?.addSubview(bookNowButton!)
+        bottomView?.addSubview(bookNowButton!)
         bookNowButton?.addTarget(self, action: #selector(bookNowButtonPressed), for: .touchUpInside)
         
         favoriteView = UIView()
         favoriteView?.backgroundColor = .clear
         favoriteView?.layer.cornerRadius = 14
-        contentView?.addSubview(favoriteView!)
+        bottomView?.addSubview(favoriteView!)
         
         favoriteButton = FaveButton(frame: CGRect(x:200, y:200, width: 44, height: 44), faveIconNormal: UIImage(named: "heart"))
 //        favoriteButton?.selectedColor = UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00)
@@ -162,6 +167,7 @@ class DoctorDetailsViewViewController: UIViewController {
         locationTextLabel?.translatesAutoresizingMaskIntoConstraints = false
         locationView?.translatesAutoresizingMaskIntoConstraints = false
         locationMapView?.translatesAutoresizingMaskIntoConstraints = false
+        bottomView?.translatesAutoresizingMaskIntoConstraints = false
         bookNowButton?.translatesAutoresizingMaskIntoConstraints = false
         favoriteView?.translatesAutoresizingMaskIntoConstraints = false
         favoriteButton?.translatesAutoresizingMaskIntoConstraints = false
@@ -231,6 +237,7 @@ class DoctorDetailsViewViewController: UIViewController {
         locationView?.topAnchor.constraint(equalTo: locationTextLabel!.bottomAnchor, constant: 12).isActive = true
         locationView?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 28).isActive = true
         locationView?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -28).isActive = true
+        locationView?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -100).isActive = true
         locationView?.heightAnchor.constraint(equalToConstant: 180).isActive = true
         
         locationMapView?.topAnchor.constraint(equalTo: locationView!.topAnchor).isActive = true
@@ -238,16 +245,19 @@ class DoctorDetailsViewViewController: UIViewController {
         locationMapView?.trailingAnchor.constraint(equalTo: locationView!.trailingAnchor).isActive = true
         locationMapView?.bottomAnchor.constraint(equalTo: locationView!.bottomAnchor).isActive = true
         
-        bookNowButton?.topAnchor.constraint(equalTo: locationMapView!.bottomAnchor, constant: 43).isActive = true
-        bookNowButton?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 27).isActive = true
-//        bookNowButton?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -27).isActive = true
+        bottomView?.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        bottomView?.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        bottomView?.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        
+        bookNowButton?.topAnchor.constraint(equalTo: bottomView!.topAnchor, constant: 13).isActive = true
+        bookNowButton?.leadingAnchor.constraint(equalTo: bottomView!.leadingAnchor, constant: 27).isActive = true
         bookNowButton?.heightAnchor.constraint(equalToConstant: 56).isActive = true
-        bookNowButton?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -20).isActive = true
+        bookNowButton?.bottomAnchor.constraint(equalTo: bottomView!.bottomAnchor, constant: -23).isActive = true
         bookNowButton?.widthAnchor.constraint(equalTo: favoriteButton!.widthAnchor, multiplier: 5).isActive = true
         
-        favoriteView?.topAnchor.constraint(equalTo: bookNowButton!.topAnchor).isActive = true
         favoriteView?.leadingAnchor.constraint(equalTo: bookNowButton!.trailingAnchor, constant: 10).isActive = true
-        favoriteView?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -27).isActive = true
+        favoriteView?.trailingAnchor.constraint(equalTo: bottomView!.trailingAnchor, constant: -27).isActive = true
+        favoriteView?.bottomAnchor.constraint(equalTo: bookNowButton!.bottomAnchor).isActive = true
         favoriteView?.heightAnchor.constraint(equalToConstant: 56).isActive = true
         
         favoriteButton?.topAnchor.constraint(equalTo: favoriteView!.topAnchor, constant: 1).isActive = true
