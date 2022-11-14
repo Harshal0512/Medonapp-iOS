@@ -11,6 +11,7 @@ import CoreLocation
 class DoctorsScreenViewController: UIViewController {
     
     let locationManager = CLLocationManager()
+    var currentLocation: CLLocation = CLLocation()
     
     public var doctors: [Doctor] = []
     private var doctorsSet: Set<Doctor> = []
@@ -45,15 +46,16 @@ class DoctorsScreenViewController: UIViewController {
             if CLLocationManager.locationServicesEnabled() {
                 switch locationManager.authorizationStatus {
                 case .notDetermined, .restricted, .denied:
+                    Prefs.isLocationPerm = false
                     Prefs.showDistanceFromUser = false
                 case .authorizedAlways, .authorizedWhenInUse:
-                    Prefs.showDistanceFromUser = true
                     locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
                     locationManager.startUpdatingLocation()
                 @unknown default:
                     break
                 }
             } else {
+                Prefs.isLocationPerm = false
                 Prefs.showDistanceFromUser = false
             }
         }
@@ -136,7 +138,7 @@ class DoctorsScreenViewController: UIViewController {
         Doctor.refreshDoctors { isSuccess in
             self.doctors = Doctor.getDoctors()
             if Prefs.showDistanceFromUser == true {
-                Doctor.getDistanceFromUser()
+                Doctor.getDistanceFromUser(userLocation: self.currentLocation)
             }
             self.doctorsSet = Set(self.doctors.map { $0 })
             Doctor.calculateLiveStatus() //Calculate doctor live status
@@ -176,7 +178,9 @@ extension DoctorsScreenViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location: CLLocation = manager.location else { return }
         self.locationManager.stopUpdatingLocation()
-        User.getUserDetails().patient?.setUserLocation(userLocation: UserLocation(longitude: location.coordinate.longitude, latitude: location.coordinate.latitude))
+        self.currentLocation = location
+        Prefs.isLocationPerm = true
+        Prefs.showDistanceFromUser = true
     }
 }
 

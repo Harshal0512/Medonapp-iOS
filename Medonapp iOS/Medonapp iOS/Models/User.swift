@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 class User: Codable {
     var token: String?
@@ -54,6 +55,14 @@ class User: Codable {
     static func loadFromPrefs() {
         userDetails.token = Prefs.authToken
         userDetails.patient?.id = Int(Prefs.userId)
+    }
+    
+    static func setUserLocation(location: CLLocation) {
+        self.userDetails.patient?.currentUserlocation = location
+    }
+    
+    static func getUserLocation() -> CLLocation {
+        return (self.userDetails.patient?.currentUserlocation)!
     }
     
 //    static func saveToPrefs() {

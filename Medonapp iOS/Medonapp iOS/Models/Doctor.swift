@@ -120,12 +120,12 @@ class Doctor: Codable, Hashable {
         }
     }
     
-    static func getDistanceFromUser() {
+    static func getDistanceFromUser(userLocation: CLLocation) {
         for doctor in doctors {
             doctor.distanceFromUser = CLLocation(latitude: doctor.address!.latitude!,
                                                  longitude: doctor.address!.longitude!)
-                                    .distance(from: CLLocation(latitude: User.getUserDetails().patient!.currentUserlocation.latitude,
-                                    longitude: User.getUserDetails().patient!.currentUserlocation.longitude))
+            .distance(from: CLLocation(latitude: userLocation.coordinate.latitude,
+                                       longitude: userLocation.coordinate.longitude))
         }
         
     }

@@ -13,6 +13,8 @@
 		<string>readdle-spark</string>
 		<string>ymail</string>
 		<string>whatsapp</string>
+		<string>comgooglemaps</string>
+		<string>comgooglemaps-x-callback</string>
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>

@@ -6,10 +6,18 @@
 //
 
 import UIKit
+import MapKit
+import CoreLocation
 import SkeletonView
 import Kingfisher
 
 class HomeTabViewController: UIViewController {
+    
+    let locationManager = CLLocationManager()
+    var currentLocation: CLLocation = CLLocation()
+    
+    var doctors: [Doctor] = []
+    
     var scrollView: UIScrollView?
     var contentView: UIView?
     var helloTextLabel: UILabel?
@@ -20,6 +28,9 @@ class HomeTabViewController: UIViewController {
     var doctorsTab: TabForServices_VariableColor?
     var reportsTab: TabForServices_VariableColor?
     var banner: UIImageView?
+    var nearbyTextLabel: UILabel?
+    var nearbyView: UIView?
+    var nearbyMapView: MKMapView?
     
     private var userDetails = User.getUserDetails()
     
@@ -44,11 +55,12 @@ class HomeTabViewController: UIViewController {
             
             refreshUserDetails { isSuccess in
                 if isSuccess {
-//                    tabBarItems![1].isEnabled = true
+                    //                    tabBarItems![1].isEnabled = true
                     tabBarItems![2].isEnabled = true
                     self.view.isUserInteractionEnabled = true
                     self.contentView?.hideSkeleton(transition: .crossDissolve(0.25))
                     self.loadData()
+                    self.fetchDoctors()
                     self.view.hideToastActivity()
                 } else {
                     self.logout()
@@ -84,6 +96,27 @@ class HomeTabViewController: UIViewController {
         setConstraints()
         
         loadData()
+        fetchDoctors()
+        
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.delegate = self
+        DispatchQueue.global().async { [self] in
+            if CLLocationManager.locationServicesEnabled() {
+                switch locationManager.authorizationStatus {
+                case .notDetermined, .restricted, .denied:
+                    Prefs.isLocationPerm = false
+                    Prefs.showDistanceFromUser = false
+                case .authorizedAlways, .authorizedWhenInUse:
+                    locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+                    locationManager.startUpdatingLocation()
+                @unknown default:
+                    break
+                }
+            } else {
+                Prefs.isLocationPerm = false
+                Prefs.showDistanceFromUser = false
+            }
+        }
     }
     
     func initialise() {
@@ -150,6 +183,23 @@ class HomeTabViewController: UIViewController {
         banner?.image = UIImage(named: "homeScreenBannerImage")
         banner?.contentMode = .scaleAspectFill
         contentView?.addSubview(banner!)
+        
+        nearbyTextLabel = UILabel()
+        nearbyTextLabel?.text = "Nearby Doctors"
+        nearbyTextLabel?.textColor = .black
+        nearbyTextLabel?.font = UIFont(name: "NunitoSans-Bold", size: 17)
+        contentView?.addSubview(nearbyTextLabel!)
+        
+        nearbyView = UIView()
+        nearbyView?.backgroundColor = .gray
+        nearbyView?.layer.cornerRadius = 28
+        contentView?.addSubview(nearbyView!)
+        
+        nearbyMapView = MKMapView()
+        nearbyMapView?.showsUserLocation = true
+        nearbyMapView?.layer.cornerRadius = 28
+        nearbyMapView?.delegate = self
+        nearbyView?.addSubview(nearbyMapView!)
     }
     
     func setConstraints() {
@@ -163,6 +213,9 @@ class HomeTabViewController: UIViewController {
         doctorsTab?.translatesAutoresizingMaskIntoConstraints = false
         reportsTab?.translatesAutoresizingMaskIntoConstraints = false
         banner?.translatesAutoresizingMaskIntoConstraints = false
+        nearbyTextLabel?.translatesAutoresizingMaskIntoConstraints = false
+        nearbyView?.translatesAutoresizingMaskIntoConstraints = false
+        nearbyMapView?.translatesAutoresizingMaskIntoConstraints = false
         
         
         
@@ -215,7 +268,21 @@ class HomeTabViewController: UIViewController {
         banner?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 28).isActive = true
         banner?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -28).isActive = true
         banner?.heightAnchor.constraint(equalToConstant: 170).isActive = true
-        banner?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -20).isActive = true
+        
+        nearbyTextLabel?.topAnchor.constraint(equalTo: banner!.bottomAnchor, constant: 23).isActive = true
+        nearbyTextLabel?.leadingAnchor.constraint(equalTo: searchBar!.leadingAnchor).isActive = true
+        nearbyTextLabel?.trailingAnchor.constraint(equalTo: searchBar!.trailingAnchor).isActive = true
+        
+        nearbyView?.topAnchor.constraint(equalTo: nearbyTextLabel!.bottomAnchor, constant: 12).isActive = true
+        nearbyView?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 28).isActive = true
+        nearbyView?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -28).isActive = true
+        nearbyView?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -30).isActive = true
+        nearbyView?.heightAnchor.constraint(equalToConstant: 180).isActive = true
+        
+        nearbyMapView?.topAnchor.constraint(equalTo: nearbyView!.topAnchor).isActive = true
+        nearbyMapView?.leadingAnchor.constraint(equalTo: nearbyView!.leadingAnchor).isActive = true
+        nearbyMapView?.trailingAnchor.constraint(equalTo: nearbyView!.trailingAnchor).isActive = true
+        nearbyMapView?.bottomAnchor.constraint(equalTo: nearbyView!.bottomAnchor).isActive = true
     }
     
     func loadData() {
@@ -232,10 +299,24 @@ class HomeTabViewController: UIViewController {
             .set(to: profileImageView!)
     }
     
+    func fetchDoctors() {
+        Doctor.refreshDoctors { isSuccess in
+            self.doctors = Doctor.getDoctors()
+            for doctor in self.doctors {
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = CLLocationCoordinate2D(latitude: doctor.address!.latitude!, longitude: doctor.address!.longitude!)
+                annotation.title = "Dr. \((doctor.name?.firstName ?? "") + " " + (doctor.name?.lastName ?? ""))"
+                self.nearbyMapView?.addAnnotation(annotation)
+            }
+            let coordinateRegion = MKCoordinateRegion(center: self.currentLocation.coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
+            self.nearbyMapView?.setRegion(coordinateRegion, animated: true)
+        }
+    }
+    
     @objc func goToDoctorsScreen(_ sender: UITapGestureRecognizer? = nil) {
         let doctorsScreenVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "doctorsScreenVC") as? DoctorsScreenViewController
-//        doctorsScreenVC?.modalPresentationStyle = .fullScreen
-//        self.present(doctorsScreenVC!, animated: true, completion: nil)
+        //        doctorsScreenVC?.modalPresentationStyle = .fullScreen
+        //        self.present(doctorsScreenVC!, animated: true, completion: nil)
         self.navigationController?.pushViewController(doctorsScreenVC!, animated: true)
     }
     
@@ -271,12 +352,40 @@ class HomeTabViewController: UIViewController {
         User.clearUserDetails()
         self.performSegue(withIdentifier: "toLanding", sender: nil)
     }
-
+    
 }
 
 extension HomeTabViewController : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return false
+    }
+}
+
+extension HomeTabViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location: CLLocation = manager.location else { return }
+        self.locationManager.stopUpdatingLocation()
+        self.currentLocation = location
+        Prefs.isLocationPerm = true
+        Prefs.showDistanceFromUser = true
+    }
+}
+
+extension HomeTabViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if let annotation = view.annotation {
+            if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {  //if phone has an app
+                
+                if let url = URL(string: "comgooglemaps-x-callback://?saddr=&daddr=\(annotation.coordinate.latitude),\(annotation.coordinate.longitude)&directionsmode=driving") {
+                    UIApplication.shared.open(url, options: [:])
+                }}
+            else {
+                //Open in browser
+                if let urlDestination = URL.init(string: "https://www.google.co.in/maps/dir/?saddr=&daddr=\(annotation.coordinate.latitude),\(annotation.coordinate.longitude)&directionsmode=driving") {
+                    UIApplication.shared.open(urlDestination)
+                }
+            }
+        }
     }
 }

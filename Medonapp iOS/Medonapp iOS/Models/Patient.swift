@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 class Patient: Codable {
     var id: Int?
@@ -13,7 +14,7 @@ class Patient: Codable {
     var name: NameInclMiddleName?
     var address: FullAddress?
     var mobile: MobileWithCountryCode?
-    var currentUserlocation: UserLocation = UserLocation()
+    var currentUserlocation: CLLocation = CLLocation()
     var dob, bloodGroup, age, gender: String?
     var height: Double?
     var weight: Double?
@@ -66,9 +67,5 @@ class Patient: Codable {
         self.weight = 0.0
         self.healthStatus = nil
         self.profileImage = nil
-    }
-    
-    func setUserLocation(userLocation: UserLocation) {
-        self.currentUserlocation = userLocation
     }
 }

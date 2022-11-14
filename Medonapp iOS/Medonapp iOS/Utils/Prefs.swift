@@ -62,6 +62,8 @@ struct Prefs {
     @Storage(key: "applicationMode", defaultValue: .production)
     static var applicationMode: applicationModes
     
+    @Storage(key: "isLocationPerm", defaultValue: false)
+    static var isLocationPerm: Bool
     @Storage(key: "showDistanceFromUser", defaultValue: false)
     static var showDistanceFromUser: Bool
     
