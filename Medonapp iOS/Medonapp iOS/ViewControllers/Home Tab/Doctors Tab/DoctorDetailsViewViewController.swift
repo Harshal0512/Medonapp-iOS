@@ -301,6 +301,12 @@ class DoctorDetailsViewViewController: UIViewController {
 
 extension DoctorDetailsViewViewController: FaveButtonDelegate {
     func faveButton(_ faveButton: FaveButton, didSelected selected: Bool) {
+        let generator = UIImpactFeedbackGenerator(style: .light)
         //TODO: actions when favorite button clicked
+        if selected {
+            generator.impactOccurred()
+        } else {
+            generator.impactOccurred()
+        }
     }
 }
