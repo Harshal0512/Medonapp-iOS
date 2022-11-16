@@ -9,6 +9,98 @@ import Foundation
 import UIKit
 
 class Utils {
+    
+    internal class func displayAlert(_ displayText: String?, viewController: UIViewController?) {
+        guard let displayText = displayText else { return }
+        let alertController = UIAlertController(title: "Message", message:
+                                                    displayText, preferredStyle: UIAlertController.Style.alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default,handler: nil))
+        viewController?.present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    internal class func displayAlert(_ displayText: String, viewController: UIViewController?, handler: @escaping (UIAlertAction) -> Void) {
+        
+        let alertController = UIAlertController(title: "Medonapp", message:
+                                                    displayText, preferredStyle: UIAlertController.Style.alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default,handler: handler))
+        viewController?.present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    internal class func displayAlert(_ title: String, _ displayText: String, viewController: UIViewController?){
+        
+        let alertController = UIAlertController(title: title, message:
+                                                    displayText, preferredStyle: UIAlertController.Style.alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default,handler: nil))
+        viewController?.present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    internal class func displayAlertWithCloseAction(_ displayText: String, viewController: UIViewController?){
+        
+        let alertController = UIAlertController(title: "Medonapp", message:
+                                                    displayText, preferredStyle: UIAlertController.Style.alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { action in
+            
+            viewController?.navigationController?.popViewController(animated: true);
+            
+        }))
+        
+        viewController?.present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    internal class func displayAlertWithHandler(_ displayText: String, viewController: UIViewController?, handler: ((UIAlertAction)->Void)?){
+        
+        let alertController = UIAlertController(title: "Medonapp", message:
+                                                    displayText, preferredStyle: UIAlertController.Style.alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: handler))
+        
+        viewController?.present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    internal class func displayAlertWithDismissAction(_ displayText: String, viewController: UIViewController?){
+        
+        let alertController = UIAlertController(title: "Medonapp", message:
+                                                    displayText, preferredStyle: UIAlertController.Style.alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default, handler: { action in
+            
+            viewController?.dismiss(animated: true, completion: nil)
+            
+        }))
+        
+        viewController?.present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    internal class func displayYesNoAlert(_ displayText: String, viewController: UIViewController?){
+        
+        let alertController = UIAlertController(title: "Data not saved!", message:
+                                                    displayText, preferredStyle: UIAlertController.Style.alert)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: { action in
+            
+            viewController?.navigationController?.popViewController(animated: true);
+            
+        }))
+        
+        viewController?.present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    internal class func displayYesNoAlertWithHandler(_ displayText: String, viewController: UIViewController?, noHandler: ((UIAlertAction)->Void)?,  yesHandler: ( (UIAlertAction)->Void)?){
+        
+        let alertController = UIAlertController(title: "Medonapp", message:
+                                                    displayText, preferredStyle: UIAlertController.Style.alert)
+        alertController.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.cancel, handler: noHandler))
+        alertController.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: yesHandler))
+        
+        viewController?.present(alertController, animated: true, completion: nil)
+        
+    }
+    
     class func dialNumber(number: String) {
         
         if let url = URL(string: "tel://\(number)"),
@@ -106,28 +198,28 @@ func newJSONEncoder() -> JSONEncoder {
 // MARK: - Encode/decode helpers
 
 class JSONNull: Codable, Hashable {
-
+    
     public static func == (lhs: JSONNull, rhs: JSONNull) -> Bool {
         return true
     }
-
+    
     public var hashValue: Int {
         return 0
     }
-
+    
     public func hash(into hasher: inout Hasher) {
         // No-op
     }
-
+    
     public init() {}
-
+    
     public required init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         if !container.decodeNil() {
             throw DecodingError.typeMismatch(JSONNull.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for JSONNull"))
         }
     }
-
+    
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         try container.encodeNil()
