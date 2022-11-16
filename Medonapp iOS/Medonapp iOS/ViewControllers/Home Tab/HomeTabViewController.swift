@@ -375,6 +375,7 @@ class HomeTabViewController: UIViewController {
     }
     
     @objc func mapTouchAction(gestureRecognizer: UITapGestureRecognizer) {
+        self.view.isUserInteractionEnabled = false
         self.mapViewHeightConstraint?.isActive = false
         
         self.mapViewTopConstraint?.isActive = false
@@ -396,10 +397,12 @@ class HomeTabViewController: UIViewController {
             self.minimizeButton?.alpha = 1
             
             self.contentView?.layoutIfNeeded()
+            self.view.isUserInteractionEnabled = true
         })
     }
     
     @objc func mapDismissAction() {
+        self.view.isUserInteractionEnabled = false
         self.mapViewTopConstraint?.isActive = false
         self.mapViewBottomConstraint?.isActive = false
         self.mapViewTopConstraint = self.nearbyView?.topAnchor.constraint(equalTo: nearbyTextLabel!.bottomAnchor, constant: 12)
@@ -421,6 +424,7 @@ class HomeTabViewController: UIViewController {
             self.nearbyMapView?.layer.cornerRadius = 28
             
             self.contentView?.layoutIfNeeded()
+            self.view.isUserInteractionEnabled = true
         })
     }
     
