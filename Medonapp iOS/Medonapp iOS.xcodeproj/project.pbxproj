@@ -70,6 +70,7 @@
 		F8AF821D28F553CA00D62D98 /* DoctorDetailsViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AF821C28F553CA00D62D98 /* DoctorDetailsViewViewController.swift */; };
 		F8AF822128F5CB4900D62D98 /* DoctorDetailsScreenTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AF822028F5CB4900D62D98 /* DoctorDetailsScreenTopView.swift */; };
 		F8AF822328F5CB6300D62D98 /* DoctorDetailsScreenTopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8AF822228F5CB6300D62D98 /* DoctorDetailsScreenTopView.xib */; };
+		F8B8E27929227D880061C204 /* FilterHalfScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B8E27829227D880061C204 /* FilterHalfScreenVC.swift */; };
 		F8B96C2628F5D557009E5198 /* GreyViewDoctorDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B96C2528F5D557009E5198 /* GreyViewDoctorDetails.swift */; };
 		F8B96C2828F5D55E009E5198 /* GreyViewDoctorDetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8B96C2728F5D55E009E5198 /* GreyViewDoctorDetails.xib */; };
 		F8B96C2F28F699EF009E5198 /* ProfileViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B96C2E28F699EF009E5198 /* ProfileViewViewController.swift */; };
@@ -166,6 +167,7 @@
 		F8AF821C28F553CA00D62D98 /* DoctorDetailsViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDetailsViewViewController.swift; sourceTree = "<group>"; };
 		F8AF822028F5CB4900D62D98 /* DoctorDetailsScreenTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDetailsScreenTopView.swift; sourceTree = "<group>"; };
 		F8AF822228F5CB6300D62D98 /* DoctorDetailsScreenTopView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DoctorDetailsScreenTopView.xib; sourceTree = "<group>"; };
+		F8B8E27829227D880061C204 /* FilterHalfScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterHalfScreenVC.swift; sourceTree = "<group>"; };
 		F8B96C2528F5D557009E5198 /* GreyViewDoctorDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreyViewDoctorDetails.swift; sourceTree = "<group>"; };
 		F8B96C2728F5D55E009E5198 /* GreyViewDoctorDetails.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GreyViewDoctorDetails.xib; sourceTree = "<group>"; };
 		F8B96C2E28F699EF009E5198 /* ProfileViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewViewController.swift; sourceTree = "<group>"; };
@@ -339,6 +341,7 @@
 				F81BAAF228F9C09B0080BD21 /* AppointmentDetailsViewController.swift */,
 				F81BAADC28F928BF0080BD21 /* BookAppointmentViewController.swift */,
 				F81BAAE928F97E6B0080BD21 /* AppointmentStatusViewController.swift */,
+				F8B8E27829227D880061C204 /* FilterHalfScreenVC.swift */,
 			);
 			path = "Doctors Tab";
 			sourceTree = "<group>";
@@ -713,6 +716,7 @@
 				F87559412901290C00863554 /* RatingHalfScreenViewController.swift in Sources */,
 				F8B96C2F28F699EF009E5198 /* ProfileViewViewController.swift in Sources */,
 				F883FC0529091F8800B17D01 /* Patient.swift in Sources */,
+				F8B8E27929227D880061C204 /* FilterHalfScreenVC.swift in Sources */,
 				F8C75A6428EA016E00F5B2E2 /* UIButtonVariableBackgroundVariableCR.swift in Sources */,
 				F81BAADD28F928BF0080BD21 /* BookAppointmentViewController.swift in Sources */,
 				F85D9C3828F33B6D008FBDE9 /* ReportTabViewController.swift in Sources */,

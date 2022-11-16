@@ -19,6 +19,7 @@ class DoctorsScreenViewController: UIViewController {
     private var backButton: UIImageView?
     private var navTitle: UILabel?
     private var searchField: SearchBarWithSearchAndFilterIcon?
+    private var filterIcon: UIImageView?
     var doctorsTable: UITableView?
     
     
@@ -97,6 +98,16 @@ class DoctorsScreenViewController: UIViewController {
         view.addSubview(searchField!)
         searchField?.addTarget(self, action: #selector(searchFieldDidChange(_:)), for: .allEditingEvents)
         
+        filterIcon = UIImageView()
+        filterIcon?.image = UIImage(systemName: "slider.horizontal.3")
+        filterIcon?.tintColor = .black
+        filterIcon?.contentMode = .scaleAspectFit
+        filterIcon?.alpha = 0.7
+        view.addSubview(filterIcon!)
+        let filterTap = UITapGestureRecognizer(target: self, action: #selector(self.handleFilterClick(_:)))
+        filterIcon?.addGestureRecognizer(filterTap)
+        filterIcon?.isUserInteractionEnabled = true
+        
         doctorsTable = UITableView()
         doctorsTable?.separatorStyle = .none
         doctorsTable?.showsVerticalScrollIndicator = false
@@ -107,6 +118,7 @@ class DoctorsScreenViewController: UIViewController {
         backButton?.translatesAutoresizingMaskIntoConstraints = false
         navTitle?.translatesAutoresizingMaskIntoConstraints = false
         searchField?.translatesAutoresizingMaskIntoConstraints = false
+        filterIcon?.translatesAutoresizingMaskIntoConstraints = false
         doctorsTable?.translatesAutoresizingMaskIntoConstraints = false
         
         
@@ -121,8 +133,14 @@ class DoctorsScreenViewController: UIViewController {
         
         searchField?.topAnchor.constraint(equalTo: navTitle!.bottomAnchor, constant: 25).isActive = true
         searchField?.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 27).isActive = true
-        searchField?.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -27).isActive = true
+//        searchField?.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -27).isActive = true
         searchField?.heightAnchor.constraint(equalToConstant: 56).isActive = true
+        searchField?.widthAnchor.constraint(equalTo: filterIcon!.widthAnchor, multiplier: 5).isActive = true
+        
+        filterIcon?.topAnchor.constraint(equalTo: searchField!.topAnchor, constant: 12).isActive = true
+        filterIcon?.leadingAnchor.constraint(equalTo: searchField!.trailingAnchor, constant: 10).isActive = true
+        filterIcon?.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -27).isActive = true
+        filterIcon?.heightAnchor.constraint(equalToConstant: 32).isActive = true
         
         doctorsTable?.topAnchor.constraint(equalTo: searchField!.bottomAnchor, constant: 10).isActive = true
         doctorsTable?.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
@@ -132,6 +150,14 @@ class DoctorsScreenViewController: UIViewController {
     
     @objc func handleBackAction(_ sender: UITapGestureRecognizer? = nil) {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func handleFilterClick(_ sender: UITapGestureRecognizer? = nil) {
+        let sheetViewController = FilterHalfScreenVC()
+        sheetViewController.delegate = self
+        
+        // Present it w/o any adjustments so it uses the default sheet presentation.
+        present(sheetViewController, animated: true)
     }
     
     @objc func refreshData() {
@@ -221,5 +247,11 @@ extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSourc
     
     func refreshTableView() {
         doctorsTable?.reloadData()
+    }
+}
+
+extension DoctorsScreenViewController: FilterHalfScreenDelegate {
+    func filderDidEndSelecting() {
+        
     }
 }
