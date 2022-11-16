@@ -30,7 +30,13 @@ class HomeTabViewController: UIViewController {
     var banner: UIImageView?
     var nearbyTextLabel: UILabel?
     var nearbyView: UIView?
+    var minimizeButton: UIButton?
     var nearbyMapView: MKMapView?
+    var mapViewTopConstraint: NSLayoutConstraint?
+    var mapViewLeadingConstraint: NSLayoutConstraint?
+    var mapViewTrailingConstraint: NSLayoutConstraint?
+    var mapViewBottomConstraint: NSLayoutConstraint?
+    var mapViewHeightConstraint: NSLayoutConstraint?
     
     private var userDetails = User.getUserDetails()
     
@@ -200,6 +206,14 @@ class HomeTabViewController: UIViewController {
         nearbyMapView?.layer.cornerRadius = 28
         nearbyMapView?.delegate = self
         nearbyView?.addSubview(nearbyMapView!)
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(mapTouchAction(gestureRecognizer:)))
+        nearbyMapView?.addGestureRecognizer(gestureRecognizer)
+        
+        minimizeButton = UIButton()
+        minimizeButton?.setImage(UIImage(systemName: "x.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 140, weight: .bold, scale: .large))?.withAlpha(0.75).withTintColor(.black), for: .normal)
+        minimizeButton?.addTarget(self, action: #selector(mapDismissAction), for: .touchUpInside)
+        minimizeButton?.alpha = 0
+        nearbyView?.addSubview(minimizeButton!)
     }
     
     func setConstraints() {
@@ -215,6 +229,7 @@ class HomeTabViewController: UIViewController {
         banner?.translatesAutoresizingMaskIntoConstraints = false
         nearbyTextLabel?.translatesAutoresizingMaskIntoConstraints = false
         nearbyView?.translatesAutoresizingMaskIntoConstraints = false
+        minimizeButton?.translatesAutoresizingMaskIntoConstraints = false
         nearbyMapView?.translatesAutoresizingMaskIntoConstraints = false
         
         
@@ -273,11 +288,22 @@ class HomeTabViewController: UIViewController {
         nearbyTextLabel?.leadingAnchor.constraint(equalTo: searchBar!.leadingAnchor).isActive = true
         nearbyTextLabel?.trailingAnchor.constraint(equalTo: searchBar!.trailingAnchor).isActive = true
         
-        nearbyView?.topAnchor.constraint(equalTo: nearbyTextLabel!.bottomAnchor, constant: 12).isActive = true
-        nearbyView?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 28).isActive = true
-        nearbyView?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -28).isActive = true
-        nearbyView?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -30).isActive = true
-        nearbyView?.heightAnchor.constraint(equalToConstant: 180).isActive = true
+        mapViewTopConstraint = nearbyView?.topAnchor.constraint(equalTo: nearbyTextLabel!.bottomAnchor, constant: 12)
+        mapViewLeadingConstraint = nearbyView?.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 28)
+        mapViewTrailingConstraint = nearbyView?.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -28)
+        mapViewBottomConstraint = nearbyView?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -30)
+        mapViewHeightConstraint = nearbyView?.heightAnchor.constraint(equalToConstant: 180)
+        
+        mapViewTopConstraint?.isActive = true
+        mapViewLeadingConstraint?.isActive = true
+        mapViewTrailingConstraint?.isActive = true
+        mapViewBottomConstraint?.isActive = true
+        mapViewHeightConstraint?.isActive = true
+        
+        minimizeButton?.topAnchor.constraint(equalTo: nearbyView!.topAnchor, constant: 20).isActive = true
+        minimizeButton?.trailingAnchor.constraint(equalTo: nearbyView!.trailingAnchor, constant: -20).isActive = true
+        minimizeButton?.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        minimizeButton?.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         nearbyMapView?.topAnchor.constraint(equalTo: nearbyView!.topAnchor).isActive = true
         nearbyMapView?.leadingAnchor.constraint(equalTo: nearbyView!.leadingAnchor).isActive = true
@@ -346,6 +372,56 @@ class HomeTabViewController: UIViewController {
         // reset back the content inset to zero after keyboard is gone
         scrollView!.contentInset = contentInsets
         scrollView!.scrollIndicatorInsets = contentInsets
+    }
+    
+    @objc func mapTouchAction(gestureRecognizer: UITapGestureRecognizer) {
+        self.mapViewHeightConstraint?.isActive = false
+        
+        self.mapViewTopConstraint?.isActive = false
+        self.mapViewTopConstraint = self.nearbyView?.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0)
+        self.mapViewBottomConstraint = self.nearbyView?.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.mapViewLeadingConstraint?.constant = 0
+            self.mapViewTrailingConstraint?.constant = 0
+            
+            
+            self.mapViewTopConstraint?.isActive = true
+            self.mapViewLeadingConstraint?.isActive = true
+            self.mapViewTrailingConstraint?.isActive = true
+            self.mapViewBottomConstraint?.isActive = true
+            
+            self.nearbyView?.layer.cornerRadius = 0
+            self.nearbyMapView?.layer.cornerRadius = 0
+            self.minimizeButton?.alpha = 1
+            
+            self.contentView?.layoutIfNeeded()
+        })
+    }
+    
+    @objc func mapDismissAction() {
+        self.mapViewTopConstraint?.isActive = false
+        self.mapViewBottomConstraint?.isActive = false
+        self.mapViewTopConstraint = self.nearbyView?.topAnchor.constraint(equalTo: nearbyTextLabel!.bottomAnchor, constant: 12)
+        self.mapViewBottomConstraint = self.nearbyView?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -30)
+        self.mapViewHeightConstraint?.isActive = true
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.minimizeButton?.alpha = 0
+            self.mapViewLeadingConstraint?.constant = 28
+            self.mapViewTrailingConstraint?.constant = -28
+            
+            
+            self.mapViewTopConstraint?.isActive = true
+            self.mapViewLeadingConstraint?.isActive = true
+            self.mapViewTrailingConstraint?.isActive = true
+            self.mapViewBottomConstraint?.isActive = true
+            
+            self.nearbyView?.layer.cornerRadius = 28
+            self.nearbyMapView?.layer.cornerRadius = 28
+            
+            self.contentView?.layoutIfNeeded()
+        })
     }
     
     @objc func logout() {
