@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreLocation
+import MobileCoreServices
 
 class DoctorsScreenViewController: UIViewController {
     
@@ -40,6 +41,8 @@ class DoctorsScreenViewController: UIViewController {
         doctorsTable?.register(DoctorInfoTableViewCell.nib(), forCellReuseIdentifier: DoctorInfoTableViewCell.identifier)
         doctorsTable?.delegate = self
         doctorsTable?.dataSource = self
+        doctorsTable?.dragInteractionEnabled = true
+        doctorsTable?.dragDelegate = self
         
         locationManager.requestWhenInUseAuthorization()
         locationManager.delegate = self
@@ -201,6 +204,7 @@ class DoctorsScreenViewController: UIViewController {
 }
 
 extension DoctorsScreenViewController: CLLocationManagerDelegate {
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location: CLLocation = manager.location else { return }
         self.locationManager.stopUpdatingLocation()
@@ -208,16 +212,38 @@ extension DoctorsScreenViewController: CLLocationManagerDelegate {
         Prefs.isLocationPerm = true
         Prefs.showDistanceFromUser = true
     }
+    
 }
 
 extension DoctorsScreenViewController : UITextFieldDelegate {
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return false
     }
+    
 }
 
-extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSource {
+extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSource, UITableViewDragDelegate {
+    
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        let doctor = Doctor.sortDoctors(doctors: Array(doctorsSet))[indexPath.row]
+        //text to share
+        let text = "Hey! I met Dr. \((doctor.name?.firstName ?? "") + " " + (doctor.name?.lastName ?? "")) on Medonapp!\n\(doctor.gender?.lowercased() == "male" ? "He" : "She") is rated \(doctor.avgRating!.clean) stars and has \(doctor.experience!.clean)+ years of experience.\n\nYou can contact them through the following channels:\nNumber: \(doctor.mobile!.contactNumberWithCountryCode!)\nEmail: \(doctor.credential!.email!)\n\nDownload Medonapp now!!"
+        
+        let data = text.data(using: .utf8)
+        let itemProvider = NSItemProvider()
+        
+        itemProvider.registerDataRepresentation(forTypeIdentifier: kUTTypePlainText as String, visibility: .all) { completion in
+            completion(data, nil)
+            return nil
+        }
+        
+        return [
+            UIDragItem(itemProvider: itemProvider)
+        ]
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return doctorsSet.count
