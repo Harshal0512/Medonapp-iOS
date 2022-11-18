@@ -257,6 +257,7 @@ extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSourc
         let tableCell = tableView.dequeueReusableCell(withIdentifier: DoctorInfoTableViewCell.identifier, for: indexPath) as! DoctorInfoTableViewCell
         
         tableCell.configure(doctor: Doctor.sortDoctors(doctors: Array(doctorsSet))[indexPath.row])
+        tableCell.layer.cornerRadius = 20
         return tableCell
     }
     
