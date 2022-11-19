@@ -45,13 +45,6 @@ class DoctorDetailsViewViewController: UIViewController {
         setupUI()
         setConstraints()
         
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = CLLocationCoordinate2D(latitude: (doctor?.address!.latitude!)!, longitude: (doctor?.address!.longitude!)!)
-        annotation.title = "Dr. \((doctor?.name?.firstName ?? "") + " " + (doctor?.name?.lastName ?? ""))"
-        self.locationMapView?.addAnnotation(annotation)
-        let coordinateRegion = MKCoordinateRegion(center: annotation.coordinate, latitudinalMeters: doctor!.distanceFromUser*3, longitudinalMeters: doctor!.distanceFromUser*3)
-        self.locationMapView?.setRegion(coordinateRegion, animated: true)
-        
         setAboutLabelText()
     }
     
@@ -129,6 +122,7 @@ class DoctorDetailsViewViewController: UIViewController {
         
         locationMapView = MKMapView()
         locationMapView?.showsUserLocation = true
+        locationMapView?.delegate = self
         locationMapView?.layer.cornerRadius = 28
         locationView?.addSubview(locationMapView!)
         
@@ -306,6 +300,20 @@ class DoctorDetailsViewViewController: UIViewController {
                 UIApplication.shared.open(urlDestination)
             }
         }
+    }
+}
+
+extension DoctorDetailsViewViewController: MKMapViewDelegate {
+    
+    func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2D(latitude: (doctor?.address!.latitude!)!, longitude: (doctor?.address!.longitude!)!)
+        annotation.title = "Dr. \((doctor?.name?.firstName ?? "") + " " + (doctor?.name?.lastName ?? ""))"
+        self.locationMapView?.addAnnotation(annotation)
+        
+        let midPoint = Utils.geographicMidpoint(betweenCoordinates: [CLLocationCoordinate2D(latitude: (doctor?.address!.latitude!)!, longitude: (doctor?.address!.longitude!)!), mapView.userLocation.coordinate])
+        let coordinateRegion = MKCoordinateRegion(center: midPoint, latitudinalMeters: doctor!.distanceFromUser*2, longitudinalMeters: doctor!.distanceFromUser*2)
+        self.locationMapView?.setRegion(coordinateRegion, animated: true)
     }
 }
 
