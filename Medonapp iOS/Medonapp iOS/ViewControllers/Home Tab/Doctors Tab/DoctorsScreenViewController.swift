@@ -8,6 +8,7 @@
 import UIKit
 import CoreLocation
 import MobileCoreServices
+import Kingfisher
 
 class DoctorsScreenViewController: UIViewController {
     
@@ -224,26 +225,7 @@ extension DoctorsScreenViewController : UITextFieldDelegate {
     
 }
 
-extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSource, UITableViewDragDelegate {
-    
-    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        let doctor = Doctor.sortDoctors(doctors: Array(doctorsSet))[indexPath.row]
-        //text to share
-        let text = "Hey! I met Dr. \((doctor.name?.firstName ?? "") + " " + (doctor.name?.lastName ?? "")) on Medonapp!\n\(doctor.gender?.lowercased() == "male" ? "He" : "She") is rated \(doctor.avgRating!.clean) stars and has \(doctor.experience!.clean)+ years of experience.\n\nYou can contact them through the following channels:\nNumber: \(doctor.mobile!.contactNumberWithCountryCode!)\nEmail: \(doctor.credential!.email!)\n\nDownload Medonapp now!!"
-        
-        let data = text.data(using: .utf8)
-        let itemProvider = NSItemProvider()
-        
-        itemProvider.registerDataRepresentation(forTypeIdentifier: kUTTypePlainText as String, visibility: .all) { completion in
-            completion(data, nil)
-            return nil
-        }
-        
-        return [
-            UIDragItem(itemProvider: itemProvider)
-        ]
-    }
-    
+extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return doctorsSet.count
@@ -275,6 +257,47 @@ extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSourc
     func refreshTableView() {
         doctorsTable?.reloadData()
     }
+}
+
+extension DoctorsScreenViewController: UITableViewDragDelegate {
+    
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        let doctor = Doctor.sortDoctors(doctors: Array(doctorsSet))[indexPath.row]
+        //text to share
+        let text = "Hey! I met Dr. \((doctor.name?.firstName ?? "") + " " + (doctor.name?.lastName ?? "")) on Medonapp!\n\(doctor.gender?.lowercased() == "male" ? "He" : "She") is rated \(doctor.avgRating!.clean) stars and has \(doctor.experience!.clean)+ years of experience.\n\nYou can contact them through the following channels:\nNumber: \(doctor.mobile!.contactNumberWithCountryCode!)\nEmail: \(doctor.credential!.email!)\n\nDownload Medonapp now!!"
+        
+        let data = text.data(using: .utf8)
+        let itemProvider = NSItemProvider()
+        
+        itemProvider.registerDataRepresentation(forTypeIdentifier: kUTTypePlainText as String, visibility: .all) { completion in
+            completion(data, nil)
+            return nil
+        }
+        
+        let item = UIDragItem(itemProvider: itemProvider)
+        
+        item.previewProvider  = { () -> UIDragPreview? in
+            let previewImageView = UIImageView()
+            KF.url(URL(string: doctor.profileImage?.fileDownloadURI ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg"))
+                .placeholder(UIImage(named: (doctor.gender!.lowercased() == "male") ? "userPlaceholder-male" : "userPlaceholder-female"))
+                .loadDiskFileSynchronously()
+                .cacheMemoryOnly()
+                .fade(duration: 0.25)
+                .onProgress { receivedSize, totalSize in }
+                .onSuccess { result in }
+                .onFailure { error in }
+                .set(to: previewImageView)
+            previewImageView.contentMode = .scaleAspectFill
+            previewImageView.frame =  CGRect(x: 0, y: 0, width: 85, height: 85)
+            previewImageView.layer.cornerRadius = previewImageView.bounds.maxX / 2
+            return UIDragPreview(view: previewImageView)
+        }
+        
+        return [
+            item
+        ]
+    }
+    
 }
 
 extension DoctorsScreenViewController: FilterHalfScreenDelegate {

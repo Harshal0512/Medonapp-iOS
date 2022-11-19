@@ -38,9 +38,7 @@ class DoctorInfoTableViewCell: UITableViewCell {
             .onSuccess { result in }
             .onFailure { error in }
             .set(to: self.doctorImage)
-        if !doctor.liveStatus! {
-            onlineStatusIcon.alpha = 0
-        }
+        onlineStatusIcon.alpha = doctor.liveStatus! ? 1 : 0
         distanceLabel.alpha = Prefs.showDistanceFromUser ? 1 : 0
         
         self.doctorImage.layer.cornerRadius = 26
