@@ -9,7 +9,6 @@ import UIKit
 import MapKit
 import CoreLocation
 import SkeletonView
-import Kingfisher
 
 class HomeTabViewController: UIViewController {
     
@@ -314,15 +313,7 @@ class HomeTabViewController: UIViewController {
     func loadData() {
         userDetails = User.getUserDetails()
         welcomeWithNameLabel?.text = (userDetails.patient?.name?.firstName ?? "") + " " + (userDetails.patient?.name?.lastName ?? "")
-        KF.url(URL(string: userDetails.patient?.profileImage?.fileDownloadURI ?? ""))
-            .placeholder(UIImage(named: (userDetails.patient?.gender?.lowercased() ?? "male" == "male") ? "userPlaceholder-male" : "userPlaceholder-female"))
-            .loadDiskFileSynchronously()
-            .cacheMemoryOnly()
-            .fade(duration: 0.25)
-            .onProgress { receivedSize, totalSize in  }
-            .onSuccess { result in  }
-            .onFailure { error in }
-            .set(to: profileImageView!)
+        profileImageView?.setKFImage(imageUrl: userDetails.patient?.profileImage?.fileDownloadURI ?? "", placeholderImage: UIImage(named: (userDetails.patient?.gender?.lowercased() ?? "male" == "male") ? "userPlaceholder-male" : "userPlaceholder-female")!)
     }
     
     func fetchDoctors() {

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Kingfisher
 
 class DoctorInfoTableViewCell: UITableViewCell {
 
@@ -28,16 +27,7 @@ class DoctorInfoTableViewCell: UITableViewCell {
     private var imageLink: String = ""
 
     public func configure(doctor: Doctor) {
-        imageLink = doctor.profileImage?.fileDownloadURI ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg"
-        KF.url(URL(string: imageLink))
-            .placeholder(UIImage(named: (doctor.gender!.lowercased() == "male") ? "userPlaceholder-male" : "userPlaceholder-female"))
-            .loadDiskFileSynchronously()
-            .cacheMemoryOnly()
-            .fade(duration: 0.25)
-            .onProgress { receivedSize, totalSize in }
-            .onSuccess { result in }
-            .onFailure { error in }
-            .set(to: self.doctorImage)
+        self.doctorImage.setKFImage(imageUrl: doctor.profileImage?.fileDownloadURI ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg", placeholderImage: UIImage(named: (doctor.gender!.lowercased() == "male") ? "userPlaceholder-male" : "userPlaceholder-female")!)
         onlineStatusIcon.alpha = doctor.liveStatus! ? 1 : 0
         distanceLabel.alpha = Prefs.showDistanceFromUser ? 1 : 0
         

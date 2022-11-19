@@ -8,7 +8,6 @@
 import UIKit
 import CoreLocation
 import MobileCoreServices
-import Kingfisher
 
 class DoctorsScreenViewController: UIViewController {
     
@@ -278,15 +277,7 @@ extension DoctorsScreenViewController: UITableViewDragDelegate {
         
         item.previewProvider  = { () -> UIDragPreview? in
             let previewImageView = UIImageView()
-            KF.url(URL(string: doctor.profileImage?.fileDownloadURI ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg"))
-                .placeholder(UIImage(named: (doctor.gender!.lowercased() == "male") ? "userPlaceholder-male" : "userPlaceholder-female"))
-                .loadDiskFileSynchronously()
-                .cacheMemoryOnly()
-                .fade(duration: 0.25)
-                .onProgress { receivedSize, totalSize in }
-                .onSuccess { result in }
-                .onFailure { error in }
-                .set(to: previewImageView)
+            previewImageView.setKFImage(imageUrl: doctor.profileImage?.fileDownloadURI ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg", placeholderImage: UIImage(named: (doctor.gender!.lowercased() == "male") ? "userPlaceholder-male" : "userPlaceholder-female")!)
             previewImageView.contentMode = .scaleAspectFill
             previewImageView.frame =  CGRect(x: 0, y: 0, width: 85, height: 85)
             previewImageView.layer.cornerRadius = previewImageView.bounds.maxX / 2

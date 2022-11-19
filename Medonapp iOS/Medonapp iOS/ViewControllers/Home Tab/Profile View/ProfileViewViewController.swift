@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Kingfisher
 import MessageUI
 
 class ProfileViewViewController: UIViewController, MFMailComposeViewControllerDelegate {
@@ -63,15 +62,7 @@ class ProfileViewViewController: UIViewController, MFMailComposeViewControllerDe
         profileImageView?.makeRoundCorners(byRadius: 26)
         profileImageView?.contentMode = .scaleAspectFill
         contentView?.addSubview(profileImageView!)
-        KF.url(URL(string: userDetails.patient?.profileImage?.fileDownloadURI ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg"))
-            .placeholder(UIImage(named: (userDetails.patient!.gender!.lowercased() == "male") ? "userPlaceholder-male" : "userPlaceholder-female"))
-            .loadDiskFileSynchronously()
-            .cacheMemoryOnly()
-            .fade(duration: 0.25)
-            .onProgress { receivedSize, totalSize in  }
-            .onSuccess { result in  }
-            .onFailure { error in }
-            .set(to: profileImageView!)
+        profileImageView?.setKFImage(imageUrl: userDetails.patient?.profileImage?.fileDownloadURI ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg", placeholderImage: UIImage(named: (userDetails.patient!.gender!.lowercased() == "male") ? "userPlaceholder-male" : "userPlaceholder-female")!)
         
         nameLabel = UILabel()
         nameLabel?.text = (userDetails.patient?.name?.firstName ?? "") + " " + (userDetails.patient?.name?.lastName ?? "")

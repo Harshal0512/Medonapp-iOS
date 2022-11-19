@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Kingfisher
 
 class AppointmentDetailsViewController: UIViewController, UITextViewDelegate {
     
@@ -61,15 +60,7 @@ class AppointmentDetailsViewController: UIViewController, UITextViewDelegate {
         scrollView?.addSubview(contentView!)
         
         doctorImage = UIImageView()
-        KF.url(URL(string: (doctor?.profileImage?.fileDownloadURI ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg")))
-            .placeholder(UIImage(named: (doctor?.gender!.lowercased() == "male") ? "userPlaceholder-male" : "userPlaceholder-female"))
-            .loadDiskFileSynchronously()
-            .cacheMemoryOnly()
-            .fade(duration: 0.25)
-            .onProgress { receivedSize, totalSize in  }
-            .onSuccess { result in  }
-            .onFailure { error in }
-            .set(to: self.doctorImage!)
+        doctorImage?.setKFImage(imageUrl: doctor?.profileImage?.fileDownloadURI ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg", placeholderImage: UIImage(named: (doctor?.gender!.lowercased() == "male") ? "userPlaceholder-male" : "userPlaceholder-female")!)
         doctorImage?.contentMode = .scaleAspectFill
         doctorImage?.makeRoundCorners(byRadius: 26)
         contentView?.addSubview(doctorImage!)

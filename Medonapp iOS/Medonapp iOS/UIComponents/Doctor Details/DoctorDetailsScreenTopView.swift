@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Kingfisher
 
 class DoctorDetailsScreenTopView: UIView {
 
@@ -15,8 +14,6 @@ class DoctorDetailsScreenTopView: UIView {
     @IBOutlet weak var doctorImage: UIImageView!
     @IBOutlet weak var doctorNameLabel: UILabel!
     @IBOutlet weak var doctorDesignationLabel: UILabel!
-    
-    var imageLink: String = ""
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -35,16 +32,7 @@ class DoctorDetailsScreenTopView: UIView {
 
         view.doctorImage.layer.cornerRadius = 18
         view.doctorImage.contentMode = .scaleAspectFill
-        view.imageLink = doctor.profileImage?.fileDownloadURI ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg"
-        KF.url(URL(string: view.imageLink))
-            .placeholder(UIImage(named: (doctor.gender!.lowercased() == "male") ? "userPlaceholder-male" : "userPlaceholder-female"))
-            .loadDiskFileSynchronously()
-            .cacheMemoryOnly()
-            .fade(duration: 0.25)
-            .onProgress { receivedSize, totalSize in  }
-            .onSuccess { result in  }
-            .onFailure { error in }
-            .set(to: view.doctorImage)
+        view.doctorImage.setKFImage(imageUrl: doctor.profileImage?.fileDownloadURI ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg", placeholderImage: UIImage(named: (doctor.gender!.lowercased() == "male") ? "userPlaceholder-male" : "userPlaceholder-female")!)
         
         view.doctorNameLabel.text = (doctor.name?.firstName ?? "") + " " + (doctor.name?.lastName ?? "")
         view.doctorDesignationLabel.text = doctor.specialization ?? ""

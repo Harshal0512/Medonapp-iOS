@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Kingfisher
 
 class DoctorsScreenCarouselCollectionViewCell: UICollectionViewCell {
     
@@ -21,17 +20,7 @@ class DoctorsScreenCarouselCollectionViewCell: UICollectionViewCell {
     private var imageLink: String = ""
 
     public func configure(doctor: Doctor) {
-        imageLink = doctor.profileImage?.fileDownloadURI ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg"
-        KF.url(URL(string: imageLink))
-            .placeholder(UIImage(named: (doctor.gender!.lowercased() == "male") ? "userPlaceholder-male" : "userPlaceholder-female"))
-            .loadDiskFileSynchronously()
-            .cacheMemoryOnly()
-            .fade(duration: 0.25)
-            .onProgress { receivedSize, totalSize in  }
-            .onSuccess { result in  }
-            .onFailure { error in }
-            .set(to: self.doctorImage)
-        
+        self.doctorImage.setKFImage(imageUrl: doctor.profileImage?.fileDownloadURI ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg", placeholderImage: UIImage(named: (doctor.gender!.lowercased() == "male") ? "userPlaceholder-male" : "userPlaceholder-female")!)
         self.layer.cornerRadius = 26
         self.doctorImage.contentMode = .scaleAspectFill
     }

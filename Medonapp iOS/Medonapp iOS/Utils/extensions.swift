@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import SkeletonView
+import Kingfisher
 
 extension UIViewController {
     func dismissKeyboard() {
@@ -29,6 +30,18 @@ extension UIImageView {
     
     func addSkeleton() {
         self.isSkeletonable = true
+    }
+    
+    func setKFImage(imageUrl url: String, placeholderImage: UIImage, fadeDuration: TimeInterval = 0.25) {
+        KF.url(URL(string: url))
+            .placeholder(placeholderImage)
+            .loadDiskFileSynchronously()
+            .cacheMemoryOnly()
+            .fade(duration: fadeDuration)
+            .onProgress { receivedSize, totalSize in }
+            .onSuccess { result in }
+            .onFailure { error in }
+            .set(to: self)
     }
 }
 

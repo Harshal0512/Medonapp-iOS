@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Kingfisher
 
 enum cellVariants {
     case blue
@@ -31,15 +30,7 @@ class ScheduleTabTableViewCell: UITableViewCell {
 
     public func configure(appointment: AppointmentElement, cellVariant: cellVariants) {
         cellContentView.layer.cornerRadius = 28
-        KF.url(URL(string: appointment.doctor?.profileImage?.fileDownloadURI ?? ""))
-            .placeholder(UIImage(named: (appointment.doctor?.gender?.lowercased() ?? "male" == "male") ? "userPlaceholder-male" : "userPlaceholder-female"))
-            .loadDiskFileSynchronously()
-            .cacheMemoryOnly()
-            .fade(duration: 0.25)
-            .onProgress { receivedSize, totalSize in  }
-            .onSuccess { result in  }
-            .onFailure { error in }
-            .set(to: doctorImage)
+        self.doctorImage.setKFImage(imageUrl: appointment.doctor?.profileImage?.fileDownloadURI ?? "", placeholderImage: UIImage(named: (appointment.doctor?.gender?.lowercased() ?? "male" == "male") ? "userPlaceholder-male" : "userPlaceholder-female")!)
         self.appointmentTime.text = "\(Date.getTimeFromDate(dateString: appointment.startTime!))"
         self.doctorName.text = (appointment.doctor?.name?.firstName ?? "") + " " + (appointment.doctor?.name?.lastName ?? "")
         self.typeOfDoctor.text = appointment.doctor?.specialization ?? ""

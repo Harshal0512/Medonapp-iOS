@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Kingfisher
 
 enum feedbackStates {
     case due
@@ -43,15 +42,7 @@ class BookedAppointmentsTableViewCell: UITableViewCell {
         self.containerView.backgroundColor = UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00)
         self.containerView.layer.cornerRadius = 28
         
-        KF.url(URL(string: appointment.doctor?.profileImage?.fileDownloadURI ?? ""))
-            .placeholder(UIImage(named: (appointment.doctor?.gender?.lowercased() ?? "male" == "male") ? "userPlaceholder-male" : "userPlaceholder-female"))
-            .loadDiskFileSynchronously()
-            .cacheMemoryOnly()
-            .fade(duration: 0.25)
-            .onProgress { receivedSize, totalSize in  }
-            .onSuccess { result in  }
-            .onFailure { error in }
-            .set(to: self.doctorImage)
+        self.doctorImage.setKFImage(imageUrl: appointment.doctor?.profileImage?.fileDownloadURI ?? "", placeholderImage: UIImage(named: (appointment.doctor?.gender?.lowercased() ?? "male" == "male") ? "userPlaceholder-male" : "userPlaceholder-female")!)
         
         self.doctorImage.contentMode = .scaleAspectFill
         self.doctorImage.makeRoundCorners(byRadius: 20)
