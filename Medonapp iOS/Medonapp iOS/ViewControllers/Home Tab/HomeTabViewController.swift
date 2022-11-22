@@ -325,8 +325,10 @@ class HomeTabViewController: UIViewController {
                 annotation.title = "Dr. \((doctor.name?.firstName ?? "") + " " + (doctor.name?.lastName ?? ""))"
                 self.nearbyMapView?.addAnnotation(annotation)
             }
-            let coordinateRegion = MKCoordinateRegion(center: self.currentLocation.coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
-            self.nearbyMapView?.setRegion(coordinateRegion, animated: true)
+            if Prefs.isLocationPerm {
+                let coordinateRegion = MKCoordinateRegion(center: self.currentLocation.coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
+                self.nearbyMapView?.setRegion(coordinateRegion, animated: true)
+            }
         }
     }
     

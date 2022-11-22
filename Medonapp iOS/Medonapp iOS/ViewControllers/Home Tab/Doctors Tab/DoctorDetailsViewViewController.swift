@@ -311,9 +311,11 @@ extension DoctorDetailsViewViewController: MKMapViewDelegate {
         annotation.title = "Dr. \((doctor?.name?.firstName ?? "") + " " + (doctor?.name?.lastName ?? ""))"
         self.locationMapView?.addAnnotation(annotation)
         
-        let midPoint = Utils.geographicMidpoint(betweenCoordinates: [CLLocationCoordinate2D(latitude: (doctor?.address!.latitude!)!, longitude: (doctor?.address!.longitude!)!), mapView.userLocation.coordinate])
-        let coordinateRegion = MKCoordinateRegion(center: midPoint, latitudinalMeters: doctor!.distanceFromUser*2, longitudinalMeters: doctor!.distanceFromUser*2)
-        self.locationMapView?.setRegion(coordinateRegion, animated: true)
+        if Prefs.isLocationPerm {
+            let midPoint = Utils.geographicMidpoint(betweenCoordinates: [CLLocationCoordinate2D(latitude: (doctor?.address!.latitude!)!, longitude: (doctor?.address!.longitude!)!), mapView.userLocation.coordinate])
+            let coordinateRegion = MKCoordinateRegion(center: midPoint, latitudinalMeters: doctor!.distanceFromUser*2, longitudinalMeters: doctor!.distanceFromUser*2)
+            self.locationMapView?.setRegion(coordinateRegion, animated: true)
+        }
     }
 }
 
