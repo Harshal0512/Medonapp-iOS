@@ -253,6 +253,10 @@ extension DoctorsScreenViewController : UITextFieldDelegate {
 
 extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSource {
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.view.endEditing(true)
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return doctorsSet.count
     }

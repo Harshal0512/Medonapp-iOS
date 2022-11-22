@@ -896,9 +896,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7ZK5WQMKAL;
+				DEVELOPMENT_TEAM = M5X9ZUFVAN;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Medonapp iOS/Info.plist";
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "We need this permission to add appointment reminders to your iPhone.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need this permission to show you the doctors nearest to you.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -927,9 +929,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7ZK5WQMKAL;
+				DEVELOPMENT_TEAM = M5X9ZUFVAN;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Medonapp iOS/Info.plist";
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "We need this permission to add appointment reminders to your iPhone.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need this permission to show you the doctors nearest to you.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
