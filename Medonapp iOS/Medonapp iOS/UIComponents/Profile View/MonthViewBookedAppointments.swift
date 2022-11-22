@@ -9,7 +9,7 @@ import UIKit
 import SkeletonView
 
 protocol MonthViewBookedAppointmentsDelegate: AnyObject {
-  func didMonthChange(sender: MonthViewBookedAppointments)
+    func didMonthChange(sender: MonthViewBookedAppointments, isCurrentMonth: Bool)
 }
 
 class MonthViewBookedAppointments: UIView {
@@ -43,7 +43,7 @@ class MonthViewBookedAppointments: UIView {
                     self.presentLabel.alpha = 0
                 }, completion: nil)
             }
-            delegate?.didMonthChange(sender: self)
+            delegate?.didMonthChange(sender: self, isCurrentMonth: self.presentLabel.alpha == 1 ? true : false)
         }
     }
 

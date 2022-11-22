@@ -19,6 +19,8 @@ class BookedAppointmentsViewController: UIViewController {
     
     private var appointments: Appointments = []
     private var appointmentsByDate: [Int: [Int]] = [:]
+    
+    private var sectionHeaderIDForPresent: Int = -1
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -144,10 +146,16 @@ class BookedAppointmentsViewController: UIViewController {
 }
 
 extension BookedAppointmentsViewController: MonthViewBookedAppointmentsDelegate {
-    func didMonthChange(sender: MonthViewBookedAppointments) {
+    func didMonthChange(sender: MonthViewBookedAppointments, isCurrentMonth: Bool) {
         AppointmentElement.arrangeAppointmentsByDate(month: monthView!.getMonth(), year: monthView!.getYear())
         self.appointmentsByDate = AppointmentElement.getAppointmentDate()
-        UIView.transition(with: scheduleTable!, duration: 0.15, options: .transitionCrossDissolve, animations: {self.scheduleTable!.reloadData()}, completion: nil)
+        UIView.transition(with: scheduleTable!, duration: 0.15, options: .transitionCrossDissolve, animations: {self.scheduleTable!.reloadData()}) { _ in
+            if isCurrentMonth && self.sectionHeaderIDForPresent != -1 {
+                self.scheduleTable?.scrollToRow(at: IndexPath(row: 0, section: self.sectionHeaderIDForPresent), at: .middle, animated: true)
+            } else {
+                self.sectionHeaderIDForPresent = -1
+            }
+        }
     }
 }
 
@@ -165,7 +173,12 @@ extension BookedAppointmentsViewController: UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if appointmentsByDate[section + 1]?.count ?? 0 > 0 {
-            return "\(section + 1)/\(monthView!.getMonth())/\(monthView!.getYear()) ------------------"
+            if monthView!.getMonth() == Calendar(identifier: .gregorian).dateComponents([.month], from: Date().localDate()).month! && monthView!.getYear() == Calendar(identifier: .gregorian).dateComponents([.year], from: Date().localDate()).year! &&
+                section + 1 == Calendar(identifier: .gregorian).dateComponents([.day], from: Date()).day! {
+                self.sectionHeaderIDForPresent = section
+                return "Today"
+            }
+            return "\(section + 1)/\(monthView!.getMonth())/\(monthView!.getYear())"
         } else {
             return ""
         }
