@@ -22,6 +22,8 @@ class DoctorsScreenViewController: UIViewController {
     private var searchField: SearchBarWithSearchAndFilterIcon?
     private var filterIcon: UIImageView?
     var doctorsTable: UITableView?
+    var dropView: UIView?
+    var dropImageView: UIImageView?
     
     
     override func viewDidLoad() {
@@ -117,6 +119,17 @@ class DoctorsScreenViewController: UIViewController {
         doctorsTable?.separatorStyle = .none
         doctorsTable?.showsVerticalScrollIndicator = false
         view.addSubview(doctorsTable!)
+        
+        dropView = UIView()
+        dropView?.alpha = 0
+        view.addSubview(dropView!)
+        let dropInteractionDropView = UIDropInteraction(delegate: self)
+        dropView?.addInteraction(dropInteractionDropView)
+        
+        dropImageView = UIImageView()
+        dropImageView?.image = UIImage(named: "shareDocDesign")
+        dropImageView?.contentMode = .scaleAspectFill
+        dropView?.addSubview(dropImageView!)
     }
     
     func setConstraints() {
@@ -125,6 +138,8 @@ class DoctorsScreenViewController: UIViewController {
         searchField?.translatesAutoresizingMaskIntoConstraints = false
         filterIcon?.translatesAutoresizingMaskIntoConstraints = false
         doctorsTable?.translatesAutoresizingMaskIntoConstraints = false
+        dropView?.translatesAutoresizingMaskIntoConstraints = false
+        dropImageView?.translatesAutoresizingMaskIntoConstraints = false
         
         
         backButton?.topAnchor.constraint(equalTo: view.topAnchor, constant: 65).isActive = true
@@ -138,7 +153,7 @@ class DoctorsScreenViewController: UIViewController {
         
         searchField?.topAnchor.constraint(equalTo: navTitle!.bottomAnchor, constant: 25).isActive = true
         searchField?.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 27).isActive = true
-//        searchField?.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -27).isActive = true
+        //        searchField?.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -27).isActive = true
         searchField?.heightAnchor.constraint(equalToConstant: 56).isActive = true
         searchField?.widthAnchor.constraint(equalTo: filterIcon!.widthAnchor, multiplier: 5).isActive = true
         
@@ -151,6 +166,16 @@ class DoctorsScreenViewController: UIViewController {
         doctorsTable?.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
         doctorsTable?.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
         doctorsTable?.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
+        
+        dropView?.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        dropView?.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        dropView?.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        dropView?.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        
+        dropImageView?.topAnchor.constraint(equalTo: dropView!.topAnchor).isActive = true
+        dropImageView?.leadingAnchor.constraint(equalTo: dropView!.leadingAnchor).isActive = true
+        dropImageView?.trailingAnchor.constraint(equalTo: dropView!.trailingAnchor).isActive = true
+        dropImageView?.bottomAnchor.constraint(equalTo: dropView!.bottomAnchor).isActive = true
     }
     
     @objc func handleBackAction(_ sender: UITapGestureRecognizer? = nil) {
@@ -262,6 +287,22 @@ extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSourc
 
 extension DoctorsScreenViewController: UITableViewDragDelegate {
     
+    func tableView(_ tableView: UITableView, dragSessionWillBegin session: UIDragSession) {
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions.transitionCrossDissolve, animations: {
+            self.dropView?.alpha = 1
+        }, completion: {
+            (finished: Bool) -> Void in
+        })
+    }
+    
+    func tableView(_ tableView: UITableView, dragSessionDidEnd session: UIDragSession) {
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions.transitionCrossDissolve, animations: {
+            self.dropView?.alpha = 0
+        }, completion: {
+            (finished: Bool) -> Void in
+        })
+    }
+    
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         let doctor = Doctor.sortDoctors(doctors: Array(doctorsSet))[indexPath.row]
         //text to share
@@ -289,6 +330,57 @@ extension DoctorsScreenViewController: UITableViewDragDelegate {
         return [
             item
         ]
+    }
+    
+}
+
+extension DoctorsScreenViewController: UIDropInteractionDelegate {
+    
+    func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
+        return session.hasItemsConforming(toTypeIdentifiers: [kUTTypePlainText as String]) && session.items.count == 1
+    }
+    
+    func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
+        let dropLocation = session.location(in: view)
+        //call update view function for displaying user is inside view
+        
+        let operation: UIDropOperation
+        
+        if dropView!.frame.contains(dropLocation) {
+            /*
+             If you add in-app drag-and-drop support for the .move operation,
+             you must write code to coordinate between the drag interaction
+             delegate and the drop interaction delegate.
+             */
+            operation = session.localDragSession == nil ? .copy : .move
+        } else {
+            // Do not allow dropping outside of the image view.
+            operation = .cancel
+        }
+        
+        return UIDropProposal(operation: operation)
+    }
+    
+    func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
+        session.items.first?.itemProvider.loadObject(ofClass: NSString.self, completionHandler: { strItem, err in
+            if err == nil {
+                // set up activity view controller
+                
+                OperationQueue.main.addOperation {
+                    let textToShare = [ strItem! ]
+                    let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+                    activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+                    
+                    // exclude some activity types from the list (optional)
+                    activityViewController.excludedActivityTypes = [ ]
+                    
+                    // present the view controller
+                    self.present(activityViewController, animated: true, completion: nil)
+                }
+            } else {
+                print(err)
+            }
+        })
     }
     
 }
