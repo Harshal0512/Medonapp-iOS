@@ -44,6 +44,8 @@ class DoctorsScreenViewController: UIViewController {
         doctorsTable?.dragInteractionEnabled = true
         doctorsTable?.dragDelegate = self
         
+        registerForPreviewing(with: self, sourceView: doctorsTable!)
+        
         locationManager.requestWhenInUseAuthorization()
         locationManager.delegate = self
         DispatchQueue.global().async { [self] in
@@ -295,4 +297,28 @@ extension DoctorsScreenViewController: FilterHalfScreenDelegate {
     func filderDidEndSelecting() {
         
     }
+}
+
+extension DoctorsScreenViewController: UIViewControllerPreviewingDelegate {
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        if let indexPath = doctorsTable?.indexPathForRow(at: location) {
+            previewingContext.sourceRect = (doctorsTable?.rectForRow(at: indexPath))!
+            
+            let doctorsDetailsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "doctorsDetailsVC") as? DoctorDetailsViewViewController
+            doctorsDetailsVC?.doctor = Doctor.sortDoctors(doctors: Array(self.doctorsSet))[indexPath.row]
+            return doctorsDetailsVC
+        }
+        
+        return nil
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        let doctorsDetailsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "doctorsDetailsVC") as? DoctorDetailsViewViewController
+        doctorsDetailsVC?.doctor = Doctor.sortDoctors(doctors: Array(self.doctorsSet))[0]
+        
+        navigationController?.pushViewController(doctorsDetailsVC!, animated: true)
+    }
+    
+    
 }
