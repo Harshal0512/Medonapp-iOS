@@ -95,7 +95,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oqr-Yp-H4M" userLabel="distanceLabel">
-                        <rect key="frame" x="155" y="101" width="90" height="17"/>
+                        <rect key="frame" x="155" y="103" width="90" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="90" id="xGw-Fp-f4W"/>
                         </constraints>
@@ -117,7 +117,7 @@
                     <constraint firstItem="ieL-Iz-8PX" firstAttribute="top" secondItem="iba-Zj-R4y" secondAttribute="bottom" constant="9.5" id="LUT-Py-y4x"/>
                     <constraint firstItem="ZsC-8V-XXc" firstAttribute="trailing" secondItem="lBu-wU-QHz" secondAttribute="trailing" id="RLu-3y-yrP"/>
                     <constraint firstItem="6iR-1t-gnN" firstAttribute="top" secondItem="iba-Zj-R4y" secondAttribute="bottom" constant="9.5" id="SjA-E4-A0i"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="oqr-Yp-H4M" secondAttribute="bottom" constant="11" id="Y7J-1F-L2e"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="oqr-Yp-H4M" secondAttribute="bottom" constant="9" id="Y7J-1F-L2e"/>
                     <constraint firstItem="ZsC-8V-XXc" firstAttribute="bottom" secondItem="lBu-wU-QHz" secondAttribute="bottom" id="YE5-l6-jTO"/>
                     <constraint firstItem="mv7-eW-OK0" firstAttribute="top" secondItem="ieL-Iz-8PX" secondAttribute="bottom" constant="14.5" id="awa-hJ-2XB"/>
                     <constraint firstItem="T2q-5F-ucu" firstAttribute="leading" secondItem="6iR-1t-gnN" secondAttribute="trailing" constant="8" id="bHe-k0-q82"/>
