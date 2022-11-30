@@ -121,7 +121,7 @@ class LoginSignUpViewController: UIViewController {
         super.viewWillAppear(animated)
         
         if PrefDataManager.currentApplicationMode() == .testing {
-            emailTextFieldLogin?.text = "patient1@test.com"
+            emailTextFieldLogin?.text = "patient2@test.com"
             passwordTextField?.text = "patient1Pass@123"
             emailTextFieldSignUp?.text = "harshal.kulkarni14@nmims.edu.in"
             choosePasswordTextField?.text = "patient1Pass@123"
