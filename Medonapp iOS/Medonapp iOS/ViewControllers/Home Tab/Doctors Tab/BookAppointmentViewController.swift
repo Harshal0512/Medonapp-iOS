@@ -236,8 +236,10 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegateF
                     appointmentReminder.endDate = Date.dateFromISOString(string: Date.addMinutes(ISODateString: Date.combineDateWithTimeReturnISO(date: Date.stringFromDate(date: datePicker!.date), time: selectedTime), minutes: 30 * 60.0))!
                     let alarm = EKAlarm.init(absoluteDate: Date.init(timeInterval: -3600, since: appointmentReminder.startDate))
                     appointmentReminder.addAlarm(alarm)
-                    
-                    //TODO: Add Doctor Address to reminder, also mention type of doctor in notes
+                    let structuredLocation = EKStructuredLocation(title: "Dr. \((self.doctor!.name?.firstName ?? "") + " " + (self.doctor!.name?.lastName ?? ""))")
+                    structuredLocation.geoLocation = CLLocation(latitude: (doctor?.address!.latitude!)!, longitude: (doctor?.address!.longitude!)!)
+                    appointmentReminder.structuredLocation = structuredLocation
+                    //TODO: Mention type of doctor in notes
 //                    appointmentReminder.notes = //add doctor's address here
 //                    appointmentReminder.location = //add Doctor's location
                     try! self.eventStore.save(appointmentReminder, span: .thisEvent)
