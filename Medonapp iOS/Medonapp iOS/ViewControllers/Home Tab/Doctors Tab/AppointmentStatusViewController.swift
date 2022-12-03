@@ -8,14 +8,20 @@
 import UIKit
 import Lottie
 
+enum actionButtonTypes {
+    case dashboard
+    case previousScreen
+}
+
 class AppointmentStatusViewController: UIViewController {
     
     private var animationView: AnimationView?
     var appointmentIsSuccess: Bool = false
     var reminderIsSet: Bool = false
+    var actionButtonCommand: actionButtonTypes = .dashboard
     private var statusLabel: UILabel?
     private var subtitleLabel: UILabel?
-    private var goToHomeButton: UIButtonVariableBackgroundVariableCR?
+    private var actionButton: UIButtonVariableBackgroundVariableCR?
     let generator = UINotificationFeedbackGenerator()
     
     override func viewDidLoad() {
@@ -29,7 +35,7 @@ class AppointmentStatusViewController: UIViewController {
             UIView.animate(withDuration: 0.7, delay: 0.0, options: UIView.AnimationOptions.transitionCrossDissolve, animations: {
                 self.statusLabel?.alpha = 1
                 self.subtitleLabel?.alpha = 1
-                self.goToHomeButton?.alpha = 1
+                self.actionButton?.alpha = 1
                 
             }, completion: {
                 (finished: Bool) -> Void in
@@ -77,18 +83,18 @@ class AppointmentStatusViewController: UIViewController {
         view.addSubview(statusLabel!)
         view.addSubview(subtitleLabel!)
             
-        goToHomeButton = UIButtonVariableBackgroundVariableCR()
-        goToHomeButton?.initButton(title: "Back to Dashboard", cornerRadius: 10, variant: .blackBack)
-        view.addSubview(goToHomeButton!)
-        goToHomeButton?.addTarget(self, action: #selector(goToHome), for: .touchUpInside)
-        goToHomeButton?.alpha = 0
+        actionButton = UIButtonVariableBackgroundVariableCR()
+        actionButton?.initButton(title: (actionButtonCommand == .dashboard) ? "Back to Dashboard" : "Go Back", cornerRadius: 10, variant: .blackBack)
+        view.addSubview(actionButton!)
+        actionButton?.addTarget(self, action: (actionButtonCommand == .dashboard) ? #selector(goToHome) : #selector(goBack), for: .touchUpInside)
+        actionButton?.alpha = 0
     }
     
     func setConstraints() {
         animationView?.translatesAutoresizingMaskIntoConstraints = false
         statusLabel?.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel?.translatesAutoresizingMaskIntoConstraints = false
-        goToHomeButton?.translatesAutoresizingMaskIntoConstraints = false
+        actionButton?.translatesAutoresizingMaskIntoConstraints = false
         
         
         animationView?.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -104,14 +110,18 @@ class AppointmentStatusViewController: UIViewController {
         subtitleLabel?.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         subtitleLabel?.widthAnchor.constraint(equalToConstant: view.frame.width - 20).isActive = true
         
-        goToHomeButton?.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
-        goToHomeButton?.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 27).isActive = true
-        goToHomeButton?.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -27).isActive = true
-        goToHomeButton?.heightAnchor.constraint(equalToConstant: 56).isActive = true
+        actionButton?.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
+        actionButton?.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 27).isActive = true
+        actionButton?.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -27).isActive = true
+        actionButton?.heightAnchor.constraint(equalToConstant: 56).isActive = true
     }
     
     @objc func goToHome() {
         NotificationCenter.default.post(name: Notification.Name("goToDashboard"), object: nil)
+        self.dismiss(animated: true)
+    }
+    
+    @objc func goBack() {
         self.dismiss(animated: true)
     }
     

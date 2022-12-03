@@ -227,6 +227,7 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegateF
             case .success(let appointment):
                 if appointment.status?.lowercased() == "booked" {
                     appointmentStatusVC?.appointmentIsSuccess = true
+                    appointmentStatusVC?.actionButtonCommand = .dashboard
                     guard let calendar = self.eventStore.defaultCalendarForNewEvents else { break }
                     let appointmentReminder = EKEvent(eventStore: self.eventStore)
                     appointmentReminder.calendar = calendar
@@ -243,11 +244,19 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegateF
                     appointmentStatusVC?.reminderIsSet = true
                 } else {
                     appointmentStatusVC?.appointmentIsSuccess = false
+                    appointmentStatusVC?.actionButtonCommand = .previousScreen
+                    view.isUserInteractionEnabled = true
+                    view.hideToastActivity()
+                    dateChanged()
                 }
                 
             case .failure(let error):
                 print(error)
                 appointmentStatusVC?.appointmentIsSuccess = false
+                appointmentStatusVC?.actionButtonCommand = .previousScreen
+                view.isUserInteractionEnabled = true
+                view.hideToastActivity()
+                dateChanged()
             }
             
             appointmentStatusVC?.modalPresentationStyle = .fullScreen
