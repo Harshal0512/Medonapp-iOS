@@ -281,7 +281,11 @@ extension BookAppointmentViewController: UICollectionViewDelegate, UICollectionV
                     Int(Date.getDayFromDate(date: datePicker!.date)) == Int(Date.getDayFromDate(date: Date.dateFromISOString(string: bookedSlot, timezone: "GMT")!)) &&
                     Int(Date.getMonthFromDate(date: datePicker!.date)) == Int(Date.getMonthFromDate(date: Date.dateFromISOString(string: bookedSlot, timezone: "GMT")!)) &&
                     Int(Date.getYearFromDate(date: datePicker!.date)) == Int(Date.getYearFromDate(date: Date.dateFromISOString(string: bookedSlot, timezone: "GMT")!)) &&
-                    Date.getTimeFromDate(dateString: (doctor?.weekendAppointmentSlots![indexPath.row])!) == Date.getTimeFromDate(dateString: bookedSlot)
+                    Date.dateTimeChangeFormat(str: (doctor?.weekendAppointmentSlots![indexPath.row])!,
+                                              inDateFormat:  "HH:mm:ss",
+                                              outDateFormat: "hh:mm a") == Date.dateTimeChangeFormat(str: bookedSlot,
+                                                                                                     inDateFormat:  "yyyy-MM-dd'T'HH:mm:ss",
+                                                                                                     outDateFormat: "hh:mm a")
                 ) {
                     isAvailable = false
                     break
