@@ -236,12 +236,11 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegateF
                     appointmentReminder.endDate = Date.dateFromISOString(string: Date.addMinutes(ISODateString: Date.combineDateWithTimeReturnISO(date: Date.stringFromDate(date: datePicker!.date), time: selectedTime), minutes: 30 * 60.0))!
                     let alarm = EKAlarm.init(absoluteDate: Date.init(timeInterval: -3600, since: appointmentReminder.startDate))
                     appointmentReminder.addAlarm(alarm)
-                    let structuredLocation = EKStructuredLocation(title: "Dr. \((self.doctor!.name?.firstName ?? "") + " " + (self.doctor!.name?.lastName ?? ""))")
+                    let structuredLocation = EKStructuredLocation(title: "Dr. \((doctor!.name?.firstName ?? "") + " " + (doctor!.name?.lastName ?? ""))")
                     structuredLocation.geoLocation = CLLocation(latitude: (doctor?.address!.latitude!)!, longitude: (doctor?.address!.longitude!)!)
                     appointmentReminder.structuredLocation = structuredLocation
-                    //TODO: Mention type of doctor in notes
-//                    appointmentReminder.notes = //add doctor's address here
-//                    appointmentReminder.location = //add Doctor's location
+                    //TODO: Mention address of doctor in notes
+                    appointmentReminder.notes = "Speciality: \(doctor!.specialization!)"
                     try! self.eventStore.save(appointmentReminder, span: .thisEvent)
                     appointmentStatusVC?.reminderIsSet = true
                 } else {
@@ -285,43 +284,31 @@ extension BookAppointmentViewController: UICollectionViewDelegate, UICollectionV
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppointmentTimeCollectionViewCell.identifier, for: indexPath) as! AppointmentTimeCollectionViewCell
         
-        if dayOfWeek == 1 || dayOfWeek == 7 {
-            var isAvailable = true
-            for bookedSlot in doctor!.bookedSlots ?? [] {
-                if (
-                    Int(Date.getDayFromDate(date: datePicker!.date)) == Int(Date.getDayFromDate(date: Date.dateFromISOString(string: bookedSlot, timezone: "GMT")!)) &&
-                    Int(Date.getMonthFromDate(date: datePicker!.date)) == Int(Date.getMonthFromDate(date: Date.dateFromISOString(string: bookedSlot, timezone: "GMT")!)) &&
-                    Int(Date.getYearFromDate(date: datePicker!.date)) == Int(Date.getYearFromDate(date: Date.dateFromISOString(string: bookedSlot, timezone: "GMT")!)) &&
-                    Date.dateTimeChangeFormat(str: (doctor?.weekendAppointmentSlots![indexPath.row])!,
-                                              inDateFormat:  "HH:mm:ss",
-                                              outDateFormat: "hh:mm a") == Date.dateTimeChangeFormat(str: bookedSlot,
-                                                                                                     inDateFormat:  "yyyy-MM-dd'T'HH:mm:ss",
-                                                                                                     outDateFormat: "hh:mm a")
-                ) {
-                    isAvailable = false
-                    break
-                }
+        var isBooked = false
+        for bookedSlot in doctor!.bookedSlots ?? [] {
+            if (
+                Int(Date.getDayFromDate(date: datePicker!.date)) == Int(Date.getDayFromDate(date: Date.dateFromISOString(string: bookedSlot, timezone: "GMT")!)) &&
+                Int(Date.getMonthFromDate(date: datePicker!.date)) == Int(Date.getMonthFromDate(date: Date.dateFromISOString(string: bookedSlot, timezone: "GMT")!)) &&
+                Int(Date.getYearFromDate(date: datePicker!.date)) == Int(Date.getYearFromDate(date: Date.dateFromISOString(string: bookedSlot, timezone: "GMT")!)) &&
+                Date.dateTimeChangeFormat(str: (
+                    (dayOfWeek == 1 || dayOfWeek == 7) ?
+                    doctor?.weekendAppointmentSlots![indexPath.row] :
+                        doctor?.weekdayAppointmentSlots![indexPath.row]
+                )!,
+                                          inDateFormat:  "HH:mm:ss",
+                                          outDateFormat: "hh:mm a") == Date.dateTimeChangeFormat(str: bookedSlot,
+                                                                                                 inDateFormat:  "yyyy-MM-dd'T'HH:mm:ss",
+                                                                                                 outDateFormat: "hh:mm a")
+            ) {
+                isBooked = true
+                break
             }
-            cell.configure(timeString: (doctor?.weekendAppointmentSlots![indexPath.row])!, isActive: (indexPath.row == activeItem) ? true : false, isAvailable: isAvailable)
-        } else {
-            var isAvailable = true
-            for bookedSlot in doctor!.bookedSlots ?? [] {
-                if (
-                    Int(Date.getDayFromDate(date: datePicker!.date)) == Int(Date.getDayFromDate(date: Date.dateFromISOString(string: bookedSlot, timezone: "GMT")!)) &&
-                    Int(Date.getMonthFromDate(date: datePicker!.date)) == Int(Date.getMonthFromDate(date: Date.dateFromISOString(string: bookedSlot, timezone: "GMT")!)) &&
-                    Int(Date.getYearFromDate(date: datePicker!.date)) == Int(Date.getYearFromDate(date: Date.dateFromISOString(string: bookedSlot, timezone: "GMT")!)) &&
-                    Date.dateTimeChangeFormat(str: (doctor?.weekdayAppointmentSlots![indexPath.row])!,
-                                              inDateFormat:  "HH:mm:ss",
-                                              outDateFormat: "hh:mm a") == Date.dateTimeChangeFormat(str: bookedSlot,
-                                                                                                     inDateFormat:  "yyyy-MM-dd'T'HH:mm:ss",
-                                                                                                     outDateFormat: "hh:mm a")
-                ) {
-                    isAvailable = false
-                    break
-                }
-            }
-            cell.configure(timeString: (doctor?.weekdayAppointmentSlots![indexPath.row])!, isActive: (indexPath.row == activeItem) ? true : false, isAvailable: isAvailable)
         }
+        cell.configure(timeString: (
+            (dayOfWeek == 1 || dayOfWeek == 7) ?
+            doctor?.weekendAppointmentSlots![indexPath.row] :
+                doctor?.weekdayAppointmentSlots![indexPath.row]
+        )!, isActive: (indexPath.row == activeItem) ? true : false, isBooked: isBooked)
         
         return cell
     }
