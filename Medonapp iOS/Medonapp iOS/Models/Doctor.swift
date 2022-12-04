@@ -108,6 +108,9 @@ class Doctor: Codable, Hashable {
     static private var liveDoctors: [Doctor] = []
     
     static func sortDoctors(doctors: [Doctor]) -> [Doctor] {
+        if Prefs.isLocationPerm {
+            return doctors.sorted(by: { $0.distanceFromUser < $1.distanceFromUser }).sorted(by: { $0.reviewCount! > $1.reviewCount! }).sorted(by: { $0.avgRating! > $1.avgRating! })
+        }
         return doctors.sorted(by: { $0.fees! < $1.fees! }).sorted(by: { $0.reviewCount! > $1.reviewCount! }).sorted(by: { $0.avgRating! > $1.avgRating! })
     }
     
