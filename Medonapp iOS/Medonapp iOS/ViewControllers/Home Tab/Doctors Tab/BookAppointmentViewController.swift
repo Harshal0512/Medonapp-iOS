@@ -285,6 +285,7 @@ extension BookAppointmentViewController: UICollectionViewDelegate, UICollectionV
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppointmentTimeCollectionViewCell.identifier, for: indexPath) as! AppointmentTimeCollectionViewCell
         
         var isBooked = false
+        var isNotAvailable = false
         for bookedSlot in doctor!.bookedSlots ?? [] {
             if (
                 Int(Date.getDayFromDate(date: datePicker!.date)) == Int(Date.getDayFromDate(date: Date.dateFromISOString(string: bookedSlot, timezone: "GMT")!)) &&
@@ -303,12 +304,27 @@ extension BookAppointmentViewController: UICollectionViewDelegate, UICollectionV
                 isBooked = true
                 break
             }
+            if (Int(Date.getDayFromDate(date: datePicker!.date)) == Int(Date.getDayFromDate(date: Date.now)) &&
+                Int(Date.getMonthFromDate(date: datePicker!.date)) == Int(Date.getMonthFromDate(date: Date.now)) &&
+                Int(Date.getYearFromDate(date: datePicker!.date)) == Int(Date.getYearFromDate(date: Date.now)) &&
+                Date.dateTimeChangeFormat(str: (
+                    (dayOfWeek == 1 || dayOfWeek == 7) ?
+                    doctor?.weekendAppointmentSlots![indexPath.row] :
+                        doctor?.weekdayAppointmentSlots![indexPath.row]
+                )!,
+                                          inDateFormat:  "HH:mm:ss",
+                                          outDateFormat: "HH:mm:ss") <= Date.dateTimeChangeFormat(str: Date.ISOStringFromDate(date: Date.now),
+                                                                                                  inDateFormat:  "yyyy-MM-dd'T'HH:mm:ss",
+                                                                                                  outDateFormat: "HH:mm:ss")
+            ) {
+                isNotAvailable = true
+            }
         }
         cell.configure(timeString: (
             (dayOfWeek == 1 || dayOfWeek == 7) ?
             doctor?.weekendAppointmentSlots![indexPath.row] :
                 doctor?.weekdayAppointmentSlots![indexPath.row]
-        )!, isActive: (indexPath.row == activeItem) ? true : false, isBooked: isBooked)
+        )!, isActive: (indexPath.row == activeItem) ? true : false, isBooked: isBooked, isNotAvailable: isNotAvailable)
         
         return cell
     }
@@ -328,11 +344,13 @@ extension BookAppointmentViewController: UICollectionViewDelegate, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         view.hideToast()
-        if (collectionView.cellForItem(at: indexPath) as! AppointmentTimeCollectionViewCell).isAvailable {
+        if (collectionView.cellForItem(at: indexPath) as! AppointmentTimeCollectionViewCell).isNotAvailable {
+            view.makeToast("This time slot is before current time.")
+        } else if (collectionView.cellForItem(at: indexPath) as! AppointmentTimeCollectionViewCell).isBooked {
+            view.makeToast("This time slot is already booked.")
+        } else {
             activeItem = indexPath.row
             collectionView.reloadData()
-        } else {
-            view.makeToast("This time slot is already booked")
         }
     }
 }
