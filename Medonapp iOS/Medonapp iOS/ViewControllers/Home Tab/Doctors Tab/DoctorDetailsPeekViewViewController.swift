@@ -30,7 +30,7 @@ class DoctorDetailsPeekViewViewController: UIViewController {
         setConstraints()
         
         let width = view.bounds.width
-        let height = 400
+        let height = 420
         preferredContentSize = CGSize(width: width, height: CGFloat(height))
         
         setAboutLabelText()
@@ -40,7 +40,7 @@ class DoctorDetailsPeekViewViewController: UIViewController {
     }
     
     func setupUI() {
-        topView = DoctorDetailsScreenTopView.instantiate(doctor: self.doctor!, showBlueBG: false)
+        topView = DoctorDetailsScreenTopView.instantiate(doctor: self.doctor!)
         view.addSubview(topView!)
         
         patientsGreyView = GreyViewDoctorDetails.instantiate(title: "Patients", metrics: "\(doctor?.patientCount ?? 0)")
@@ -79,7 +79,7 @@ class DoctorDetailsPeekViewViewController: UIViewController {
         topView?.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
         topView?.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
         topView?.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
-        topView?.heightAnchor.constraint(equalToConstant: 140).isActive = true
+        topView?.heightAnchor.constraint(equalToConstant: 160).isActive = true
         
         patientsGreyView?.topAnchor.constraint(equalTo: topView!.bottomAnchor, constant: 10).isActive = true
         patientsGreyView?.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 43).isActive = true

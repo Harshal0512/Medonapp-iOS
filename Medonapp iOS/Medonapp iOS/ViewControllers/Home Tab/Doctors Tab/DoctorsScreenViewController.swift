@@ -46,8 +46,6 @@ class DoctorsScreenViewController: UIViewController {
         doctorsTable?.dragInteractionEnabled = true
         doctorsTable?.dragDelegate = self
         
-        //        registerForPreviewing(with: self, sourceView: doctorsTable!)
-        
         locationManager.requestWhenInUseAuthorization()
         locationManager.delegate = self
         DispatchQueue.global().async { [self] in
@@ -251,13 +249,13 @@ extension DoctorsScreenViewController : UITextFieldDelegate {
     
 }
 
-extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSource, UIContextMenuInteractionDelegate {
+extension DoctorsScreenViewController: UIContextMenuInteractionDelegate {
     func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
-        
         return nil
     }
-    
-    
+}
+
+extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSource {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.view.endEditing(true)
     }
@@ -290,20 +288,39 @@ extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        let item = Doctor.sortDoctors(doctors: Array(self.doctorsSet))[indexPath.row]
+        // We have to create an NSString since the identifier must conform to NSCopying
+        let identifier = NSString(string: "\(indexPath.row)")
         
-        return UIContextMenuConfiguration(identifier: nil, previewProvider: {
+        return UIContextMenuConfiguration(identifier: identifier, previewProvider: {
             let doctorPeekVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "doctorPeekVC") as? DoctorDetailsPeekViewViewController
             doctorPeekVC?.doctor = Doctor.sortDoctors(doctors: Array(self.doctorsSet))[indexPath.row]
             return doctorPeekVC
         }) { suggestedActions in
             
+            //common init of doctorDetailsVC
+            let doctorsDetailsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "doctorsDetailsVC") as? DoctorDetailsViewViewController
+            doctorsDetailsVC?.doctor = Doctor.sortDoctors(doctors: Array(self.doctorsSet))[indexPath.row]
+            
+            
             let bookAppt = UIAction(title: "Book Appointment", image: UIImage(systemName: "clock.badge.checkmark")) { action in
-                
+                self.navigationController?.pushViewController(doctorsDetailsVC!, animated: true)
+                doctorsDetailsVC!.bookNowButtonPressed()
             }
             
             let shareProfile = UIAction(title: "Share Profile", image: UIImage(systemName: "square.and.arrow.up")) { action in
+                // text to share
+                let text = "Hey! I met Dr. \((doctorsDetailsVC!.doctor?.name?.firstName! ?? "") + " " + (doctorsDetailsVC!.doctor?.name?.lastName! ?? "")) on Medonapp!\n\(doctorsDetailsVC!.doctor?.gender?.lowercased() == "male" ? "He" : "She") is rated \(doctorsDetailsVC!.doctor!.avgRating!.clean) stars and has \(doctorsDetailsVC!.doctor!.experience!.clean)+ years of experience.\n\nYou can contact them through the following channels:\nNumber: \(doctorsDetailsVC!.doctor!.mobile!.contactNumberWithCountryCode!)\nEmail: \(doctorsDetailsVC!.doctor!.credential!.email!)\n\nDownload Medonapp now!!"
                 
+                // set up activity view controller
+                let textToShare = [ text ]
+                let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+                activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+                
+                // exclude some activity types from the list (optional)
+                activityViewController.excludedActivityTypes = [ ]
+                
+                // present the view controller
+                self.present(activityViewController, animated: true, completion: nil)
             }
             
             let favorite = UIAction(title: "Favorite", image: UIImage(systemName: "heart")) { action in
@@ -430,28 +447,4 @@ extension DoctorsScreenViewController: FilterHalfScreenDelegate {
     func filderDidEndSelecting() {
         
     }
-}
-
-extension DoctorsScreenViewController: UIViewControllerPreviewingDelegate {
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        if let indexPath = doctorsTable?.indexPathForRow(at: location) {
-            previewingContext.sourceRect = (doctorsTable?.rectForRow(at: indexPath))!
-            
-            let doctorPeekVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "doctorPeekVC") as? DoctorDetailsViewViewController
-            doctorPeekVC?.doctor = Doctor.sortDoctors(doctors: Array(self.doctorsSet))[indexPath.row]
-            return doctorPeekVC
-        }
-        
-        return nil
-    }
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        let doctorsDetailsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "doctorsDetailsVC") as? DoctorDetailsViewViewController
-        doctorsDetailsVC?.doctor = Doctor.sortDoctors(doctors: Array(self.doctorsSet))[0]
-        
-        navigationController?.pushViewController(doctorsDetailsVC!, animated: true)
-    }
-    
-    
 }
