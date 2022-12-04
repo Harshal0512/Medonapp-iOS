@@ -46,7 +46,7 @@ class DoctorsScreenViewController: UIViewController {
         doctorsTable?.dragInteractionEnabled = true
         doctorsTable?.dragDelegate = self
         
-        registerForPreviewing(with: self, sourceView: doctorsTable!)
+        //        registerForPreviewing(with: self, sourceView: doctorsTable!)
         
         locationManager.requestWhenInUseAuthorization()
         locationManager.delegate = self
@@ -251,7 +251,12 @@ extension DoctorsScreenViewController : UITextFieldDelegate {
     
 }
 
-extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSource {
+extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSource, UIContextMenuInteractionDelegate {
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        
+        return nil
+    }
+    
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.view.endEditing(true)
@@ -281,6 +286,38 @@ extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSourc
             let doctorsDetailsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "doctorsDetailsVC") as? DoctorDetailsViewViewController
             doctorsDetailsVC?.doctor = Doctor.sortDoctors(doctors: Array(self.doctorsSet))[indexPath.row]
             self.navigationController?.pushViewController(doctorsDetailsVC!, animated: true)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let item = Doctor.sortDoctors(doctors: Array(self.doctorsSet))[indexPath.row]
+        
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: {
+            let doctorPeekVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "doctorPeekVC") as? DoctorDetailsPeekViewViewController
+            doctorPeekVC?.doctor = Doctor.sortDoctors(doctors: Array(self.doctorsSet))[indexPath.row]
+            return doctorPeekVC
+        }) { suggestedActions in
+            
+            let bookAppt = UIAction(title: "Book Appointment", image: UIImage(systemName: "clock.badge.checkmark")) { action in
+                
+            }
+            
+            let shareProfile = UIAction(title: "Share Profile", image: UIImage(systemName: "square.and.arrow.up")) { action in
+                
+            }
+            
+            let favorite = UIAction(title: "Favorite", image: UIImage(systemName: "heart")) { action in
+                
+            }
+            
+            //TODO: Add unfavorite if already favorite
+            
+            //        // Here we specify the "destructive" attribute to show that it’s destructive in nature
+            //        let delete = UIAction(title: "Favorite", image: UIImage(systemName: "trash"), attributes: .destructive) { action in
+            //            // Perform delete
+            //        }
+            
+            return UIMenu(children: [bookAppt, shareProfile, favorite])
         }
     }
     

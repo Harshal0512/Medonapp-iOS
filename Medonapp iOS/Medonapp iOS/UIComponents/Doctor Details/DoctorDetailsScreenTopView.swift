@@ -24,7 +24,7 @@ class DoctorDetailsScreenTopView: UIView {
         super.init(frame: frame)
     }
     
-    static func instantiate(doctor: Doctor) -> DoctorDetailsScreenTopView {
+    static func instantiate(doctor: Doctor, showBlueBG: Bool = true) -> DoctorDetailsScreenTopView {
         let view: DoctorDetailsScreenTopView = initFromNib()
         
         view.innerContainerView.layer.cornerRadius = 28
@@ -37,6 +37,12 @@ class DoctorDetailsScreenTopView: UIView {
         view.doctorNameLabel.text = (doctor.name?.firstName ?? "") + " " + (doctor.name?.lastName ?? "")
         view.doctorDesignationLabel.text = doctor.specialization ?? ""
         view.doctorDesignationLabel.textColor = UIColor(red: 0.29, green: 0.33, blue: 0.37, alpha: 1.00)
+        
+        if !showBlueBG {
+            view.outerBlueView.alpha = 0
+            view.innerContainerView.layer.borderWidth = 0
+            view.innerContainerView.dropShadow(color: .clear, offSet: CGSize(width: 0, height: 0), cornerRadius: 0)
+        }
         return view
     }
 
