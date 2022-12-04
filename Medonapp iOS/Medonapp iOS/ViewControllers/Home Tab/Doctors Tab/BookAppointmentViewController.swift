@@ -304,21 +304,21 @@ extension BookAppointmentViewController: UICollectionViewDelegate, UICollectionV
                 isBooked = true
                 break
             }
-            if (Int(Date.getDayFromDate(date: datePicker!.date)) == Int(Date.getDayFromDate(date: Date.now)) &&
-                Int(Date.getMonthFromDate(date: datePicker!.date)) == Int(Date.getMonthFromDate(date: Date.now)) &&
-                Int(Date.getYearFromDate(date: datePicker!.date)) == Int(Date.getYearFromDate(date: Date.now)) &&
-                Date.dateTimeChangeFormat(str: (
-                    (dayOfWeek == 1 || dayOfWeek == 7) ?
-                    doctor?.weekendAppointmentSlots![indexPath.row] :
-                        doctor?.weekdayAppointmentSlots![indexPath.row]
-                )!,
-                                          inDateFormat:  "HH:mm:ss",
-                                          outDateFormat: "HH:mm:ss") <= Date.dateTimeChangeFormat(str: Date.ISOStringFromDate(date: Date.now),
-                                                                                                  inDateFormat:  "yyyy-MM-dd'T'HH:mm:ss",
-                                                                                                  outDateFormat: "HH:mm:ss")
-            ) {
-                isNotAvailable = true
-            }
+        }
+        if (Int(Date.getDayFromDate(date: datePicker!.date)) == Int(Date.getDayFromDate(date: Date.now)) &&
+            Int(Date.getMonthFromDate(date: datePicker!.date)) == Int(Date.getMonthFromDate(date: Date.now)) &&
+            Int(Date.getYearFromDate(date: datePicker!.date)) == Int(Date.getYearFromDate(date: Date.now)) &&
+            Date.dateTimeChangeFormat(str: (
+                (dayOfWeek == 1 || dayOfWeek == 7) ?
+                doctor?.weekendAppointmentSlots![indexPath.row] :
+                    doctor?.weekdayAppointmentSlots![indexPath.row]
+            )!,
+                                      inDateFormat:  "HH:mm:ss",
+                                      outDateFormat: "HH:mm:ss") <= Date.dateTimeChangeFormat(str: Date.ISOStringFromDate(date: Date.now),
+                                                                                              inDateFormat:  "yyyy-MM-dd'T'HH:mm:ss",
+                                                                                              outDateFormat: "HH:mm:ss")
+        ) {
+            isNotAvailable = true
         }
         cell.configure(timeString: (
             (dayOfWeek == 1 || dayOfWeek == 7) ?
