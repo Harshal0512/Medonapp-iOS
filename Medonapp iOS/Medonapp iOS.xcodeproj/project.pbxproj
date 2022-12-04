@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		08F565BC217C9820C601B123 /* Pods_Medonapp_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F28C35CFE676567ACC6FCEAF /* Pods_Medonapp_iOS.framework */; };
+		E6D081B1293C7D5500380F73 /* DoctorDetailsPeekViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D081B0293C7D5500380F73 /* DoctorDetailsPeekViewViewController.swift */; };
 		F80552782907BB060011EB6B /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80552772907BB060011EB6B /* APIService.swift */; };
 		F80C19832900F3A000891800 /* StarRatingStackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F80C19802900F39F00891800 /* StarRatingStackView.xib */; };
 		F80C19842900F3A000891800 /* JStarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80C19812900F39F00891800 /* JStarRatingView.swift */; };
@@ -102,6 +103,7 @@
 /* Begin PBXFileReference section */
 		2D67C0FA0307CC5CE71984A1 /* Pods-Medonapp iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Medonapp iOS.release.xcconfig"; path = "Target Support Files/Pods-Medonapp iOS/Pods-Medonapp iOS.release.xcconfig"; sourceTree = "<group>"; };
 		E47870D81D93ADDBC656900F /* Pods-Medonapp iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Medonapp iOS.debug.xcconfig"; path = "Target Support Files/Pods-Medonapp iOS/Pods-Medonapp iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		E6D081B0293C7D5500380F73 /* DoctorDetailsPeekViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDetailsPeekViewViewController.swift; sourceTree = "<group>"; };
 		F28C35CFE676567ACC6FCEAF /* Pods_Medonapp_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Medonapp_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F80552772907BB060011EB6B /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		F80C19802900F39F00891800 /* StarRatingStackView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StarRatingStackView.xib; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 			children = (
 				F8BC4A4128F4588A00440406 /* DoctorsScreenViewController.swift */,
 				F8AF821C28F553CA00D62D98 /* DoctorDetailsViewViewController.swift */,
+				E6D081B0293C7D5500380F73 /* DoctorDetailsPeekViewViewController.swift */,
 				F8FB225B28F7CB7A003B9173 /* ContactDoctorViewController.swift */,
 				F81BAAF228F9C09B0080BD21 /* AppointmentDetailsViewController.swift */,
 				F81BAADC28F928BF0080BD21 /* BookAppointmentViewController.swift */,
@@ -741,6 +744,7 @@
 				F81BAAF628F9C8A20080BD21 /* PriceDisplayViewAppointmentDetails.swift in Sources */,
 				F8BC4A3D28F420F000440406 /* ReportCellWithIconAndDescription.swift in Sources */,
 				F8308050290A76390088CDB8 /* Appointments.swift in Sources */,
+				E6D081B1293C7D5500380F73 /* DoctorDetailsPeekViewViewController.swift in Sources */,
 				F844C65D28FFCF0500BBE5B0 /* BookedAppointmentsViewController.swift in Sources */,
 				F883FC132909260E00B17D01 /* Prefs.swift in Sources */,
 				F8C75A6028E98B7000F5B2E2 /* extensions.swift in Sources */,

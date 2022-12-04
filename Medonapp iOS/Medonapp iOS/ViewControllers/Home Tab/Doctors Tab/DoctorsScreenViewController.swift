@@ -401,9 +401,9 @@ extension DoctorsScreenViewController: UIViewControllerPreviewingDelegate {
         if let indexPath = doctorsTable?.indexPathForRow(at: location) {
             previewingContext.sourceRect = (doctorsTable?.rectForRow(at: indexPath))!
             
-            let doctorsDetailsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "doctorsDetailsVC") as? DoctorDetailsViewViewController
-            doctorsDetailsVC?.doctor = Doctor.sortDoctors(doctors: Array(self.doctorsSet))[indexPath.row]
-            return doctorsDetailsVC
+            let doctorPeekVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "doctorPeekVC") as? DoctorDetailsViewViewController
+            doctorPeekVC?.doctor = Doctor.sortDoctors(doctors: Array(self.doctorsSet))[indexPath.row]
+            return doctorPeekVC
         }
         
         return nil

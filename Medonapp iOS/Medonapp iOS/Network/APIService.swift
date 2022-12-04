@@ -22,7 +22,7 @@ class APIService : NSObject{
     var parameters = Parameters()
     var headers = HTTPHeaders()
     var method: HTTPMethod!
-    var url :String! = "http://13.231.156.112:8080/api/"
+    var url :String! = "http://13.113.206.47:8080/api/"
     var encoding: ParameterEncoding! = JSONEncoding.default
     
     init(data: [String:Any],headers: [String:String] = [:],url :String?, appendToUrl: String = "", service :services? = nil, method: HTTPMethod = .post, isJSONRequest: Bool = true){
