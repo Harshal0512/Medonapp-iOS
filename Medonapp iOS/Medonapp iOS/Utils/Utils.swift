@@ -156,6 +156,10 @@ class Utils {
         }
     }
     
+    class func getObscuredEmail(email: String) -> String {
+        return email[email.startIndex..<email.index(email.startIndex, offsetBy: 3)] + String(repeating: "*", count: 12) + email[email.index(email.endIndex, offsetBy: -3)..<email.endIndex]
+    }
+    
     class func createEmailUrl(to: String, subject: String, body: String) -> URL? {
         let subjectEncoded = subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let bodyEncoded = body.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!

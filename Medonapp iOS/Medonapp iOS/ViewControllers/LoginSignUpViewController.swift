@@ -1036,6 +1036,7 @@ class LoginSignUpViewController: UIViewController {
             otpDetailsLabel?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
             otpDetailsLabel?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
             otpDetailsLabel?.heightAnchor.constraint(equalToConstant: 90).isActive = true
+            otpDetailsLabel?.text = "Please enter Verification code sent to the email \(Utils.getObscuredEmail(email: emailTextFieldSignUp!.text!))"
             
             txtOTPView?.topAnchor.constraint(equalTo: otpDetailsLabel!.bottomAnchor, constant: 28).isActive = true
             txtOTPView?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
