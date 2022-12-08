@@ -309,7 +309,7 @@ extension DoctorDetailsViewViewController: MKMapViewDelegate {
     func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         let annotation = MKPointAnnotation()
         annotation.coordinate = CLLocationCoordinate2D(latitude: (doctor?.address!.latitude!)!, longitude: (doctor?.address!.longitude!)!)
-        annotation.title = "Dr. \((doctor?.name?.firstName ?? "") + " " + (doctor?.name?.lastName ?? ""))"
+        annotation.title = doctor?.fullNameWithTitle
         self.locationMapView?.addAnnotation(annotation)
         
         if Prefs.isLocationPerm {

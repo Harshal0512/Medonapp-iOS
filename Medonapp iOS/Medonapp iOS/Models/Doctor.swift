@@ -36,6 +36,7 @@ class Doctor: Codable, Hashable {
     var credential: Credential?
     var profileImage: ProfileImage?
     var name: NameInclMiddleName?
+    var fullNameWithTitle: String = ""
     var address: FullAddress?
     var mobile: MobileWithCountryCode?
     var gender, specialization: String?
@@ -136,6 +137,12 @@ class Doctor: Codable, Hashable {
         }
     }
     
+    static func setFullName() {
+        for doctor in doctors {
+            doctor.fullNameWithTitle = "Dr. " + (doctor.name?.firstName ?? "") + " " + (doctor.name?.lastName ?? "")
+        }
+    }
+    
     func setFavorite(state: Bool, completionHandler: @escaping (Bool) -> ()) {
         let service: APIService.services = state == true ? .addFavorite(User.getUserDetails().patient!.id!) : .removeFavorite(User.getUserDetails().patient!.id!)
         
@@ -175,6 +182,7 @@ class Doctor: Codable, Hashable {
             case .success(_):
                 try? Doctor.initDoctors(doctors: result.get())
                 Doctor.initFavoriteState()
+                Doctor.setFullName()
                 completionHandler(true)
             case .failure(let error):
                 print(error)

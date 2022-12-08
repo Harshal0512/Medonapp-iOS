@@ -33,7 +33,7 @@ class DoctorInfoTableViewCell: UITableViewCell {
         
         self.doctorImage.layer.cornerRadius = 26
         self.doctorImage.contentMode = .scaleAspectFill
-        self.doctorName.text = (doctor.name?.firstName ?? "") + " " + (doctor.name?.lastName ?? "")
+        self.doctorName.text = doctor.fullNameWithTitle
         self.designation.text = doctor.specialization ?? ""
         self.rating.text = String(format: "%.2f", doctor.avgRating ?? 0)
         self.numberOfReviews.text = "\(doctor.reviewCount ?? 0) reviews"

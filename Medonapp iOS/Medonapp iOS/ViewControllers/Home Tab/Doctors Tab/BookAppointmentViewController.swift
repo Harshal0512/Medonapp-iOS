@@ -231,12 +231,12 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegateF
                     guard let calendar = self.eventStore.defaultCalendarForNewEvents else { break }
                     let appointmentReminder = EKEvent(eventStore: self.eventStore)
                     appointmentReminder.calendar = calendar
-                    appointmentReminder.title = "Appointment with Dr. \((self.doctor!.name?.firstName ?? "") + " " + (self.doctor!.name?.lastName ?? ""))"
+                    appointmentReminder.title = "Appointment with \(self.doctor!.fullNameWithTitle)"
                     appointmentReminder.startDate = Date.dateFromISOString(string: Date.combineDateWithTimeReturnISO(date: Date.stringFromDate(date: datePicker!.date), time: selectedTime))!
                     appointmentReminder.endDate = Date.dateFromISOString(string: Date.addMinutes(ISODateString: Date.combineDateWithTimeReturnISO(date: Date.stringFromDate(date: datePicker!.date), time: selectedTime), minutes: 30 * 60.0))!
                     let alarm = EKAlarm.init(absoluteDate: Date.init(timeInterval: -3600, since: appointmentReminder.startDate))
                     appointmentReminder.addAlarm(alarm)
-                    let structuredLocation = EKStructuredLocation(title: "Dr. \((doctor!.name?.firstName ?? "") + " " + (doctor!.name?.lastName ?? ""))")
+                    let structuredLocation = EKStructuredLocation(title: doctor!.fullNameWithTitle)
                     structuredLocation.geoLocation = CLLocation(latitude: (doctor?.address!.latitude!)!, longitude: (doctor?.address!.longitude!)!)
                     appointmentReminder.structuredLocation = structuredLocation
                     //TODO: Mention address of doctor in notes

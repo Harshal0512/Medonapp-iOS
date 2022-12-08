@@ -66,7 +66,7 @@ class AppointmentDetailsViewController: UIViewController, UITextViewDelegate {
         contentView?.addSubview(doctorImage!)
         
         doctorName = UILabel()
-        doctorName?.text = (doctor?.name?.firstName ?? "") + " " + (doctor?.name?.lastName ?? "")
+        doctorName?.text = doctor?.fullNameWithTitle
         doctorName?.numberOfLines = 1
         doctorName?.font = UIFont(name: "NunitoSans-Bold", size: 22)
         doctorName?.textColor = .black

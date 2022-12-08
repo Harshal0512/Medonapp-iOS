@@ -32,7 +32,7 @@ class ScheduleTabTableViewCell: UITableViewCell {
         cellContentView.layer.cornerRadius = 28
         self.doctorImage.setKFImage(imageUrl: appointment.doctor?.profileImage?.fileDownloadURI ?? "", placeholderImage: UIImage(named: (appointment.doctor?.gender?.lowercased() ?? "male" == "male") ? "userPlaceholder-male" : "userPlaceholder-female")!)
         self.appointmentTime.text = "\(Date.getTimeFromDate(dateString: appointment.startTime!))"
-        self.doctorName.text = (appointment.doctor?.name?.firstName ?? "") + " " + (appointment.doctor?.name?.lastName ?? "")
+        self.doctorName.text = "Dr. " + (appointment.doctor?.name?.firstName ?? "") + " " + (appointment.doctor?.name?.lastName ?? "")
         self.typeOfDoctor.text = appointment.doctor?.specialization ?? ""
         
         self.appointmentTime.textColor = .black

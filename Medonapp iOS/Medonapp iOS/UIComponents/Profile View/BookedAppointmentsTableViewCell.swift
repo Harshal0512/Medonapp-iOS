@@ -53,7 +53,7 @@ class BookedAppointmentsTableViewCell: UITableViewCell {
         self.designationLabel.alpha = 0.65
         
         self.timeLabel.text = "\(Date.getTimeFromDate(dateString: appointment.startTime!))"
-        self.doctorName.text = (appointment.doctor?.name?.firstName ?? "") + " " + (appointment.doctor?.name?.lastName ?? "")
+        self.doctorName.text = "Dr. " + (appointment.doctor?.name?.firstName ?? "") + " " + (appointment.doctor?.name?.lastName ?? "")
         self.designationLabel.text = appointment.doctor?.specialization ?? ""
         
         self.feedbackButton.titleLabel?.font = UIFont(name: "NunitoSans-Bold", size: 14)

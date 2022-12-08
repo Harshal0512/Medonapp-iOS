@@ -320,7 +320,7 @@ extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSourc
             
             let shareProfile = UIAction(title: "Share Profile", image: UIImage(systemName: "square.and.arrow.up")) { action in
                 // text to share
-                let text = "Hey! I met Dr. \((doctorsDetailsVC!.doctor?.name?.firstName! ?? "") + " " + (doctorsDetailsVC!.doctor?.name?.lastName! ?? "")) on Medonapp!\n\(doctorsDetailsVC!.doctor?.gender?.lowercased() == "male" ? "He" : "She") is rated \(doctorsDetailsVC!.doctor!.avgRating!.clean) stars and has \(doctorsDetailsVC!.doctor!.experience!.clean)+ years of experience.\n\nYou can contact them through the following channels:\nNumber: \(doctorsDetailsVC!.doctor!.mobile!.contactNumberWithCountryCode!)\nEmail: \(doctorsDetailsVC!.doctor!.credential!.email!)\n\nDownload Medonapp now!!"
+                let text = "Hey! I met \(doctorsDetailsVC!.doctor!.fullNameWithTitle) on Medonapp!\n\(doctorsDetailsVC!.doctor?.gender?.lowercased() == "male" ? "He" : "She") is rated \(doctorsDetailsVC!.doctor!.avgRating!.clean) stars and has \(doctorsDetailsVC!.doctor!.experience!.clean)+ years of experience.\n\nYou can contact them through the following channels:\nNumber: \(doctorsDetailsVC!.doctor!.mobile!.contactNumberWithCountryCode!)\nEmail: \(doctorsDetailsVC!.doctor!.credential!.email!)\n\nDownload Medonapp now!!"
                 
                 // set up activity view controller
                 let textToShare = [ text ]
@@ -378,7 +378,7 @@ extension DoctorsScreenViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         let doctor = Doctor.sortDoctors(doctors: Array(doctorsSet))[indexPath.row]
         //text to share
-        let text = "Hey! I met Dr. \((doctor.name?.firstName ?? "") + " " + (doctor.name?.lastName ?? "")) on Medonapp!\n\(doctor.gender?.lowercased() == "male" ? "He" : "She") is rated \(doctor.avgRating!.clean) stars and has \(doctor.experience!.clean)+ years of experience.\n\nYou can contact them through the following channels:\nNumber: \(doctor.mobile!.contactNumberWithCountryCode!)\nEmail: \(doctor.credential!.email!)\n\nDownload Medonapp now!!"
+        let text = "Hey! I met \(doctor.fullNameWithTitle) on Medonapp!\n\(doctor.gender?.lowercased() == "male" ? "He" : "She") is rated \(doctor.avgRating!.clean) stars and has \(doctor.experience!.clean)+ years of experience.\n\nYou can contact them through the following channels:\nNumber: \(doctor.mobile!.contactNumberWithCountryCode!)\nEmail: \(doctor.credential!.email!)\n\nDownload Medonapp now!!"
         
         let data = text.data(using: .utf8)
         let itemProvider = NSItemProvider()

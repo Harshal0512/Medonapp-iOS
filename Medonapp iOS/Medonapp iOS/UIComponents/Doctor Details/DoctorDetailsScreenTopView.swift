@@ -34,7 +34,7 @@ class DoctorDetailsScreenTopView: UIView {
         view.doctorImage.contentMode = .scaleAspectFill
         view.doctorImage.setKFImage(imageUrl: doctor.profileImage?.fileDownloadURI ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg", placeholderImage: UIImage(named: (doctor.gender!.lowercased() == "male") ? "userPlaceholder-male" : "userPlaceholder-female")!)
         
-        view.doctorNameLabel.text = (doctor.name?.firstName ?? "") + " " + (doctor.name?.lastName ?? "")
+        view.doctorNameLabel.text = doctor.fullNameWithTitle
         view.doctorDesignationLabel.text = doctor.specialization ?? ""
         view.doctorDesignationLabel.textColor = UIColor(red: 0.29, green: 0.33, blue: 0.37, alpha: 1.00)
         
