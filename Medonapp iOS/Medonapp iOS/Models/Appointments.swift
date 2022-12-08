@@ -68,7 +68,7 @@ class AppointmentElement: Codable {
     }
     
     static func refreshAppointments(completionHandler: @escaping (Bool) -> ()) {
-        APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, appendToUrl: "\(User.getUserDetails().patient!.id!)/Appointments", service: .getPatientWithID, method: .get, isJSONRequest: false).executeQuery() { (result: Result<Appointments, Error>) in
+        APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .getAppointmentsWithPatientID(User.getUserDetails().patient!.id!), method: .get, isJSONRequest: false).executeQuery() { (result: Result<Appointments, Error>) in
             switch result{
             case .success(let app):
                 AppointmentElement.initAppointments(appointments: app)

@@ -76,7 +76,7 @@ class HomeTabViewController: UIViewController {
     }
     
     func refreshUserDetails(completionHandler: @escaping(Bool) -> ()) {
-        APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, appendToUrl: "\(userDetails.patient!.id!)", service: .getPatientWithID, method: .get, isJSONRequest: false).executeQuery() { (result: Result<Patient, Error>) in
+        APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .getPatientWithID(userDetails.patient!.id!), method: .get, isJSONRequest: false).executeQuery() { (result: Result<Patient, Error>) in
             switch result{
             case .success(_):
                 try? User.setPatientDetails(patient: result.get())

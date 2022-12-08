@@ -10,14 +10,31 @@ import Alamofire
 
 class APIService : NSObject{
     
-    enum services :String{
-        case login = "auth/login"
-        case signUp = "v1/patient/add"
-        case sendOtp = "auth/otp"
-        case getAllDoctors = "v1/doctor/all"
-        case getPatientWithID = "v1/patient/"
-        case bookAppointment = "v1/appointment/add"
-        case postReview = "v1/review/add"
+    enum services {
+        case login, signUp, sendOtp, getAllDoctors, bookAppointment, postReview
+        case getAppointmentsWithPatientID(Int)
+        case getPatientWithID(Int)
+        
+        var endpoint: String {
+            switch self {
+            case .login:
+                return "auth/login"
+            case .signUp:
+                return "v1/patient/add"
+            case .sendOtp:
+                return "auth/otp"
+            case .getAllDoctors:
+                return "v1/doctor/all"
+            case .getPatientWithID(let patientID):
+                return "v1/patient/\(patientID)"
+            case .bookAppointment:
+                return "v1/appointment/add"
+            case .postReview:
+                return "v1/review/add"
+            case .getAppointmentsWithPatientID(let patientID):
+                return "v1/patient/\(patientID)/Appointments"
+            }
+        }
     }
     var parameters = Parameters()
     var headers = HTTPHeaders()
@@ -25,12 +42,12 @@ class APIService : NSObject{
     var url :String! = "http://34.100.156.30:8080/api/"
     var encoding: ParameterEncoding! = JSONEncoding.default
     
-    init(data: [String:Any],headers: [String:String] = [:],url :String?, appendToUrl: String = "", service :services? = nil, method: HTTPMethod = .post, isJSONRequest: Bool = true){
+    init(data: [String:Any],headers: [String:String] = [:], url :String?, service :services? = nil, method: HTTPMethod = .post, isJSONRequest: Bool = true){
         super.init()
         data.forEach{parameters.updateValue($0.value, forKey: $0.key)}
         headers.forEach({self.headers.add(name: $0.key, value: $0.value)})
         if url == nil, service != nil{
-            self.url += service!.rawValue + appendToUrl
+            self.url += service!.endpoint
         }else{
             self.url = url
         }
@@ -38,7 +55,7 @@ class APIService : NSObject{
             encoding = URLEncoding.default
         }
         self.method = method
-        print("Service: \(service?.rawValue ?? self.url ?? "") \n data: \(parameters)")
+        print("Service: \(service?.endpoint ?? self.url ?? "") \n data: \(parameters)")
     }
     
     func executeQuery<T>(completion: @escaping (Result<T, Error>) -> Void) where T: Codable {
