@@ -143,7 +143,7 @@ class DoctorDetailsViewViewController: UIViewController {
         favoriteButton = FaveButton(frame: CGRect(x:200, y:200, width: 44, height: 44), faveIconNormal: UIImage(named: "heart"))
 //        favoriteButton?.selectedColor = UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00)
         favoriteView?.addSubview(favoriteButton!)
-        favoriteButton?.setSelected(selected: initFavoriteState(), animated: false)
+        favoriteButton?.setSelected(selected: doctor!.isFavorite, animated: false)
         favoriteButton?.delegate = self
     }
     
@@ -302,30 +302,6 @@ class DoctorDetailsViewViewController: UIViewController {
             }
         }
     }
-    
-    func initFavoriteState() -> Bool {
-        for doctor in (User.getUserDetails().patient!.favoriteDoctors)! {
-            if self.doctor?.id == doctor.id {
-                return true
-            }
-        }
-        return false
-    }
-    
-    func setFavorite(state: Bool, completionHandler: @escaping (Bool) -> ()) {
-        let service: APIService.services = state == true ? .addFavorite(User.getUserDetails().patient!.id!) : .removeFavorite(User.getUserDetails().patient!.id!)
-        
-        APIService(data: ["id": doctor!.id!], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: service, method: .post, isJSONRequest: true).executeQuery() { (result: Result<Patient, Error>) in
-            switch result{
-            case .success(_):
-                try? User.setPatientDetails(patient: result.get())
-                completionHandler(true)
-            case .failure(let error):
-                print(error)
-                completionHandler(false)
-            }
-        }
-    }
 }
 
 extension DoctorDetailsViewViewController: MKMapViewDelegate {
@@ -347,7 +323,7 @@ extension DoctorDetailsViewViewController: MKMapViewDelegate {
 extension DoctorDetailsViewViewController: FaveButtonDelegate {
     func faveButton(_ faveButton: FaveButton, didSelected selected: Bool) {
         let generator = UIImpactFeedbackGenerator(style: .light)
-        self.setFavorite(state: selected) { isSuccess in
+        self.doctor?.setFavorite(state: selected) { isSuccess in
             if isSuccess {
                 generator.impactOccurred()
             }

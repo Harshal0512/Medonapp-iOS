@@ -50,6 +50,7 @@ class Doctor: Codable, Hashable {
     var weekdayAppointmentSlots, weekendAppointmentSlots, bookedSlots: [String]?
     var patientCount: Int?
     var reviewCount: Int?
+    var isFavorite: Bool = false
     var distanceFromUser: Double = 0.0
     
     enum CodingKeys: CodingKey {
@@ -123,6 +124,33 @@ class Doctor: Codable, Hashable {
         }
     }
     
+    static func initFavoriteState() {
+        for doctorF in (User.getUserDetails().patient!.favoriteDoctors)! {
+            for doctor in doctors {
+                if doctorF.id == doctor.id {
+                    doctor.isFavorite = true
+                    break
+                }
+            }
+            
+        }
+    }
+    
+    func setFavorite(state: Bool, completionHandler: @escaping (Bool) -> ()) {
+        let service: APIService.services = state == true ? .addFavorite(User.getUserDetails().patient!.id!) : .removeFavorite(User.getUserDetails().patient!.id!)
+        
+        APIService(data: ["id": self.id!], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: service, method: .post, isJSONRequest: true).executeQuery() { (result: Result<Patient, Error>) in
+            switch result{
+            case .success(_):
+                try? User.setPatientDetails(patient: result.get())
+                completionHandler(true)
+            case .failure(let error):
+                print(error)
+                completionHandler(false)
+            }
+        }
+    }
+    
     static func getDistanceFromUser(userLocation: CLLocation) {
         for doctor in doctors {
             doctor.distanceFromUser = CLLocation(latitude: doctor.address!.latitude!,
@@ -146,6 +174,7 @@ class Doctor: Codable, Hashable {
             switch result{
             case .success(_):
                 try? Doctor.initDoctors(doctors: result.get())
+                Doctor.initFavoriteState()
                 completionHandler(true)
             case .failure(let error):
                 print(error)

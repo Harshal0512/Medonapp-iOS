@@ -8,6 +8,7 @@
 import UIKit
 import CoreLocation
 import MobileCoreServices
+import Toast_Swift
 
 class DoctorsScreenViewController: UIViewController {
     
@@ -198,7 +199,9 @@ class DoctorsScreenViewController: UIViewController {
             Doctor.calculateLiveStatus() //Calculate doctor live status
             self.searchFieldDidChange(self.searchField!)
             let sections = NSIndexSet(indexesIn: NSMakeRange(0, self.doctorsTable!.numberOfSections))
-            self.doctorsTable!.reloadSections(sections as IndexSet, with: .automatic)
+            self.doctorsTable!.reloadSections(sections as IndexSet, with: .fade)
+            self.view.isUserInteractionEnabled = true
+            self.view.hideToastActivity()
         }
     }
     
@@ -287,6 +290,14 @@ extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSourc
         }
     }
     
+    func tableView(_ tableView: UITableView, willEndContextMenuInteraction configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionAnimating?) {
+        self.view.isUserInteractionEnabled = false
+        self.view.makeToastActivity(.center)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+            self.refreshData()
+        }
+    }
+    
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         // We have to create an NSString since the identifier must conform to NSCopying
         let identifier = NSString(string: "\(indexPath.row)")
@@ -323,11 +334,14 @@ extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSourc
                 self.present(activityViewController, animated: true, completion: nil)
             }
             
-            let favorite = UIAction(title: "Favorite", image: UIImage(systemName: "heart")) { action in
-                
+            let favorite = UIAction(title: (doctorsDetailsVC?.doctor?.isFavorite)! ? "Unfavorite" : "Favorite", image: UIImage(systemName: (doctorsDetailsVC?.doctor?.isFavorite)! ? "heart.slash" : "heart")) { action in
+                let generator = UIImpactFeedbackGenerator(style: .light)
+                doctorsDetailsVC?.doctor?.setFavorite(state: !(doctorsDetailsVC?.doctor?.isFavorite)!) { isSuccess in
+                    if isSuccess {
+                        generator.impactOccurred()
+                    }
+                }
             }
-            
-            //TODO: Add unfavorite if already favorite
             
             //        // Here we specify the "destructive" attribute to show that it’s destructive in nature
             //        let delete = UIAction(title: "Favorite", image: UIImage(systemName: "trash"), attributes: .destructive) { action in
