@@ -14,6 +14,8 @@ class APIService : NSObject{
         case login, signUp, sendOtp, getAllDoctors, bookAppointment, postReview
         case getAppointmentsWithPatientID(Int)
         case getPatientWithID(Int)
+        case addFavorite(Int)
+        case removeFavorite(Int)
         
         var endpoint: String {
             switch self {
@@ -33,9 +35,14 @@ class APIService : NSObject{
                 return "v1/review/add"
             case .getAppointmentsWithPatientID(let patientID):
                 return "v1/patient/\(patientID)/Appointments"
+            case .addFavorite(let patientID):
+                return "v1/patient/\(patientID)/addFavouriteDoctor"
+            case .removeFavorite(let patientID):
+                return "v1/patient/\(patientID)/removeFavouriteDoctor"
             }
         }
     }
+    
     var parameters = Parameters()
     var headers = HTTPHeaders()
     var method: HTTPMethod!
