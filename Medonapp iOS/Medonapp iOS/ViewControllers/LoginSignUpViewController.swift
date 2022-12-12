@@ -11,6 +11,7 @@ import SwiftValidator
 import DPOTPView
 import iOSDropDown
 import Toast_Swift
+import SPIndicator
 
 enum views {
     case login
@@ -758,7 +759,11 @@ class LoginSignUpViewController: UIViewController {
                 case .failure(let error):
                     print(error)
                     self.view.hideToastActivity()
-                    self.view.makeToast("Please enter correct email and/or password.", duration: 6.0, title: "Incorrect Details", image: UIImage(named: "AppIcon"), completion: nil)
+                    let indicatorView = SPIndicatorView(title: "Incorrect Details", message: "Enter correct credentials.", preset: .error)
+                    indicatorView.presentSide = .bottom
+                    indicatorView.offset = 50.0
+                    indicatorView.dismissByDrag = false
+                    indicatorView.present(duration: 6.0, haptic: .error)
                 }
             }
         }
@@ -799,7 +804,11 @@ class LoginSignUpViewController: UIViewController {
             validator.registerField(weightField!, rules: [RequiredRule(), FloatRule()])
         } else if !isValidationError && activeView == .signupPersonalDetails {
             if Double((self.weightField?.text)!)! <= 0.0 || Double((self.weightField?.text)!)! > 1000.0 {
-                self.view.makeToast("Please enter valid weight.")
+                let indicatorView = SPIndicatorView(title: "Incorrect Details", message: "Enter valid weight.", preset: .error)
+                indicatorView.presentSide = .bottom
+                indicatorView.offset = 50.0
+                indicatorView.dismissByDrag = false
+                indicatorView.present(duration: 6.0, haptic: .error)
                 return
             }
             UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
@@ -1095,7 +1104,11 @@ class LoginSignUpViewController: UIViewController {
             case .success(_):
                 try? print(result.get())
                 try? self.otpFromServer = "\(result.get())"
-                self.view.makeToast("OTP Sent Successfully.", duration: 6.0, title: "Sent OTP", image: UIImage(named: "AppIcon"), completion: nil)
+                let indicatorView = SPIndicatorView(title: "Sent OTP", message: "OTP Sent Successfully.", preset: .done)
+                indicatorView.presentSide = .bottom
+                indicatorView.offset = 50.0
+                indicatorView.dismissByDrag = false
+                indicatorView.present(duration: 6.0, haptic: .success)
                 
                 self.timer.invalidate() // just in case this button is tapped multiple times
                 self.counter = 30
@@ -1225,7 +1238,11 @@ extension LoginSignUpViewController : UITextFieldDelegate, DPOTPViewDelegate, Va
                         
                     })
                     self.view.hideToastActivity()
-                    self.view.makeToast("An Error has occured, please relaunch the app.", duration: 20.0, title: "Unknown Error", image: UIImage(named: "AppIcon"), completion: nil)
+                    let indicatorView = SPIndicatorView(title: "Unknown Error", message: "An Error has occured.", preset: .error)
+                    indicatorView.presentSide = .bottom
+                    indicatorView.offset = 50.0
+                    indicatorView.dismissByDrag = false
+                    indicatorView.present(duration: 6.0, haptic: .error)
                 }
             }
             
@@ -1237,7 +1254,11 @@ extension LoginSignUpViewController : UITextFieldDelegate, DPOTPViewDelegate, Va
                     (finished: Bool) -> Void in
                     self.progressBar?.setProgress(0.87, animated: true)
                 })
-                self.view.makeToast("The OTP you entered is incorrect, please try again.", duration: 6.0, title: "OTP Incorrect", image: UIImage(named: "AppIcon"), completion: nil)
+                let indicatorView = SPIndicatorView(title: "OTP Incorrect", message: "Enter correct OTP to continue.", preset: .error)
+                indicatorView.presentSide = .bottom
+                indicatorView.offset = 50.0
+                indicatorView.dismissByDrag = false
+                indicatorView.present(duration: 6.0, haptic: .error)
             }
         }
     }

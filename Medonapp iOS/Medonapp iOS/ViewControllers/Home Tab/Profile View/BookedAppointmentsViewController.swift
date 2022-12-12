@@ -8,6 +8,7 @@
 import UIKit
 import SkeletonView
 import Toast_Swift
+import SPIndicator
 
 class BookedAppointmentsViewController: UIViewController {
     
@@ -233,12 +234,25 @@ extension BookedAppointmentsViewController: BookedAppointmentsCellProtocol {
 
 extension BookedAppointmentsViewController: RatingHalfScreenDelegate {
     func feedbackClosed(isSuccess: Bool) {
+        var title, message: String
+        var iconPreset: SPIndicatorIconPreset
+        var hapticPreset: SPIndicatorHaptic
         if isSuccess {
-            self.view.makeToast("Feedback Recorded Successfully", duration: 6.0, title: "Success", image: UIImage(named: "AppIcon"), completion: nil)
-            self.refreshData()
+            title = "Success"
+            message = "Feedback Recorded"
+            iconPreset = .done
+            hapticPreset = .success
         } else {
-            self.view.makeToast("Unknown Error Occured", duration: 5.0, title: "Error", image: UIImage(named: "AppIcon"), completion: nil)
-            self.refreshData()
+            title = "Error"
+            message = "Unknown Error Occured"
+            iconPreset = .error
+            hapticPreset = .error
         }
+        let indicatorView = SPIndicatorView(title: title, message: message, preset: iconPreset)
+        indicatorView.presentSide = .bottom
+        indicatorView.offset = 50.0
+        indicatorView.dismissByDrag = false
+        indicatorView.present(duration: 6.0, haptic: hapticPreset)
+        self.refreshData()
     }
 }

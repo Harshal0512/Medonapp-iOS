@@ -7,6 +7,7 @@ PODS:
   - lottie-ios (3.4.2)
   - Popovers (1.3.0)
   - SkeletonView (1.30.4)
+  - SPIndicator (1.6.4)
   - SwiftValidator (4.0.0)
   - Toast-Swift (5.0.1)
 
@@ -19,6 +20,7 @@ DEPENDENCIES:
   - lottie-ios
   - Popovers
   - SkeletonView
+  - SPIndicator
   - SwiftValidator (from `https://github.com/jpotts18/SwiftValidator.git`, tag `4.2.0`)
   - Toast-Swift (~> 5.0.1)
 
@@ -32,6 +34,7 @@ SPEC REPOS:
     - lottie-ios
     - Popovers
     - SkeletonView
+    - SPIndicator
     - Toast-Swift
 
 EXTERNAL SOURCES:
@@ -53,9 +56,10 @@ SPEC CHECKSUMS:
   lottie-ios: 6bbc53eef6957e4744a50321507015fba72d8ca6
   Popovers: 8690b055b2c9ef433492b40e081b1a0be5859437
   SkeletonView: 5a050f6411e697abd4cda0a8d767013399dccd69
+  SPIndicator: 93e0a4fb23de51294ac48e874c0f081a5e293e4f
   SwiftValidator: 249b6b3ae3b294266c5b9de134d94f18f2d5aa47
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 6184cd2b5999e4bf1476266e79066c2fb5956d82
+PODFILE CHECKSUM: c9322ed2080c5accafe6e562ce826d1cedd40e8c
 
 COCOAPODS: 1.11.3
