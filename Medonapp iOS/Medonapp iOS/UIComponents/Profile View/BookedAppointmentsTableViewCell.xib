@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -63,6 +64,15 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9tl-qg-wAl">
+                                <rect key="frame" x="256.66666666666669" y="15.000000000000004" width="43.333333333333314" height="34.333333333333343"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain">
+                                    <imageReference key="image" image="ellipsis" catalog="system" symbolScale="medium"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="small" weight="bold"/>
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
@@ -74,8 +84,10 @@
                             <constraint firstItem="Abq-BS-lYy" firstAttribute="top" secondItem="gex-km-rh6" secondAttribute="bottom" constant="1" id="Jv4-ce-p6t"/>
                             <constraint firstItem="gex-km-rh6" firstAttribute="top" secondItem="Y4Y-6e-Uqr" secondAttribute="top" id="OC6-s8-105"/>
                             <constraint firstAttribute="trailing" secondItem="Abq-BS-lYy" secondAttribute="trailing" constant="10" id="TTl-VB-O6h"/>
+                            <constraint firstItem="9tl-qg-wAl" firstAttribute="top" secondItem="z73-Oi-h9Y" secondAttribute="top" constant="15" id="UHv-HM-ymD"/>
                             <constraint firstItem="wlP-pA-aL2" firstAttribute="top" secondItem="fuk-eq-RSA" secondAttribute="bottom" constant="15" id="UVF-HA-ruq"/>
                             <constraint firstAttribute="trailing" secondItem="wlP-pA-aL2" secondAttribute="trailing" constant="15" id="YeI-gm-Jq7"/>
+                            <constraint firstAttribute="trailing" secondItem="9tl-qg-wAl" secondAttribute="trailing" constant="20" id="fA2-um-dYz"/>
                             <constraint firstAttribute="trailing" secondItem="gex-km-rh6" secondAttribute="trailing" constant="15" id="izk-6Y-ggN"/>
                             <constraint firstItem="gex-km-rh6" firstAttribute="leading" secondItem="Y4Y-6e-Uqr" secondAttribute="trailing" constant="15" id="k0U-yj-I63"/>
                             <constraint firstItem="wlP-pA-aL2" firstAttribute="leading" secondItem="z73-Oi-h9Y" secondAttribute="leading" constant="15" id="w0l-4R-WT3"/>
@@ -98,12 +110,14 @@
                 <outlet property="doctorImage" destination="Y4Y-6e-Uqr" id="P7g-AO-dJO"/>
                 <outlet property="doctorName" destination="Abq-BS-lYy" id="yt4-d9-rmj"/>
                 <outlet property="feedbackButton" destination="wlP-pA-aL2" id="i8D-A4-iaZ"/>
+                <outlet property="moreOptionsButton" destination="9tl-qg-wAl" id="Mrj-e5-ptO"/>
                 <outlet property="timeLabel" destination="gex-km-rh6" id="BtY-tU-bDA"/>
             </connections>
             <point key="canvasLocation" x="131" y="-12"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="ellipsis" catalog="system" width="128" height="37"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

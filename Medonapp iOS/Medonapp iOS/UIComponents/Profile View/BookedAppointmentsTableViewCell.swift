@@ -31,10 +31,12 @@ class BookedAppointmentsTableViewCell: UITableViewCell {
     @IBOutlet private var doctorName: UILabel!
     @IBOutlet private var designationLabel: UILabel!
     @IBOutlet private var feedbackButton: UIButton!
+    @IBOutlet private var moreOptionsButton: UIButton!
     
     var delegate: BookedAppointmentsCellProtocol!
     
     var appointment: AppointmentElement?
+    var optionsMenu: UIMenu?
     
     public func configure(appointment: AppointmentElement) {
         self.appointment = appointment
@@ -68,6 +70,8 @@ class BookedAppointmentsTableViewCell: UITableViewCell {
             isFeedbackDue = .completed
         }
         
+        let menu: UIMenu?
+        
         switch isFeedbackDue {
         case .due:
             self.feedbackButton.backgroundColor = .white
@@ -77,6 +81,11 @@ class BookedAppointmentsTableViewCell: UITableViewCell {
             self.feedbackButton.setImage(nil, for: .normal)
             self.feedbackButton.isUserInteractionEnabled = true
             self.feedbackButton.addTarget(self, action: #selector(feedbackButtonClicked), for: .touchUpInside)
+            
+            let giveFeedback = UIAction(title: "Give Feedback", image: UIImage(systemName: "checkmark.seal")) { action in
+                self.feedbackButtonClicked()
+            }
+            menu = UIMenu(children: [giveFeedback])
         case .completed:
             self.feedbackButton.backgroundColor = .clear
             self.feedbackButton.layer.borderWidth = 2
@@ -87,6 +96,14 @@ class BookedAppointmentsTableViewCell: UITableViewCell {
             self.feedbackButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 2, right: 0)
             self.feedbackButton.setImageTintColor(UIColor(red: 0.85, green: 0.65, blue: 0.13, alpha: 1.00))
             self.feedbackButton.isUserInteractionEnabled = false
+            
+            let editFeedback = UIAction(title: "Edit Feedback", image: UIImage(systemName: "pencil")) { action in
+                
+            }
+            let deleteFeedback = UIAction(title: "Delete Feedback", image: UIImage(systemName: "trash"), attributes: .destructive) { action in
+                
+            }
+            menu = UIMenu(children: [editFeedback, deleteFeedback])
         case .notYet:
             self.feedbackButton.backgroundColor = .white
             self.feedbackButton.setTitle("Appointment Booked", for: .normal)
@@ -94,7 +111,15 @@ class BookedAppointmentsTableViewCell: UITableViewCell {
             self.feedbackButton.setTitleColor(UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00), for: .normal)
             self.feedbackButton.setImage(nil, for: .normal)
             self.feedbackButton.isUserInteractionEnabled = false
+            
+            let cancelAppointment = UIAction(title: "Cancel Appointment", image: UIImage(systemName: "exclamationmark.circle"), attributes: .destructive) { action in
+                
+            }
+            menu = UIMenu(children: [cancelAppointment])
         }
+        self.moreOptionsButton.menu = menu
+        self.moreOptionsButton.showsMenuAsPrimaryAction = true
+        self.optionsMenu = menu
     }
     
     @objc func feedbackButtonClicked() {
