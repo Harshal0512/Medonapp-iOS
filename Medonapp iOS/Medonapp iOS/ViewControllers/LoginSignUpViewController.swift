@@ -639,12 +639,7 @@ class LoginSignUpViewController: UIViewController {
         if activeView == .login {
             return
         }
-        
-        if let presentationController = presentationController as? UISheetPresentationController {
-            presentationController.animateChanges {
-                presentationController.selectedDetentIdentifier = .medium
-            }
-        }
+
         UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.transitionCurlUp, animations: {
             //change active button colors
             self.signUpButton?.initButton(title: "Signup", cornerRadius: 8, variant: .whiteBack)
