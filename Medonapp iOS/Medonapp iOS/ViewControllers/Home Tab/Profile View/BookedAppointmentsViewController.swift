@@ -160,6 +160,14 @@ extension BookedAppointmentsViewController: MonthViewBookedAppointmentsDelegate 
     }
 }
 
+extension BookedAppointmentsViewController: UIContextMenuInteractionDelegate {
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        return nil
+    }
+    
+    
+}
+
 extension BookedAppointmentsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         let dateComponents = DateComponents(year: monthView!.getYear(), month: monthView!.getMonth())
@@ -209,6 +217,16 @@ extension BookedAppointmentsViewController: UITableViewDelegate, UITableViewData
         cell.configure(appointment: appointments[array![indexPath.row]])
         cell.delegate = self
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let identifier = NSString(string: "\(indexPath.row)")
+        
+        let cell = scheduleTable!.cellForRow(at: indexPath) as! BookedAppointmentsTableViewCell
+        
+        return UIContextMenuConfiguration(identifier: identifier, previewProvider: nil) { _ in
+            return cell.optionsMenu
+        }
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
