@@ -19,6 +19,7 @@ class APIService : NSObject{
         case deleteReview(Int)
         case editFeedback(Int)
         case editAppointment(Int)
+        case cancelAppointment(Int)
         
         var endpoint: String {
             switch self {
@@ -48,6 +49,8 @@ class APIService : NSObject{
                 return "v1/review/\(reviewID)/update"
             case .editAppointment(let appointmentID):
                 return "v1/appointment/\(appointmentID)/update"
+            case .cancelAppointment(let appointmentID):
+                return "v1/appointment/\(appointmentID)/cancel"
             }
         }
     }

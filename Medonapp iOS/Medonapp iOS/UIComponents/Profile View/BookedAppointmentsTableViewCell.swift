@@ -11,6 +11,7 @@ enum feedbackStates {
     case due
     case completed
     case notYet
+    case cancelled
 }
 
 protocol BookedAppointmentsCellProtocol {
@@ -18,6 +19,7 @@ protocol BookedAppointmentsCellProtocol {
     func feedbackDeleted(isSuccess: Bool)
     func editFeedbackDidSelect(appointment: AppointmentElement)
     func editAppointmentDidSelect(appointment: AppointmentElement)
+    func appointmentDeleted(isSuccess: Bool)
 }
 
 class BookedAppointmentsTableViewCell: UITableViewCell {
@@ -65,7 +67,9 @@ class BookedAppointmentsTableViewCell: UITableViewCell {
         self.feedbackButton.layer.cornerRadius = 14
         
         var isFeedbackDue: feedbackStates = .notYet
-        if appointment.review == nil && Date.dateFromISOString(string: appointment.startTime!, timezone: "GMT")! < Date().localDate() {
+        if appointment.status == "cancelled" {
+            isFeedbackDue = .cancelled
+        } else if appointment.review == nil && Date.dateFromISOString(string: appointment.startTime!, timezone: "GMT")! < Date().localDate() {
             isFeedbackDue = .due
         } else if Date.dateFromISOString(string: appointment.startTime!, timezone: "GMT")! > Date().localDate() {
             isFeedbackDue = .notYet
@@ -76,6 +80,15 @@ class BookedAppointmentsTableViewCell: UITableViewCell {
         let menu: UIMenu?
         
         switch isFeedbackDue {
+        case .cancelled:
+            self.feedbackButton.backgroundColor = .white
+            self.feedbackButton.setTitle("Cancelled", for: .normal)
+            self.feedbackButton.layer.borderWidth = 0
+            self.feedbackButton.setTitleColor(UIColor(red: 0.72, green: 0.00, blue: 0.00, alpha: 1.00), for: .normal)
+            self.feedbackButton.setImage(nil, for: .normal)
+            self.feedbackButton.isUserInteractionEnabled = false
+            
+            menu = UIMenu(children: [])
         case .due:
             self.feedbackButton.backgroundColor = .white
             self.feedbackButton.setTitle("Give Feedback", for: .normal)
@@ -127,7 +140,15 @@ class BookedAppointmentsTableViewCell: UITableViewCell {
                 self.delegate.editAppointmentDidSelect(appointment: self.appointment!)
             }
             let cancelAppointment = UIAction(title: "Cancel Appointment", image: UIImage(systemName: "exclamationmark.circle"), attributes: .destructive) { action in
-                
+                APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .cancelAppointment(appointment.id!), method: .put, isJSONRequest: false).executeQuery() { (result: Result<AppointmentElement, Error>) in
+                    switch result{
+                    case .success(_):
+                        self.delegate.appointmentDeleted(isSuccess: true)
+                    case .failure(let error):
+                        print(error)
+                        self.delegate.appointmentDeleted(isSuccess: false)
+                    }
+                }
             }
             menu = UIMenu(children: [updateAppointment, cancelAppointment])
         }

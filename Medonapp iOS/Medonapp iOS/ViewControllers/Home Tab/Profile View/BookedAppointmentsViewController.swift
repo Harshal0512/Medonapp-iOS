@@ -293,6 +293,28 @@ extension BookedAppointmentsViewController: BookedAppointmentsCellProtocol {
         appointmentDetailsVC?.appointment = appointment
         self.present(appointmentDetailsVC!, animated: true, completion: nil)
     }
+    
+    func appointmentDeleted(isSuccess: Bool) {
+        var title: String
+        var iconPreset: SPIndicatorIconPreset
+        var hapticPreset: SPIndicatorHaptic
+        switch isSuccess {
+        case true:
+            title = "Appointment Deleted"
+            iconPreset = .done
+            hapticPreset = .success
+        case false:
+            title = "Could not delete appointment"
+            iconPreset = .error
+            hapticPreset = .error
+        }
+        let indicatorView = SPIndicatorView(title: title, preset: iconPreset)
+        indicatorView.presentSide = .bottom
+        indicatorView.offset = 50.0
+        indicatorView.dismissByDrag = false
+        indicatorView.present(duration: 3.0, haptic: hapticPreset)
+        self.refreshData()
+    }
 }
 
 extension BookedAppointmentsViewController: RatingHalfScreenDelegate {
