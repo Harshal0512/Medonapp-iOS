@@ -102,6 +102,17 @@ class Utils {
         
     }
     
+    internal class func displayYesREDNoAlertWithHandler(_ displayText: String, viewController: UIViewController?, noHandler: ((UIAlertAction)->Void)?,  yesHandler: ( (UIAlertAction)->Void)?){
+        
+        let alertController = UIAlertController(title: "Medonapp", message:
+                                                    displayText, preferredStyle: UIAlertController.Style.alert)
+        alertController.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.cancel, handler: noHandler))
+        alertController.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.destructive, handler: yesHandler))
+        
+        viewController?.present(alertController, animated: true, completion: nil)
+        
+    }
+    
     //        /** Degrees to Radian **/
     class func degreeToRadian(angle:CLLocationDegrees) -> CGFloat {
         return (  (CGFloat(angle)) / 180.0 * CGFloat(Double.pi)  )

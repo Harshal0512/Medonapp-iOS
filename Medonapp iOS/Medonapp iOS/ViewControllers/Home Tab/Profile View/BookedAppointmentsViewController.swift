@@ -251,26 +251,33 @@ extension BookedAppointmentsViewController: BookedAppointmentsCellProtocol {
         }
     }
     
-    func feedbackDeleted(isSuccess: Bool) {
-        var title: String
-        var iconPreset: SPIndicatorIconPreset
-        var hapticPreset: SPIndicatorHaptic
-        switch isSuccess {
-        case true:
-            title = "Feedback Deleted"
-            iconPreset = .done
-            hapticPreset = .success
-        case false:
-            title = "Could not delete feedback"
-            iconPreset = .error
-            hapticPreset = .error
+    func feedbackDeletedClicked(appointment: AppointmentElement) {
+        Utils.displayYesREDNoAlertWithHandler("Your review will be deleted. This action cannot be undone. Are you sure you want to continue?", viewController: self) { action in
+            
+        } yesHandler: { action in
+            APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .deleteReview(appointment.review!.id!), method: .delete, isJSONRequest: false).executeQuery() { (result: Result<DefaultResponseModel, Error>) in
+                var title: String
+                var iconPreset: SPIndicatorIconPreset
+                var hapticPreset: SPIndicatorHaptic
+                switch result{
+                case .success(_):
+                    title = "Review Deleted"
+                    iconPreset = .done
+                    hapticPreset = .success
+                case .failure(let error):
+                    print(error)
+                    title = "Could not delete review"
+                    iconPreset = .error
+                    hapticPreset = .error
+                }
+                let indicatorView = SPIndicatorView(title: title, preset: iconPreset)
+                indicatorView.presentSide = .bottom
+                indicatorView.offset = 50.0
+                indicatorView.dismissByDrag = false
+                indicatorView.present(duration: 3.0, haptic: hapticPreset)
+                self.refreshData()
+            }
         }
-        let indicatorView = SPIndicatorView(title: title, preset: iconPreset)
-        indicatorView.presentSide = .bottom
-        indicatorView.offset = 50.0
-        indicatorView.dismissByDrag = false
-        indicatorView.present(duration: 3.0, haptic: hapticPreset)
-        self.refreshData()
     }
     
     func editFeedbackDidSelect(appointment: AppointmentElement) {

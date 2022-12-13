@@ -16,7 +16,7 @@ enum feedbackStates {
 
 protocol BookedAppointmentsCellProtocol {
     func feedbackButtonDidSelect(appointment: AppointmentElement)
-    func feedbackDeleted(isSuccess: Bool)
+    func feedbackDeletedClicked(appointment: AppointmentElement)
     func editFeedbackDidSelect(appointment: AppointmentElement)
     func editAppointmentDidSelect(appointment: AppointmentElement)
     func appointmentDeleted(isSuccess: Bool)
@@ -91,14 +91,14 @@ class BookedAppointmentsTableViewCell: UITableViewCell {
             menu = UIMenu(children: [])
         case .due:
             self.feedbackButton.backgroundColor = .white
-            self.feedbackButton.setTitle("Give Feedback", for: .normal)
+            self.feedbackButton.setTitle("Give Review", for: .normal)
             self.feedbackButton.layer.borderWidth = 0
             self.feedbackButton.setTitleColor(UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00), for: .normal)
             self.feedbackButton.setImage(nil, for: .normal)
             self.feedbackButton.isUserInteractionEnabled = true
             self.feedbackButton.addTarget(self, action: #selector(feedbackButtonClicked), for: .touchUpInside)
             
-            let giveFeedback = UIAction(title: "Give Feedback", image: UIImage(systemName: "checkmark.seal")) { action in
+            let giveFeedback = UIAction(title: "Give Review", image: UIImage(systemName: "checkmark.seal")) { action in
                 self.feedbackButtonClicked()
             }
             menu = UIMenu(children: [giveFeedback])
@@ -113,19 +113,11 @@ class BookedAppointmentsTableViewCell: UITableViewCell {
             self.feedbackButton.setImageTintColor(UIColor(red: 0.85, green: 0.65, blue: 0.13, alpha: 1.00))
             self.feedbackButton.isUserInteractionEnabled = false
             
-            let editFeedback = UIAction(title: "Edit Feedback", image: UIImage(systemName: "pencil")) { action in
+            let editFeedback = UIAction(title: "Edit Review", image: UIImage(systemName: "pencil")) { action in
                 self.delegate.editFeedbackDidSelect(appointment: self.appointment!)
             }
-            let deleteFeedback = UIAction(title: "Delete Feedback", image: UIImage(systemName: "trash"), attributes: .destructive) { action in
-                APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .deleteReview(appointment.review!.id!), method: .delete, isJSONRequest: false).executeQuery() { (result: Result<DefaultResponseModel, Error>) in
-                    switch result{
-                    case .success(_):
-                        self.delegate.feedbackDeleted(isSuccess: true)
-                    case .failure(let error):
-                        print(error)
-                        self.delegate.feedbackDeleted(isSuccess: false)
-                    }
-                }
+            let deleteFeedback = UIAction(title: "Delete Review", image: UIImage(systemName: "trash"), attributes: .destructive) { action in
+                self.delegate.feedbackDeletedClicked(appointment: self.appointment!)
             }
             menu = UIMenu(children: [editFeedback, deleteFeedback])
         case .notYet:
