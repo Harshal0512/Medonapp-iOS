@@ -103,7 +103,7 @@ class BookedAppointmentsTableViewCell: UITableViewCell {
                 self.delegate.editFeedbackDidSelect(appointment: self.appointment!)
             }
             let deleteFeedback = UIAction(title: "Delete Feedback", image: UIImage(systemName: "trash"), attributes: .destructive) { action in
-                APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .deleteReview(appointment.review!.id!), method: .delete, isJSONRequest: false).executeQuery() { (result: Result<String, Error>) in
+                APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .deleteReview(appointment.review!.id!), method: .delete, isJSONRequest: false).executeQuery() { (result: Result<DefaultResponseModel, Error>) in
                     switch result{
                     case .success(_):
                         self.delegate.feedbackDeleted(isSuccess: true)
@@ -122,10 +122,13 @@ class BookedAppointmentsTableViewCell: UITableViewCell {
             self.feedbackButton.setImage(nil, for: .normal)
             self.feedbackButton.isUserInteractionEnabled = false
             
+            let updateAppointment = UIAction(title: "Update Appointment", image: UIImage(systemName: "pencil")) { action in
+                
+            }
             let cancelAppointment = UIAction(title: "Cancel Appointment", image: UIImage(systemName: "exclamationmark.circle"), attributes: .destructive) { action in
                 
             }
-            menu = UIMenu(children: [cancelAppointment])
+            menu = UIMenu(children: [updateAppointment, cancelAppointment])
         }
         self.moreOptionsButton.menu = menu
         self.moreOptionsButton.showsMenuAsPrimaryAction = true

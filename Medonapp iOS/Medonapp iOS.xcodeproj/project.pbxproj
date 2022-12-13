@@ -68,6 +68,7 @@
 		F89272C228F1AEA50063525E /* ScheduleTabTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F89272C028F1AEA50063525E /* ScheduleTabTableViewCell.xib */; };
 		F89272C428F1B0F80063525E /* NunitoSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F89272C328F1B0F80063525E /* NunitoSans-Regular.ttf */; };
 		F8A4F47828F14CE60032A87B /* SearchBarWithSearchAndFilterIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A4F47728F14CE60032A87B /* SearchBarWithSearchAndFilterIcon.swift */; };
+		F8AAB18229486EE500A5C9E7 /* DefaultResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AAB18129486EE500A5C9E7 /* DefaultResponseModel.swift */; };
 		F8AF821D28F553CA00D62D98 /* DoctorDetailsViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AF821C28F553CA00D62D98 /* DoctorDetailsViewViewController.swift */; };
 		F8AF822128F5CB4900D62D98 /* DoctorDetailsScreenTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AF822028F5CB4900D62D98 /* DoctorDetailsScreenTopView.swift */; };
 		F8AF822328F5CB6300D62D98 /* DoctorDetailsScreenTopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8AF822228F5CB6300D62D98 /* DoctorDetailsScreenTopView.xib */; };
@@ -166,6 +167,7 @@
 		F89272C028F1AEA50063525E /* ScheduleTabTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleTabTableViewCell.xib; sourceTree = "<group>"; };
 		F89272C328F1B0F80063525E /* NunitoSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-Regular.ttf"; sourceTree = "<group>"; };
 		F8A4F47728F14CE60032A87B /* SearchBarWithSearchAndFilterIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarWithSearchAndFilterIcon.swift; sourceTree = "<group>"; };
+		F8AAB18129486EE500A5C9E7 /* DefaultResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultResponseModel.swift; sourceTree = "<group>"; };
 		F8AF821C28F553CA00D62D98 /* DoctorDetailsViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDetailsViewViewController.swift; sourceTree = "<group>"; };
 		F8AF822028F5CB4900D62D98 /* DoctorDetailsScreenTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDetailsScreenTopView.swift; sourceTree = "<group>"; };
 		F8AF822228F5CB6300D62D98 /* DoctorDetailsScreenTopView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DoctorDetailsScreenTopView.xib; sourceTree = "<group>"; };
@@ -407,6 +409,7 @@
 				F883FC0E2909228F00B17D01 /* MobileWithCountryCode.swift */,
 				F830804F290A76390088CDB8 /* Appointments.swift */,
 				F834BEE1290CFC0F0073FCAC /* Review.swift */,
+				F8AAB18129486EE500A5C9E7 /* DefaultResponseModel.swift */,
 				F8F3ED3B290967CD001D6A4C /* Outbound Models */,
 			);
 			path = Models;
@@ -748,6 +751,7 @@
 				F844C65D28FFCF0500BBE5B0 /* BookedAppointmentsViewController.swift in Sources */,
 				F883FC132909260E00B17D01 /* Prefs.swift in Sources */,
 				F8C75A6028E98B7000F5B2E2 /* extensions.swift in Sources */,
+				F8AAB18229486EE500A5C9E7 /* DefaultResponseModel.swift in Sources */,
 				F86A71CF28EE9C970083D12D /* HomeTabViewController.swift in Sources */,
 				F8F3ED432909692B001D6A4C /* MobileNumberShort.swift in Sources */,
 				F8A4F47828F14CE60032A87B /* SearchBarWithSearchAndFilterIcon.swift in Sources */,

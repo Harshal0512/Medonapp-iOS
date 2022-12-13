@@ -268,6 +268,7 @@ extension BookedAppointmentsViewController: BookedAppointmentsCellProtocol {
         indicatorView.offset = 50.0
         indicatorView.dismissByDrag = false
         indicatorView.present(duration: 3.0, haptic: hapticPreset)
+        self.refreshData()
     }
     
     func editFeedbackDidSelect(appointment: AppointmentElement) {
