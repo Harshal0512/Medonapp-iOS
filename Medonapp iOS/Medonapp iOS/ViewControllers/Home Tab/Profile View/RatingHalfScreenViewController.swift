@@ -22,6 +22,7 @@ class RatingHalfScreenViewController: UIViewController {
     private var submitButton: UIButton?
 
     public var appointment: AppointmentElement?
+    public var isReviewEditing: Bool = false
     
     var delegate: RatingHalfScreenDelegate!
     
@@ -69,16 +70,16 @@ class RatingHalfScreenViewController: UIViewController {
         contentView?.backgroundColor = .clear
         
         vcTitle = UILabel()
-        vcTitle?.text = "Rate Your Experience"
+        vcTitle?.text = isReviewEditing ? "Edit Feedback" : "Rate Your Experience"
         vcTitle?.font = UIFont(name: "NunitoSans-ExtraBold", size: 24)
         vcTitle?.textColor = .white
         contentView?.addSubview(vcTitle!)
         
-        ratingControl = JStarRatingView(frame: CGRect(origin: .zero, size: CGSize(width: 250, height: 50)), rating: 0.5, color: UIColor.systemOrange, starRounding: .roundToHalfStar)
+        ratingControl = JStarRatingView(frame: CGRect(origin: .zero, size: CGSize(width: 250, height: 50)), rating: isReviewEditing ? Float((appointment?.review?.rating)!) : 0.5, color: UIColor.systemOrange, starRounding: .roundToHalfStar)
         contentView?.addSubview(ratingControl!)
         
         feedbackTextView = UITextViewWithPlaceholder_CR8()
-        feedbackTextView?.text = ""
+        feedbackTextView?.text = isReviewEditing ? appointment?.review?.review! : ""
         feedbackTextView?.autocapitalizationType = .sentences
         feedbackTextView?.autocorrectionType = .yes
         feedbackTextView?.keyboardType = .default
@@ -89,7 +90,7 @@ class RatingHalfScreenViewController: UIViewController {
         submitButton?.backgroundColor = .white
         submitButton?.titleLabel?.font = UIFont(name: "NunitoSans-Bold", size: 14)
         submitButton?.layer.cornerRadius = 14
-        submitButton?.setTitle("Submit Feedback", for: .normal)
+        submitButton?.setTitle(isReviewEditing ? "Done" : "Submit Feedback", for: .normal)
         submitButton?.layer.borderWidth = 0
         submitButton?.setTitleColor(UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00), for: .normal)
         submitButton?.setImage(nil, for: .normal)
@@ -189,8 +190,8 @@ class RatingHalfScreenViewController: UIViewController {
                           "review": feedbackTextView!.text!],
                    headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"],
                    url: nil,
-                   service: .postReview,
-                   method: .post,
+                   service: isReviewEditing ? .editFeedback(appointment!.review!.id!) : .postReview,
+                   method: isReviewEditing ? .put : .post,
                    isJSONRequest: true).executeQuery() { (result: Result<Review, Error>) in
             switch result{
             case .success(_):

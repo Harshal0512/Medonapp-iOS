@@ -15,6 +15,8 @@ enum feedbackStates {
 
 protocol BookedAppointmentsCellProtocol {
     func feedbackButtonDidSelect(appointment: AppointmentElement)
+    func feedbackDeleted(isSuccess: Bool)
+    func editFeedbackDidSelect(appointment: AppointmentElement)
 }
 
 class BookedAppointmentsTableViewCell: UITableViewCell {
@@ -98,10 +100,18 @@ class BookedAppointmentsTableViewCell: UITableViewCell {
             self.feedbackButton.isUserInteractionEnabled = false
             
             let editFeedback = UIAction(title: "Edit Feedback", image: UIImage(systemName: "pencil")) { action in
-                
+                self.delegate.editFeedbackDidSelect(appointment: self.appointment!)
             }
             let deleteFeedback = UIAction(title: "Delete Feedback", image: UIImage(systemName: "trash"), attributes: .destructive) { action in
-                
+                APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .deleteReview(appointment.review!.id!), method: .delete, isJSONRequest: false).executeQuery() { (result: Result<String, Error>) in
+                    switch result{
+                    case .success(_):
+                        self.delegate.feedbackDeleted(isSuccess: true)
+                    case .failure(let error):
+                        print(error)
+                        self.delegate.feedbackDeleted(isSuccess: false)
+                    }
+                }
             }
             menu = UIMenu(children: [editFeedback, deleteFeedback])
         case .notYet:

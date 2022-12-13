@@ -16,6 +16,8 @@ class APIService : NSObject{
         case getPatientWithID(Int)
         case addFavorite(Int)
         case removeFavorite(Int)
+        case deleteReview(Int)
+        case editFeedback(Int)
         
         var endpoint: String {
             switch self {
@@ -39,6 +41,10 @@ class APIService : NSObject{
                 return "v1/patient/\(patientID)/addFavouriteDoctor"
             case .removeFavorite(let patientID):
                 return "v1/patient/\(patientID)/removeFavouriteDoctor"
+            case .deleteReview(let reviewID):
+                return "v1/review/\(reviewID)/delete"
+            case .editFeedback(let reviewID):
+                return "v1/review/\(reviewID)/update"
             }
         }
     }

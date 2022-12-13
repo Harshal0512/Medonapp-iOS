@@ -248,6 +248,41 @@ extension BookedAppointmentsViewController: BookedAppointmentsCellProtocol {
             sheetViewController.isModalInPresentation = true
         }
     }
+    
+    func feedbackDeleted(isSuccess: Bool) {
+        var title: String
+        var iconPreset: SPIndicatorIconPreset
+        var hapticPreset: SPIndicatorHaptic
+        switch isSuccess {
+        case true:
+            title = "Feedback Deleted"
+            iconPreset = .done
+            hapticPreset = .success
+        case false:
+            title = "Could not delete feedback"
+            iconPreset = .error
+            hapticPreset = .error
+        }
+        let indicatorView = SPIndicatorView(title: title, preset: iconPreset)
+        indicatorView.presentSide = .bottom
+        indicatorView.offset = 50.0
+        indicatorView.dismissByDrag = false
+        indicatorView.present(duration: 3.0, haptic: hapticPreset)
+    }
+    
+    func editFeedbackDidSelect(appointment: AppointmentElement) {
+        // Create the view controller.
+        let sheetViewController = RatingHalfScreenViewController()
+        
+        sheetViewController.appointment = appointment
+        sheetViewController.isReviewEditing = true
+        sheetViewController.delegate = self
+        
+        // Present it w/o any adjustments so it uses the default sheet presentation.
+        present(sheetViewController, animated: true) {
+            sheetViewController.isModalInPresentation = true
+        }
+    }
 }
 
 extension BookedAppointmentsViewController: RatingHalfScreenDelegate {
