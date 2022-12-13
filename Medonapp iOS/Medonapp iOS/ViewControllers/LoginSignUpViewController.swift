@@ -11,7 +11,6 @@ import SwiftValidator
 import DPOTPView
 import iOSDropDown
 import Toast_Swift
-import SPIndicator
 
 enum views {
     case login
@@ -759,11 +758,7 @@ class LoginSignUpViewController: UIViewController {
                 case .failure(let error):
                     print(error)
                     self.view.hideToastActivity()
-                    let indicatorView = SPIndicatorView(title: "Incorrect Details", message: "Enter correct credentials.", preset: .error)
-                    indicatorView.presentSide = .bottom
-                    indicatorView.offset = 50.0
-                    indicatorView.dismissByDrag = false
-                    indicatorView.present(duration: 6.0, haptic: .error)
+                    Utils.displaySPIndicatorNotifWithMessage(title: "Incorrect Details", message: "Enter correct credentials.", iconPreset: .error, hapticPreset: .error, duration: 6)
                 }
             }
         }
@@ -804,11 +799,7 @@ class LoginSignUpViewController: UIViewController {
             validator.registerField(weightField!, rules: [RequiredRule(), FloatRule()])
         } else if !isValidationError && activeView == .signupPersonalDetails {
             if Double((self.weightField?.text)!)! <= 0.0 || Double((self.weightField?.text)!)! > 1000.0 {
-                let indicatorView = SPIndicatorView(title: "Incorrect Details", message: "Enter valid weight.", preset: .error)
-                indicatorView.presentSide = .bottom
-                indicatorView.offset = 50.0
-                indicatorView.dismissByDrag = false
-                indicatorView.present(duration: 6.0, haptic: .error)
+                Utils.displaySPIndicatorNotifWithMessage(title: "Incorrect Details", message: "Enter valid weight.", iconPreset: .error, hapticPreset: .error, duration: 6)
                 return
             }
             UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
@@ -1104,11 +1095,7 @@ class LoginSignUpViewController: UIViewController {
             case .success(_):
                 try? print(result.get())
                 try? self.otpFromServer = "\(result.get())"
-                let indicatorView = SPIndicatorView(title: "Sent OTP", message: "OTP Sent Successfully.", preset: .done)
-                indicatorView.presentSide = .bottom
-                indicatorView.offset = 50.0
-                indicatorView.dismissByDrag = false
-                indicatorView.present(duration: 6.0, haptic: .success)
+                Utils.displaySPIndicatorNotifWithMessage(title: "Sent OTP", message: "OTP Sent Successfully.", iconPreset: .done, hapticPreset: .success, duration: 6)
                 
                 self.timer.invalidate() // just in case this button is tapped multiple times
                 self.counter = 30
@@ -1238,11 +1225,7 @@ extension LoginSignUpViewController : UITextFieldDelegate, DPOTPViewDelegate, Va
                         
                     })
                     self.view.hideToastActivity()
-                    let indicatorView = SPIndicatorView(title: "Unknown Error", message: "An Error has occured.", preset: .error)
-                    indicatorView.presentSide = .bottom
-                    indicatorView.offset = 50.0
-                    indicatorView.dismissByDrag = false
-                    indicatorView.present(duration: 6.0, haptic: .error)
+                    Utils.displaySPIndicatorNotifWithMessage(title: "Unknown Error", message: "An Error has occured.", iconPreset: .error, hapticPreset: .error, duration: 6)
                 }
             }
             
@@ -1254,11 +1237,7 @@ extension LoginSignUpViewController : UITextFieldDelegate, DPOTPViewDelegate, Va
                     (finished: Bool) -> Void in
                     self.progressBar?.setProgress(0.87, animated: true)
                 })
-                let indicatorView = SPIndicatorView(title: "OTP Incorrect", message: "Enter correct OTP to continue.", preset: .error)
-                indicatorView.presentSide = .bottom
-                indicatorView.offset = 50.0
-                indicatorView.dismissByDrag = false
-                indicatorView.present(duration: 6.0, haptic: .error)
+                Utils.displaySPIndicatorNotifWithMessage(title: "OTP Incorrect", message: "Enter correct OTP to continue.", iconPreset: .error, hapticPreset: .error, duration: 6)
             }
         }
     }

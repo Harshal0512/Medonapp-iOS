@@ -8,8 +8,25 @@
 import Foundation
 import UIKit
 import CoreLocation
+import SPIndicator
 
 class Utils {
+    
+    internal class func displaySPIndicatorNotifWithMessage(title: String, message: String, iconPreset: SPIndicatorIconPreset, hapticPreset: SPIndicatorHaptic, duration: TimeInterval) {
+        let indicatorView = SPIndicatorView(title: title, message: message, preset: iconPreset)
+        indicatorView.presentSide = .bottom
+        indicatorView.offset = 50.0
+        indicatorView.dismissByDrag = false
+        indicatorView.present(duration: duration, haptic: hapticPreset)
+    }
+    
+    internal class func displaySPIndicatorNotifWithoutMessage(title: String, iconPreset: SPIndicatorIconPreset, hapticPreset: SPIndicatorHaptic, duration: TimeInterval) {
+        let indicatorView = SPIndicatorView(title: title, preset: iconPreset)
+        indicatorView.presentSide = .bottom
+        indicatorView.offset = 50.0
+        indicatorView.dismissByDrag = false
+        indicatorView.present(duration: duration, haptic: hapticPreset)
+    }
     
     internal class func displayAlert(_ displayText: String?, viewController: UIViewController?) {
         guard let displayText = displayText else { return }

@@ -9,7 +9,6 @@ import UIKit
 import EventKit
 
 import Toast_Swift
-import SPIndicator
 
 class BookAppointmentViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     
@@ -357,17 +356,9 @@ extension BookAppointmentViewController: UICollectionViewDelegate, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if (collectionView.cellForItem(at: indexPath) as! AppointmentTimeCollectionViewCell).isNotAvailable {
-            let indicatorView = SPIndicatorView(title: "Time slot is before current time.", preset: .error)
-            indicatorView.presentSide = .bottom
-            indicatorView.offset = 50.0
-            indicatorView.dismissByDrag = false
-            indicatorView.present(duration: 1.0, haptic: .error)
+            Utils.displaySPIndicatorNotifWithoutMessage(title: "Time slot is before current time.", iconPreset: .error, hapticPreset: .error, duration: 1)
         } else if (collectionView.cellForItem(at: indexPath) as! AppointmentTimeCollectionViewCell).isBooked {
-            let indicatorView = SPIndicatorView(title: "Time slot already booked.", preset: .error)
-            indicatorView.presentSide = .bottom
-            indicatorView.offset = 50.0
-            indicatorView.dismissByDrag = false
-            indicatorView.present(duration: 1.0, haptic: .error)
+            Utils.displaySPIndicatorNotifWithoutMessage(title: "Time slot already booked.", iconPreset: .error, hapticPreset: .error, duration: 1)
         } else {
             activeItem = indexPath.row
             collectionView.reloadData()

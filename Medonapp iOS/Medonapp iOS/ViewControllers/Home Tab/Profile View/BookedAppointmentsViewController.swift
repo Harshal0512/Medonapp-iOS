@@ -8,7 +8,6 @@
 import UIKit
 import SkeletonView
 import Toast_Swift
-import SPIndicator
 
 class BookedAppointmentsViewController: UIViewController {
     
@@ -256,25 +255,13 @@ extension BookedAppointmentsViewController: BookedAppointmentsCellProtocol {
             
         } yesHandler: { action in
             APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .deleteReview(appointment.review!.id!), method: .delete, isJSONRequest: false).executeQuery() { (result: Result<DefaultResponseModel, Error>) in
-                var title: String
-                var iconPreset: SPIndicatorIconPreset
-                var hapticPreset: SPIndicatorHaptic
                 switch result{
                 case .success(_):
-                    title = "Review Deleted"
-                    iconPreset = .done
-                    hapticPreset = .success
+                    Utils.displaySPIndicatorNotifWithoutMessage(title: "Review Deleted", iconPreset: .done, hapticPreset: .success, duration: 3)
                 case .failure(let error):
                     print(error)
-                    title = "Could not delete review"
-                    iconPreset = .error
-                    hapticPreset = .error
+                    Utils.displaySPIndicatorNotifWithoutMessage(title: "Could not delete review", iconPreset: .error, hapticPreset: .error, duration: 3)
                 }
-                let indicatorView = SPIndicatorView(title: title, preset: iconPreset)
-                indicatorView.presentSide = .bottom
-                indicatorView.offset = 50.0
-                indicatorView.dismissByDrag = false
-                indicatorView.present(duration: 3.0, haptic: hapticPreset)
                 self.refreshData()
             }
         }
@@ -308,25 +295,13 @@ extension BookedAppointmentsViewController: BookedAppointmentsCellProtocol {
             
         } yesHandler: { action in
             APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .cancelAppointment(appointment.id!), method: .put, isJSONRequest: false).executeQuery() { (result: Result<AppointmentElement, Error>) in
-                var title: String
-                var iconPreset: SPIndicatorIconPreset
-                var hapticPreset: SPIndicatorHaptic
                 switch result{
                 case .success(_):
-                    title = "Appointment Deleted"
-                    iconPreset = .done
-                    hapticPreset = .success
+                    Utils.displaySPIndicatorNotifWithoutMessage(title: "Appointment Deleted", iconPreset: .done, hapticPreset: .success, duration: 3)
                 case .failure(let error):
                     print(error)
-                    title = "Could not delete appointment"
-                    iconPreset = .error
-                    hapticPreset = .error
+                    Utils.displaySPIndicatorNotifWithoutMessage(title: "Could not delete appointment", iconPreset: .error, hapticPreset: .error, duration: 3)
                 }
-                let indicatorView = SPIndicatorView(title: title, preset: iconPreset)
-                indicatorView.presentSide = .bottom
-                indicatorView.offset = 50.0
-                indicatorView.dismissByDrag = false
-                indicatorView.present(duration: 3.0, haptic: hapticPreset)
                 self.refreshData()
             }
         }
@@ -335,25 +310,11 @@ extension BookedAppointmentsViewController: BookedAppointmentsCellProtocol {
 
 extension BookedAppointmentsViewController: RatingHalfScreenDelegate {
     func feedbackClosed(isSuccess: Bool) {
-        var title, message: String
-        var iconPreset: SPIndicatorIconPreset
-        var hapticPreset: SPIndicatorHaptic
         if isSuccess {
-            title = "Success"
-            message = "Feedback Recorded"
-            iconPreset = .done
-            hapticPreset = .success
+            Utils.displaySPIndicatorNotifWithMessage(title: "Success", message: "Feedback Recorded", iconPreset: .done, hapticPreset: .success, duration: 6)
         } else {
-            title = "Error"
-            message = "Unknown Error Occured"
-            iconPreset = .error
-            hapticPreset = .error
+            Utils.displaySPIndicatorNotifWithMessage(title: "Error", message: "Unknown Error Occured", iconPreset: .error, hapticPreset: .error, duration: 6)
         }
-        let indicatorView = SPIndicatorView(title: title, message: message, preset: iconPreset)
-        indicatorView.presentSide = .bottom
-        indicatorView.offset = 50.0
-        indicatorView.dismissByDrag = false
-        indicatorView.present(duration: 6.0, haptic: hapticPreset)
         self.refreshData()
     }
 }
