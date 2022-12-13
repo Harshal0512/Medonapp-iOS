@@ -19,7 +19,7 @@ protocol BookedAppointmentsCellProtocol {
     func feedbackDeletedClicked(appointment: AppointmentElement)
     func editFeedbackDidSelect(appointment: AppointmentElement)
     func editAppointmentDidSelect(appointment: AppointmentElement)
-    func appointmentDeleted(isSuccess: Bool)
+    func appointmentDeletedClicked(appointment: AppointmentElement)
 }
 
 class BookedAppointmentsTableViewCell: UITableViewCell {
@@ -132,15 +132,7 @@ class BookedAppointmentsTableViewCell: UITableViewCell {
                 self.delegate.editAppointmentDidSelect(appointment: self.appointment!)
             }
             let cancelAppointment = UIAction(title: "Cancel Appointment", image: UIImage(systemName: "exclamationmark.circle"), attributes: .destructive) { action in
-                APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .cancelAppointment(appointment.id!), method: .put, isJSONRequest: false).executeQuery() { (result: Result<AppointmentElement, Error>) in
-                    switch result{
-                    case .success(_):
-                        self.delegate.appointmentDeleted(isSuccess: true)
-                    case .failure(let error):
-                        print(error)
-                        self.delegate.appointmentDeleted(isSuccess: false)
-                    }
-                }
+                self.delegate.appointmentDeletedClicked(appointment: self.appointment!)
             }
             menu = UIMenu(children: [updateAppointment, cancelAppointment])
         }

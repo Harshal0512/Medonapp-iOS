@@ -303,26 +303,33 @@ extension BookedAppointmentsViewController: BookedAppointmentsCellProtocol {
         self.present(appointmentDetailsVC!, animated: true, completion: nil)
     }
     
-    func appointmentDeleted(isSuccess: Bool) {
-        var title: String
-        var iconPreset: SPIndicatorIconPreset
-        var hapticPreset: SPIndicatorHaptic
-        switch isSuccess {
-        case true:
-            title = "Appointment Deleted"
-            iconPreset = .done
-            hapticPreset = .success
-        case false:
-            title = "Could not delete appointment"
-            iconPreset = .error
-            hapticPreset = .error
+    func appointmentDeletedClicked(appointment: AppointmentElement) {
+        Utils.displayYesREDNoAlertWithHandler("Your appointment will be cancelled. This action cannot be undone. Are you sure you want to continue?", viewController: self) { action in
+            
+        } yesHandler: { action in
+            APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .cancelAppointment(appointment.id!), method: .put, isJSONRequest: false).executeQuery() { (result: Result<AppointmentElement, Error>) in
+                var title: String
+                var iconPreset: SPIndicatorIconPreset
+                var hapticPreset: SPIndicatorHaptic
+                switch result{
+                case .success(_):
+                    title = "Appointment Deleted"
+                    iconPreset = .done
+                    hapticPreset = .success
+                case .failure(let error):
+                    print(error)
+                    title = "Could not delete appointment"
+                    iconPreset = .error
+                    hapticPreset = .error
+                }
+                let indicatorView = SPIndicatorView(title: title, preset: iconPreset)
+                indicatorView.presentSide = .bottom
+                indicatorView.offset = 50.0
+                indicatorView.dismissByDrag = false
+                indicatorView.present(duration: 3.0, haptic: hapticPreset)
+                self.refreshData()
+            }
         }
-        let indicatorView = SPIndicatorView(title: title, preset: iconPreset)
-        indicatorView.presentSide = .bottom
-        indicatorView.offset = 50.0
-        indicatorView.dismissByDrag = false
-        indicatorView.present(duration: 3.0, haptic: hapticPreset)
-        self.refreshData()
     }
 }
 
