@@ -284,6 +284,15 @@ extension BookedAppointmentsViewController: BookedAppointmentsCellProtocol {
             sheetViewController.isModalInPresentation = true
         }
     }
+    
+    func editAppointmentDidSelect(appointment: AppointmentElement) {
+        let appointmentDetailsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "appointmentDetailsVC") as? AppointmentDetailsViewController
+        appointmentDetailsVC?.doctor = appointment.doctor
+        appointmentDetailsVC?.modalPresentationStyle = .fullScreen
+        appointmentDetailsVC?.isEditingAppointment = true
+        appointmentDetailsVC?.appointment = appointment
+        self.present(appointmentDetailsVC!, animated: true, completion: nil)
+    }
 }
 
 extension BookedAppointmentsViewController: RatingHalfScreenDelegate {

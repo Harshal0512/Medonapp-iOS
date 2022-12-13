@@ -17,6 +17,7 @@ protocol BookedAppointmentsCellProtocol {
     func feedbackButtonDidSelect(appointment: AppointmentElement)
     func feedbackDeleted(isSuccess: Bool)
     func editFeedbackDidSelect(appointment: AppointmentElement)
+    func editAppointmentDidSelect(appointment: AppointmentElement)
 }
 
 class BookedAppointmentsTableViewCell: UITableViewCell {
@@ -123,7 +124,7 @@ class BookedAppointmentsTableViewCell: UITableViewCell {
             self.feedbackButton.isUserInteractionEnabled = false
             
             let updateAppointment = UIAction(title: "Update Appointment", image: UIImage(systemName: "pencil")) { action in
-                
+                self.delegate.editAppointmentDidSelect(appointment: self.appointment!)
             }
             let cancelAppointment = UIAction(title: "Cancel Appointment", image: UIImage(systemName: "exclamationmark.circle"), attributes: .destructive) { action in
                 

@@ -28,6 +28,8 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegateF
     
     public var symptoms: String = ""
     public var doctor: Doctor?
+    public var isEditingAppointment: Bool = false
+    public var appointment: AppointmentElement?
     
     let eventStore = EKEventStore()
     var isRemindersAccess: Bool = false
@@ -77,7 +79,7 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegateF
         backButton?.isUserInteractionEnabled = true
         
         navTitle = UILabel()
-        navTitle?.text = "Appointment"
+        navTitle?.text = isEditingAppointment ? "Edit Appointment" : "Appointment"
         navTitle?.textAlignment = .center
         navTitle?.textColor = .black
         navTitle?.font = UIFont(name: "NunitoSans-Bold", size: 18)
@@ -122,7 +124,7 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegateF
         //        timeCollectionView?.showsVerticalScrollIndicator = false
         
         makeAppointmentButton = UIButtonVariableBackgroundVariableCR()
-        makeAppointmentButton?.initButton(title: "Make Appointment", cornerRadius: 14, variant: .whiteBack, titleColor: UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00))
+        makeAppointmentButton?.initButton(title: isEditingAppointment ? "Confirm Time" : "Make Appointment", cornerRadius: 14, variant: .whiteBack, titleColor: UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00))
         timeSelectView?.addSubview(makeAppointmentButton!)
         makeAppointmentButton?.addTarget(self, action: #selector(goToAppointmentStatusVC), for: .touchUpInside)
     }
@@ -188,7 +190,11 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegateF
     }
     
     @objc func handleBackAction(_ sender: UITapGestureRecognizer? = nil) {
-        navigationController?.popViewController(animated: true)
+        if isEditingAppointment {
+            self.dismiss(animated: true)
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
     }
     
     @objc func dateChanged() {
@@ -221,8 +227,8 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegateF
                           "symptoms": symptoms],
                    headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"],
                    url: nil,
-                   service: .bookAppointment,
-                   method: .post,
+                   service: isEditingAppointment ? .editAppointment(appointment!.id!) : .bookAppointment,
+                   method: isEditingAppointment ? .put : .post,
                    isJSONRequest: true).executeQuery() { [self] (result: Result<AppointmentElement, Error>) in
             switch result{
             case .success(let appointment):
@@ -267,7 +273,13 @@ class BookAppointmentViewController: UIViewController, UICollectionViewDelegateF
     }
     
     @objc func goToDashboard() {
-        self.navigationController?.popToRootViewController(animated: true)
+        if isEditingAppointment {
+            self.dismiss(animated: true) {
+                NotificationCenter.default.post(name: Notification.Name("goToBookedAPPT"), object: nil)
+            }
+        } else {
+            self.navigationController?.popToRootViewController(animated: true)
+        }
     }
     
 }

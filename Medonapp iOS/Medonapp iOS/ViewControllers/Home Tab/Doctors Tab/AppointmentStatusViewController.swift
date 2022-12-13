@@ -117,8 +117,9 @@ class AppointmentStatusViewController: UIViewController {
     }
     
     @objc func goToHome() {
-        NotificationCenter.default.post(name: Notification.Name("goToDashboard"), object: nil)
-        self.dismiss(animated: true)
+        self.dismiss(animated: true) {
+            NotificationCenter.default.post(name: Notification.Name("goToDashboard"), object: nil)
+        }
     }
     
     @objc func goBack() {

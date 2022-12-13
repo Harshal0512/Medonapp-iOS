@@ -24,6 +24,8 @@ class AppointmentDetailsViewController: UIViewController, UITextViewDelegate {
     private var bookNowButton: UIButtonVariableBackgroundVariableCR?
     
     public var doctor: Doctor?
+    public var isEditingAppointment: Bool = false
+    public var appointment: AppointmentElement?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +41,8 @@ class AppointmentDetailsViewController: UIViewController, UITextViewDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleBackAction), name: Notification.Name("goToBookedAPPT"), object: nil)
     }
     
     func setupUI() {
@@ -100,18 +104,19 @@ class AppointmentDetailsViewController: UIViewController, UITextViewDelegate {
         contentView?.addSubview(numberOfReviews!)
         
         symptomsLabel = UILabel()
-        symptomsLabel?.text = "Enter your Symptoms"
+        symptomsLabel?.text = isEditingAppointment ? "Edit Appointment Symptoms" : "Enter your Symptoms"
         symptomsLabel?.textColor = .black
         symptomsLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 16)
         contentView?.addSubview(symptomsLabel!)
         
         symptomsTextView = UITextViewWithPlaceholder_CR8()
         symptomsTextView?.setupUI(backgroundColor: UIColor(red: 0.93, green: 0.96, blue: 0.99, alpha: 1.00))
+        symptomsTextView?.text = isEditingAppointment ? appointment!.symptoms! : ""
         symptomsTextView?.delegate = self
         contentView?.addSubview(symptomsTextView!)
         
         bookNowButton = UIButtonVariableBackgroundVariableCR()
-        bookNowButton?.initButton(title: "Book Now", cornerRadius: 14, variant: .blueBack)
+        bookNowButton?.initButton(title: isEditingAppointment ? "Edit Time Slots" : "Book Now", cornerRadius: 14, variant: .blueBack)
         contentView?.addSubview(bookNowButton!)
         bookNowButton?.addTarget(self, action: #selector(bookNowButtonPressed), for: .touchUpInside)
     }
@@ -195,7 +200,11 @@ class AppointmentDetailsViewController: UIViewController, UITextViewDelegate {
     }
     
     @objc func handleBackAction(_ sender: UITapGestureRecognizer? = nil) {
-        navigationController?.popViewController(animated: true)
+        if isEditingAppointment {
+            self.dismiss(animated: true)
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -223,6 +232,13 @@ class AppointmentDetailsViewController: UIViewController, UITextViewDelegate {
         let bookAppointmentVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "bookAppointmentVC") as? BookAppointmentViewController
         bookAppointmentVC?.symptoms = symptomsTextView?.text ?? ""
         bookAppointmentVC?.doctor = self.doctor
-        self.navigationController?.pushViewController(bookAppointmentVC!, animated: true)
+        if isEditingAppointment {
+            bookAppointmentVC?.isEditingAppointment = true
+            bookAppointmentVC?.appointment = self.appointment
+            bookAppointmentVC?.modalPresentationStyle = .fullScreen
+            self.present(bookAppointmentVC!, animated: true)
+        } else {
+            self.navigationController?.pushViewController(bookAppointmentVC!, animated: true)
+        }
     }
 }
