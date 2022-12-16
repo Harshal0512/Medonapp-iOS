@@ -24,6 +24,7 @@ import Alamofire
 
 class AppointmentElement: Codable {
     var id, doctorID, patientID: Int?
+    var patientURL, doctorURL: String?
     var patient: Patient?
     var doctor: Doctor?
     var startTime, endTime, status, duration: String?
@@ -37,12 +38,12 @@ class AppointmentElement: Codable {
         case patient, doctor, startTime, endTime, status, duration, review, symptoms
     }
 
-    init(id: Int?, doctorID: Int?, patientID: Int?, patient: Patient?, doctor: Doctor?, startTime: String?, endTime: String?, status: String?, duration: String?, review: Review?, symptoms: String?    ) {
+    init(id: Int?, doctorID: Int?, patientID: Int?, patientURL: String?, doctorURL: String?, patient: Patient?, doctor: Doctor?, startTime: String?, endTime: String?, status: String?, duration: String?, review: Review?, symptoms: String?    ) {
         self.id = id
         self.doctorID = doctorID
         self.patientID = patientID
-        self.patient = patient
-        self.doctor = doctor
+        self.patientURL = patientURL
+        self.doctorURL = doctorURL
         self.startTime = startTime
         self.endTime = endTime
         self.status = status
@@ -72,12 +73,20 @@ class AppointmentElement: Codable {
             switch result{
             case .success(let app):
                 AppointmentElement.initAppointments(appointments: app)
+                populateDoctorAndPatient()
                 AppointmentElement.sortAppointments(order: .orderedAscending)
                 completionHandler(true)
             case .failure(let error):
                 print(error)
                 completionHandler(false)
             }
+        }
+    }
+    
+    static private func populateDoctorAndPatient() {
+        for appointment in appointments {
+            appointment.doctor = Doctor.getDoctor(withID: appointment.doctorID!)
+            appointment.patient = User.getUserDetails().patient!
         }
     }
     

@@ -109,6 +109,42 @@ class Doctor: Codable, Hashable {
     static private var doctors: [Doctor] = []
     static private var liveDoctors: [Doctor] = []
     
+    static func getDoctors() -> [Doctor] {
+        return doctors
+    }
+    
+    static func clearDoctors() {
+        doctors = []
+    }
+    
+    static func refreshDoctors(completionHandler: @escaping (Bool) -> ()) {
+        APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .getAllDoctors, method: .get, isJSONRequest: false).executeQuery() { (result: Result<[Doctor], Error>) in
+            switch result{
+            case .success(_):
+                try? Doctor.initDoctors(doctors: result.get())
+                Doctor.initFavoriteState()
+                Doctor.setFullName()
+                completionHandler(true)
+            case .failure(let error):
+                print(error)
+                completionHandler(false)
+            }
+        }
+    }
+    
+    static func initDoctors(doctors: [Doctor]) {
+        self.doctors = doctors
+    }
+    
+    static func getDoctor(withID id: Int) -> Doctor? {
+        for doctor in doctors {
+            if doctor.id == id {
+                return doctor
+            }
+        }
+        return nil
+    }
+    
     static func sortDoctors(doctors: [Doctor]) -> [Doctor] {
         if Prefs.isLocationPerm {
             return doctors.sorted(by: { $0.distanceFromUser < $1.distanceFromUser }).sorted(by: { $0.reviewCount! > $1.reviewCount! }).sorted(by: { $0.avgRating! > $1.avgRating! })
@@ -166,32 +202,5 @@ class Doctor: Codable, Hashable {
                                        longitude: userLocation.coordinate.longitude))
         }
         
-    }
-    
-    static func getDoctors() -> [Doctor] {
-        return doctors
-    }
-    
-    static func clearDoctors() {
-        doctors = []
-    }
-    
-    static func refreshDoctors(completionHandler: @escaping (Bool) -> ()) {
-        APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .getAllDoctors, method: .get, isJSONRequest: false).executeQuery() { (result: Result<[Doctor], Error>) in
-            switch result{
-            case .success(_):
-                try? Doctor.initDoctors(doctors: result.get())
-                Doctor.initFavoriteState()
-                Doctor.setFullName()
-                completionHandler(true)
-            case .failure(let error):
-                print(error)
-                completionHandler(false)
-            }
-        }
-    }
-    
-    static func initDoctors(doctors: [Doctor]) {
-        self.doctors = doctors
     }
 }
