@@ -162,9 +162,9 @@ class Doctor: Codable, Hashable {
     }
     
     static func initFavoriteState() {
-        for doctorF in (User.getUserDetails().patient!.favoriteDoctors)! {
+        for favorite in (User.getUserDetails().patient!.favoriteDoctors)! {
             for doctor in doctors {
-                if doctorF.id == doctor.id {
+                if favorite.id == doctor.id {
                     doctor.isFavorite = true
                     break
                 }

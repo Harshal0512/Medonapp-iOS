@@ -54,6 +54,7 @@
 		F86A71CF28EE9C970083D12D /* HomeTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86A71CE28EE9C970083D12D /* HomeTabViewController.swift */; };
 		F86A71D728EEAF7B0083D12D /* NunitoSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F86A71D628EEAF7B0083D12D /* NunitoSans-SemiBold.ttf */; };
 		F87559412901290C00863554 /* RatingHalfScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87559402901290C00863554 /* RatingHalfScreenViewController.swift */; };
+		F877CADD29518B6800B36605 /* FavoriteDoctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F877CADC29518B6800B36605 /* FavoriteDoctor.swift */; };
 		F883FC0529091F8800B17D01 /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F883FC0429091F8800B17D01 /* Patient.swift */; };
 		F883FC07290921F100B17D01 /* FullAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = F883FC06290921F100B17D01 /* FullAddress.swift */; };
 		F883FC092909222200B17D01 /* Credential.swift in Sources */ = {isa = PBXBuildFile; fileRef = F883FC082909222200B17D01 /* Credential.swift */; };
@@ -153,6 +154,7 @@
 		F86A71CE28EE9C970083D12D /* HomeTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabViewController.swift; sourceTree = "<group>"; };
 		F86A71D628EEAF7B0083D12D /* NunitoSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		F87559402901290C00863554 /* RatingHalfScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingHalfScreenViewController.swift; sourceTree = "<group>"; };
+		F877CADC29518B6800B36605 /* FavoriteDoctor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteDoctor.swift; sourceTree = "<group>"; };
 		F883FC0429091F8800B17D01 /* Patient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Patient.swift; sourceTree = "<group>"; };
 		F883FC06290921F100B17D01 /* FullAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullAddress.swift; sourceTree = "<group>"; };
 		F883FC082909222200B17D01 /* Credential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credential.swift; sourceTree = "<group>"; };
@@ -402,6 +404,7 @@
 				F840513428FD139F0051B636 /* Doctor.swift */,
 				F883FC102909248900B17D01 /* User.swift */,
 				F883FC0429091F8800B17D01 /* Patient.swift */,
+				F877CADC29518B6800B36605 /* FavoriteDoctor.swift */,
 				F883FC06290921F100B17D01 /* FullAddress.swift */,
 				F883FC082909222200B17D01 /* Credential.swift */,
 				F883FC0A2909225E00B17D01 /* NameInclMiddleName.swift */,
@@ -697,6 +700,7 @@
 				F883FC0D2909227400B17D01 /* ProfileImage.swift in Sources */,
 				F81BAAE428F93BC90080BD21 /* AppointmentTimeCollectionViewCell.swift in Sources */,
 				F8F3ED4529096A24001D6A4C /* CredentialShort.swift in Sources */,
+				F877CADD29518B6800B36605 /* FavoriteDoctor.swift in Sources */,
 				F859AB3428EC2FA20069D247 /* UITextViewWithPlaceholder_CR8.swift in Sources */,
 				F81BAAEA28F97E6B0080BD21 /* AppointmentStatusViewController.swift in Sources */,
 				F8F4C3E12919750F00EF17EA /* Popover Utils.swift in Sources */,

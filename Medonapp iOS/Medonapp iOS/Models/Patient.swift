@@ -20,7 +20,7 @@ class Patient: Codable {
     var weight: Double?
     var healthStatus: JSONNull?
     var profileImage: ProfileImage?
-    var favoriteDoctors: [Doctor]?
+    var favoriteDoctors: [FavoriteDoctor]?
     
     enum CodingKeys: CodingKey {
         case id
@@ -39,7 +39,7 @@ class Patient: Codable {
         case favoriteDoctors
     }
 
-    init(id: Int?, credential: Credential?, name: NameInclMiddleName?, address: FullAddress?, mobile: MobileWithCountryCode?, dob: String?, bloodGroup: String?, age: String?, gender: String?, height: Double?, weight: Double?, healthStatus: JSONNull?, profileImage: ProfileImage?, favoriteDoctors: [Doctor]?) {
+    init(id: Int?, credential: Credential?, name: NameInclMiddleName?, address: FullAddress?, mobile: MobileWithCountryCode?, dob: String?, bloodGroup: String?, age: String?, gender: String?, height: Double?, weight: Double?, healthStatus: JSONNull?, profileImage: ProfileImage?, favoriteDoctors: [FavoriteDoctor]?) {
         self.id = id
         self.credential = credential
         self.name = name
