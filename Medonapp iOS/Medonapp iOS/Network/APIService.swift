@@ -96,7 +96,11 @@ class APIService : NSObject{
                     }
                 }
             case .failure(let error):
-                completion(.failure(error))
+                if error._code == NSURLErrorTimedOut {
+                    print("Request timeout!")
+                } else {
+                    completion(.failure(error))
+                }
             }
         })
     }
