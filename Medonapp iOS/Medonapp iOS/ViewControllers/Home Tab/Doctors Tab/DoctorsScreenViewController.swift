@@ -291,8 +291,6 @@ extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, willEndContextMenuInteraction configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionAnimating?) {
-        self.view.isUserInteractionEnabled = false
-        self.view.makeToastActivity(.center)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
             self.refreshData()
         }
