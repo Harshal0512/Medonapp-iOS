@@ -58,7 +58,7 @@ class APIService : NSObject{
     var parameters = Parameters()
     var headers = HTTPHeaders()
     var method: HTTPMethod!
-    var url :String! = "http://34.100.156.30:8080/api/"
+    var api_endpoint: String! = ProcessInfo.processInfo.environment["api_endpoint"]
     var encoding: ParameterEncoding! = JSONEncoding.default
     
     init(data: [String:Any],headers: [String:String] = [:], url :String?, service :services? = nil, method: HTTPMethod = .post, isJSONRequest: Bool = true){
@@ -66,19 +66,19 @@ class APIService : NSObject{
         data.forEach{parameters.updateValue($0.value, forKey: $0.key)}
         headers.forEach({self.headers.add(name: $0.key, value: $0.value)})
         if url == nil, service != nil{
-            self.url += service!.endpoint
+            self.api_endpoint += service!.endpoint
         }else{
-            self.url = url
+            self.api_endpoint = url
         }
         if !isJSONRequest{
             encoding = URLEncoding.default
         }
         self.method = method
-        print("Service: \(service?.endpoint ?? self.url ?? "") \n data: \(parameters)")
+        print("Service: \(service?.endpoint ?? self.api_endpoint ?? "") \n data: \(parameters)")
     }
     
     func executeQuery<T>(completion: @escaping (Result<T, Error>) -> Void) where T: Codable {
-        AF.request(url,method: method,parameters: parameters,encoding: encoding, headers: headers).responseData(completionHandler: {response in
+        AF.request(api_endpoint,method: method,parameters: parameters,encoding: encoding, headers: headers).responseData(completionHandler: {response in
             switch response.result{
             case .success(let res):
                 if let code = response.response?.statusCode{
