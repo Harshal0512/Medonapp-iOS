@@ -58,7 +58,7 @@ class APIService : NSObject{
     var parameters = Parameters()
     var headers = HTTPHeaders()
     var method: HTTPMethod!
-    var api_endpoint: String! = ProcessInfo.processInfo.environment["api_endpoint"]
+    var api_endpoint: String! = "http://34.100.156.30:8080/api/"
     var encoding: ParameterEncoding! = JSONEncoding.default
     
     init(data: [String:Any],headers: [String:String] = [:], url :String?, service :services? = nil, method: HTTPMethod = .post, isJSONRequest: Bool = true){
