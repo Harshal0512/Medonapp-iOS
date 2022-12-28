@@ -741,7 +741,8 @@ class LoginSignUpViewController: UIViewController {
             self.view.makeToastActivity(.center)
             let hashedPassword = SHA512.hash(data: Data(passwordTextField!.text!.utf8))
             APIService(data: ["username": emailTextFieldLogin!.text!,
-                              "password": hashedPassword.compactMap { String(format: "%02x", $0) }.joined()],
+                              "password": hashedPassword.compactMap { String(format: "%02x", $0) }.joined(),
+                              "isDoctor": false],
                        url: nil,
                        service: .login,
                        method: .post,
