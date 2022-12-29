@@ -85,6 +85,12 @@ class PrefDataManager {
     static func currentApplicationMode() -> applicationModes {
         return Prefs.applicationMode
     }
+    static func clearAllPrefs() {
+        Prefs.authToken = ""
+        Prefs.userId = ""
+        Prefs.allDoctors = []
+        Prefs.allAppointments = []
+    }
 }
 
 

@@ -443,7 +443,7 @@ class HomeTabViewController: UIViewController {
     }
     
     @objc func logout() {
-        User.clearUserDetails()
+        Utils.initiateLogoutSequence()
         self.performSegue(withIdentifier: "toLanding", sender: nil)
     }
     

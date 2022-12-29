@@ -12,6 +12,11 @@ import SPIndicator
 
 class Utils {
     
+    internal class func initiateLogoutSequence() {
+        User.clearUserDetails()
+        PrefDataManager.clearAllPrefs()
+    }
+    
     internal class func displaySPIndicatorNotifWithMessage(title: String, message: String, iconPreset: SPIndicatorIconPreset, hapticPreset: SPIndicatorHaptic, duration: TimeInterval) {
         let indicatorView = SPIndicatorView(title: title, message: message, preset: iconPreset)
         indicatorView.presentSide = .bottom
