@@ -41,6 +41,7 @@ class BookedAppointmentsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        populateAppointmentsTable()
         refreshData()
     }
     
@@ -53,14 +54,16 @@ class BookedAppointmentsViewController: UIViewController {
     @objc func refreshData() {
         view.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
         monthView?.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
-        view.makeToastActivity(.center)
         AppointmentElement.refreshAppointments { isSuccess in
-            self.view.hideToastActivity()
-            self.monthView?.hideSkeleton(transition: .crossDissolve(0.25))
-            self.view.hideSkeleton(transition: .crossDissolve(0.25))
-            self.appointments = AppointmentElement.getAppointments()
-            self.monthView?.resetToToday()
+            self.populateAppointmentsTable()
         }
+    }
+    
+    func populateAppointmentsTable() {
+        self.monthView?.hideSkeleton(transition: .crossDissolve(0.25))
+        self.view.hideSkeleton(transition: .crossDissolve(0.25))
+        self.appointments = AppointmentElement.getAppointments()
+        self.monthView?.resetToToday()
     }
     
     func initialise() {

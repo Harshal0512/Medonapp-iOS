@@ -23,6 +23,8 @@ import Foundation
 import CoreLocation
 import Alamofire
 
+typealias Doctors = [Doctor]
+
 class Doctor: Codable, Hashable {
     static func == (lhs: Doctor, rhs: Doctor) -> Bool {
         return lhs.id! == rhs.id! && lhs.credential!.email! == rhs.credential!.email!
@@ -106,10 +108,10 @@ class Doctor: Codable, Hashable {
         self.reviewCount = reviewCount
     }
     
-    static private var doctors: [Doctor] = []
-    static private var liveDoctors: [Doctor] = []
+    static private var doctors: Doctors = Prefs.allDoctors
+    static private var liveDoctors: Doctors = []
     
-    static func getDoctors() -> [Doctor] {
+    static func getDoctors() -> Doctors {
         return doctors
     }
     
@@ -118,12 +120,10 @@ class Doctor: Codable, Hashable {
     }
     
     static func refreshDoctors(completionHandler: @escaping (Bool) -> ()) {
-        APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .getAllDoctors, method: .get, isJSONRequest: false).executeQuery() { (result: Result<[Doctor], Error>) in
+        APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .getAllDoctors, method: .get, isJSONRequest: false).executeQuery() { (result: Result<Doctors, Error>) in
             switch result{
             case .success(_):
                 try? Doctor.initDoctors(doctors: result.get())
-                Doctor.initFavoriteState()
-                Doctor.setFullName()
                 completionHandler(true)
             case .failure(let error):
                 print(error)
@@ -132,8 +132,11 @@ class Doctor: Codable, Hashable {
         }
     }
     
-    static func initDoctors(doctors: [Doctor]) {
+    static func initDoctors(doctors: Doctors) {
         self.doctors = doctors
+        Doctor.initFavoriteState()
+        Doctor.setFullName()
+        Prefs.allDoctors = doctors
     }
     
     static func getDoctor(withID id: Int) -> Doctor? {
@@ -145,7 +148,7 @@ class Doctor: Codable, Hashable {
         return nil
     }
     
-    static func sortDoctors(doctors: [Doctor]) -> [Doctor] {
+    static func sortDoctors(doctors: Doctors) -> Doctors {
         if Prefs.isLocationPerm {
             return doctors.sorted(by: { $0.distanceFromUser < $1.distanceFromUser }).sorted(by: { $0.reviewCount! > $1.reviewCount! }).sorted(by: { $0.avgRating! > $1.avgRating! })
         }

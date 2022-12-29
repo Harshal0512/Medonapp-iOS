@@ -22,6 +22,8 @@
 import Foundation
 import Alamofire
 
+typealias Appointments = [AppointmentElement]
+
 class AppointmentElement: Codable {
     var id, doctorID, patientID: Int?
     var patientURL, doctorURL: String?
@@ -52,7 +54,7 @@ class AppointmentElement: Codable {
         self.symptoms = symptoms
     }
     
-    static private var appointments: Appointments = []
+    static private var appointments: Appointments = Prefs.allAppointments
     static private var appointmentsByDate: [Int: [Int]] = [:]
     
     static func getAppointments() -> Appointments {
@@ -73,8 +75,6 @@ class AppointmentElement: Codable {
             switch result{
             case .success(let app):
                 AppointmentElement.initAppointments(appointments: app)
-                populateDoctorAndPatient()
-                AppointmentElement.sortAppointments(order: .orderedAscending)
                 completionHandler(true)
             case .failure(let error):
                 print(error)
@@ -96,6 +96,9 @@ class AppointmentElement: Codable {
     
     static func initAppointments(appointments: Appointments) {
         self.appointments = appointments
+        populateDoctorAndPatient()
+        AppointmentElement.sortAppointments(order: .orderedAscending)
+        Prefs.allAppointments = appointments
     }
     
     static func arrangeAppointmentsByDate(month: Int, year: Int) {
@@ -111,6 +114,4 @@ class AppointmentElement: Codable {
         }
     }
 }
-
-typealias Appointments = [AppointmentElement]
 

@@ -67,6 +67,10 @@ struct Prefs {
     @Storage(key: "showDistanceFromUser", defaultValue: false)
     static var showDistanceFromUser: Bool
     
+    @Storage(key: "allDoctors", defaultValue: [])
+    static var allDoctors: Doctors
+    @Storage(key: "allAppointments", defaultValue: [])
+    static var allAppointments: Appointments
     //    @EncryptedStringStorage(key: "password_key")
     //    static var password: String
     

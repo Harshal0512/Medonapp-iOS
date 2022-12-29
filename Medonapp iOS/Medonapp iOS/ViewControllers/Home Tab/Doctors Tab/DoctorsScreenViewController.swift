@@ -15,7 +15,7 @@ class DoctorsScreenViewController: UIViewController {
     let locationManager = CLLocationManager()
     var currentLocation: CLLocation = CLLocation()
     
-    public var doctors: [Doctor] = []
+    public var doctors: Doctors = []
     private var doctorsSet: Set<Doctor> = []
     
     private var backButton: UIImageView?
@@ -75,6 +75,7 @@ class DoctorsScreenViewController: UIViewController {
             doctorsTable?.deselectRow(at: selectedIndexPath, animated: animated)
         }
         
+        populateDoctorsTable()
         refreshData()
     }
     
@@ -191,18 +192,22 @@ class DoctorsScreenViewController: UIViewController {
     
     @objc func refreshData() {
         Doctor.refreshDoctors { isSuccess in
-            self.doctors = Doctor.getDoctors()
-            if Prefs.showDistanceFromUser == true {
-                Doctor.getDistanceFromUser(userLocation: self.currentLocation)
-            }
-            self.doctorsSet = Set(self.doctors.map { $0 })
-            Doctor.calculateLiveStatus() //Calculate doctor live status
-            self.searchFieldDidChange(self.searchField!)
-            let sections = NSIndexSet(indexesIn: NSMakeRange(0, self.doctorsTable!.numberOfSections))
-            self.doctorsTable!.reloadSections(sections as IndexSet, with: .fade)
-            self.view.isUserInteractionEnabled = true
-            self.view.hideToastActivity()
+            self.populateDoctorsTable()
         }
+    }
+    
+    func populateDoctorsTable() {
+        self.doctors = Doctor.getDoctors()
+        if Prefs.showDistanceFromUser == true {
+            Doctor.getDistanceFromUser(userLocation: self.currentLocation)
+        }
+        self.doctorsSet = Set(self.doctors.map { $0 })
+        Doctor.calculateLiveStatus() //Calculate doctor live status
+        self.searchFieldDidChange(self.searchField!)
+        let sections = NSIndexSet(indexesIn: NSMakeRange(0, self.doctorsTable!.numberOfSections))
+        self.doctorsTable!.reloadSections(sections as IndexSet, with: .fade)
+        self.view.isUserInteractionEnabled = true
+        self.view.hideToastActivity()
     }
     
     @objc func searchFieldDidChange(_ textField: UITextField) {

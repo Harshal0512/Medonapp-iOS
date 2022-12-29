@@ -15,7 +15,7 @@ class HomeTabViewController: UIViewController {
     let locationManager = CLLocationManager()
     var currentLocation: CLLocation = CLLocation()
     
-    var doctors: [Doctor] = []
+    var doctors: Doctors = []
     
     var scrollView: UIScrollView?
     var contentView: UIView?
@@ -101,6 +101,7 @@ class HomeTabViewController: UIViewController {
         setupUI()
         setConstraints()
         
+        addDoctorPins()
         loadData()
         fetchDoctors()
         
@@ -319,17 +320,30 @@ class HomeTabViewController: UIViewController {
     
     func fetchDoctors() {
         Doctor.refreshDoctors { isSuccess in
-            self.doctors = Doctor.getDoctors()
-            for doctor in self.doctors {
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = CLLocationCoordinate2D(latitude: doctor.address!.latitude!, longitude: doctor.address!.longitude!)
-                annotation.title = doctor.fullNameWithTitle
-                self.nearbyMapView?.addAnnotation(annotation)
-            }
-            if Prefs.isLocationPerm {
-                let coordinateRegion = MKCoordinateRegion(center: self.currentLocation.coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
-                self.nearbyMapView?.setRegion(coordinateRegion, animated: true)
-            }
+            self.addDoctorPins()
+        }
+    }
+    
+    func addDoctorPins() {
+        removeAllAnnotationsExceptUserLocation()
+        self.doctors = Doctor.getDoctors()
+        for doctor in self.doctors {
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = CLLocationCoordinate2D(latitude: doctor.address!.latitude!, longitude: doctor.address!.longitude!)
+            annotation.title = doctor.fullNameWithTitle
+            self.nearbyMapView?.addAnnotation(annotation)
+        }
+        if Prefs.isLocationPerm {
+            let coordinateRegion = MKCoordinateRegion(center: self.currentLocation.coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
+            self.nearbyMapView?.setRegion(coordinateRegion, animated: true)
+        }
+    }
+    
+    func removeAllAnnotationsExceptUserLocation() {
+        self.nearbyMapView?.annotations.forEach {
+          if !($0 is MKUserLocation) {
+            self.nearbyMapView?.removeAnnotation($0)
+          }
         }
     }
     
