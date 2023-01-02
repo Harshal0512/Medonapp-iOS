@@ -739,8 +739,8 @@ class LoginSignUpViewController: UIViewController {
         if !isValidationError {
             self.view.hideAllToasts()
             self.view.makeToastActivity(.center)
-            let hashedPassword = SHA512.hash(data: Data(passwordTextField!.text!.utf8))
-            APIService(data: ["username": emailTextFieldLogin!.text!,
+            let hashedPassword = SHA512.hash(data: Data(passwordTextField!.trim().utf8))
+            APIService(data: ["username": emailTextFieldLogin!.trim(),
                               "password": hashedPassword.compactMap { String(format: "%02x", $0) }.joined(),
                               "isDoctor": false],
                        url: nil,
@@ -1091,7 +1091,7 @@ class LoginSignUpViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.view.makeToastActivity(.center)
         }
-        APIService(data: ["username": emailTextFieldSignUp!.text!, "password": ""], url: nil, service: .sendOtp, method: .post, isJSONRequest: true).executeQuery() { (result: Result<Int, Error>) in
+        APIService(data: ["username": emailTextFieldSignUp!.trim(), "password": ""], url: nil, service: .sendOtp, method: .post, isJSONRequest: true).executeQuery() { (result: Result<Int, Error>) in
             switch result{
             case .success(_):
                 try? print(result.get())
@@ -1179,7 +1179,7 @@ extension LoginSignUpViewController : UITextFieldDelegate, DPOTPViewDelegate, Va
                 (finished: Bool) -> Void in
             })
             let dob = dobPicker!.date
-            let hashedPassword = SHA512.hash(data: Data(choosePasswordTextField!.text!.utf8))
+            let hashedPassword = SHA512.hash(data: Data(choosePasswordTextField!.trim().utf8))
             // Convert model to JSON data
             var day = Date.getDayFromDate(date: dob)
             if Int(Date.getDayFromDate(date: dob))! < 10 {
@@ -1190,22 +1190,22 @@ extension LoginSignUpViewController : UITextFieldDelegate, DPOTPViewDelegate, Va
                 month = "0" + month
             }
             let model = SignUpModel(credential:
-                                        CredentialShort(email: "\(emailTextFieldSignUp!.text!)",
+                                        CredentialShort(email: "\(emailTextFieldSignUp!.trim())",
                                                         password: hashedPassword.compactMap { String(format: "%02x", $0) }.joined()),
                                     name:
-                                        NameExclMiddleName(firstName: firstNameField!.text!,
-                                                           lastName: lastNameField!.text!),
-                                    address: Address(address: addressTextView!.text!,
-                                                     state: stateField!.text!,
-                                                     city: cityField!.text!,
+                                        NameExclMiddleName(firstName: firstNameField!.trim(),
+                                                           lastName: lastNameField!.trim()),
+                                    address: Address(address: addressTextView!.trimmedWhitespaces(),
+                                                     state: stateField!.trim(),
+                                                     city: cityField!.trim(),
                                                      postalCode: ""),
                                     gender: "male",
-                                    mobile: MobileNumberShort(contactNumber: phoneNumberField!.text!,
+                                    mobile: MobileNumberShort(contactNumber: phoneNumberField!.trim(),
                                                               countryCode: countryCodeLabel!.text!),
                                     dob: "\(Date.getYearFromDate(date: dob))-\(month)-\(day)",
                                     bloodGroup: bloodGroupDropdown!.text!,
                                     height: 0.0,
-                                    weight: Double(weightField!.text!) ?? 0.0)
+                                    weight: Double(weightField!.trim()) ?? 0.0)
             APIService(data: try! model.toDictionary(), url: nil, service: .signUp, method: .post, isJSONRequest: true).executeQuery() { (result: Result<User, Error>) in
                 switch result{
                 case .success(_):

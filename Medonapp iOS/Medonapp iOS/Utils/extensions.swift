@@ -63,6 +63,18 @@ extension UIImage {
     }
 }
 
+extension UITextField {
+    func trim() -> String {
+        return self.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+}
+
+extension UITextView {
+    func trimmedWhitespaces() -> String {
+        return self.text!.trimmingCharacters(in: .whitespaces)
+    }
+}
+
 extension UILabel {
     func addSkeleton() {
         self.isSkeletonable = true

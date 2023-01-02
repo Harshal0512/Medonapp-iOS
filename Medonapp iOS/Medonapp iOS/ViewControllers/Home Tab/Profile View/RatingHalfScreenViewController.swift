@@ -184,10 +184,10 @@ class RatingHalfScreenViewController: UIViewController {
         } else if rating > 5 {
             rating = 5
         }
-        
+        print(feedbackTextView!.trimmedWhitespaces())
         APIService(data: ["appointmentId": appointment!.id!,
                           "rating": rating,
-                          "review": feedbackTextView!.text!],
+                          "review": feedbackTextView!.trimmedWhitespaces()],
                    headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"],
                    url: nil,
                    service: isReviewEditing ? .editFeedback(appointment!.review!.id!) : .postReview,

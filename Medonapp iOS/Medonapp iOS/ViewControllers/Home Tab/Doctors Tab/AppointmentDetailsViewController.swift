@@ -230,7 +230,7 @@ class AppointmentDetailsViewController: UIViewController, UITextViewDelegate {
 
     @objc func bookNowButtonPressed() {
         let bookAppointmentVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "bookAppointmentVC") as? BookAppointmentViewController
-        bookAppointmentVC?.symptoms = symptomsTextView?.text ?? ""
+        bookAppointmentVC?.symptoms = symptomsTextView?.trimmedWhitespaces() ?? ""
         bookAppointmentVC?.doctor = self.doctor
         if isEditingAppointment {
             bookAppointmentVC?.isEditingAppointment = true
