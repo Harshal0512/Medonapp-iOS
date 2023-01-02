@@ -1157,10 +1157,19 @@ extension LoginSignUpViewController : UITextFieldDelegate, DPOTPViewDelegate, Va
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // set the activeTextField to the selected textfield
         self.activeTextField = textField
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+            textField.layer.borderWidth = 2
+            textField.layer.borderColor = UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00).cgColor
+        })
     }
     
     // when user click 'done' or dismiss the keyboard
     func textFieldDidEndEditing(_ textField: UITextField) {
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+            textField.layer.borderWidth = 1
+            textField.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
+        })
+        
         self.activeTextField = nil
     }
     
@@ -1173,7 +1182,7 @@ extension LoginSignUpViewController : UITextFieldDelegate, DPOTPViewDelegate, Va
         if text == otpFromServer {
             self.view.hideAllToasts()
             self.view.makeToastActivity(.center)
-            UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
                 self.progressBar?.setProgress(0.1, animated: true)
             }, completion: {
                 (finished: Bool) -> Void in
