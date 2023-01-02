@@ -10,6 +10,7 @@
 		08F565BC217C9820C601B123 /* Pods_Medonapp_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F28C35CFE676567ACC6FCEAF /* Pods_Medonapp_iOS.framework */; };
 		E6D081B1293C7D5500380F73 /* DoctorDetailsPeekViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D081B0293C7D5500380F73 /* DoctorDetailsPeekViewViewController.swift */; };
 		F80552782907BB060011EB6B /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80552772907BB060011EB6B /* APIService.swift */; };
+		F80577DB29633850009BEC6B /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80577DA29633850009BEC6B /* Reachability.swift */; };
 		F80C19832900F3A000891800 /* StarRatingStackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F80C19802900F39F00891800 /* StarRatingStackView.xib */; };
 		F80C19842900F3A000891800 /* JStarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80C19812900F39F00891800 /* JStarRatingView.swift */; };
 		F80C19852900F3A000891800 /* StarRatingStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80C19822900F3A000891800 /* StarRatingStackView.swift */; };
@@ -108,6 +109,7 @@
 		E6D081B0293C7D5500380F73 /* DoctorDetailsPeekViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDetailsPeekViewViewController.swift; sourceTree = "<group>"; };
 		F28C35CFE676567ACC6FCEAF /* Pods_Medonapp_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Medonapp_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F80552772907BB060011EB6B /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		F80577DA29633850009BEC6B /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		F80C19802900F39F00891800 /* StarRatingStackView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StarRatingStackView.xib; sourceTree = "<group>"; };
 		F80C19812900F39F00891800 /* JStarRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JStarRatingView.swift; sourceTree = "<group>"; };
 		F80C19822900F3A000891800 /* StarRatingStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarRatingStackView.swift; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 			isa = PBXGroup;
 			children = (
 				F80552772907BB060011EB6B /* APIService.swift */,
+				F80577DA29633850009BEC6B /* Reachability.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -758,6 +761,7 @@
 				F8AAB18229486EE500A5C9E7 /* DefaultResponseModel.swift in Sources */,
 				F86A71CF28EE9C970083D12D /* HomeTabViewController.swift in Sources */,
 				F8F3ED432909692B001D6A4C /* MobileNumberShort.swift in Sources */,
+				F80577DB29633850009BEC6B /* Reachability.swift in Sources */,
 				F8A4F47828F14CE60032A87B /* SearchBarWithSearchAndFilterIcon.swift in Sources */,
 				F844C66028FFDD3E00BBE5B0 /* MonthViewBookedAppointments.swift in Sources */,
 				F82AA0F128F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.swift in Sources */,

@@ -7,8 +7,11 @@
 
 import UIKit
 import MessageUI
+import NotificationBannerSwift
 
 class ProfileViewViewController: UIViewController, MFMailComposeViewControllerDelegate {
+    
+    var notifBanner: GrowingNotificationBanner?
     
     private var scrollView: UIScrollView?
     private var contentView: UIView?
@@ -35,6 +38,24 @@ class ProfileViewViewController: UIViewController, MFMailComposeViewControllerDe
         initialise()
         setupUI()
         setConstraints()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        Utils.checkForReachability()
+        
+        if !Prefs.isNetworkAvailable {
+            DispatchQueue.main.async {
+                self.notifBanner = Utils.displayNoNetworkBanner(self)
+            }
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.notifBanner?.dismiss()
     }
     
     func initialise() {

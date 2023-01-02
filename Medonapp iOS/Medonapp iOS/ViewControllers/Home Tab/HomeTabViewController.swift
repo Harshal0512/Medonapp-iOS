@@ -9,8 +9,11 @@ import UIKit
 import MapKit
 import CoreLocation
 import SkeletonView
+import NotificationBannerSwift
 
 class HomeTabViewController: UIViewController {
+    
+    var notifBanner: GrowingNotificationBanner?
     
     let locationManager = CLLocationManager()
     var currentLocation: CLLocation = CLLocation()
@@ -43,6 +46,14 @@ class HomeTabViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        Utils.checkForReachability()
+        
+        if !Prefs.isNetworkAvailable {
+            DispatchQueue.main.async {
+                self.notifBanner = Utils.displayNoNetworkBanner(self)
+            }
+        }
+        
         let tabBarItems = tabBarController?.tabBar.items!
         tabBarItems![0].image = UIImage(named: "homeTabIcon")?.resizeImageTo(size: CGSize(width: 40, height: 40))?.withTintColor(UIColor(red: 0.48, green: 0.55, blue: 0.62, alpha: 1.00))
         tabBarItems![0].selectedImage = UIImage(named: "homeTabIcon")?.resizeImageTo(size: CGSize(width: 40, height: 40))?.withTintColor(UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00))
@@ -53,26 +64,34 @@ class HomeTabViewController: UIViewController {
         tabBarItems![1].isEnabled = false
         
         if userDetails.patient?.name == nil {
-            view.isUserInteractionEnabled = false
-            self.view.makeToastActivity(.center)
-            contentView?.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
-            tabBarItems![1].isEnabled = false
-            tabBarItems![2].isEnabled = false
-            
-            refreshUserDetails { isSuccess in
-                if isSuccess {
-                    //                    tabBarItems![1].isEnabled = true
-                    tabBarItems![2].isEnabled = true
-                    self.view.isUserInteractionEnabled = true
-                    self.contentView?.hideSkeleton(transition: .crossDissolve(0.25))
-                    self.loadData()
-                    self.fetchDoctors()
-                    self.view.hideToastActivity()
-                } else {
-                    self.logout()
+            if Prefs.isNetworkAvailable {
+                view.isUserInteractionEnabled = false
+                self.view.makeToastActivity(.center)
+                contentView?.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
+                tabBarItems![1].isEnabled = false
+                tabBarItems![2].isEnabled = false
+                
+                refreshUserDetails { isSuccess in
+                    if isSuccess {
+                        //                    tabBarItems![1].isEnabled = true
+                        tabBarItems![2].isEnabled = true
+                        self.view.isUserInteractionEnabled = true
+                        self.contentView?.hideSkeleton(transition: .crossDissolve(0.25))
+                        self.loadData()
+                        self.fetchDoctors()
+                        self.view.hideToastActivity()
+                    } else {
+                        self.logout()
+                    }
                 }
             }
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        notifBanner?.dismiss()
     }
     
     func refreshUserDetails(completionHandler: @escaping(Bool) -> ()) {
@@ -348,10 +367,15 @@ class HomeTabViewController: UIViewController {
     }
     
     @objc func goToDoctorsScreen(_ sender: UITapGestureRecognizer? = nil) {
-        let doctorsScreenVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "doctorsScreenVC") as? DoctorsScreenViewController
-        //        doctorsScreenVC?.modalPresentationStyle = .fullScreen
-        //        self.present(doctorsScreenVC!, animated: true, completion: nil)
-        self.navigationController?.pushViewController(doctorsScreenVC!, animated: true)
+        if Prefs.isNetworkAvailable {
+            let doctorsScreenVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "doctorsScreenVC") as? DoctorsScreenViewController
+            //        doctorsScreenVC?.modalPresentationStyle = .fullScreen
+            //        self.present(doctorsScreenVC!, animated: true, completion: nil)
+            self.navigationController?.pushViewController(doctorsScreenVC!, animated: true)
+        } else {
+            self.view.makeToast("No Internet Connection Available")
+        }
+        
     }
     
     @objc func goToProfileScreen(_ sender: UITapGestureRecognizer? = nil) {

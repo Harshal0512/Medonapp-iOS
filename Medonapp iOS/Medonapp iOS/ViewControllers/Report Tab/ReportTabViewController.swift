@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import NotificationBannerSwift
 
 class ReportTabViewController: UIViewController {
+    
+    var notifBanner: GrowingNotificationBanner?
+    
     var scrollView: UIScrollView?
     var contentView: UIView?
     
@@ -43,6 +47,22 @@ class ReportTabViewController: UIViewController {
         initialise()
         setupUI()
         setConstraints()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if !Prefs.isNetworkAvailable {
+            DispatchQueue.main.async {
+                self.notifBanner = Utils.displayNoNetworkBanner(self)
+            }
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        notifBanner?.dismiss()
     }
     
     func initialise() {

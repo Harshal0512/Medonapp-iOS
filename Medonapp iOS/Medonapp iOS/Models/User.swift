@@ -30,8 +30,7 @@ class User: Codable {
     
     static func clearUserDetails() {
         userDetails = User()
-        Prefs.authToken = ""
-        Prefs.userId = "0"
+        Prefs.userDetails = User()
     }
     
     static func setUserDetails(userDetails: User) {
@@ -48,13 +47,11 @@ class User: Codable {
     }
     
     static func saveToPrefs() {
-        Prefs.authToken = userDetails.token ?? ""
-        Prefs.userId = "\(userDetails.patient?.id ?? 0)"
+        Prefs.userDetails = userDetails
     }
     
     static func loadFromPrefs() {
-        userDetails.token = Prefs.authToken
-        userDetails.patient?.id = Int(Prefs.userId)
+        userDetails = Prefs.userDetails
     }
     
     static func setUserLocation(location: CLLocation) {
@@ -64,32 +61,4 @@ class User: Codable {
     static func getUserLocation() -> CLLocation {
         return (self.userDetails.patient?.currentUserlocation)!
     }
-    
-//    static func saveToPrefs() {
-//        Prefs.authToken = self.userDetails.token
-//        Prefs.email = self.userDetails.email
-//        Prefs.userId = self.userDetails.id
-//        Prefs.name = self.userDetails.name
-//        Prefs.profile = self.userDetails.displayPhoto
-//        Prefs.suburb = self.userDetails.suburb
-//        Prefs.isDeliveryAgent = self.userDetails.isDeliveryAgent
-//        Prefs.isAgentVerified = self.userDetails.isAgentVerified
-//        Prefs.stripeBankConnected = self.userDetails.stripeBankConnected
-//        Prefs.stripeCustomerId = self.userDetails.stripeCustomerId
-//        Prefs.accountLinkUrl = self.userDetails.accountLinkUrl
-//    }
-//
-//    static func loadFromPrefs() {
-//        self.userDetails.token = Prefs.authToken
-//        self.userDetails.email = Prefs.email
-//        self.userDetails.id = Prefs.userId
-//        self.userDetails.name = Prefs.name
-//        self.userDetails.displayPhoto = Prefs.profile
-//        self.userDetails.suburb = Prefs.suburb
-//        self.userDetails.isDeliveryAgent = Prefs.isDeliveryAgent
-//        self.userDetails.isAgentVerified = Prefs.isAgentVerified
-//        self.userDetails.stripeCustomerId = Prefs.stripeCustomerId
-//        self.userDetails.stripeBankConnected = Prefs.stripeBankConnected
-//        self.userDetails.accountLinkUrl = Prefs.accountLinkUrl
-//    }
 }

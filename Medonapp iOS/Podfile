@@ -18,5 +18,6 @@ target 'Medonapp iOS' do
   pod 'Popovers'
   pod 'FaveButton'
   pod 'SPIndicator'
+  pod 'NotificationBannerSwift', '~> 3.0.0'
 
 end

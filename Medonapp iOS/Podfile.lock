@@ -5,8 +5,13 @@ PODS:
   - iOSDropDown (0.4.0)
   - Kingfisher (7.3.2)
   - lottie-ios (3.4.2)
+  - MarqueeLabel (4.0.5)
+  - NotificationBannerSwift (3.0.6):
+    - MarqueeLabel (~> 4.0.5)
+    - SnapKit (~> 5.0.1)
   - Popovers (1.3.0)
   - SkeletonView (1.30.4)
+  - SnapKit (5.0.1)
   - SPIndicator (1.6.4)
   - SwiftValidator (4.0.0)
   - Toast-Swift (5.0.1)
@@ -18,6 +23,7 @@ DEPENDENCIES:
   - iOSDropDown
   - Kingfisher (~> 7.0)
   - lottie-ios
+  - NotificationBannerSwift (~> 3.0.0)
   - Popovers
   - SkeletonView
   - SPIndicator
@@ -32,8 +38,11 @@ SPEC REPOS:
     - iOSDropDown
     - Kingfisher
     - lottie-ios
+    - MarqueeLabel
+    - NotificationBannerSwift
     - Popovers
     - SkeletonView
+    - SnapKit
     - SPIndicator
     - Toast-Swift
 
@@ -54,12 +63,15 @@ SPEC CHECKSUMS:
   iOSDropDown: ce9daa584eaa5567cafc1b633e3cc7eb6d9cea42
   Kingfisher: 0086ad83719761ba9b2cdaf6ef4d5b4878cbae23
   lottie-ios: 6bbc53eef6957e4744a50321507015fba72d8ca6
+  MarqueeLabel: 00cc0bcd087111dca575878b3531af980559707d
+  NotificationBannerSwift: 7021be2338f8f29cf424b0aca43da462bf9e2a1a
   Popovers: 8690b055b2c9ef433492b40e081b1a0be5859437
   SkeletonView: 5a050f6411e697abd4cda0a8d767013399dccd69
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SPIndicator: 93e0a4fb23de51294ac48e874c0f081a5e293e4f
   SwiftValidator: 249b6b3ae3b294266c5b9de134d94f18f2d5aa47
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: c9322ed2080c5accafe6e562ce826d1cedd40e8c
+PODFILE CHECKSUM: 952ff0ef483031c6089871b3874e95c8f883b29a
 
 COCOAPODS: 1.11.3

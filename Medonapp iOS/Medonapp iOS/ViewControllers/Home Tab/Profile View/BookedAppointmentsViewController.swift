@@ -8,6 +8,7 @@
 import UIKit
 import SkeletonView
 import Toast_Swift
+import NotificationBannerSwift
 
 class BookedAppointmentsViewController: UIViewController {
     
@@ -21,14 +22,14 @@ class BookedAppointmentsViewController: UIViewController {
     private var appointmentsByDate: [Int: [Int]] = [:]
     
     private var sectionHeaderIDForPresent: Int = -1
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.navigationItem.largeTitleDisplayMode = .never
         navigationController?.isNavigationBarHidden = true
-
+        
         initialise()
         setupUI()
         setConstraints()
@@ -41,8 +42,15 @@ class BookedAppointmentsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        Utils.checkForReachability()
+        
         populateAppointmentsTable()
-        refreshData()
+        
+        if Prefs.isNetworkAvailable {
+            self.refreshData()
+        }
+        
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -145,7 +153,7 @@ class BookedAppointmentsViewController: UIViewController {
     @objc func handleTodayTapAction(_ sender: UITapGestureRecognizer? = nil) {
         self.monthView?.resetToToday()
     }
-
+    
 }
 
 extension BookedAppointmentsViewController: MonthViewBookedAppointmentsDelegate {
@@ -182,7 +190,7 @@ extension BookedAppointmentsViewController: UITableViewDelegate, UITableViewData
         let dateComponents = DateComponents(year: monthView!.getYear(), month: monthView!.getMonth())
         let calendar = Calendar.current
         let date = calendar.date(from: dateComponents)!
-
+        
         let range = calendar.range(of: .day, in: .month, for: date)!
         let numDays = range.count
         
@@ -239,7 +247,7 @@ extension BookedAppointmentsViewController: UITableViewDelegate, UITableViewData
             return cell.optionsMenu
         }
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         scheduleTable?.scrollToRow(at: indexPath, at: .middle, animated: true)
         scheduleTable?.deselectRow(at: indexPath, animated: true)
@@ -248,72 +256,92 @@ extension BookedAppointmentsViewController: UITableViewDelegate, UITableViewData
 
 extension BookedAppointmentsViewController: BookedAppointmentsCellProtocol {
     func feedbackButtonDidSelect(appointment: AppointmentElement) {
-        // Create the view controller.
-        let sheetViewController = RatingHalfScreenViewController()
-        
-        sheetViewController.appointment = appointment
-        sheetViewController.delegate = self
-        
-        // Present it w/o any adjustments so it uses the default sheet presentation.
-        present(sheetViewController, animated: true) {
-            sheetViewController.isModalInPresentation = true
+        if Prefs.isNetworkAvailable {
+            // Create the view controller.
+            let sheetViewController = RatingHalfScreenViewController()
+            
+            sheetViewController.appointment = appointment
+            sheetViewController.delegate = self
+            
+            // Present it w/o any adjustments so it uses the default sheet presentation.
+            present(sheetViewController, animated: true) {
+                sheetViewController.isModalInPresentation = true
+            }
+        } else {
+            self.view.makeToast("No Internet Connection Available")
         }
     }
     
     func feedbackDeletedClicked(appointment: AppointmentElement) {
-        Utils.displayYesREDNoAlertWithHandler("Your review will be deleted. This action cannot be undone. Are you sure you want to continue?", viewController: self) { action in
-            
-        } yesHandler: { action in
-            APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .deleteReview(appointment.review!.id!), method: .delete, isJSONRequest: false).executeQuery() { (result: Result<DefaultResponseModel, Error>) in
-                switch result{
-                case .success(_):
-                    Utils.displaySPIndicatorNotifWithoutMessage(title: "Review Deleted", iconPreset: .done, hapticPreset: .success, duration: 3)
-                case .failure(let error):
-                    print(error)
-                    Utils.displaySPIndicatorNotifWithoutMessage(title: "Could not delete review", iconPreset: .error, hapticPreset: .error, duration: 3)
+        if Prefs.isNetworkAvailable {
+            Utils.displayYesREDNoAlertWithHandler("Your review will be deleted. This action cannot be undone. Are you sure you want to continue?", viewController: self) { action in
+                
+            } yesHandler: { action in
+                APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .deleteReview(appointment.review!.id!), method: .delete, isJSONRequest: false).executeQuery() { (result: Result<DefaultResponseModel, Error>) in
+                    switch result{
+                    case .success(_):
+                        Utils.displaySPIndicatorNotifWithoutMessage(title: "Review Deleted", iconPreset: .done, hapticPreset: .success, duration: 3)
+                    case .failure(let error):
+                        print(error)
+                        Utils.displaySPIndicatorNotifWithoutMessage(title: "Could not delete review", iconPreset: .error, hapticPreset: .error, duration: 3)
+                    }
+                    self.refreshData()
                 }
-                self.refreshData()
             }
+        } else {
+            self.view.makeToast("No Internet Connection Available")
         }
     }
     
     func editFeedbackDidSelect(appointment: AppointmentElement) {
-        // Create the view controller.
-        let sheetViewController = RatingHalfScreenViewController()
-        
-        sheetViewController.appointment = appointment
-        sheetViewController.isReviewEditing = true
-        sheetViewController.delegate = self
-        
-        // Present it w/o any adjustments so it uses the default sheet presentation.
-        present(sheetViewController, animated: true) {
-            sheetViewController.isModalInPresentation = true
+        if Prefs.isNetworkAvailable {
+            // Create the view controller.
+            let sheetViewController = RatingHalfScreenViewController()
+            
+            sheetViewController.appointment = appointment
+            sheetViewController.isReviewEditing = true
+            sheetViewController.delegate = self
+            
+            // Present it w/o any adjustments so it uses the default sheet presentation.
+            present(sheetViewController, animated: true) {
+                sheetViewController.isModalInPresentation = true
+            }
+        } else {
+            self.view.makeToast("No Internet Connection Available")
         }
     }
     
     func editAppointmentDidSelect(appointment: AppointmentElement) {
-        let appointmentDetailsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "appointmentDetailsVC") as? AppointmentDetailsViewController
-        appointmentDetailsVC?.doctor = appointment.doctor
-        appointmentDetailsVC?.modalPresentationStyle = .fullScreen
-        appointmentDetailsVC?.isEditingAppointment = true
-        appointmentDetailsVC?.appointment = appointment
-        self.present(appointmentDetailsVC!, animated: true, completion: nil)
+        if Prefs.isNetworkAvailable {
+            let appointmentDetailsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "appointmentDetailsVC") as? AppointmentDetailsViewController
+            appointmentDetailsVC?.doctor = appointment.doctor
+            appointmentDetailsVC?.modalPresentationStyle = .fullScreen
+            appointmentDetailsVC?.isEditingAppointment = true
+            appointmentDetailsVC?.appointment = appointment
+            self.present(appointmentDetailsVC!, animated: true, completion: nil)
+        } else {
+            self.view.makeToast("No Internet Connection Available")
+        }
     }
     
     func appointmentDeletedClicked(appointment: AppointmentElement) {
-        Utils.displayYesREDNoAlertWithHandler("Your appointment will be cancelled. This action cannot be undone. Are you sure you want to continue?", viewController: self) { action in
-            
-        } yesHandler: { action in
-            APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .cancelAppointment(appointment.id!), method: .put, isJSONRequest: false).executeQuery() { (result: Result<AppointmentElement, Error>) in
-                switch result{
-                case .success(_):
-                    Utils.displaySPIndicatorNotifWithoutMessage(title: "Appointment Deleted", iconPreset: .done, hapticPreset: .success, duration: 3)
-                case .failure(let error):
-                    print(error)
-                    Utils.displaySPIndicatorNotifWithoutMessage(title: "Could not delete appointment", iconPreset: .error, hapticPreset: .error, duration: 3)
+        if Prefs.isNetworkAvailable {
+            Utils.displayYesREDNoAlertWithHandler("Your appointment will be cancelled. This action cannot be undone. Are you sure you want to continue?", viewController: self) { action in
+                
+            } yesHandler: { action in
+                APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .cancelAppointment(appointment.id!), method: .put, isJSONRequest: false).executeQuery() { (result: Result<AppointmentElement, Error>) in
+                    switch result{
+                    case .success(_):
+                        Utils.displaySPIndicatorNotifWithoutMessage(title: "Appointment Deleted", iconPreset: .done, hapticPreset: .success, duration: 3)
+                    case .failure(let error):
+                        print(error)
+                        Utils.displaySPIndicatorNotifWithoutMessage(title: "Could not delete appointment", iconPreset: .error, hapticPreset: .error, duration: 3)
+                    }
+                    self.refreshData()
                 }
-                self.refreshData()
             }
+        } else {
+            self.view.makeToast("No Internet Connection Available")
         }
     }
 }

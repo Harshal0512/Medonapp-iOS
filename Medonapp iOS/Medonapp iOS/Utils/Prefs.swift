@@ -53,11 +53,7 @@ enum applicationModes: Encodable, Decodable {
 }
 
 struct Prefs {
-    
-    @Storage(key: "authToken", defaultValue: "")
-    static var authToken: String
-    @Storage(key: "userId", defaultValue: "")
-    static var userId: String
+    static var isNetworkAvailable: Bool = false
     
     @Storage(key: "applicationMode", defaultValue: .production)
     static var applicationMode: applicationModes
@@ -67,6 +63,8 @@ struct Prefs {
     @Storage(key: "showDistanceFromUser", defaultValue: false)
     static var showDistanceFromUser: Bool
     
+    @Storage(key: "userDetails", defaultValue: User())
+    static var userDetails: User
     @Storage(key: "allDoctors", defaultValue: [])
     static var allDoctors: Doctors
     @Storage(key: "allAppointments", defaultValue: [])
@@ -86,8 +84,7 @@ class PrefDataManager {
         return Prefs.applicationMode
     }
     static func clearAllPrefs() {
-        Prefs.authToken = ""
-        Prefs.userId = ""
+        Prefs.userDetails = User()
         Prefs.allDoctors = []
         Prefs.allAppointments = []
     }

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import NotificationBannerSwift
 import CoreLocation
 import SPIndicator
 
@@ -15,6 +16,29 @@ class Utils {
     internal class func initiateLogoutSequence() {
         User.clearUserDetails()
         PrefDataManager.clearAllPrefs()
+    }
+    
+    internal class func checkForReachability() {
+        if Reachability.isConnectedToNetwork() {
+            print("We're connected!")
+            Prefs.isNetworkAvailable = true
+        } else {
+            print("No connection.")
+            Prefs.isNetworkAvailable = false
+        }
+    }
+    
+    internal class func displayNoNetworkBanner(_ vc: UIViewController) -> GrowingNotificationBanner {
+        let networkWarningBanner = GrowingNotificationBanner(title: "Connection Error", subtitle: "Limited features available", style: .danger)
+        networkWarningBanner.autoDismiss = false
+        networkWarningBanner.bannerHeight = 95
+        networkWarningBanner.dismissOnTap = true
+        networkWarningBanner.dismissOnSwipeUp = true
+        networkWarningBanner.haptic = .heavy
+        DispatchQueue.main.async {
+            networkWarningBanner.show(bannerPosition: .top)
+        }
+        return networkWarningBanner
     }
     
     internal class func displaySPIndicatorNotifWithMessage(title: String, message: String, iconPreset: SPIndicatorIconPreset, hapticPreset: SPIndicatorHaptic, duration: TimeInterval) {
