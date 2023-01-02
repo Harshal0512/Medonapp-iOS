@@ -152,11 +152,18 @@ extension BookedAppointmentsViewController: MonthViewBookedAppointmentsDelegate 
     func didMonthChange(sender: MonthViewBookedAppointments, isCurrentMonth: Bool) {
         AppointmentElement.arrangeAppointmentsByDate(month: monthView!.getMonth(), year: monthView!.getYear())
         self.appointmentsByDate = AppointmentElement.getAppointmentDate()
-        UIView.transition(with: scheduleTable!, duration: 0.15, options: .transitionCrossDissolve, animations: {self.scheduleTable!.reloadData()}) { _ in
-            if isCurrentMonth && self.sectionHeaderIDForPresent != -1 {
-                self.scheduleTable?.scrollToRow(at: IndexPath(row: 0, section: self.sectionHeaderIDForPresent), at: .middle, animated: true)
-            } else {
-                self.sectionHeaderIDForPresent = -1
+        self.scheduleTable!.reloadData()
+        UIView.transition(with: scheduleTable!, duration: 0.15, options: .transitionCrossDissolve) {
+            DispatchQueue.global(qos: .background).async {
+                // Background Thread
+                DispatchQueue.main.async {
+                    // Run UI Updates
+                    if isCurrentMonth && self.sectionHeaderIDForPresent != -1 {
+                        self.scheduleTable?.scrollToRow(at: IndexPath(row: 0, section: self.sectionHeaderIDForPresent), at: .middle, animated: true)
+                    } else {
+                        self.sectionHeaderIDForPresent = -1
+                    }
+                }
             }
         }
     }
