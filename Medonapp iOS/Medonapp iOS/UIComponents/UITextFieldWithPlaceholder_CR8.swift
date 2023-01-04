@@ -10,6 +10,8 @@ import UIKit
 
 class UITextFieldWithPlaceholder_CR8: UITextField {
     
+    var name: String?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()

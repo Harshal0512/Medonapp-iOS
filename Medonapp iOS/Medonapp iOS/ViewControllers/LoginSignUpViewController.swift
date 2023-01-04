@@ -46,6 +46,7 @@ class LoginSignUpViewController: UIViewController {
     //initial details
     var emailLabelSignUp: UILabel?
     var emailTextFieldSignUp: UITextFieldWithPlaceholder_CR8?
+    var emailAlreadyExistsLabel: UILabel?
     var choosePasswordLabel: UILabel?
     var choosePasswordTextField: UITextFieldWithPlaceholder_CR8?
     var passwordHint: UILabel?
@@ -233,12 +234,21 @@ class LoginSignUpViewController: UIViewController {
         signUpScreenContentView?.addSubview(emailLabelSignUp!)
         
         emailTextFieldSignUp = UITextFieldWithPlaceholder_CR8()
+        emailTextFieldSignUp?.name = "emailSignUp"
         emailTextFieldSignUp?.delegate = self
         emailTextFieldSignUp?.setPlaceholder(placeholder: "Email")
         emailTextFieldSignUp?.autocapitalizationType = .none
         emailTextFieldSignUp?.autocorrectionType = .no
         emailTextFieldSignUp?.keyboardType = .emailAddress
         signUpScreenContentView?.addSubview(emailTextFieldSignUp!)
+        
+        emailAlreadyExistsLabel = UILabel()
+        emailAlreadyExistsLabel?.text = "This email already exists, please try logging in or use a different email."
+        emailAlreadyExistsLabel?.textColor = UIColor(red: 0.86, green: 0.24, blue: 0.00, alpha: 1.00)
+        emailAlreadyExistsLabel?.font = UIFont(name: "NunitoSans-Bold", size: 11)
+        emailAlreadyExistsLabel?.numberOfLines = 0
+        emailAlreadyExistsLabel?.alpha = 0
+        signUpScreenContentView?.addSubview(emailAlreadyExistsLabel!)
         
         choosePasswordLabel = UILabel()
         choosePasswordLabel?.text = "Choose your Password"
@@ -505,6 +515,7 @@ class LoginSignUpViewController: UIViewController {
         signUpScreenContentView?.translatesAutoresizingMaskIntoConstraints = false
         emailLabelSignUp?.translatesAutoresizingMaskIntoConstraints = false
         emailTextFieldSignUp?.translatesAutoresizingMaskIntoConstraints = false
+        emailAlreadyExistsLabel?.translatesAutoresizingMaskIntoConstraints = false
         choosePasswordLabel?.translatesAutoresizingMaskIntoConstraints = false
         choosePasswordTextField?.translatesAutoresizingMaskIntoConstraints = false
         confirmPasswordLabel?.translatesAutoresizingMaskIntoConstraints = false
@@ -700,6 +711,8 @@ class LoginSignUpViewController: UIViewController {
             self.loginButton?.initButton(title: "Login", cornerRadius: 8, variant: .whiteBack)
             self.signUpButton?.initButton(title: "Signup", cornerRadius: 8, variant: .blueBack)
             
+            self.signupContinueButton?.isDisabled = true
+            
             //set active view opacity
             self.loginScreenContentView?.alpha = 0
         }, completion: {
@@ -776,6 +789,7 @@ class LoginSignUpViewController: UIViewController {
                 self.signUpButton?.alpha = 0
                 self.emailLabelSignUp?.alpha = 0
                 self.emailTextFieldSignUp?.alpha = 0
+                self.emailAlreadyExistsLabel?.alpha = 0
                 self.choosePasswordLabel?.alpha = 0
                 self.choosePasswordTextField?.alpha = 0
                 self.confirmPasswordLabel?.alpha = 0
@@ -788,6 +802,7 @@ class LoginSignUpViewController: UIViewController {
                     self.pageTitle?.alpha = 1
                     self.initializeAndActivateViewConstraints(view: .signupPersonalDetails)
                     self.progressBar?.setProgress(0.50, animated: true)
+                    self.signupContinueButton?.isDisabled = true
                 }, completion: nil)
             })
             
@@ -819,6 +834,7 @@ class LoginSignUpViewController: UIViewController {
                 UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
                     self.initializeAndActivateViewConstraints(view: .signupAddressDetails)
                     self.progressBar?.setProgress(0.75, animated: true)
+                    self.signupContinueButton?.isDisabled = true
                 }, completion: nil)
             })
             
@@ -875,7 +891,11 @@ class LoginSignUpViewController: UIViewController {
             emailTextFieldSignUp?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
             emailTextFieldSignUp?.heightAnchor.constraint(equalToConstant: 61).isActive = true
             
-            choosePasswordLabel?.topAnchor.constraint(equalTo: emailTextFieldSignUp!.bottomAnchor, constant: 15).isActive = true
+            emailAlreadyExistsLabel?.topAnchor.constraint(equalTo: emailTextFieldSignUp!.bottomAnchor, constant: 5).isActive = true
+            emailAlreadyExistsLabel?.leadingAnchor.constraint(equalTo: emailTextFieldSignUp!.leadingAnchor, constant: 5).isActive = true
+            emailAlreadyExistsLabel?.trailingAnchor.constraint(equalTo: emailTextFieldSignUp!.trailingAnchor, constant: -5).isActive = true
+            
+            choosePasswordLabel?.topAnchor.constraint(equalTo: emailAlreadyExistsLabel!.bottomAnchor, constant: 10).isActive = true
             choosePasswordLabel?.leadingAnchor.constraint(equalTo: emailLabelSignUp!.leadingAnchor).isActive = true
             choosePasswordLabel?.trailingAnchor.constraint(equalTo: emailLabelSignUp!.trailingAnchor).isActive = true
             
@@ -1171,6 +1191,39 @@ extension LoginSignUpViewController : UITextFieldDelegate, DPOTPViewDelegate, Va
         })
         
         self.activeTextField = nil
+        
+        clearAllErrors()
+        validator.validate(self)
+        
+        if (textField as! UITextFieldWithPlaceholder_CR8).name == "emailSignUp" {
+            
+            APIService(data: ["username": emailTextFieldSignUp!.trim(), "isDoctor": false], url: nil, service: .checkEmailExists, method: .post, isJSONRequest: true).executeQuery() { (result: Result<Bool, Error>) in
+                var emailAlreadyExists = true
+                
+                switch result{
+                case .success(_):
+                    try? emailAlreadyExists = result.get()
+                case .failure(let error):
+                    print(error)
+                }
+                
+                if emailAlreadyExists {
+                    UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+                        textField.layer.borderWidth = 2
+                        textField.layer.borderColor = UIColor(red: 0.86, green: 0.24, blue: 0.00, alpha: 1.00).cgColor
+                        self.emailAlreadyExistsLabel?.alpha = 1
+                    })
+                    self.signupContinueButton?.isDisabled = true
+                } else {
+                    UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+                        textField.layer.borderWidth = 2
+                        textField.layer.borderColor = UIColor(red: 0.00, green: 0.55, blue: 0.01, alpha: 0.80).cgColor
+                        self.emailAlreadyExistsLabel?.alpha = 0
+                    })
+                    self.signupContinueButton?.isDisabled = false
+                }
+            }
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -1264,10 +1317,12 @@ extension LoginSignUpViewController : UITextFieldDelegate, DPOTPViewDelegate, Va
     
     func validationSuccessful() {
         isValidationError = false
+        self.signupContinueButton?.isDisabled = false
     }
     
     func validationFailed(_ errors: [(SwiftValidator.Validatable, SwiftValidator.ValidationError)]) {
         isValidationError = true
+        self.signupContinueButton?.isDisabled = true
         for (field, _) in errors {
             if let field = field as? UITextField {
                 field.layer.borderColor = UIColor.red.cgColor

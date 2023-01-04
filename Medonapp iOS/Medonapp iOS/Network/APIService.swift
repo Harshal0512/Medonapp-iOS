@@ -11,7 +11,7 @@ import Alamofire
 class APIService : NSObject{
     
     enum services {
-        case login, signUp, sendOtp, getAllDoctors, bookAppointment, postReview
+        case login, signUp, checkEmailExists, sendOtp, getAllDoctors, bookAppointment, postReview
         case getAppointmentsWithPatientID(Int)
         case getPatientWithID(Int)
         case addFavorite(Int)
@@ -27,6 +27,8 @@ class APIService : NSObject{
                 return "auth/login"
             case .signUp:
                 return "v1/patient/add"
+            case .checkEmailExists:
+                return "auth/checkEmailExists"
             case .sendOtp:
                 return "auth/otp"
             case .getAllDoctors:

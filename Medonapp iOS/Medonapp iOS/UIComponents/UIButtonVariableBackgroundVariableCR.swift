@@ -16,6 +16,34 @@ enum buttonVariants {
 
 class UIButtonVariableBackgroundVariableCR: UIButton {
     private var variant: buttonVariants?
+    public var isDisabled = false {
+        didSet {
+            self.isUserInteractionEnabled = !isDisabled
+            switch variant {
+            case .blueBack:
+                UIView.animate(withDuration: 0.2, delay: 0.05, options: UIView.AnimationOptions.curveEaseOut, animations: {
+                    self.backgroundColor = UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: self.isDisabled ? 0.4 : 1.00)
+                    self.setTitleColor(.white, for: .normal)
+                })
+                
+            case .whiteBack:
+                UIView.animate(withDuration: 0.2, delay: 0.05, options: UIView.AnimationOptions.curveEaseOut, animations: {
+                    self.backgroundColor = .white.withAlphaComponent(self.isDisabled ? 0.4 : 1.00)
+                    self.layer.borderColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00).cgColor
+                    self.layer.borderWidth = 1
+                    self.setTitleColor(UIColor(red: 0.48, green: 0.55, blue: 0.62, alpha: 1.00), for: .normal)
+                })
+                
+            case .blackBack:
+                UIView.animate(withDuration: 0.2, delay: 0.05, options: UIView.AnimationOptions.curveEaseOut, animations: {
+                    self.backgroundColor = .black.withAlphaComponent(self.isDisabled ? 0.4 : 1.00)
+                    self.setTitleColor(.white, for: .normal)
+                    self.layer.borderWidth = 0
+                })
+            case .none: break
+            }
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
