@@ -1131,6 +1131,37 @@ class LoginSignUpViewController: UIViewController {
         }
     }
     
+    func checkEmailExists() {
+        APIService(data: ["username": emailTextFieldSignUp!.trim(), "isDoctor": false], url: nil, service: .checkEmailExists, method: .post, isJSONRequest: true).executeQuery() { (result: Result<Bool, Error>) in
+            var emailAlreadyExists = true
+            
+            switch result{
+            case .success(_):
+                try? emailAlreadyExists = result.get()
+            case .failure(let error):
+                print(error)
+            }
+            
+            if emailAlreadyExists {
+                UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+                    self.emailTextFieldSignUp!.layer.borderWidth = 2
+                    self.emailTextFieldSignUp!.layer.borderColor = UIColor(red: 0.86, green: 0.24, blue: 0.00, alpha: 1.00).cgColor
+                    self.emailAlreadyExistsLabel?.alpha = 1
+                })
+                self.isValidationError = true
+                self.signupContinueButton?.isDisabled = true
+            } else {
+                UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+                    self.emailTextFieldSignUp!.layer.borderWidth = 2
+                    self.emailTextFieldSignUp!.layer.borderColor = UIColor(red: 0.00, green: 0.55, blue: 0.01, alpha: 0.80).cgColor
+                    self.emailAlreadyExistsLabel?.alpha = 0
+                })
+                self.isValidationError = false
+                self.signupContinueButton?.isDisabled = false
+            }
+        }
+    }
+    
     @objc func keyboardWillShow(notification: NSNotification) {
         
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
@@ -1194,36 +1225,6 @@ extension LoginSignUpViewController : UITextFieldDelegate, DPOTPViewDelegate, Va
         
         clearAllErrors()
         validator.validate(self)
-        
-        if (textField as! UITextFieldWithPlaceholder_CR8).name == "emailSignUp" {
-            
-            APIService(data: ["username": emailTextFieldSignUp!.trim(), "isDoctor": false], url: nil, service: .checkEmailExists, method: .post, isJSONRequest: true).executeQuery() { (result: Result<Bool, Error>) in
-                var emailAlreadyExists = true
-                
-                switch result{
-                case .success(_):
-                    try? emailAlreadyExists = result.get()
-                case .failure(let error):
-                    print(error)
-                }
-                
-                if emailAlreadyExists {
-                    UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
-                        textField.layer.borderWidth = 2
-                        textField.layer.borderColor = UIColor(red: 0.86, green: 0.24, blue: 0.00, alpha: 1.00).cgColor
-                        self.emailAlreadyExistsLabel?.alpha = 1
-                    })
-                    self.signupContinueButton?.isDisabled = true
-                } else {
-                    UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
-                        textField.layer.borderWidth = 2
-                        textField.layer.borderColor = UIColor(red: 0.00, green: 0.55, blue: 0.01, alpha: 0.80).cgColor
-                        self.emailAlreadyExistsLabel?.alpha = 0
-                    })
-                    self.signupContinueButton?.isDisabled = false
-                }
-            }
-        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -1316,11 +1317,18 @@ extension LoginSignUpViewController : UITextFieldDelegate, DPOTPViewDelegate, Va
     }
     
     func validationSuccessful() {
-        isValidationError = false
-        self.signupContinueButton?.isDisabled = false
+        if activeView == .signupInitialDetails {
+            checkEmailExists()
+        } else {
+            self.isValidationError = false
+            self.signupContinueButton?.isDisabled = false
+        }
     }
     
     func validationFailed(_ errors: [(SwiftValidator.Validatable, SwiftValidator.ValidationError)]) {
+        if activeView == .signupInitialDetails {
+            checkEmailExists()
+        }
         isValidationError = true
         self.signupContinueButton?.isDisabled = true
         for (field, _) in errors {
