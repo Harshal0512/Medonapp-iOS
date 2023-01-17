@@ -41,6 +41,7 @@
 		F83CBC4C28D88466005BA1B8 /* NunitoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F83CBC4A28D88466005BA1B8 /* NunitoSans-Bold.ttf */; };
 		F83CBC4D28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F83CBC4B28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf */; };
 		F840513528FD139F0051B636 /* Doctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F840513428FD139F0051B636 /* Doctor.swift */; };
+		F84370092976927D00B0B0C9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84370082976927D00B0B0C9 /* Constants.swift */; };
 		F844C65328FEB25300BBE5B0 /* ReportDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F844C65228FEB25300BBE5B0 /* ReportDetailsViewController.swift */; };
 		F844C65528FEB27000BBE5B0 /* ReportTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F844C65428FEB27000BBE5B0 /* ReportTab.storyboard */; };
 		F844C65928FF0E1700BBE5B0 /* ReportTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F844C65728FF0E1700BBE5B0 /* ReportTableViewCell.swift */; };
@@ -69,6 +70,7 @@
 		F89272C128F1AEA50063525E /* ScheduleTabTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89272BF28F1AEA50063525E /* ScheduleTabTableViewCell.swift */; };
 		F89272C228F1AEA50063525E /* ScheduleTabTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F89272C028F1AEA50063525E /* ScheduleTabTableViewCell.xib */; };
 		F89272C428F1B0F80063525E /* NunitoSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F89272C328F1B0F80063525E /* NunitoSans-Regular.ttf */; };
+		F8A0E18629718F4C00B888B0 /* UIButtonCircularWithLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A0E18529718F4C00B888B0 /* UIButtonCircularWithLogo.swift */; };
 		F8A4F47828F14CE60032A87B /* SearchBarWithSearchAndFilterIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A4F47728F14CE60032A87B /* SearchBarWithSearchAndFilterIcon.swift */; };
 		F8AAB18229486EE500A5C9E7 /* DefaultResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AAB18129486EE500A5C9E7 /* DefaultResponseModel.swift */; };
 		F8AF821D28F553CA00D62D98 /* DoctorDetailsViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AF821C28F553CA00D62D98 /* DoctorDetailsViewViewController.swift */; };
@@ -142,6 +144,7 @@
 		F83CBC4A28D88466005BA1B8 /* NunitoSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-Bold.ttf"; sourceTree = "<group>"; };
 		F83CBC4B28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-ExtraBold.ttf"; sourceTree = "<group>"; };
 		F840513428FD139F0051B636 /* Doctor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctor.swift; sourceTree = "<group>"; };
+		F84370082976927D00B0B0C9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F844C65228FEB25300BBE5B0 /* ReportDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportDetailsViewController.swift; sourceTree = "<group>"; };
 		F844C65428FEB27000BBE5B0 /* ReportTab.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ReportTab.storyboard; sourceTree = "<group>"; };
 		F844C65728FF0E1700BBE5B0 /* ReportTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportTableViewCell.swift; sourceTree = "<group>"; };
@@ -170,6 +173,7 @@
 		F89272BF28F1AEA50063525E /* ScheduleTabTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTabTableViewCell.swift; sourceTree = "<group>"; };
 		F89272C028F1AEA50063525E /* ScheduleTabTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleTabTableViewCell.xib; sourceTree = "<group>"; };
 		F89272C328F1B0F80063525E /* NunitoSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-Regular.ttf"; sourceTree = "<group>"; };
+		F8A0E18529718F4C00B888B0 /* UIButtonCircularWithLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonCircularWithLogo.swift; sourceTree = "<group>"; };
 		F8A4F47728F14CE60032A87B /* SearchBarWithSearchAndFilterIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarWithSearchAndFilterIcon.swift; sourceTree = "<group>"; };
 		F8AAB18129486EE500A5C9E7 /* DefaultResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultResponseModel.swift; sourceTree = "<group>"; };
 		F8AF821C28F553CA00D62D98 /* DoctorDetailsViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDetailsViewViewController.swift; sourceTree = "<group>"; };
@@ -308,6 +312,7 @@
 				F80C197F2900F38C00891800 /* Rating Control */,
 				F8C75A5C28E97EC100F5B2E2 /* UITextFieldWithPlaceholder_CR8.swift */,
 				F8C75A6328EA016E00F5B2E2 /* UIButtonVariableBackgroundVariableCR.swift */,
+				F8A0E18529718F4C00B888B0 /* UIButtonCircularWithLogo.swift */,
 				F859AB3328EC2FA10069D247 /* UITextViewWithPlaceholder_CR8.swift */,
 				F8A4F47728F14CE60032A87B /* SearchBarWithSearchAndFilterIcon.swift */,
 				F814C6BE292219F000B0C1B3 /* Home Tab */,
@@ -515,6 +520,7 @@
 				F8BC4A4328F460D600440406 /* StoryboardUtils.swift */,
 				F883FC122909260E00B17D01 /* Prefs.swift */,
 				F8F4C3E02919750F00EF17EA /* Popover Utils.swift */,
+				F84370082976927D00B0B0C9 /* Constants.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -734,8 +740,10 @@
 				F81BAADD28F928BF0080BD21 /* BookAppointmentViewController.swift in Sources */,
 				F85D9C3828F33B6D008FBDE9 /* ReportTabViewController.swift in Sources */,
 				F8F3ED3F2909685C001D6A4C /* NameExclMiddleName.swift in Sources */,
+				F84370092976927D00B0B0C9 /* Constants.swift in Sources */,
 				F883FC092909222200B17D01 /* Credential.swift in Sources */,
 				F883FC112909248900B17D01 /* User.swift in Sources */,
+				F8A0E18629718F4C00B888B0 /* UIButtonCircularWithLogo.swift in Sources */,
 				F8BC4A4228F4588A00440406 /* DoctorsScreenViewController.swift in Sources */,
 				F81BAAF328F9C09B0080BD21 /* AppointmentDetailsViewController.swift in Sources */,
 				F8F3ED3D290967DF001D6A4C /* SignUpModel.swift in Sources */,

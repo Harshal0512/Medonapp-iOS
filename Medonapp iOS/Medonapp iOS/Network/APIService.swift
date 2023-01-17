@@ -60,7 +60,7 @@ class APIService : NSObject{
     var parameters = Parameters()
     var headers = HTTPHeaders()
     var method: HTTPMethod!
-    var api_endpoint: String! = "http://34.100.156.30:8080/api/"
+    var api_endpoint: String! = Constants.BASE_URI
     var encoding: ParameterEncoding! = JSONEncoding.default
     
     init(data: [String:Any],headers: [String:String] = [:], url :String?, service :services? = nil, method: HTTPMethod = .post, isJSONRequest: Bool = true){
@@ -105,5 +105,42 @@ class APIService : NSObject{
                 }
             }
         })
+    }
+    
+    static func uploadFile(file: Data, fileName: String, params: [String: Any], completion: @escaping () -> Void) {
+        let headers: HTTPHeaders = [
+            "Content-type": "multipart/form-data",
+            "Accept": "application/json"
+        ]
+        AF.upload(
+            multipartFormData: { multipartFormData in
+                for (key, value) in params {
+                    if let temp = value as? String {
+                        multipartFormData.append(temp.data(using: .utf8)!, withName: key)
+                    }
+                    if let temp = value as? Int {
+                        multipartFormData.append("\(temp)".data(using: .utf8)!, withName: key)
+                    }
+                    if let temp = value as? NSArray {
+                        temp.forEach({ element in
+                            let keyObj = key + "[]"
+                            if let string = element as? String {
+                                multipartFormData.append(string.data(using: .utf8)!, withName: keyObj)
+                            } else
+                            if let num = element as? Int {
+                                let value = "\(num)"
+                                multipartFormData.append(value.data(using: .utf8)!, withName: keyObj)
+                            }
+                        })
+                    }
+                }
+                multipartFormData.append(file, withName: "file", fileName: fileName, mimeType: "patientMedicalFile")
+            },
+            to: "\(Constants.BASE_URI)/v1/patient/\((User.getUserDetails().patient?.id!)!)/upload",
+            method: .post,
+            headers: headers)
+        .responseJSON { (resp) in
+            print("resp is \(resp)")
+        }
     }
 }
