@@ -33,7 +33,7 @@ class ReportTabViewController: UIViewController {
     var latestReportsLabel: UILabel?
     var userReports: ReportCellWithIconAndDescription?
     var constraintsUserReports: [String: NSLayoutConstraint] = [:]
-    var familyReports: ReportCellWithIconAndDescription?
+//    var familyReports: ReportCellWithIconAndDescription?
     
     private var userDetails = User.getUserDetails()
 
@@ -156,11 +156,11 @@ class ReportTabViewController: UIViewController {
         userReports?.addGestureRecognizer(userReportsTap)
         userReports?.isUserInteractionEnabled = true
         
-        familyReports = ReportCellWithIconAndDescription.instantiate(viewBackgroundColor: .white, icon: UIImage(named: "documentIcon")!.withTintColor(UIColor(red: 0.00, green: 0.54, blue: 0.37, alpha: 1.00)), iconBackgroundColor: UIColor(red: 0.84, green: 1.00, blue: 0.95, alpha: 1.00), title: "Family Reports", numberOfFiles: 8)
-        contentView?.addSubview(familyReports!)
-        let familyReportsTap = UITapGestureRecognizer(target: self, action: #selector(self.expandFamilyReports))
-        familyReports?.addGestureRecognizer(familyReportsTap)
-        familyReports?.isUserInteractionEnabled = true
+//        familyReports = ReportCellWithIconAndDescription.instantiate(viewBackgroundColor: .white, icon: UIImage(named: "documentIcon")!.withTintColor(UIColor(red: 0.00, green: 0.54, blue: 0.37, alpha: 1.00)), iconBackgroundColor: UIColor(red: 0.84, green: 1.00, blue: 0.95, alpha: 1.00), title: "Family Reports", numberOfFiles: 8)
+//        contentView?.addSubview(familyReports!)
+//        let familyReportsTap = UITapGestureRecognizer(target: self, action: #selector(self.expandFamilyReports))
+//        familyReports?.addGestureRecognizer(familyReportsTap)
+//        familyReports?.isUserInteractionEnabled = true
     }
     
     func setConstraints() {
@@ -203,7 +203,7 @@ class ReportTabViewController: UIViewController {
         
         latestReportsLabel?.translatesAutoresizingMaskIntoConstraints = false
         userReports?.translatesAutoresizingMaskIntoConstraints = false
-        familyReports?.translatesAutoresizingMaskIntoConstraints = false
+//        familyReports?.translatesAutoresizingMaskIntoConstraints = false
         
         healthLabelHealthStatusView?.topAnchor.constraint(equalTo: healthStatus!.topAnchor, constant: 29).isActive = true
         healthLabelHealthStatusView?.leadingAnchor.constraint(equalTo: healthStatus!.leadingAnchor, constant: 22).isActive = true
@@ -269,11 +269,12 @@ class ReportTabViewController: UIViewController {
         constraintsUserReports["height"]?.isActive = true
         
         
-        familyReports?.topAnchor.constraint(equalTo: userReports!.bottomAnchor, constant: 18).isActive = true
-        familyReports?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 27).isActive = true
-        familyReports?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -27).isActive = true
-        familyReports?.heightAnchor.constraint(equalToConstant: 93).isActive = true
-        familyReports?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -20).isActive = true
+        userReports?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -20).isActive = true
+//        familyReports?.topAnchor.constraint(equalTo: userReports!.bottomAnchor, constant: 18).isActive = true
+//        familyReports?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 27).isActive = true
+//        familyReports?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -27).isActive = true
+//        familyReports?.heightAnchor.constraint(equalToConstant: 93).isActive = true
+//        familyReports?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -20).isActive = true
     }
     
     @objc func expandUserReports() {
