@@ -17,8 +17,6 @@ enum reportVariant {
 
 class ReportDetailsViewController: UIViewController {
     
-    
-    
     private var backButton: UIImageView?
     private var navTitle: UILabel?
     private var reportsHistoryTable: UITableView?
@@ -113,6 +111,20 @@ class ReportDetailsViewController: UIViewController {
         addReportsButton?.heightAnchor.constraint(equalToConstant: 75).isActive = true
     }
     
+    func refreshData() {
+        view.isUserInteractionEnabled = false
+        self.view.makeToastActivity(.center)
+        
+        User.refreshUserDetails { isSuccess in
+            if isSuccess {
+                self.view.isUserInteractionEnabled = true
+                let sections = NSIndexSet(indexesIn: NSMakeRange(0, self.reportsHistoryTable!.numberOfSections))
+                self.reportsHistoryTable!.reloadSections(sections as IndexSet, with: .fade)
+                self.view.hideToastActivity()
+            }
+        }
+    }
+    
     func setupUserReportsUIWithConstraints() {
         reportsTopView = ReportCellWithIconAndDescription.instantiate(viewBackgroundColor: .white, icon: UIImage(named: "documentIcon")!.withTintColor(UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00)), iconBackgroundColor: UIColor(red: 0.86, green: 0.93, blue: 0.98, alpha: 1.00), title: "My Reports", numberOfFiles: 8, showOutline: false, showMoreIcon: false)
         view.addSubview(reportsTopView!)
@@ -187,10 +199,13 @@ extension ReportDetailsViewController: UITableViewDelegate, UITableViewDataSourc
         let cell = reportsHistoryTable!.dequeueReusableCell(withIdentifier: ReportTableViewCell.identifier, for: indexPath) as! ReportTableViewCell
         if reportsVariant == .user {
             let fileExists: (Bool, URL?) = (User.getUserDetails().patient?.medicalFiles![indexPath.row].checkIfFileAlreadyExists())!
-            cell.configure(icon: UIImage(named: "documentIcon")!, reportTitle: User.getUserDetails().patient?.medicalFiles?[indexPath.row].fileName ?? "", reportCellVariant: .user, isDownloaded: fileExists.0)
-        } else if reportsVariant == .family {
-            cell.configure(icon: UIImage(named: "documentIcon")!, reportTitle: "X-Ray Report", reportCellVariant: .family, isDownloaded: false)
+            cell.configure(icon: UIImage(named: "documentIcon")!, medicalFile: (User.getUserDetails().patient?.medicalFiles?[indexPath.row])!, reportCellVariant: .user, isDownloaded: fileExists.0)
         }
+//        else if reportsVariant == .family {
+//            cell.configure(icon: UIImage(named: "documentIcon")!, medicalFile: "X-Ray Report", reportCellVariant: .family, isDownloaded: false)
+//        }
+        
+        cell.delegate = self
         
         return cell
     }
@@ -199,30 +214,75 @@ extension ReportDetailsViewController: UITableViewDelegate, UITableViewDataSourc
         reportsHistoryTable?.scrollToRow(at: indexPath, at: .middle, animated: true)
         reportsHistoryTable?.deselectRow(at: indexPath, animated: true)
         
+        viewDownloadedFile(file: (User.getUserDetails().patient?.medicalFiles![indexPath.row])!)
+    }
+    
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let identifier = NSString(string: "\(indexPath.row)")
+        
+        let cell = reportsHistoryTable!.cellForRow(at: indexPath) as! ReportTableViewCell
+        
+        return UIContextMenuConfiguration(identifier: identifier, previewProvider: nil) { _ in
+            return cell.optionsMenu
+        }
+    }
+}
+
+extension ReportDetailsViewController: ReportTableViewCellProtocol {
+    func openPDFInWebView(data: Data, path: URL) {
         let webView = WKWebView(frame: self.view.frame)
         webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
-        let fileExists: (Bool, URL?) = (User.getUserDetails().patient?.medicalFiles![indexPath.row].checkIfFileAlreadyExists())!
+        webView.load(data, mimeType: "application/pdf", characterEncodingName: "", baseURL: path.deletingLastPathComponent())
         
-        if fileExists.0 == true {
+        self.view.addSubview(webView)
+    }
+    
+    func viewDownloadedFile(file: FileModel) {
+        let fileExists: (Bool, URL?) = file.checkIfFileAlreadyExists()
+        
+        if fileExists.0 {
             if let path = fileExists.1 {
                 let data = try! Data(contentsOf: path)
-                webView.load(data, mimeType: "application/pdf", characterEncodingName: "", baseURL: path.deletingLastPathComponent())
-                
-                self.view.addSubview(webView)
+                self.openPDFInWebView(data: data, path: path)
             }
         } else {
-            APIService.downloadFile(fileUrl: URL(string: (User.getUserDetails().patient?.medicalFiles![indexPath.row].fileDownloadURI)!)!, fileName: (User.getUserDetails().patient?.medicalFiles![indexPath.row].fileName)!, headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"]) { path in
+            APIService.downloadFile(fileUrl: URL(string: file.fileDownloadURI!)!, fileName: file.fileName!, headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"]) { path in
                 
                 if let path = path {
                     let data = try! Data(contentsOf: path)
-                    webView.load(data, mimeType: "application/pdf", characterEncodingName: "", baseURL: path.deletingLastPathComponent())
-                    
-                    self.view.addSubview(webView)
+                    self.openPDFInWebView(data: data, path: path)
                 }
             }
         }
     }
+    
+    func downloadButtonDidClick(file: FileModel) {
+        APIService.downloadFile(fileUrl: URL(string: file.fileDownloadURI!)!, fileName: file.fileName!, headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"]) { path in
+            
+            if let path = path {
+                let data = try! Data(contentsOf: path)
+                self.openPDFInWebView(data: data, path: path)
+            }
+        }
+    }
+    
+    func deleteFileButtonDidClick(file: FileModel) {
+        let fileExists: (Bool, URL?) = file.checkIfFileAlreadyExists()
+        
+        if fileExists.0 {
+            do {
+                try FileManager.default.removeItem(at: fileExists.1!)
+                Utils.displayAlertWithHandler("File Deleted", "", viewController: self) { action in
+                    self.refreshData()
+                }
+            } catch {
+                print("Could not be deleted.")
+            }
+        }
+    }
+    
+    
 }
 
 extension ReportDetailsViewController: UIDocumentPickerDelegate {

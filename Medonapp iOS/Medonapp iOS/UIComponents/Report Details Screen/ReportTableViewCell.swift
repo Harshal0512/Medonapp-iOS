@@ -7,6 +7,12 @@
 
 import UIKit
 
+protocol ReportTableViewCellProtocol {
+    func viewDownloadedFile(file: FileModel)
+    func downloadButtonDidClick(file: FileModel)
+    func deleteFileButtonDidClick(file: FileModel)
+}
+
 class ReportTableViewCell: UITableViewCell {
     
     static let identifier = "ReportTableViewCell"
@@ -21,14 +27,17 @@ class ReportTableViewCell: UITableViewCell {
     @IBOutlet private var reportTitle: UILabel!
     @IBOutlet private var downloadIcon: UIImageView!
     
-    public func configure(icon: UIImage, reportTitle: String, reportCellVariant: reportVariant, isDownloaded: Bool) {
+    var delegate: ReportTableViewCellProtocol!
+    var optionsMenu: UIMenu?
+    
+    public func configure(icon: UIImage, medicalFile: FileModel, reportCellVariant: reportVariant, isDownloaded: Bool) {
         cellContentView.layer.cornerRadius = 28
         self.iconImage.image = icon
         
         self.iconView.backgroundColor = .clear
         self.iconView.layer.cornerRadius = 20
         
-        self.reportTitle.text = reportTitle
+        self.reportTitle.text = medicalFile.fileName
         
         self.reportTitle.textColor = .black
         
@@ -46,6 +55,24 @@ class ReportTableViewCell: UITableViewCell {
         }
         
         downloadIcon.alpha = isDownloaded ? 0 : 1
+        
+        if isDownloaded {
+            let viewFile = UIAction(title: "View Downloaded File", image: UIImage(systemName: "doc.text.below.ecg.fill")) { action in
+                self.delegate.viewDownloadedFile(file: medicalFile)
+            }
+            let reDownload = UIAction(title: "Re-Download File", image: UIImage(systemName: "arrow.down.circle.fill")) { action in
+                self.delegate.downloadButtonDidClick(file: medicalFile)
+            }
+            let deleteDownload = UIAction(title: "Delete Downloaded File", image: UIImage(systemName: "trash"), attributes: .destructive) { action in
+                self.delegate.deleteFileButtonDidClick(file: medicalFile)
+            }
+            optionsMenu = UIMenu(children: [reDownload, deleteDownload])
+        } else {
+            let download = UIAction(title: "Download File", image: UIImage(systemName: "arrow.down.circle.fill")) { action in
+                self.delegate.downloadButtonDidClick(file: medicalFile)
+            }
+            optionsMenu = UIMenu(children: [download])
+        }
     }
 
     override func awakeFromNib() {

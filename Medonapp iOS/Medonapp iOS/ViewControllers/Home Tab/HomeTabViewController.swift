@@ -70,7 +70,7 @@ class HomeTabViewController: UIViewController {
             tabBarItems![1].isEnabled = false
             tabBarItems![2].isEnabled = false
             
-            refreshUserDetails { isSuccess in
+            User.refreshUserDetails { isSuccess in
                 if isSuccess {
                     //                    tabBarItems![1].isEnabled = true
                     tabBarItems![2].isEnabled = true
@@ -94,19 +94,6 @@ class HomeTabViewController: UIViewController {
         super.viewWillDisappear(animated)
         
         notifBanner?.dismiss()
-    }
-    
-    func refreshUserDetails(completionHandler: @escaping(Bool) -> ()) {
-        APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .getPatientWithID(userDetails.patient!.id!), method: .get, isJSONRequest: false).executeQuery() { (result: Result<Patient, Error>) in
-            switch result{
-            case .success(_):
-                try? User.setPatientDetails(patient: result.get())
-                completionHandler(true)
-            case .failure(let error):
-                print(error)
-                completionHandler(false)
-            }
-        }
     }
     
     override func viewDidLoad() {

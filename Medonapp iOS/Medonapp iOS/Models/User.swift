@@ -24,6 +24,19 @@ class User: Codable {
     
     static private var userDetails: User = User()
     
+    static func refreshUserDetails(completionHandler: @escaping(Bool) -> ()) {
+        APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .getPatientWithID(userDetails.patient!.id!), method: .get, isJSONRequest: false).executeQuery() { (result: Result<Patient, Error>) in
+            switch result{
+            case .success(_):
+                try? User.setPatientDetails(patient: result.get())
+                completionHandler(true)
+            case .failure(let error):
+                print(error)
+                completionHandler(false)
+            }
+        }
+    }
+    
     static func getUserDetails() -> User {
         return userDetails
     }

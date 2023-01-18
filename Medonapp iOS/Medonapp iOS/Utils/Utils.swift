@@ -84,6 +84,15 @@ class Utils {
         
     }
     
+    internal class func displayAlertWithHandler(_ title: String, _ displayText: String, viewController: UIViewController?, handler: ((UIAlertAction)->Void)?){
+        
+        let alertController = UIAlertController(title: title, message:
+                                                    displayText, preferredStyle: UIAlertController.Style.alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: handler))
+        viewController?.present(alertController, animated: true, completion: nil)
+        
+    }
+    
     internal class func displayAlertWithCloseAction(_ displayText: String, viewController: UIViewController?){
         
         let alertController = UIAlertController(title: "Medonapp", message:
