@@ -11,6 +11,7 @@ protocol ReportTableViewCellProtocol {
     func viewDownloadedFile(file: FileModel)
     func downloadButtonDidClick(file: FileModel)
     func deleteFileButtonDidClick(file: FileModel)
+    func shareButtonDidClick(file: FileModel)
 }
 
 class ReportTableViewCell: UITableViewCell {
@@ -66,7 +67,10 @@ class ReportTableViewCell: UITableViewCell {
             let deleteDownload = UIAction(title: "Delete Downloaded File", image: UIImage(systemName: "trash"), attributes: .destructive) { action in
                 self.delegate.deleteFileButtonDidClick(file: medicalFile)
             }
-            optionsMenu = UIMenu(children: [reDownload, deleteDownload])
+            let shareFile = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up")) { action in
+                self.delegate.shareButtonDidClick(file: medicalFile)
+            }
+            optionsMenu = UIMenu(children: [viewFile, reDownload, deleteDownload, shareFile])
         } else {
             let download = UIAction(title: "Download File", image: UIImage(systemName: "arrow.down.circle.fill")) { action in
                 self.delegate.downloadButtonDidClick(file: medicalFile)

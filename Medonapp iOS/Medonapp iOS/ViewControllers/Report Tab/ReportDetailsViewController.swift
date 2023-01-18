@@ -282,7 +282,18 @@ extension ReportDetailsViewController: ReportTableViewCellProtocol {
         }
     }
     
-    
+    func shareButtonDidClick(file: FileModel) {
+        let fileExists: (Bool, URL?) = file.checkIfFileAlreadyExists()
+        
+        if fileExists.0 {
+            if let path = fileExists.1 {
+                let data = try! Data(contentsOf: path)
+                let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: [file.fileName!, data], applicationActivities: nil)
+                present(activityViewController, animated: true, completion: nil)
+            }
+        }
+        
+    }
 }
 
 extension ReportDetailsViewController: UIDocumentPickerDelegate {
