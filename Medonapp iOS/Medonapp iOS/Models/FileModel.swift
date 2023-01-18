@@ -29,7 +29,6 @@ class FileModel: Codable {
         let docsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
         
         let destinationUrl = docsUrl?.appendingPathComponent(fileName!)
-        print(destinationUrl!)
         if let destinationUrl = destinationUrl {
             if (FileManager().fileExists(atPath: destinationUrl.path)) {
                 return (true, destinationUrl)

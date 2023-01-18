@@ -19,9 +19,9 @@ class ReportTableViewCell: UITableViewCell {
     @IBOutlet private var iconView: UIView!
     @IBOutlet private var iconImage: UIImageView!
     @IBOutlet private var reportTitle: UILabel!
-    @IBOutlet private var moreIcon: UIImageView!
+    @IBOutlet private var downloadIcon: UIImageView!
     
-    public func configure(icon: UIImage, reportTitle: String, reportCellVariant: reportVariant) {
+    public func configure(icon: UIImage, reportTitle: String, reportCellVariant: reportVariant, isDownloaded: Bool) {
         cellContentView.layer.cornerRadius = 28
         self.iconImage.image = icon
         
@@ -44,6 +44,8 @@ class ReportTableViewCell: UITableViewCell {
             iconView.layer.borderWidth = 2
             iconImage.image = iconImage.image!.withTintColor(UIColor(red: 0.00, green: 0.54, blue: 0.37, alpha: 1.00))
         }
+        
+        downloadIcon.alpha = isDownloaded ? 0 : 1
     }
 
     override func awakeFromNib() {

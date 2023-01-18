@@ -186,9 +186,10 @@ extension ReportDetailsViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = reportsHistoryTable!.dequeueReusableCell(withIdentifier: ReportTableViewCell.identifier, for: indexPath) as! ReportTableViewCell
         if reportsVariant == .user {
-            cell.configure(icon: UIImage(named: "documentIcon")!, reportTitle: User.getUserDetails().patient?.medicalFiles?[indexPath.row].fileName ?? "", reportCellVariant: .user)
+            let fileExists: (Bool, URL?) = (User.getUserDetails().patient?.medicalFiles![indexPath.row].checkIfFileAlreadyExists())!
+            cell.configure(icon: UIImage(named: "documentIcon")!, reportTitle: User.getUserDetails().patient?.medicalFiles?[indexPath.row].fileName ?? "", reportCellVariant: .user, isDownloaded: fileExists.0)
         } else if reportsVariant == .family {
-            cell.configure(icon: UIImage(named: "documentIcon")!, reportTitle: "X-Ray Report", reportCellVariant: .family)
+            cell.configure(icon: UIImage(named: "documentIcon")!, reportTitle: "X-Ray Report", reportCellVariant: .family, isDownloaded: false)
         }
         
         return cell
@@ -201,7 +202,7 @@ extension ReportDetailsViewController: UITableViewDelegate, UITableViewDataSourc
         let webView = WKWebView(frame: self.view.frame)
         webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
-        var fileExists: (Bool, URL?) = (User.getUserDetails().patient?.medicalFiles![indexPath.row].checkIfFileAlreadyExists())!
+        let fileExists: (Bool, URL?) = (User.getUserDetails().patient?.medicalFiles![indexPath.row].checkIfFileAlreadyExists())!
         
         if fileExists.0 == true {
             if let path = fileExists.1 {
@@ -240,7 +241,9 @@ extension ReportDetailsViewController: UIDocumentPickerDelegate {
             
             let saveAction = UIAlertAction(title: "Upload",
                                            style: .default) { _ in
-                
+                APIService.uploadFile(file: fileData, fileName: selectedFileData["filename"] ?? "", params: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"]) {
+                    print("here")
+                }
             }
             
             let cancelAction = UIAlertAction(title: "Cancel",
