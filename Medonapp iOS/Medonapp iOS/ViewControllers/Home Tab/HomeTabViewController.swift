@@ -63,27 +63,29 @@ class HomeTabViewController: UIViewController {
         tabBarItems![2].selectedImage = UIImage(named: "reportTabIcon")?.resizeImageTo(size: CGSize(width: 40, height: 40))?.withTintColor(UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00))
         tabBarItems![1].isEnabled = false
         
-        if userDetails.patient?.name == nil {
-            if Prefs.isNetworkAvailable {
-                view.isUserInteractionEnabled = false
-                self.view.makeToastActivity(.center)
-                contentView?.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
-                tabBarItems![1].isEnabled = false
-                tabBarItems![2].isEnabled = false
-                
-                refreshUserDetails { isSuccess in
-                    if isSuccess {
-                        //                    tabBarItems![1].isEnabled = true
-                        tabBarItems![2].isEnabled = true
-                        self.view.isUserInteractionEnabled = true
-                        self.contentView?.hideSkeleton(transition: .crossDissolve(0.25))
-                        self.loadData()
-                        self.fetchDoctors()
-                        self.view.hideToastActivity()
-                    } else {
-                        self.logout()
-                    }
+        if Prefs.isNetworkAvailable {
+            view.isUserInteractionEnabled = false
+            self.view.makeToastActivity(.center)
+            contentView?.showAnimatedGradientSkeleton(transition: .crossDissolve(0.25))
+            tabBarItems![1].isEnabled = false
+            tabBarItems![2].isEnabled = false
+            
+            refreshUserDetails { isSuccess in
+                if isSuccess {
+                    //                    tabBarItems![1].isEnabled = true
+                    tabBarItems![2].isEnabled = true
+                    self.view.isUserInteractionEnabled = true
+                    self.contentView?.hideSkeleton(transition: .crossDissolve(0.25))
+                    self.loadData()
+                    self.fetchDoctors()
+                    self.view.hideToastActivity()
+                } else {
+                    self.logout()
                 }
+            }
+        } else {
+            if userDetails.patient?.name == nil {
+                self.logout()
             }
         }
     }
