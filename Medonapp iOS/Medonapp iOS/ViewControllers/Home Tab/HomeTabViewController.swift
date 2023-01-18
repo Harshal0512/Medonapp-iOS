@@ -124,7 +124,6 @@ class HomeTabViewController: UIViewController {
         
         addDoctorPins()
         loadData()
-        fetchDoctors()
         
         locationManager.requestWhenInUseAuthorization()
         locationManager.delegate = self
