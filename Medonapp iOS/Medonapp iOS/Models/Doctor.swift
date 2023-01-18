@@ -36,7 +36,7 @@ class Doctor: Codable, Hashable {
     
     var id: Int?
     var credential: Credential?
-    var profileImage: ProfileImage?
+    var profileImage: FileModel?
     var name: NameInclMiddleName?
     var fullNameWithTitle: String = ""
     var address: FullAddress?
@@ -82,7 +82,7 @@ class Doctor: Codable, Hashable {
         case reviewCount
     }
     
-    init(id: Int?, credential: Credential?, profileImage: ProfileImage?, name: NameInclMiddleName?, address: FullAddress?, mobile: MobileWithCountryCode?, gender: String?, specialization: String?, experience: Double?, about: [String]?, fees: Double?, liveStatus: Bool?, avgRating: Double?, availableFromInWeekdays: String?, availableFromInWeekends: String?, maxAppointmentsInWeekdays: Int?, maxAppointmentsInWeekends: Int?, appointmentDuration: String?, weekdayAppointmentSlots: [String]?, weekendAppointmentSlots: [String]?, bookedSlots: [String]?, patientCount: Int?, reviewCount: Int?) {
+    init(id: Int?, credential: Credential?, profileImage: FileModel?, name: NameInclMiddleName?, address: FullAddress?, mobile: MobileWithCountryCode?, gender: String?, specialization: String?, experience: Double?, about: [String]?, fees: Double?, liveStatus: Bool?, avgRating: Double?, availableFromInWeekdays: String?, availableFromInWeekends: String?, maxAppointmentsInWeekdays: Int?, maxAppointmentsInWeekends: Int?, appointmentDuration: String?, weekdayAppointmentSlots: [String]?, weekendAppointmentSlots: [String]?, bookedSlots: [String]?, patientCount: Int?, reviewCount: Int?) {
         self.id = id
         self.credential = credential
         self.profileImage = profileImage

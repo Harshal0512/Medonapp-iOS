@@ -42,6 +42,7 @@
 		F83CBC4D28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F83CBC4B28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf */; };
 		F840513528FD139F0051B636 /* Doctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F840513428FD139F0051B636 /* Doctor.swift */; };
 		F84370092976927D00B0B0C9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84370082976927D00B0B0C9 /* Constants.swift */; };
+		F843700B2976977500B0B0C9 /* FileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843700A2976977500B0B0C9 /* FileModel.swift */; };
 		F844C65328FEB25300BBE5B0 /* ReportDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F844C65228FEB25300BBE5B0 /* ReportDetailsViewController.swift */; };
 		F844C65528FEB27000BBE5B0 /* ReportTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F844C65428FEB27000BBE5B0 /* ReportTab.storyboard */; };
 		F844C65928FF0E1700BBE5B0 /* ReportTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F844C65728FF0E1700BBE5B0 /* ReportTableViewCell.swift */; };
@@ -61,7 +62,6 @@
 		F883FC07290921F100B17D01 /* FullAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = F883FC06290921F100B17D01 /* FullAddress.swift */; };
 		F883FC092909222200B17D01 /* Credential.swift in Sources */ = {isa = PBXBuildFile; fileRef = F883FC082909222200B17D01 /* Credential.swift */; };
 		F883FC0B2909225E00B17D01 /* NameInclMiddleName.swift in Sources */ = {isa = PBXBuildFile; fileRef = F883FC0A2909225E00B17D01 /* NameInclMiddleName.swift */; };
-		F883FC0D2909227400B17D01 /* ProfileImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F883FC0C2909227400B17D01 /* ProfileImage.swift */; };
 		F883FC0F2909228F00B17D01 /* MobileWithCountryCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F883FC0E2909228F00B17D01 /* MobileWithCountryCode.swift */; };
 		F883FC112909248900B17D01 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F883FC102909248900B17D01 /* User.swift */; };
 		F883FC132909260E00B17D01 /* Prefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F883FC122909260E00B17D01 /* Prefs.swift */; };
@@ -145,6 +145,7 @@
 		F83CBC4B28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-ExtraBold.ttf"; sourceTree = "<group>"; };
 		F840513428FD139F0051B636 /* Doctor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctor.swift; sourceTree = "<group>"; };
 		F84370082976927D00B0B0C9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		F843700A2976977500B0B0C9 /* FileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileModel.swift; sourceTree = "<group>"; };
 		F844C65228FEB25300BBE5B0 /* ReportDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportDetailsViewController.swift; sourceTree = "<group>"; };
 		F844C65428FEB27000BBE5B0 /* ReportTab.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ReportTab.storyboard; sourceTree = "<group>"; };
 		F844C65728FF0E1700BBE5B0 /* ReportTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportTableViewCell.swift; sourceTree = "<group>"; };
@@ -164,7 +165,6 @@
 		F883FC06290921F100B17D01 /* FullAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullAddress.swift; sourceTree = "<group>"; };
 		F883FC082909222200B17D01 /* Credential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credential.swift; sourceTree = "<group>"; };
 		F883FC0A2909225E00B17D01 /* NameInclMiddleName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameInclMiddleName.swift; sourceTree = "<group>"; };
-		F883FC0C2909227400B17D01 /* ProfileImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImage.swift; sourceTree = "<group>"; };
 		F883FC0E2909228F00B17D01 /* MobileWithCountryCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileWithCountryCode.swift; sourceTree = "<group>"; };
 		F883FC102909248900B17D01 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F883FC122909260E00B17D01 /* Prefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prefs.swift; sourceTree = "<group>"; };
@@ -415,8 +415,8 @@
 				F877CADC29518B6800B36605 /* FavoriteDoctor.swift */,
 				F883FC06290921F100B17D01 /* FullAddress.swift */,
 				F883FC082909222200B17D01 /* Credential.swift */,
+				F843700A2976977500B0B0C9 /* FileModel.swift */,
 				F883FC0A2909225E00B17D01 /* NameInclMiddleName.swift */,
-				F883FC0C2909227400B17D01 /* ProfileImage.swift */,
 				F883FC0E2909228F00B17D01 /* MobileWithCountryCode.swift */,
 				F830804F290A76390088CDB8 /* Appointments.swift */,
 				F834BEE1290CFC0F0073FCAC /* Review.swift */,
@@ -706,7 +706,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8B96C3128F6A686009E5198 /* WhiteBackgroundButtonWithIcon.swift in Sources */,
-				F883FC0D2909227400B17D01 /* ProfileImage.swift in Sources */,
 				F81BAAE428F93BC90080BD21 /* AppointmentTimeCollectionViewCell.swift in Sources */,
 				F8F3ED4529096A24001D6A4C /* CredentialShort.swift in Sources */,
 				F877CADD29518B6800B36605 /* FavoriteDoctor.swift in Sources */,
@@ -741,6 +740,7 @@
 				F85D9C3828F33B6D008FBDE9 /* ReportTabViewController.swift in Sources */,
 				F8F3ED3F2909685C001D6A4C /* NameExclMiddleName.swift in Sources */,
 				F84370092976927D00B0B0C9 /* Constants.swift in Sources */,
+				F843700B2976977500B0B0C9 /* FileModel.swift in Sources */,
 				F883FC092909222200B17D01 /* Credential.swift in Sources */,
 				F883FC112909248900B17D01 /* User.swift in Sources */,
 				F8A0E18629718F4C00B888B0 /* UIButtonCircularWithLogo.swift in Sources */,

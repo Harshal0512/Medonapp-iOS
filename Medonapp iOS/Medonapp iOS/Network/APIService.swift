@@ -136,11 +136,38 @@ class APIService : NSObject{
                 }
                 multipartFormData.append(file, withName: "file", fileName: fileName, mimeType: "patientMedicalFile")
             },
-            to: "\(Constants.BASE_URI)/v1/patient/\((User.getUserDetails().patient?.id!)!)/upload",
+            to: "\(Constants.BASE_URI)v1/patient/\((User.getUserDetails().patient?.id!)!)/upload",
             method: .post,
             headers: headers)
         .responseJSON { (resp) in
             print("resp is \(resp)")
+        }
+    }
+    
+    static func downloadFile(fileUrl: URL, fileName: String, headers: [String: String], completion: @escaping (URL?) -> Void) {
+        var requestHeaders: HTTPHeaders = HTTPHeaders()
+
+        headers.forEach({requestHeaders.add(name: $0.key, value: $0.value)})
+        let progressQueue = DispatchQueue(label: "com.alamofire.progressQueue", qos: .utility)
+
+        let destination: DownloadRequest.Destination = { _, _ in
+            let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            let fileURL = documentsURL.appendingPathComponent(fileName)
+
+            return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
+        }
+
+        AF.download(fileUrl, headers: requestHeaders, to: destination).response { response in
+            debugPrint(response)
+            
+            if response.error == nil, let path = response.fileURL {
+                completion(path)
+            }
+            completion(nil)
+            
+//            if response.error == nil, let imagePath = response.fileURL?.path {
+//                let image = UIImage(contentsOfFile: imagePath)
+//            }
         }
     }
 }

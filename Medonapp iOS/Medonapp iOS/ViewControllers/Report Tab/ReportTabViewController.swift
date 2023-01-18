@@ -150,7 +150,7 @@ class ReportTabViewController: UIViewController {
         latestReportsLabel?.font = UIFont(name: "NunitoSans-Bold", size: 17)
         contentView?.addSubview(latestReportsLabel!)
         
-        userReports = ReportCellWithIconAndDescription.instantiate(viewBackgroundColor: .white, icon: UIImage(named: "documentIcon")!.withTintColor(UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00)), iconBackgroundColor: UIColor(red: 0.86, green: 0.93, blue: 0.98, alpha: 1.00), title: "My Reports", numberOfFiles: 8)
+        userReports = ReportCellWithIconAndDescription.instantiate(viewBackgroundColor: .white, icon: UIImage(named: "documentIcon")!.withTintColor(UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00)), iconBackgroundColor: UIColor(red: 0.86, green: 0.93, blue: 0.98, alpha: 1.00), title: "My Reports", numberOfFiles: (User.getUserDetails().patient?.medicalFiles?.count)!)
         contentView?.addSubview(userReports!)
         let userReportsTap = UITapGestureRecognizer(target: self, action: #selector(self.expandUserReports))
         userReports?.addGestureRecognizer(userReportsTap)

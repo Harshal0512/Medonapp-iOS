@@ -8,6 +8,7 @@
 import UIKit
 import UniformTypeIdentifiers
 import QuickLookThumbnailing
+import WebKit
 
 enum reportVariant {
     case user
@@ -173,24 +174,9 @@ class ReportDetailsViewController: UIViewController {
 }
 
 extension ReportDetailsViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return "6 Oct. 2022 -------------"
-        } else if section == 1 {
-            return "11 Oct. 2022 -------------"
-        } else if section == 2 {
-            return "12 Nov. 2022 -------------"
-        } else {
-            return ""
-        }
-    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return (User.getUserDetails().patient?.medicalFiles?.count)!
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -200,7 +186,7 @@ extension ReportDetailsViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = reportsHistoryTable!.dequeueReusableCell(withIdentifier: ReportTableViewCell.identifier, for: indexPath) as! ReportTableViewCell
         if reportsVariant == .user {
-            cell.configure(icon: UIImage(named: "documentIcon")!, reportTitle: "X-Ray Report", reportCellVariant: .user)
+            cell.configure(icon: UIImage(named: "documentIcon")!, reportTitle: User.getUserDetails().patient?.medicalFiles?[indexPath.row].fileName ?? "", reportCellVariant: .user)
         } else if reportsVariant == .family {
             cell.configure(icon: UIImage(named: "documentIcon")!, reportTitle: "X-Ray Report", reportCellVariant: .family)
         }
@@ -211,6 +197,30 @@ extension ReportDetailsViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         reportsHistoryTable?.scrollToRow(at: indexPath, at: .middle, animated: true)
         reportsHistoryTable?.deselectRow(at: indexPath, animated: true)
+        
+        let webView = WKWebView(frame: self.view.frame)
+        webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        var fileExists: (Bool, URL?) = (User.getUserDetails().patient?.medicalFiles![indexPath.row].checkIfFileAlreadyExists())!
+        
+        if fileExists.0 == true {
+            if let path = fileExists.1 {
+                let data = try! Data(contentsOf: path)
+                webView.load(data, mimeType: "application/pdf", characterEncodingName: "", baseURL: path.deletingLastPathComponent())
+                
+                self.view.addSubview(webView)
+            }
+        } else {
+            APIService.downloadFile(fileUrl: URL(string: (User.getUserDetails().patient?.medicalFiles![indexPath.row].fileDownloadURI)!)!, fileName: (User.getUserDetails().patient?.medicalFiles![indexPath.row].fileName)!, headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"]) { path in
+                
+                if let path = path {
+                    let data = try! Data(contentsOf: path)
+                    webView.load(data, mimeType: "application/pdf", characterEncodingName: "", baseURL: path.deletingLastPathComponent())
+                    
+                    self.view.addSubview(webView)
+                }
+            }
+        }
     }
 }
 

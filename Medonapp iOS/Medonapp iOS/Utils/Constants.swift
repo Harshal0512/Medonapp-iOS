@@ -10,7 +10,7 @@ class Constants {
     
     static let BASE_SERVER_HOST = "http://34.100.156.30:8080"
     
-    static let BASE_URI = "\(Constants.BASE_SERVER_HOST)/api"
+    static let BASE_URI = "\(Constants.BASE_SERVER_HOST)/api/"
     
     static let SETTING_MAX_FILE_UPLOAD_SIZE = "MAX_FILE_UPLOAD_SIZE"
     static let SETTING_MAX_FILE_UPLOAD_COUNT = "MAX_FILE_UPLOAD_COUNT"
