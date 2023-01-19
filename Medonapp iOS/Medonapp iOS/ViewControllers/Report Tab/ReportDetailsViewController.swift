@@ -162,20 +162,7 @@ class ReportDetailsViewController: UIViewController {
         }))
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
-            let attachSheet = UIAlertController(title: nil, message: "Attach File", preferredStyle: .actionSheet)
-            
-            attachSheet.addAction(UIAlertAction(title: "File", style: .default,handler: { (action) in
-                self.chooseDocument()
-            }))
-            
-            attachSheet.addAction(UIAlertAction(title: "Photo", style: .default,handler: { (action) in
-                self.chooseImage()
-            }))
-            
-            
-            attachSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-            
-            self.present(attachSheet, animated: true, completion: nil)
+            self.chooseDocument()
         })
     }
     
@@ -186,15 +173,6 @@ class ReportDetailsViewController: UIViewController {
         documentPicker.allowsMultipleSelection = false
         documentPicker.shouldShowFileExtensions = true
         self.present(documentPicker, animated: true, completion: nil)
-    }
-    
-    func chooseImage() {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.allowsEditing = false
-        imagePicker.mediaTypes = ["public.image"]
-        imagePicker.sourceType = .photoLibrary
-        self.present(imagePicker, animated: true, completion: nil)
     }
 }
 
@@ -368,52 +346,5 @@ extension ReportDetailsViewController: UIDocumentPickerDelegate {
         }catch{
             print("contents could not be loaded")
         }
-    }
-}
-
-extension ReportDetailsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        var selectedImageData = [String:String]()
-        
-        
-        guard let fileUrl = info[UIImagePickerController.InfoKey.imageURL] as? URL else { return }
-        
-        let alert = UIAlertController(title: "Upload Image",
-                                      message: "Are you sure you want to upload this image?",
-                                      preferredStyle: .alert)
-        
-        let saveAction = UIAlertAction(title: "Upload",
-                                       style: .default) { (action: UIAlertAction!) -> Void in
-            
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel",
-                                         style: .cancel) { (action: UIAlertAction!) -> Void in
-        }
-        
-        alert.addAction(saveAction)
-        alert.addAction(cancelAction)
-        
-        let imageView = UIImageView(frame: CGRect(x: 15, y: 80, width: 250, height: 230))
-        
-        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            selectedImageData["filename"] = fileUrl.lastPathComponent
-            selectedImageData["data"] = pickedImage.pngData()?.base64EncodedString(options: .lineLength64Characters)
-            
-            imageView.image = pickedImage
-        }
-        
-        imageView.contentMode = .scaleAspectFit
-        alert.view.addSubview(imageView)
-        alert.view.addConstraint(NSLayoutConstraint(item: alert.view!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 380))
-        alert.view.addConstraint(NSLayoutConstraint(item: alert.view!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 280))
-        
-        dismiss(animated: true) {
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
     }
 }
