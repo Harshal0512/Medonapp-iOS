@@ -21,6 +21,9 @@ class ReportDetailsViewController: UIViewController {
     private var navTitle: UILabel?
     private var reportsHistoryTable: UITableView?
     private var addReportsButton: UIButtonCircularWithLogo?
+    let closeButton = UIButton(type: .system)
+    var webView: WKWebView?
+    
     
     private var reportsTopView: ReportCellWithIconAndDescription?
     
@@ -76,6 +79,16 @@ class ReportDetailsViewController: UIViewController {
         addReportsButton?.initButton(buttonIcon: UIImage(systemName: "plus")!, dimensions: 75, variant: reportsVariant == .user ? .blueBack : .greenBack)
         addReportsButton?.addTarget(self, action: #selector(addReportAction(_ :)), for: .touchUpInside)
         view.addSubview(addReportsButton!)
+        
+        closeButton.setTitle("close", for: .normal)
+        closeButton.setTitleColor(.white, for: .normal)
+        closeButton.backgroundColor = .systemBlue
+        closeButton.layer.cornerRadius = 14
+        closeButton.frame = CGRect(x: self.view.frame.maxX - 100, y: 80, width: 80, height: 40)
+        closeButton.addTarget(self, action: #selector(removeWebView), for: .touchUpInside)
+        
+        webView = WKWebView(frame: self.view.frame)
+        webView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
     
     func setConstraints() {
@@ -230,12 +243,14 @@ extension ReportDetailsViewController: UITableViewDelegate, UITableViewDataSourc
 
 extension ReportDetailsViewController: ReportTableViewCellProtocol {
     func openPDFInWebView(data: Data, path: URL) {
-        let webView = WKWebView(frame: self.view.frame)
-        webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        webView?.load(data, mimeType: "application/pdf", characterEncodingName: "", baseURL: path.deletingLastPathComponent())
         
-        webView.load(data, mimeType: "application/pdf", characterEncodingName: "", baseURL: path.deletingLastPathComponent())
-        
-        self.view.addSubview(webView)
+        self.view.addSubview(webView!)
+        self.view.addSubview(closeButton)
+    }
+    @objc func removeWebView() {
+        webView?.removeFromSuperview()
+        closeButton.removeFromSuperview()
     }
     
     func viewDownloadedFile(file: FileModel) {
