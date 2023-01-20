@@ -301,6 +301,11 @@ extension ReportDetailsViewController: UIDocumentPickerDelegate {
         do{
             let fileData = try Data.init(contentsOf: file.absoluteURL)
             
+            if FileManager.default.sizeOfFile(atPath: file.path)! > 15000000 {
+                Utils.displayAlert("Size Exceeded", "Please select a file less that 15 MB in size.", viewController: self)
+                return
+            }
+            
             selectedFileData["filename"] = file.lastPathComponent
             selectedFileData["data"] = fileData.base64EncodedString(options: .lineLength64Characters)
             
