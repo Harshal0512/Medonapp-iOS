@@ -107,10 +107,11 @@ class APIService : NSObject{
         })
     }
     
-    static func uploadFile(file: Data, fileName: String, params: [String: Any], completion: @escaping () -> Void) {
+    static func uploadFile(file: Data, fileName: String, params: [String: Any], completion: @escaping (Bool) -> Void) {
         let headers: HTTPHeaders = [
             "Content-type": "multipart/form-data",
-            "Accept": "application/json"
+            "Accept": "application/json",
+            "Authorization" : "Bearer \(User.getUserDetails().token ?? "")"
         ]
         AF.upload(
             multipartFormData: { multipartFormData in
@@ -140,7 +141,16 @@ class APIService : NSObject{
             method: .post,
             headers: headers)
         .responseJSON { (resp) in
-            print("resp is \(resp)")
+            if let code = resp.response?.statusCode{
+                switch code {
+                case 200...299:
+                    completion(true)
+                default:
+                    let error = NSError(domain: resp.debugDescription, code: code, userInfo: resp.response?.allHeaderFields as? [String: Any])
+                    completion(false)
+                }
+            }
+            completion(false)
         }
     }
     

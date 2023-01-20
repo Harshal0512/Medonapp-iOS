@@ -139,7 +139,7 @@ class ReportDetailsViewController: UIViewController {
     }
     
     func setupUserReportsUIWithConstraints() {
-        reportsTopView = ReportCellWithIconAndDescription.instantiate(viewBackgroundColor: .white, icon: UIImage(named: "documentIcon")!.withTintColor(UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00)), iconBackgroundColor: UIColor(red: 0.86, green: 0.93, blue: 0.98, alpha: 1.00), title: "My Reports", numberOfFiles: 8, showOutline: false, showMoreIcon: false)
+        reportsTopView = ReportCellWithIconAndDescription.instantiate(viewBackgroundColor: .white, icon: UIImage(named: "documentIcon")!.withTintColor(UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00)), iconBackgroundColor: UIColor(red: 0.86, green: 0.93, blue: 0.98, alpha: 1.00), title: "My Reports", numberOfFiles: (User.getUserDetails().patient?.medicalFiles?.count)!, showOutline: false, showMoreIcon: false)
         view.addSubview(reportsTopView!)
         
         //future additions
@@ -240,13 +240,7 @@ extension ReportDetailsViewController: ReportTableViewCellProtocol {
                 self.openPDFInWebView(data: data, path: path)
             }
         } else {
-            APIService.downloadFile(fileUrl: URL(string: file.fileDownloadURI!)!, fileName: file.fileName!, headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"]) { path in
-                
-                if let path = path {
-                    let data = try! Data(contentsOf: path)
-                    self.openPDFInWebView(data: data, path: path)
-                }
-            }
+            downloadButtonDidClick(file: file)
         }
     }
     
@@ -256,6 +250,7 @@ extension ReportDetailsViewController: ReportTableViewCellProtocol {
             if let path = path {
                 let data = try! Data(contentsOf: path)
                 self.openPDFInWebView(data: data, path: path)
+                self.reportsHistoryTable?.reloadData()
             }
         }
     }
@@ -266,13 +261,12 @@ extension ReportDetailsViewController: ReportTableViewCellProtocol {
         if fileExists.0 {
             do {
                 try FileManager.default.removeItem(at: fileExists.1!)
-                Utils.displayAlertWithHandler("File Deleted", "", viewController: self) { action in
-                    self.refreshData()
-                }
+                Utils.displayAlert("File Deleted", "", viewController: self)
             } catch {
                 print("Could not be deleted.")
             }
         }
+        self.reportsHistoryTable?.reloadData()
     }
     
     func shareButtonDidClick(file: FileModel) {
@@ -284,8 +278,10 @@ extension ReportDetailsViewController: ReportTableViewCellProtocol {
                 let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: [file.fileName!, data], applicationActivities: nil)
                 present(activityViewController, animated: true, completion: nil)
             }
+        } else {
+            Utils.displayAlert("File does not exist", "Please re-download the file and try again.", viewController: self)
         }
-        
+        self.reportsHistoryTable?.reloadData()
     }
 }
 
@@ -305,8 +301,14 @@ extension ReportDetailsViewController: UIDocumentPickerDelegate {
             
             let saveAction = UIAlertAction(title: "Upload",
                                            style: .default) { _ in
-                APIService.uploadFile(file: fileData, fileName: selectedFileData["filename"] ?? "", params: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"]) {
-                    print("here")
+                APIService.uploadFile(file: fileData, fileName: selectedFileData["filename"] ?? "", params: [:]) { isSuccess in
+                    if isSuccess {
+                        Utils.displayAlert("Success", "File uploaded successfully.", viewController: self)
+                        self.refreshData()
+                    } else {
+                        Utils.displayAlert("Error", "File could not be uploaded, please try again later.", viewController: self)
+                    }
+                    
                 }
             }
             
