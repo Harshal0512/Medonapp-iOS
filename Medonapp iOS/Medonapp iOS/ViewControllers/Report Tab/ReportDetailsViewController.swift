@@ -167,7 +167,7 @@ class ReportDetailsViewController: UIViewController {
     }
     
     func chooseDocument() {
-        let supportedTypes: [UTType] = [UTType.png, UTType.jpeg, UTType.pdf]
+        let supportedTypes: [UTType] = [UTType.pdf]
         let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: supportedTypes)
         documentPicker.delegate = self
         documentPicker.allowsMultipleSelection = false
