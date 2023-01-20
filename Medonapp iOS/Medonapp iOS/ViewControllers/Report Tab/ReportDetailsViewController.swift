@@ -240,12 +240,13 @@ extension ReportDetailsViewController: ReportTableViewCellProtocol {
                 self.openPDFInWebView(data: data, path: path)
             }
         } else {
-            downloadButtonDidClick(file: file)
+            Utils.displayAlert("File does not exist", "Please re-download the file and try again.", viewController: self)
         }
+        self.reportsHistoryTable?.reloadData()
     }
     
-    func downloadButtonDidClick(file: FileModel) {
-        APIService.downloadFile(fileUrl: URL(string: file.fileDownloadURI!)!, fileName: file.fileName!, headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"]) { path in
+    func downloadButtonDidClick(file: FileModel, cellProgressBar: CircularProgressBar) {
+        APIService.downloadFile(fileUrl: URL(string: file.fileDownloadURI!)!, fileName: file.fileName!, progressBar: cellProgressBar, headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"]) { path in
             
             if let path = path {
                 let data = try! Data(contentsOf: path)

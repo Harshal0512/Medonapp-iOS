@@ -31,6 +31,7 @@
 		F81BAAF328F9C09B0080BD21 /* AppointmentDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81BAAF228F9C09B0080BD21 /* AppointmentDetailsViewController.swift */; };
 		F81BAAF628F9C8A20080BD21 /* PriceDisplayViewAppointmentDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81BAAF528F9C8A20080BD21 /* PriceDisplayViewAppointmentDetails.swift */; };
 		F81BAAF828F9C8C40080BD21 /* PriceDisplayViewAppointmentDetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = F81BAAF728F9C8C40080BD21 /* PriceDisplayViewAppointmentDetails.xib */; };
+		F8283672297A5D9700078F97 /* CircularProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8283671297A5D9700078F97 /* CircularProgressBar.swift */; };
 		F82AA0F128F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82AA0EF28F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.swift */; };
 		F82AA0F228F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F82AA0F028F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.xib */; };
 		F82AA0F628F490B100C7CE7F /* DoctorInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82AA0F428F490B100C7CE7F /* DoctorInfoTableViewCell.swift */; };
@@ -134,6 +135,7 @@
 		F81BAAF228F9C09B0080BD21 /* AppointmentDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentDetailsViewController.swift; sourceTree = "<group>"; };
 		F81BAAF528F9C8A20080BD21 /* PriceDisplayViewAppointmentDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceDisplayViewAppointmentDetails.swift; sourceTree = "<group>"; };
 		F81BAAF728F9C8C40080BD21 /* PriceDisplayViewAppointmentDetails.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PriceDisplayViewAppointmentDetails.xib; sourceTree = "<group>"; };
+		F8283671297A5D9700078F97 /* CircularProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressBar.swift; sourceTree = "<group>"; };
 		F82AA0EF28F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorsScreenCarouselCollectionViewCell.swift; sourceTree = "<group>"; };
 		F82AA0F028F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DoctorsScreenCarouselCollectionViewCell.xib; sourceTree = "<group>"; };
 		F82AA0F428F490B100C7CE7F /* DoctorInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -310,6 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				F80C197F2900F38C00891800 /* Rating Control */,
+				F8283671297A5D9700078F97 /* CircularProgressBar.swift */,
 				F8C75A5C28E97EC100F5B2E2 /* UITextFieldWithPlaceholder_CR8.swift */,
 				F8C75A6328EA016E00F5B2E2 /* UIButtonVariableBackgroundVariableCR.swift */,
 				F8A0E18529718F4C00B888B0 /* UIButtonCircularWithLogo.swift */,
@@ -768,6 +771,7 @@
 				F8C75A6028E98B7000F5B2E2 /* extensions.swift in Sources */,
 				F8AAB18229486EE500A5C9E7 /* DefaultResponseModel.swift in Sources */,
 				F86A71CF28EE9C970083D12D /* HomeTabViewController.swift in Sources */,
+				F8283672297A5D9700078F97 /* CircularProgressBar.swift in Sources */,
 				F8F3ED432909692B001D6A4C /* MobileNumberShort.swift in Sources */,
 				F80577DB29633850009BEC6B /* Reachability.swift in Sources */,
 				F8A4F47828F14CE60032A87B /* SearchBarWithSearchAndFilterIcon.swift in Sources */,

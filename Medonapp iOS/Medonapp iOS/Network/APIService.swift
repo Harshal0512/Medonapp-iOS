@@ -154,7 +154,7 @@ class APIService : NSObject{
         }
     }
     
-    static func downloadFile(fileUrl: URL, fileName: String, headers: [String: String], completion: @escaping (URL?) -> Void) {
+    static func downloadFile(fileUrl: URL, fileName: String, progressBar: CircularProgressBar?, headers: [String: String], completion: @escaping (URL?) -> Void) {
         var requestHeaders: HTTPHeaders = HTTPHeaders()
 
         headers.forEach({requestHeaders.add(name: $0.key, value: $0.value)})
@@ -167,7 +167,10 @@ class APIService : NSObject{
             return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
         }
 
-        AF.download(fileUrl, headers: requestHeaders, to: destination).response { response in
+        AF.download(fileUrl, headers: requestHeaders, to: destination).downloadProgress(queue: .main, closure: { progress in
+            progressBar?.setProgress(to: progress.fractionCompleted, withAnimation: false)
+        }).response { response in
+            progressBar?.setProgress(to: 0, withAnimation: false)
             debugPrint(response)
             
             if response.error == nil, let path = response.fileURL {

@@ -9,7 +9,7 @@ import UIKit
 
 protocol ReportTableViewCellProtocol {
     func viewDownloadedFile(file: FileModel)
-    func downloadButtonDidClick(file: FileModel)
+    func downloadButtonDidClick(file: FileModel, cellProgressBar: CircularProgressBar)
     func deleteFileButtonDidClick(file: FileModel)
     func shareButtonDidClick(file: FileModel)
 }
@@ -26,12 +26,16 @@ class ReportTableViewCell: UITableViewCell {
     @IBOutlet private var iconView: UIView!
     @IBOutlet private var iconImage: UIImageView!
     @IBOutlet private var reportTitle: UILabel!
+    @IBOutlet private var progressBar: CircularProgressBar!
     @IBOutlet private var downloadIcon: UIImageView!
     
     var delegate: ReportTableViewCellProtocol!
     var optionsMenu: UIMenu?
     
     public func configure(icon: UIImage, medicalFile: FileModel, reportCellVariant: reportVariant, isDownloaded: Bool) {
+        progressBar.labelSize = 0
+        progressBar.safePercent = 100
+        
         cellContentView.layer.cornerRadius = 28
         self.iconImage.image = icon
         
@@ -56,13 +60,17 @@ class ReportTableViewCell: UITableViewCell {
         }
         
         downloadIcon.alpha = isDownloaded ? 0 : 1
+        progressBar.alpha = 0
         
         if isDownloaded {
+            
             let viewFile = UIAction(title: "View Downloaded File", image: UIImage(systemName: "doc.text.below.ecg.fill")) { action in
                 self.delegate.viewDownloadedFile(file: medicalFile)
             }
             let reDownload = UIAction(title: "Re-Download File", image: UIImage(systemName: "arrow.down.circle.fill")) { action in
-                self.delegate.downloadButtonDidClick(file: medicalFile)
+                self.progressBar.alpha = 1
+                self.downloadIcon.alpha = 1
+                self.delegate.downloadButtonDidClick(file: medicalFile, cellProgressBar: self.progressBar)
             }
             let deleteDownload = UIAction(title: "Delete Downloaded File", image: UIImage(systemName: "trash"), attributes: .destructive) { action in
                 self.delegate.deleteFileButtonDidClick(file: medicalFile)
@@ -73,7 +81,9 @@ class ReportTableViewCell: UITableViewCell {
             optionsMenu = UIMenu(children: [viewFile, reDownload, deleteDownload, shareFile])
         } else {
             let download = UIAction(title: "Download File", image: UIImage(systemName: "arrow.down.circle.fill")) { action in
-                self.delegate.downloadButtonDidClick(file: medicalFile)
+                self.progressBar.alpha = 1
+                self.downloadIcon.alpha = 1
+                self.delegate.downloadButtonDidClick(file: medicalFile, cellProgressBar: self.progressBar)
             }
             optionsMenu = UIMenu(children: [download])
         }
