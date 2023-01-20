@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BO3-AL-9oI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BO3-AL-9oI">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -94,22 +94,6 @@
             </objects>
             <point key="canvasLocation" x="2905.7971014492755" y="-870.53571428571422"/>
         </scene>
-        <!--Schedule Tab View Controller-->
-        <scene sceneID="kep-Pk-Nju">
-            <objects>
-                <viewController id="ZIb-Vf-QWT" customClass="ScheduleTabViewController" customModule="Medonapp_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="KkT-QI-7hD">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="fil-Kp-HLQ"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="Oe6-jx-R5A"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Dnp-Iv-JQw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2905.7971014492755" y="-204.24107142857142"/>
-        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="jzU-OC-xoy">
             <objects>
@@ -151,7 +135,7 @@
         <scene sceneID="2ng-8l-yrD">
             <objects>
                 <navigationController title="Schedule" automaticallyAdjustsScrollViewInsets="NO" id="ewj-co-gae" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Schedule" id="jEg-zo-wEC"/>
+                    <tabBarItem key="tabBarItem" title="Appointments" id="jEg-zo-wEC"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="nwp-IQ-1gf">
                         <rect key="frame" x="0.0" y="48" width="414" height="44"/>
@@ -159,12 +143,28 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="ZIb-Vf-QWT" kind="relationship" relationship="rootViewController" id="wsc-gf-yA8"/>
+                        <segue destination="TQB-R4-fpk" kind="relationship" relationship="rootViewController" id="DB5-gh-fr0"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mwJ-lQ-aO3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1995.6521739130437" y="-204.24107142857142"/>
+        </scene>
+        <!--Booked Appointments View Controller-->
+        <scene sceneID="tel-5X-phy">
+            <objects>
+                <viewController storyboardIdentifier="BookedAppointmentsVC" id="TQB-R4-fpk" customClass="BookedAppointmentsViewController" customModule="Medonapp_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gAL-pj-UGY">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="HnF-Fp-nIj"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Dio-Mx-1py"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ywh-gG-UTl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2906" y="-204"/>
         </scene>
         <!--Report-->
         <scene sceneID="yEc-LU-syP">

@@ -11,8 +11,7 @@ import Toast_Swift
 import NotificationBannerSwift
 
 class BookedAppointmentsViewController: UIViewController {
-    
-    private var backButton: UIImageView?
+
     private var navTitle: UILabel?
     private var todayButton: UIImageView?
     private var monthView: MonthViewBookedAppointments?
@@ -80,19 +79,11 @@ class BookedAppointmentsViewController: UIViewController {
     func setupUI() {
         view.isSkeletonable = true
         
-        backButton = UIImageView()
-        backButton?.image = UIImage(named: "backIcon_White")?.resizeImageTo(size: CGSize(width: 50, height: 50))
-        backButton?.contentMode = .scaleAspectFit
-        view.addSubview(backButton!)
-        let backTap = UITapGestureRecognizer(target: self, action: #selector(self.handleBackAction(_:)))
-        backButton?.addGestureRecognizer(backTap)
-        backButton?.isUserInteractionEnabled = true
-        
         navTitle = UILabel()
         navTitle?.text = "Booked Appointments"
         navTitle?.textAlignment = .center
         navTitle?.textColor = .black
-        navTitle?.font = UIFont(name: "NunitoSans-Bold", size: 18)
+        navTitle?.font = UIFont(name: "NunitoSans-Bold", size: 20)
         view.addSubview(navTitle!)
         
         todayButton = UIImageView()
@@ -114,23 +105,17 @@ class BookedAppointmentsViewController: UIViewController {
     }
     
     func setConstraints() {
-        backButton?.translatesAutoresizingMaskIntoConstraints = false
         navTitle?.translatesAutoresizingMaskIntoConstraints = false
         todayButton?.translatesAutoresizingMaskIntoConstraints = false
         monthView?.translatesAutoresizingMaskIntoConstraints = false
         scheduleTable?.translatesAutoresizingMaskIntoConstraints = false
         
         
-        backButton?.topAnchor.constraint(equalTo: view.topAnchor, constant: 30).isActive = true
-        backButton?.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 28).isActive = true
-        backButton?.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        backButton?.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        navTitle?.topAnchor.constraint(equalTo: view.topAnchor, constant: 43).isActive = true
-        navTitle?.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        navTitle?.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 18).isActive = true
+        navTitle?.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         navTitle?.widthAnchor.constraint(equalToConstant: 200).isActive = true
         
-        todayButton?.topAnchor.constraint(equalTo: view.topAnchor, constant: 35).isActive = true
+        todayButton?.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
         todayButton?.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -28).isActive = true
         todayButton?.widthAnchor.constraint(equalToConstant: 40).isActive = true
         todayButton?.heightAnchor.constraint(equalToConstant: 40).isActive = true
@@ -143,11 +128,7 @@ class BookedAppointmentsViewController: UIViewController {
         scheduleTable?.topAnchor.constraint(equalTo: monthView!.bottomAnchor, constant: 10).isActive = true
         scheduleTable?.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
         scheduleTable?.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
-        scheduleTable?.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
-    }
-    
-    @objc func handleBackAction(_ sender: UITapGestureRecognizer? = nil) {
-        self.dismiss(animated: true)
+        scheduleTable?.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
     }
     
     @objc func handleTodayTapAction(_ sender: UITapGestureRecognizer? = nil) {

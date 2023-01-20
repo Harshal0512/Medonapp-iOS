@@ -20,7 +20,7 @@ class ProfileViewViewController: UIViewController, MFMailComposeViewControllerDe
     private var nameLabel: UILabel?
     private var emailLabel: UILabel?
     private var accountSettingsButton: WhiteBackgroundButtonWithIcon?
-    private var bookedAppointments: WhiteBackgroundButtonWithIcon?
+    private var someButton: WhiteBackgroundButtonWithIcon?
     private var privacyPolicyButton: WhiteBackgroundButtonWithIcon?
     private var tellAFriendButton: WhiteBackgroundButtonWithIcon?
     private var contactUsButton: WhiteBackgroundButtonWithIcon?
@@ -103,11 +103,11 @@ class ProfileViewViewController: UIViewController, MFMailComposeViewControllerDe
         accountSettingsButton?.initButton(title: "Account Settings", icon: UIImage(named: "accountSettingsIcon"))
         contentView?.addSubview(accountSettingsButton!)
         
-        bookedAppointments = WhiteBackgroundButtonWithIcon()
-        bookedAppointments?.initButton(title: "Booked Appointments", icon: UIImage(named: "calendarIconWithClock"))
-        contentView?.addSubview(bookedAppointments!)
-        bookedAppointments?.addTarget(self, action: #selector(openAppointmentHistory), for: .touchUpInside)
-        bookedAppointments?.isUserInteractionEnabled = true
+        someButton = WhiteBackgroundButtonWithIcon()
+        someButton?.initButton(title: "", icon: UIImage(named: "calendarIconWithClock"))
+        contentView?.addSubview(someButton!)
+        someButton?.addTarget(self, action: #selector(openAppointmentHistory), for: .touchUpInside)
+        someButton?.isUserInteractionEnabled = true
         
         privacyPolicyButton = WhiteBackgroundButtonWithIcon()
         privacyPolicyButton?.initButton(title: "Privacy Policy", icon: UIImage(named: "compassIcon"))
@@ -142,7 +142,7 @@ class ProfileViewViewController: UIViewController, MFMailComposeViewControllerDe
         nameLabel?.translatesAutoresizingMaskIntoConstraints = false
         emailLabel?.translatesAutoresizingMaskIntoConstraints = false
         accountSettingsButton?.translatesAutoresizingMaskIntoConstraints = false
-        bookedAppointments?.translatesAutoresizingMaskIntoConstraints = false
+        someButton?.translatesAutoresizingMaskIntoConstraints = false
         privacyPolicyButton?.translatesAutoresizingMaskIntoConstraints = false
         tellAFriendButton?.translatesAutoresizingMaskIntoConstraints = false
         contactUsButton?.translatesAutoresizingMaskIntoConstraints = false
@@ -187,12 +187,12 @@ class ProfileViewViewController: UIViewController, MFMailComposeViewControllerDe
         accountSettingsButton?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -20).isActive = true
         accountSettingsButton?.heightAnchor.constraint(equalToConstant: 70).isActive = true
         
-        bookedAppointments?.topAnchor.constraint(equalTo: accountSettingsButton!.bottomAnchor, constant: 20).isActive = true
-        bookedAppointments?.leadingAnchor.constraint(equalTo: accountSettingsButton!.leadingAnchor).isActive = true
-        bookedAppointments?.trailingAnchor.constraint(equalTo: accountSettingsButton!.trailingAnchor).isActive = true
-        bookedAppointments?.heightAnchor.constraint(equalTo: accountSettingsButton!.heightAnchor).isActive = true
+        someButton?.topAnchor.constraint(equalTo: accountSettingsButton!.bottomAnchor, constant: 20).isActive = true
+        someButton?.leadingAnchor.constraint(equalTo: accountSettingsButton!.leadingAnchor).isActive = true
+        someButton?.trailingAnchor.constraint(equalTo: accountSettingsButton!.trailingAnchor).isActive = true
+        someButton?.heightAnchor.constraint(equalTo: accountSettingsButton!.heightAnchor).isActive = true
         
-        privacyPolicyButton?.topAnchor.constraint(equalTo: bookedAppointments!.bottomAnchor, constant: 20).isActive = true
+        privacyPolicyButton?.topAnchor.constraint(equalTo: someButton!.bottomAnchor, constant: 20).isActive = true
         privacyPolicyButton?.leadingAnchor.constraint(equalTo: accountSettingsButton!.leadingAnchor).isActive = true
         privacyPolicyButton?.trailingAnchor.constraint(equalTo: accountSettingsButton!.trailingAnchor).isActive = true
         privacyPolicyButton?.heightAnchor.constraint(equalTo: accountSettingsButton!.heightAnchor).isActive = true
@@ -225,8 +225,6 @@ class ProfileViewViewController: UIViewController, MFMailComposeViewControllerDe
     }
     
     @objc func openAppointmentHistory() {
-        let BookedAppointmentsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "BookedAppointmentsVC") as? BookedAppointmentsViewController
-        self.present(BookedAppointmentsVC!, animated: true)
     }
     
     @objc func openShareSheet() {
