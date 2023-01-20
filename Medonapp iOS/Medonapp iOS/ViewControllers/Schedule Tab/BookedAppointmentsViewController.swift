@@ -13,6 +13,7 @@ import NotificationBannerSwift
 class BookedAppointmentsViewController: UIViewController {
 
     private var navTitle: UILabel?
+    private var floatingActionButtonView: UIView?
     private var todayButton: UIImageView?
     private var monthView: MonthViewBookedAppointments?
     private var scheduleTable: UITableView?
@@ -86,14 +87,6 @@ class BookedAppointmentsViewController: UIViewController {
         navTitle?.font = UIFont(name: "NunitoSans-Bold", size: 20)
         view.addSubview(navTitle!)
         
-        todayButton = UIImageView()
-        todayButton?.image = UIImage(named: "calendarIconWithTick")
-        todayButton?.contentMode = .scaleAspectFit
-        view.addSubview(todayButton!)
-        let todayTap = UITapGestureRecognizer(target: self, action: #selector(self.handleTodayTapAction(_:)))
-        todayButton?.addGestureRecognizer(todayTap)
-        todayButton?.isUserInteractionEnabled = true
-        
         monthView = MonthViewBookedAppointments.shared
         monthView?.delegate = self
         view.addSubview(monthView!)
@@ -102,10 +95,26 @@ class BookedAppointmentsViewController: UIViewController {
         scheduleTable = UITableView()
         scheduleTable?.separatorStyle = .none
         view.addSubview(scheduleTable!)
+        
+        floatingActionButtonView = UIView()
+        floatingActionButtonView?.layer.cornerRadius = 35
+        floatingActionButtonView?.backgroundColor = .white
+        floatingActionButtonView?.layer.borderWidth = 0.5
+        floatingActionButtonView?.layer.borderColor = UIColor.lightGray.cgColor
+        view.addSubview(floatingActionButtonView!)
+        
+        todayButton = UIImageView()
+        todayButton?.image = UIImage(named: "calendarIconWithTick")
+        todayButton?.contentMode = .scaleAspectFit
+        floatingActionButtonView?.addSubview(todayButton!)
+        let todayTap = UITapGestureRecognizer(target: self, action: #selector(self.handleTodayTapAction(_:)))
+        todayButton?.addGestureRecognizer(todayTap)
+        todayButton?.isUserInteractionEnabled = true
     }
     
     func setConstraints() {
         navTitle?.translatesAutoresizingMaskIntoConstraints = false
+        floatingActionButtonView?.translatesAutoresizingMaskIntoConstraints = false
         todayButton?.translatesAutoresizingMaskIntoConstraints = false
         monthView?.translatesAutoresizingMaskIntoConstraints = false
         scheduleTable?.translatesAutoresizingMaskIntoConstraints = false
@@ -113,10 +122,15 @@ class BookedAppointmentsViewController: UIViewController {
         
         navTitle?.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 18).isActive = true
         navTitle?.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        navTitle?.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        navTitle?.widthAnchor.constraint(equalToConstant: view.frame.width - 50).isActive = true
         
-        todayButton?.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
-        todayButton?.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -28).isActive = true
+        floatingActionButtonView?.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40).isActive = true
+        floatingActionButtonView?.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40).isActive = true
+        floatingActionButtonView?.widthAnchor.constraint(equalToConstant: 70).isActive = true
+        floatingActionButtonView?.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        
+        todayButton?.centerXAnchor.constraint(equalTo: floatingActionButtonView!.centerXAnchor).isActive = true
+        todayButton?.centerYAnchor.constraint(equalTo: floatingActionButtonView!.centerYAnchor).isActive = true
         todayButton?.widthAnchor.constraint(equalToConstant: 40).isActive = true
         todayButton?.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
@@ -132,6 +146,7 @@ class BookedAppointmentsViewController: UIViewController {
     }
     
     @objc func handleTodayTapAction(_ sender: UITapGestureRecognizer? = nil) {
+        UIView.transition(with: self.todayButton!, duration: 0.25, options: .transitionFlipFromLeft, animations: nil)
         self.monthView?.resetToToday()
     }
     
