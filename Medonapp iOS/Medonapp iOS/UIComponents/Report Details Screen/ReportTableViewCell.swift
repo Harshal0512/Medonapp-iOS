@@ -31,8 +31,10 @@ class ReportTableViewCell: UITableViewCell {
     
     var delegate: ReportTableViewCellProtocol!
     var optionsMenu: UIMenu?
+    var medicalFile: FileModel?
     
     public func configure(icon: UIImage, medicalFile: FileModel, reportCellVariant: reportVariant, isDownloaded: Bool) {
+        self.medicalFile = medicalFile
         progressBar.labelSize = 0
         progressBar.safePercent = 100
         
@@ -87,6 +89,12 @@ class ReportTableViewCell: UITableViewCell {
             }
             optionsMenu = UIMenu(children: [download])
         }
+    }
+    
+    func download() {
+        self.progressBar.alpha = 1
+        self.downloadIcon.alpha = 1
+        self.delegate.downloadButtonDidClick(file: medicalFile!, cellProgressBar: self.progressBar)
     }
 
     override func awakeFromNib() {

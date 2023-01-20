@@ -205,7 +205,15 @@ extension ReportDetailsViewController: UITableViewDelegate, UITableViewDataSourc
         reportsHistoryTable?.scrollToRow(at: indexPath, at: .middle, animated: true)
         reportsHistoryTable?.deselectRow(at: indexPath, animated: true)
         
-        viewDownloadedFile(file: (User.getUserDetails().patient?.medicalFiles![indexPath.row])!)
+        let fileExists: (Bool, URL?) = (User.getUserDetails().patient?.medicalFiles![indexPath.row])!.checkIfFileAlreadyExists()
+        
+        if fileExists.0 {
+            viewDownloadedFile(file: (User.getUserDetails().patient?.medicalFiles![indexPath.row])!)
+        } else {
+            (reportsHistoryTable?.cellForRow(at: indexPath) as! ReportTableViewCell).download()
+        }
+        
+        
     }
     
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
