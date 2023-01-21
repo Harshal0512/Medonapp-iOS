@@ -309,13 +309,24 @@ extension ReportDetailsViewController: UIDocumentPickerDelegate {
             selectedFileData["filename"] = file.lastPathComponent
             selectedFileData["data"] = fileData.base64EncodedString(options: .lineLength64Characters)
             
-            let alert = UIAlertController(title: "Upload Document",
+            let uploadStatusAlert = UIAlertController(title: "    Uploading...", message: "", preferredStyle: .alert)
+            
+            let progressBar: CircularProgressBar = CircularProgressBar(frame: CGRect(x: 55, y: 15, width: 30, height: 30))
+            progressBar.labelSize = 0
+            
+            uploadStatusAlert.view.addSubview(progressBar)
+            
+            let confirmationAlert = UIAlertController(title: "Upload Document",
                                           message: "Are you sure you want to upload this document?",
                                           preferredStyle: .alert)
             
             let saveAction = UIAlertAction(title: "Upload",
                                            style: .default) { _ in
-                APIService.uploadFile(file: fileData, fileName: selectedFileData["filename"] ?? "", params: [:]) { isSuccess in
+                
+                self.present(uploadStatusAlert, animated: true)
+                
+                APIService.uploadFile(file: fileData, fileName: selectedFileData["filename"] ?? "", params: [:], progressAlert: progressBar) { isSuccess in
+                    uploadStatusAlert.dismiss(animated: true)
                     if isSuccess {
                         Utils.displayAlert("Success", "File uploaded successfully.", viewController: self)
                         self.refreshData()
@@ -330,8 +341,8 @@ extension ReportDetailsViewController: UIDocumentPickerDelegate {
                                              style: .cancel) { (action: UIAlertAction!) -> Void in
             }
             
-            alert.addAction(saveAction)
-            alert.addAction(cancelAction)
+            confirmationAlert.addAction(saveAction)
+            confirmationAlert.addAction(cancelAction)
             
             let imageView = UIImageView(frame: CGRect(x: 15, y: 80, width: 250, height: 230))
             
@@ -353,11 +364,11 @@ extension ReportDetailsViewController: UIDocumentPickerDelegate {
             }
             
             imageView.contentMode = .scaleAspectFit
-            alert.view.addSubview(imageView)
-            alert.view.addConstraint(NSLayoutConstraint(item: alert.view!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 380))
-            alert.view.addConstraint(NSLayoutConstraint(item: alert.view!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 280))
+            confirmationAlert.view.addSubview(imageView)
+            confirmationAlert.view.addConstraint(NSLayoutConstraint(item: confirmationAlert.view!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 380))
+            confirmationAlert.view.addConstraint(NSLayoutConstraint(item: confirmationAlert.view!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 280))
 
-            self.present(alert, animated: true, completion: nil)
+            self.present(confirmationAlert, animated: true, completion: nil)
             
         }catch{
             print("contents could not be loaded")
