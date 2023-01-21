@@ -107,7 +107,7 @@ class APIService : NSObject{
         })
     }
     
-    static func uploadFile(file: Data, fileName: String, params: [String: Any], completion: @escaping (Bool) -> Void) {
+    static func uploadFile(file: Data, fileName: String, params: [String: Any], progressAlert: CircularProgressBar?, completion: @escaping (Bool) -> Void) {
         let headers: HTTPHeaders = [
             "Content-type": "multipart/form-data",
             "Accept": "application/json",
@@ -140,6 +140,9 @@ class APIService : NSObject{
             to: "\(Constants.BASE_URI)v1/patient/\((User.getUserDetails().patient?.id!)!)/upload",
             method: .post,
             headers: headers)
+        .uploadProgress(queue: .main, closure: { progress in
+            progressAlert?.setProgress(to: progress.fractionCompleted, withAnimation: false)
+        })
         .responseJSON { (resp) in
             if let code = resp.response?.statusCode{
                 switch code {
