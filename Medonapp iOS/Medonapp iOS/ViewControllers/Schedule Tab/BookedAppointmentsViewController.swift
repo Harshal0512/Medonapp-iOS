@@ -97,10 +97,10 @@ class BookedAppointmentsViewController: UIViewController {
         view.addSubview(scheduleTable!)
         
         floatingActionButtonView = UIView()
-        floatingActionButtonView?.layer.cornerRadius = 35
         floatingActionButtonView?.backgroundColor = .white
         floatingActionButtonView?.layer.borderWidth = 0.5
         floatingActionButtonView?.layer.borderColor = UIColor.lightGray.cgColor
+        floatingActionButtonView?.dropShadow(color: .black, opacity: 0.2, offSet: CGSize(width: 1.5, height: 2), cornerRadius: 35)
         view.addSubview(floatingActionButtonView!)
         
         todayButton = UIImageView()
