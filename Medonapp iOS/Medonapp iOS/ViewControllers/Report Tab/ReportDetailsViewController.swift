@@ -126,14 +126,14 @@ class ReportDetailsViewController: UIViewController {
     
     func refreshData() {
         view.isUserInteractionEnabled = false
-        self.view.makeToastActivity(.center)
+        //        self.view.makeToastActivity(.center)
         
         User.refreshUserDetails { isSuccess in
             if isSuccess {
                 self.view.isUserInteractionEnabled = true
                 let sections = NSIndexSet(indexesIn: NSMakeRange(0, self.reportsHistoryTable!.numberOfSections))
                 self.reportsHistoryTable!.reloadSections(sections as IndexSet, with: .fade)
-                self.view.hideToastActivity()
+                //                self.view.hideToastActivity()
             }
         }
     }
@@ -192,9 +192,9 @@ extension ReportDetailsViewController: UITableViewDelegate, UITableViewDataSourc
             let fileExists: (Bool, URL?) = (User.getUserDetails().patient?.medicalFiles![indexPath.row].checkIfFileAlreadyExists())!
             cell.configure(icon: UIImage(named: "documentIcon")!, medicalFile: (User.getUserDetails().patient?.medicalFiles?[indexPath.row])!, reportCellVariant: .user, isDownloaded: fileExists.0)
         }
-//        else if reportsVariant == .family {
-//            cell.configure(icon: UIImage(named: "documentIcon")!, medicalFile: "X-Ray Report", reportCellVariant: .family, isDownloaded: false)
-//        }
+        //        else if reportsVariant == .family {
+        //            cell.configure(icon: UIImage(named: "documentIcon")!, medicalFile: "X-Ray Report", reportCellVariant: .family, isDownloaded: false)
+        //        }
         
         cell.delegate = self
         
@@ -299,78 +299,85 @@ extension ReportDetailsViewController: UIDocumentPickerDelegate {
         var selectedFileData = [String:String]()
         let file = urls[0]
         do{
-            let fileData = try Data.init(contentsOf: file.absoluteURL)
-            
-            if FileManager.default.sizeOfFile(atPath: file.path)! > 15000000 {
-                Utils.displayAlert("Size Exceeded", "Please select a file less that 15 MB in size.", viewController: self)
-                return
-            }
-            
-            selectedFileData["filename"] = file.lastPathComponent
-            selectedFileData["data"] = fileData.base64EncodedString(options: .lineLength64Characters)
-            
-            let uploadStatusAlert = UIAlertController(title: "    Uploading...", message: "", preferredStyle: .alert)
-            
-            let progressBar: CircularProgressBar = CircularProgressBar(frame: CGRect(x: 55, y: 15, width: 30, height: 30))
-            progressBar.labelSize = 0
-            
-            uploadStatusAlert.view.addSubview(progressBar)
-            
-            let confirmationAlert = UIAlertController(title: "Upload Document",
-                                          message: "Are you sure you want to upload this document?",
-                                          preferredStyle: .alert)
-            
-            let saveAction = UIAlertAction(title: "Upload",
-                                           style: .default) { _ in
+            if file.startAccessingSecurityScopedResource() {
+                let fileData = try Data.init(contentsOf: file.absoluteURL)
                 
-                self.present(uploadStatusAlert, animated: true)
+                if FileManager.default.sizeOfFile(atPath: file.path)! > 15000000 {
+                    Utils.displayAlert("Size Exceeded", "Please select a file less that 15 MB in size.", viewController: self)
+                    return
+                }
                 
-                APIService.uploadFile(file: fileData, fileName: selectedFileData["filename"] ?? "", params: [:], progressAlert: progressBar) { isSuccess in
-                    uploadStatusAlert.dismiss(animated: true)
-                    if isSuccess {
-                        Utils.displayAlert("Success", "File uploaded successfully.", viewController: self)
-                        self.refreshData()
-                    } else {
-                        Utils.displayAlert("Error", "File could not be uploaded, please try again later.", viewController: self)
-                    }
+                selectedFileData["filename"] = file.lastPathComponent
+                selectedFileData["data"] = fileData.base64EncodedString(options: .lineLength64Characters)
+                
+                let uploadStatusAlert = UIAlertController(title: "    Uploading...", message: "", preferredStyle: .alert)
+                
+                let progressBar: CircularProgressBar = CircularProgressBar(frame: CGRect(x: 55, y: 15, width: 30, height: 30))
+                progressBar.labelSize = 0
+                
+                uploadStatusAlert.view.addSubview(progressBar)
+                
+                let confirmationAlert = UIAlertController(title: "Upload Document",
+                                                          message: "Are you sure you want to upload this document?",
+                                                          preferredStyle: .alert)
+                
+                let saveAction = UIAlertAction(title: "Upload",
+                                               style: .default) { _ in
                     
-                }
-            }
-            
-            let cancelAction = UIAlertAction(title: "Cancel",
-                                             style: .cancel) { (action: UIAlertAction!) -> Void in
-            }
-            
-            confirmationAlert.addAction(saveAction)
-            confirmationAlert.addAction(cancelAction)
-            
-            let imageView = UIImageView(frame: CGRect(x: 15, y: 80, width: 250, height: 230))
-            
-            let request = QLThumbnailGenerator
-                .Request(fileAt: file, size: CGSize(width: 250, height: 230), scale: 1,
-                         representationTypes: .thumbnail)
-            
-            QLThumbnailGenerator.shared.generateRepresentations(for: request)
-            { (thumbnail, type, error) in
-                DispatchQueue.main.async {
-                    if thumbnail == nil || error != nil {
-                        // Handle the error case gracefully.
-                        fatalError()
-                    } else {
-                        // Display the thumbnail that you created.
-                        imageView.image = thumbnail?.uiImage
+                    self.present(uploadStatusAlert, animated: true)
+                    
+                    APIService.uploadFile(file: fileData, fileName: selectedFileData["filename"] ?? "", params: [:], progressAlert: progressBar) { isSuccess in
+                        uploadStatusAlert.dismiss(animated: true) {
+                            if isSuccess {
+                                Utils.displayAlert("Success", "File uploaded successfully.", viewController: self)
+                                self.refreshData()
+                            } else {
+                                Utils.displayAlert("Error", "File could not be uploaded, please try again later.", viewController: self)
+                            }
+                        }
                     }
                 }
+                
+                let cancelAction = UIAlertAction(title: "Cancel",
+                                                 style: .cancel) { (action: UIAlertAction!) -> Void in
+                }
+                
+                confirmationAlert.addAction(saveAction)
+                confirmationAlert.addAction(cancelAction)
+                
+                let imageView = UIImageView(frame: CGRect(x: 15, y: 80, width: 250, height: 230))
+                
+                let request = QLThumbnailGenerator
+                    .Request(fileAt: file, size: CGSize(width: 250, height: 230), scale: 1,
+                             representationTypes: .thumbnail)
+                
+                QLThumbnailGenerator.shared.generateRepresentations(for: request)
+                { (thumbnail, type, error) in
+                    DispatchQueue.main.async {
+                        if thumbnail == nil || error != nil {
+                            // Handle the error case gracefully.
+                            fatalError()
+                        } else {
+                            // Display the thumbnail that you created.
+                            imageView.image = thumbnail?.uiImage
+                        }
+                    }
+                }
+                
+                imageView.contentMode = .scaleAspectFit
+                confirmationAlert.view.addSubview(imageView)
+                confirmationAlert.view.addConstraint(NSLayoutConstraint(item: confirmationAlert.view!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 380))
+                confirmationAlert.view.addConstraint(NSLayoutConstraint(item: confirmationAlert.view!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 280))
+                
+                defer {
+                    file.stopAccessingSecurityScopedResource()
+                }
+                
+                self.present(confirmationAlert, animated: true, completion: nil)
             }
-            
-            imageView.contentMode = .scaleAspectFit
-            confirmationAlert.view.addSubview(imageView)
-            confirmationAlert.view.addConstraint(NSLayoutConstraint(item: confirmationAlert.view!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 380))
-            confirmationAlert.view.addConstraint(NSLayoutConstraint(item: confirmationAlert.view!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 280))
-
-            self.present(confirmationAlert, animated: true, completion: nil)
             
         }catch{
+            print(error)
             print("contents could not be loaded")
         }
     }

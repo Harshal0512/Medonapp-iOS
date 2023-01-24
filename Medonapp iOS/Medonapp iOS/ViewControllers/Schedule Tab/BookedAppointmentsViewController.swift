@@ -11,6 +11,8 @@ import Toast_Swift
 import NotificationBannerSwift
 
 class BookedAppointmentsViewController: UIViewController {
+    
+    var notifBanner: GrowingNotificationBanner?
 
     private var navTitle: UILabel?
     private var floatingActionButtonView: UIView?
@@ -46,11 +48,21 @@ class BookedAppointmentsViewController: UIViewController {
         
         populateAppointmentsTable()
         
-        if Prefs.isNetworkAvailable {
-            self.refreshData()
+        if !Prefs.isNetworkAvailable {
+            DispatchQueue.main.async {
+                self.notifBanner = Utils.displayNoNetworkBanner(self)
+            }
+        } else {
+            refreshData()
         }
         
         
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        notifBanner?.dismiss()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -200,7 +212,7 @@ extension BookedAppointmentsViewController: UITableViewDelegate, UITableViewData
                 self.sectionHeaderIDForPresent = section
                 return "Today"
             }
-            return "\(section + 1)/\(monthView!.getMonth())/\(monthView!.getYear())"
+            return "\((section + 1) < 10 ? "0\(section + 1)" : "\(section + 1)")/\((monthView!.getMonth() < 10 ? "0\(monthView!.getMonth())" : "\(monthView!.getMonth())"))/\((monthView!.getYear() < 10 ? "0\(monthView!.getYear())" : "\(monthView!.getYear())"))"
         } else {
             return ""
         }
