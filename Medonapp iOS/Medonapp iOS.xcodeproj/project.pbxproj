@@ -309,7 +309,6 @@
 				F859AB3328EC2FA10069D247 /* UITextViewWithPlaceholder_CR8.swift */,
 				F8A4F47728F14CE60032A87B /* SearchBarWithSearchAndFilterIcon.swift */,
 				F814C6BE292219F000B0C1B3 /* Home Tab */,
-				F8BC4A4728F472AD00440406 /* Schedule Tab */,
 				F82AA0F328F48FE600C7CE7F /* Report Tab */,
 				F8AF821E28F5CAD400D62D98 /* Doctors Screen */,
 				F8AF821F28F5CB0400D62D98 /* Doctor Details */,
@@ -491,13 +490,6 @@
 				F81BAAEB28F97E760080BD21 /* Doctors Tab */,
 			);
 			path = "Home Tab";
-			sourceTree = "<group>";
-		};
-		F8BC4A4728F472AD00440406 /* Schedule Tab */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Schedule Tab";
 			sourceTree = "<group>";
 		};
 		F8C75A5E28E98B6500F5B2E2 /* Utils */ = {

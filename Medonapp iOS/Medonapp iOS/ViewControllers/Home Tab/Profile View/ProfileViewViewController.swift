@@ -20,7 +20,7 @@ class ProfileViewViewController: UIViewController, MFMailComposeViewControllerDe
     private var nameLabel: UILabel?
     private var emailLabel: UILabel?
     private var accountSettingsButton: WhiteBackgroundButtonWithIcon?
-    private var someButton: WhiteBackgroundButtonWithIcon?
+    private var manageFamilyButton: WhiteBackgroundButtonWithIcon?
     private var privacyPolicyButton: WhiteBackgroundButtonWithIcon?
     private var tellAFriendButton: WhiteBackgroundButtonWithIcon?
     private var contactUsButton: WhiteBackgroundButtonWithIcon?
@@ -103,11 +103,11 @@ class ProfileViewViewController: UIViewController, MFMailComposeViewControllerDe
         accountSettingsButton?.initButton(title: "Account Settings", icon: UIImage(named: "accountSettingsIcon"))
         contentView?.addSubview(accountSettingsButton!)
         
-        someButton = WhiteBackgroundButtonWithIcon()
-        someButton?.initButton(title: "", icon: UIImage(named: "calendarIconWithClock"))
-        contentView?.addSubview(someButton!)
-        someButton?.addTarget(self, action: #selector(openAppointmentHistory), for: .touchUpInside)
-        someButton?.isUserInteractionEnabled = true
+        manageFamilyButton = WhiteBackgroundButtonWithIcon()
+        manageFamilyButton?.initButton(title: "Manage Family", icon: UIImage(named: "familyIconFilled"))
+        contentView?.addSubview(manageFamilyButton!)
+        manageFamilyButton?.addTarget(self, action: #selector(manageFamily), for: .touchUpInside)
+        manageFamilyButton?.isUserInteractionEnabled = true
         
         privacyPolicyButton = WhiteBackgroundButtonWithIcon()
         privacyPolicyButton?.initButton(title: "Privacy Policy", icon: UIImage(named: "compassIcon"))
@@ -142,7 +142,7 @@ class ProfileViewViewController: UIViewController, MFMailComposeViewControllerDe
         nameLabel?.translatesAutoresizingMaskIntoConstraints = false
         emailLabel?.translatesAutoresizingMaskIntoConstraints = false
         accountSettingsButton?.translatesAutoresizingMaskIntoConstraints = false
-        someButton?.translatesAutoresizingMaskIntoConstraints = false
+        manageFamilyButton?.translatesAutoresizingMaskIntoConstraints = false
         privacyPolicyButton?.translatesAutoresizingMaskIntoConstraints = false
         tellAFriendButton?.translatesAutoresizingMaskIntoConstraints = false
         contactUsButton?.translatesAutoresizingMaskIntoConstraints = false
@@ -187,12 +187,12 @@ class ProfileViewViewController: UIViewController, MFMailComposeViewControllerDe
         accountSettingsButton?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -20).isActive = true
         accountSettingsButton?.heightAnchor.constraint(equalToConstant: 70).isActive = true
         
-        someButton?.topAnchor.constraint(equalTo: accountSettingsButton!.bottomAnchor, constant: 20).isActive = true
-        someButton?.leadingAnchor.constraint(equalTo: accountSettingsButton!.leadingAnchor).isActive = true
-        someButton?.trailingAnchor.constraint(equalTo: accountSettingsButton!.trailingAnchor).isActive = true
-        someButton?.heightAnchor.constraint(equalTo: accountSettingsButton!.heightAnchor).isActive = true
+        manageFamilyButton?.topAnchor.constraint(equalTo: accountSettingsButton!.bottomAnchor, constant: 20).isActive = true
+        manageFamilyButton?.leadingAnchor.constraint(equalTo: accountSettingsButton!.leadingAnchor).isActive = true
+        manageFamilyButton?.trailingAnchor.constraint(equalTo: accountSettingsButton!.trailingAnchor).isActive = true
+        manageFamilyButton?.heightAnchor.constraint(equalTo: accountSettingsButton!.heightAnchor).isActive = true
         
-        privacyPolicyButton?.topAnchor.constraint(equalTo: someButton!.bottomAnchor, constant: 20).isActive = true
+        privacyPolicyButton?.topAnchor.constraint(equalTo: manageFamilyButton!.bottomAnchor, constant: 20).isActive = true
         privacyPolicyButton?.leadingAnchor.constraint(equalTo: accountSettingsButton!.leadingAnchor).isActive = true
         privacyPolicyButton?.trailingAnchor.constraint(equalTo: accountSettingsButton!.trailingAnchor).isActive = true
         privacyPolicyButton?.heightAnchor.constraint(equalTo: accountSettingsButton!.heightAnchor).isActive = true
@@ -224,7 +224,7 @@ class ProfileViewViewController: UIViewController, MFMailComposeViewControllerDe
         }
     }
     
-    @objc func openAppointmentHistory() {
+    @objc func manageFamily() {
     }
     
     @objc func openShareSheet() {
