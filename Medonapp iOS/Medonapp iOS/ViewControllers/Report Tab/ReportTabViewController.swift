@@ -15,6 +15,8 @@ class ReportTabViewController: UIViewController {
     var scrollView: UIScrollView?
     var contentView: UIView?
     
+    var navTitle: UILabel?
+    
     var healthStatus: UIView?
     var healthLabelHealthStatusView: UILabel?
     var healthStatusLabelHealthStatusView: UILabel?
@@ -40,9 +42,9 @@ class ReportTabViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Report"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.isNavigationBarHidden = true
         
         initialise()
         setupUI()
@@ -74,6 +76,13 @@ class ReportTabViewController: UIViewController {
         
         view.addSubview(scrollView!)
         scrollView?.addSubview(contentView!)
+        
+        navTitle = UILabel()
+        navTitle?.text = "Report"
+        navTitle?.textAlignment = .left
+        navTitle?.textColor = .black
+        navTitle?.font = UIFont(name: "NunitoSans-Bold", size: 27)
+        contentView?.addSubview(navTitle!)
         
         healthStatus = UIView()
         healthStatus?.layer.cornerRadius = 24
@@ -167,6 +176,8 @@ class ReportTabViewController: UIViewController {
         scrollView?.translatesAutoresizingMaskIntoConstraints = false
         contentView?.translatesAutoresizingMaskIntoConstraints = false
         
+        navTitle?.translatesAutoresizingMaskIntoConstraints = false
+        
         healthStatus?.translatesAutoresizingMaskIntoConstraints = false
         healthLabelHealthStatusView?.translatesAutoresizingMaskIntoConstraints = false
         healthStatusLabelHealthStatusView?.translatesAutoresizingMaskIntoConstraints = false
@@ -196,7 +207,12 @@ class ReportTabViewController: UIViewController {
         contentView?.widthAnchor.constraint(equalTo: scrollView!.widthAnchor).isActive = true
         
         
-        healthStatus?.topAnchor.constraint(equalTo: contentView!.topAnchor, constant: 16).isActive = true
+        navTitle?.topAnchor.constraint(equalTo: contentView!.topAnchor, constant: 18).isActive = true
+        navTitle?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 28).isActive = true
+        navTitle?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -28).isActive = true
+        
+        
+        healthStatus?.topAnchor.constraint(equalTo: navTitle!.bottomAnchor, constant: 25).isActive = true
         healthStatus?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 28).isActive = true
         healthStatus?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -28).isActive = true
         healthStatus?.heightAnchor.constraint(equalToConstant: 175).isActive = true

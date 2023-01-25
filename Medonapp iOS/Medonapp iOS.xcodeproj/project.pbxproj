@@ -292,7 +292,7 @@
 			children = (
 				F83CBC4728D87352005BA1B8 /* LoginSignUpViewController.swift */,
 				F8BC4A4028F4585700440406 /* Home Tab */,
-				F834BEE0290CF4460073FCAC /* Schedule Tab */,
+				F834BEE0290CF4460073FCAC /* Booked Appointments Tab */,
 				F844C65128FEB22A00BBE5B0 /* Report Tab */,
 			);
 			path = ViewControllers;
@@ -390,13 +390,13 @@
 			path = "Report Tab";
 			sourceTree = "<group>";
 		};
-		F834BEE0290CF4460073FCAC /* Schedule Tab */ = {
+		F834BEE0290CF4460073FCAC /* Booked Appointments Tab */ = {
 			isa = PBXGroup;
 			children = (
 				F844C65C28FFCF0500BBE5B0 /* BookedAppointmentsViewController.swift */,
 				F87559402901290C00863554 /* RatingHalfScreenViewController.swift */,
 			);
-			path = "Schedule Tab";
+			path = "Booked Appointments Tab";
 			sourceTree = "<group>";
 		};
 		F840513328FD13800051B636 /* Models */ = {
