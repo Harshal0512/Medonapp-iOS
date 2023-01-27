@@ -93,10 +93,10 @@ class BookedAppointmentsViewController: UIViewController {
         view.isSkeletonable = true
         
         navTitle = UILabel()
-        navTitle?.text = "Booked Appointments"
-        navTitle?.textAlignment = .center
+        navTitle?.text = "Appointments"
+        navTitle?.textAlignment = .left
         navTitle?.textColor = .black
-        navTitle?.font = UIFont(name: "NunitoSans-Bold", size: 20)
+        navTitle?.font = UIFont(name: "NunitoSans-Bold", size: 27)
         view.addSubview(navTitle!)
         
         monthView = MonthViewBookedAppointments.shared
@@ -133,8 +133,8 @@ class BookedAppointmentsViewController: UIViewController {
         
         
         navTitle?.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 18).isActive = true
-        navTitle?.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        navTitle?.widthAnchor.constraint(equalToConstant: view.frame.width - 50).isActive = true
+        navTitle?.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 28).isActive = true
+        navTitle?.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -28).isActive = true
         
         floatingActionButtonView?.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40).isActive = true
         floatingActionButtonView?.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40).isActive = true
@@ -146,7 +146,7 @@ class BookedAppointmentsViewController: UIViewController {
         todayButton?.widthAnchor.constraint(equalToConstant: 40).isActive = true
         todayButton?.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
-        monthView?.topAnchor.constraint(equalTo: navTitle!.bottomAnchor, constant: 20).isActive = true
+        monthView?.topAnchor.constraint(equalTo: navTitle!.bottomAnchor, constant: 25).isActive = true
         monthView?.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         monthView?.widthAnchor.constraint(equalToConstant: 255).isActive = true
         monthView?.heightAnchor.constraint(equalToConstant: 80).isActive = true
