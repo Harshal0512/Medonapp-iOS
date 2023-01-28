@@ -309,13 +309,13 @@
 				F859AB3328EC2FA10069D247 /* UITextViewWithPlaceholder_CR8.swift */,
 				F8A4F47728F14CE60032A87B /* SearchBarWithSearchAndFilterIcon.swift */,
 				F814C6BE292219F000B0C1B3 /* Home Tab */,
+				F844C65E28FFDD0A00BBE5B0 /* Booked Appointments Tab */,
 				F82AA0F328F48FE600C7CE7F /* Report Tab */,
 				F8AF821E28F5CAD400D62D98 /* Doctors Screen */,
 				F8AF821F28F5CB0400D62D98 /* Doctor Details */,
 				F81BAAF428F9C7AB0080BD21 /* Appointments */,
 				F8B96C3028F6A686009E5198 /* WhiteBackgroundButtonWithIcon.swift */,
 				F844C65628FF0DF100BBE5B0 /* Report Details Screen */,
-				F844C65E28FFDD0A00BBE5B0 /* Profile View */,
 				F8D088FA291C2DAD00424977 /* LinksLabel.swift */,
 			);
 			path = UIComponents;
@@ -446,7 +446,7 @@
 			path = "Profile View";
 			sourceTree = "<group>";
 		};
-		F844C65E28FFDD0A00BBE5B0 /* Profile View */ = {
+		F844C65E28FFDD0A00BBE5B0 /* Booked Appointments Tab */ = {
 			isa = PBXGroup;
 			children = (
 				F844C65F28FFDD3E00BBE5B0 /* MonthViewBookedAppointments.swift */,
@@ -454,7 +454,7 @@
 				F80C19862900F75500891800 /* BookedAppointmentsTableViewCell.swift */,
 				F80C19872900F75500891800 /* BookedAppointmentsTableViewCell.xib */,
 			);
-			path = "Profile View";
+			path = "Booked Appointments Tab";
 			sourceTree = "<group>";
 		};
 		F8AF821E28F5CAD400D62D98 /* Doctors Screen */ = {
