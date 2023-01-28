@@ -363,9 +363,10 @@ class HomeTabViewController: UIViewController {
     
     @objc func goToProfileScreen(_ sender: UITapGestureRecognizer? = nil) {
         let profileVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "profileVC") as? ProfileViewViewController
-        profileVC?.modalPresentationStyle = .fullScreen
-        profileVC?.modalTransitionStyle = .coverVertical
-        self.present(profileVC!, animated: true)
+        let profileNavController = UINavigationController(rootViewController: profileVC!)
+        profileNavController.modalPresentationStyle = .fullScreen
+        profileNavController.modalTransitionStyle = .coverVertical
+        self.present(profileNavController, animated: true)
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {

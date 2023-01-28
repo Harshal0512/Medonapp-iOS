@@ -214,7 +214,6 @@ class ProfileViewViewController: UIViewController, MFMailComposeViewControllerDe
     }
 
     @objc func handleBackAction(_ sender: UITapGestureRecognizer? = nil) {
-//        navigationController?.popViewController(animated: true)
         self.dismiss(animated: true)
     }
     
