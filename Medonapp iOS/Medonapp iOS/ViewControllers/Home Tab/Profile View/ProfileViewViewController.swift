@@ -224,6 +224,10 @@ class ProfileViewViewController: UIViewController, MFMailComposeViewControllerDe
     }
     
     @objc func manageFamily() {
+        let manageFamilyVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "manageFamily") as? ManageFamilyViewController
+        manageFamilyVC?.modalPresentationStyle = .fullScreen
+        manageFamilyVC?.modalTransitionStyle = .coverVertical
+        self.navigationController?.pushViewController(manageFamilyVC!, animated: true)
     }
     
     @objc func openShareSheet() {
