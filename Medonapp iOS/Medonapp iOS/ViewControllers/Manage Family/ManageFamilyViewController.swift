@@ -125,16 +125,16 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
         membersTable?.translatesAutoresizingMaskIntoConstraints = false
         
         
-        backButton?.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+        backButton?.topAnchor.constraint(equalTo: view.topAnchor, constant: 65).isActive = true
         backButton?.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 28).isActive = true
         backButton?.widthAnchor.constraint(equalToConstant: 50).isActive = true
         backButton?.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
-        navTitle?.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 13).isActive = true
+        navTitle?.topAnchor.constraint(equalTo: view.topAnchor, constant: 79).isActive = true
         navTitle?.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        navTitle?.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        navTitle?.widthAnchor.constraint(equalToConstant: view.frame.width - 160).isActive = true
         
-        addMemberButton?.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+        addMemberButton?.topAnchor.constraint(equalTo: view.topAnchor, constant: 75).isActive = true
         addMemberButton?.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -28).isActive = true
         addMemberButton?.widthAnchor.constraint(equalToConstant: 32).isActive = true
         addMemberButton?.heightAnchor.constraint(equalToConstant: 30).isActive = true
