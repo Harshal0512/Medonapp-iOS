@@ -11,6 +11,8 @@
 		E6D081B1293C7D5500380F73 /* DoctorDetailsPeekViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D081B0293C7D5500380F73 /* DoctorDetailsPeekViewViewController.swift */; };
 		F80552782907BB060011EB6B /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80552772907BB060011EB6B /* APIService.swift */; };
 		F80577DB29633850009BEC6B /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80577DA29633850009BEC6B /* Reachability.swift */; };
+		F80933D42985843800B87BE9 /* MemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80933D22985843800B87BE9 /* MemberTableViewCell.swift */; };
+		F80933D52985843800B87BE9 /* MemberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F80933D32985843800B87BE9 /* MemberTableViewCell.xib */; };
 		F80C19832900F3A000891800 /* StarRatingStackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F80C19802900F39F00891800 /* StarRatingStackView.xib */; };
 		F80C19842900F3A000891800 /* JStarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80C19812900F39F00891800 /* JStarRatingView.swift */; };
 		F80C19852900F3A000891800 /* StarRatingStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80C19822900F3A000891800 /* StarRatingStackView.swift */; };
@@ -52,6 +54,8 @@
 		F844C66028FFDD3E00BBE5B0 /* MonthViewBookedAppointments.swift in Sources */ = {isa = PBXBuildFile; fileRef = F844C65F28FFDD3E00BBE5B0 /* MonthViewBookedAppointments.swift */; };
 		F844C66228FFDD6700BBE5B0 /* MonthViewBookedAppointments.xib in Resources */ = {isa = PBXBuildFile; fileRef = F844C66128FFDD6700BBE5B0 /* MonthViewBookedAppointments.xib */; };
 		F84B72AB2984F924001E1737 /* ManageFamilyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84B72AA2984F924001E1737 /* ManageFamilyViewController.swift */; };
+		F84B72AF29855535001E1737 /* FamilyMemberCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84B72AD29855535001E1737 /* FamilyMemberCollectionViewCell.swift */; };
+		F84B72B029855535001E1737 /* FamilyMemberCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F84B72AE29855535001E1737 /* FamilyMemberCollectionViewCell.xib */; };
 		F859AB3428EC2FA20069D247 /* UITextViewWithPlaceholder_CR8.swift in Sources */ = {isa = PBXBuildFile; fileRef = F859AB3328EC2FA10069D247 /* UITextViewWithPlaceholder_CR8.swift */; };
 		F85D9C3828F33B6D008FBDE9 /* ReportTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85D9C3728F33B6D008FBDE9 /* ReportTabViewController.swift */; };
 		F86A71CF28EE9C970083D12D /* HomeTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86A71CE28EE9C970083D12D /* HomeTabViewController.swift */; };
@@ -109,6 +113,8 @@
 		F28C35CFE676567ACC6FCEAF /* Pods_Medonapp_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Medonapp_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F80552772907BB060011EB6B /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		F80577DA29633850009BEC6B /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		F80933D22985843800B87BE9 /* MemberTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberTableViewCell.swift; sourceTree = "<group>"; };
+		F80933D32985843800B87BE9 /* MemberTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MemberTableViewCell.xib; sourceTree = "<group>"; };
 		F80C19802900F39F00891800 /* StarRatingStackView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StarRatingStackView.xib; sourceTree = "<group>"; };
 		F80C19812900F39F00891800 /* JStarRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JStarRatingView.swift; sourceTree = "<group>"; };
 		F80C19822900F3A000891800 /* StarRatingStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarRatingStackView.swift; sourceTree = "<group>"; };
@@ -152,6 +158,8 @@
 		F844C65F28FFDD3E00BBE5B0 /* MonthViewBookedAppointments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthViewBookedAppointments.swift; sourceTree = "<group>"; };
 		F844C66128FFDD6700BBE5B0 /* MonthViewBookedAppointments.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MonthViewBookedAppointments.xib; sourceTree = "<group>"; };
 		F84B72AA2984F924001E1737 /* ManageFamilyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageFamilyViewController.swift; sourceTree = "<group>"; };
+		F84B72AD29855535001E1737 /* FamilyMemberCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberCollectionViewCell.swift; sourceTree = "<group>"; };
+		F84B72AE29855535001E1737 /* FamilyMemberCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FamilyMemberCollectionViewCell.xib; sourceTree = "<group>"; };
 		F859AB3328EC2FA10069D247 /* UITextViewWithPlaceholder_CR8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewWithPlaceholder_CR8.swift; sourceTree = "<group>"; };
 		F85D9C3728F33B6D008FBDE9 /* ReportTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportTabViewController.swift; sourceTree = "<group>"; };
 		F86A71CE28EE9C970083D12D /* HomeTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabViewController.swift; sourceTree = "<group>"; };
@@ -320,6 +328,7 @@
 				F8B96C3028F6A686009E5198 /* WhiteBackgroundButtonWithIcon.swift */,
 				F844C65628FF0DF100BBE5B0 /* Report Details Screen */,
 				F8D088FA291C2DAD00424977 /* LinksLabel.swift */,
+				F84B72AC29855513001E1737 /* Manage Family */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -464,6 +473,17 @@
 			isa = PBXGroup;
 			children = (
 				F84B72AA2984F924001E1737 /* ManageFamilyViewController.swift */,
+			);
+			path = "Manage Family";
+			sourceTree = "<group>";
+		};
+		F84B72AC29855513001E1737 /* Manage Family */ = {
+			isa = PBXGroup;
+			children = (
+				F84B72AD29855535001E1737 /* FamilyMemberCollectionViewCell.swift */,
+				F84B72AE29855535001E1737 /* FamilyMemberCollectionViewCell.xib */,
+				F80933D22985843800B87BE9 /* MemberTableViewCell.swift */,
+				F80933D32985843800B87BE9 /* MemberTableViewCell.xib */,
 			);
 			path = "Manage Family";
 			sourceTree = "<group>";
@@ -621,7 +641,9 @@
 				F8AF822328F5CB6300D62D98 /* DoctorDetailsScreenTopView.xib in Resources */,
 				F83CBC4C28D88466005BA1B8 /* NunitoSans-Bold.ttf in Resources */,
 				F8B96C2828F5D55E009E5198 /* GreyViewDoctorDetails.xib in Resources */,
+				F80933D52985843800B87BE9 /* MemberTableViewCell.xib in Resources */,
 				F82AA0F728F490B100C7CE7F /* DoctorInfoTableViewCell.xib in Resources */,
+				F84B72B029855535001E1737 /* FamilyMemberCollectionViewCell.xib in Resources */,
 				F81BAAEE28F97F720080BD21 /* checkMarkSuccess.json in Resources */,
 				F86A71D728EEAF7B0083D12D /* NunitoSans-SemiBold.ttf in Resources */,
 				F8BC4A3F28F4211600440406 /* ReportCellWithIconAndDescription.xib in Resources */,
@@ -722,6 +744,7 @@
 				F87559412901290C00863554 /* RatingHalfScreenViewController.swift in Sources */,
 				F8B96C2F28F699EF009E5198 /* ProfileViewViewController.swift in Sources */,
 				F883FC0529091F8800B17D01 /* Patient.swift in Sources */,
+				F80933D42985843800B87BE9 /* MemberTableViewCell.swift in Sources */,
 				F8B8E27929227D880061C204 /* FilterHalfScreenVC.swift in Sources */,
 				F8C75A6428EA016E00F5B2E2 /* UIButtonVariableBackgroundVariableCR.swift in Sources */,
 				F81BAADD28F928BF0080BD21 /* BookAppointmentViewController.swift in Sources */,
@@ -738,6 +761,7 @@
 				F883FC0B2909225E00B17D01 /* NameInclMiddleName.swift in Sources */,
 				F840513528FD139F0051B636 /* Doctor.swift in Sources */,
 				F8BC4A4428F460D600440406 /* StoryboardUtils.swift in Sources */,
+				F84B72AF29855535001E1737 /* FamilyMemberCollectionViewCell.swift in Sources */,
 				F84B72AB2984F924001E1737 /* ManageFamilyViewController.swift in Sources */,
 				F8FB225E28F7D9C7003B9173 /* TabViewInContactScreen.swift in Sources */,
 				F844C65328FEB25300BBE5B0 /* ReportDetailsViewController.swift in Sources */,
