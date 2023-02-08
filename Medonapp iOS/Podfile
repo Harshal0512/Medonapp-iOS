@@ -19,5 +19,6 @@ target 'Medonapp iOS' do
   pod 'FaveButton'
   pod 'SPIndicator'
   pod 'NotificationBannerSwift', '~> 3.0.0'
+  pod 'LGSegmentedControl'
 
 end
