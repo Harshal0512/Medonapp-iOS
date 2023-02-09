@@ -128,7 +128,7 @@ class LGSegment {
     
     func updateAppearance(with options: LGSegmentOptions, animated: Bool? = nil) {
         self.options = options
-        UIView.animate(withDuration: animated ?? options.animateStateChange ? 0.1 : 0) {
+        UIView.animate(withDuration: animated ?? options.animateStateChange ? 0.15 : 0) {
             // status
             self.titleLabel.textColor = self.textColor
             self.backgroundView.backgroundColor = self.backgroundColor

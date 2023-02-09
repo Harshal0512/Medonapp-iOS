@@ -119,7 +119,7 @@ class LGSegmentedControl: UIControl, LGSegmentDelegate {
             // such as when the control is initializing and setting the initial index
             // and also not warning when selectedIndex is nil, b/c that may be intended
             guard !segments.isEmpty, selectedIndex != nil else { return }
-            print("ERROR: cannot set selected index = \(index ??? "nil"), reason: index out of bounds (\(segments.count)) - LGSegmentedControl")
+//            print("ERROR: cannot set selected index = \(index ??? "nil"), reason: index out of bounds (\(segments.count)) - LGSegmentedControl")
             return
         }
         segment.set(state: .selected, animated: animated)

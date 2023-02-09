@@ -6,6 +6,12 @@
 //
 
 import UIKit
+import LGSegmentedControl
+
+enum FamilyTableState {
+    case activeView
+    case pendingView
+}
 
 class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     
@@ -13,8 +19,11 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
     private var navTitle: UILabel?
     private var addMemberButton: UIImageView?
     private var memberImagesCollectionView: UICollectionView?
+    private var segmentedControl: LGSegmentedControl?
     private var membersTable: UITableView?
     private var membersTableHeightConstraint: NSLayoutConstraint?
+    private var currentView: FamilyTableState = .activeView
+    var pendingCount = 2
     var membersCount = 5
     
     override func viewDidLoad() {
@@ -38,7 +47,16 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
     }
     
     override func viewDidLayoutSubviews() {
-        membersTableHeightConstraint?.constant = membersTable!.contentSize.height + 41
+        UIView.transition(with: membersTable!,
+                          duration: 0.35,
+                          options: .transitionCrossDissolve,
+                          animations: { self.membersTable?.reloadData() })
+        membersTable?.frame = CGRect(x: membersTable!.frame.origin.x, y: membersTable!.frame.origin.y, width: membersTable!.frame.size.width, height: membersTable!.contentSize.height)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        membersTable?.frame = CGRect(x: membersTable!.frame.origin.x, y: membersTable!.frame.origin.y, width: membersTable!.frame.size.width, height: membersTable!.contentSize.height)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,10 +68,19 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
         populateFamilyTable()
         
         if Prefs.isNetworkAvailable {
-            self.refreshData()
+//            self.refreshData()
         }
         
         
+        //segmented control init
+        segmentedControl?.selectedIndex = currentView == .activeView ? 0 : 1
+        
+        if pendingCount > 0 {
+            segmentedControl?.segments[1].badgeCount = pendingCount
+            segmentedControl?.isHidden = false
+        } else {
+            segmentedControl?.isHidden = true
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -110,6 +137,15 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
         memberImagesCollectionView?.showsHorizontalScrollIndicator = false
         memberImagesCollectionView?.showsVerticalScrollIndicator = false
         
+        segmentedControl = LGSegmentedControl(frame: CGRect(x: 20, y: 0, width: view.frame.width - 40, height: 30))
+        view.addSubview(segmentedControl!)
+        segmentedControl?.isHidden = true
+        segmentedControl?.segments = [
+            LGSegment(title: "Active"),
+            LGSegment(title: "Pending", badgeCount: nil)
+        ]
+        segmentedControl?.addTarget(self, action: #selector(selectedSegment(_:)), for: .valueChanged)
+        
         membersTable = UITableView()
         membersTable?.backgroundColor = .white
         membersTable?.layer.cornerRadius = 23
@@ -122,6 +158,7 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
         navTitle?.translatesAutoresizingMaskIntoConstraints = false
         addMemberButton?.translatesAutoresizingMaskIntoConstraints = false
         memberImagesCollectionView?.translatesAutoresizingMaskIntoConstraints = false
+        segmentedControl?.translatesAutoresizingMaskIntoConstraints = false
         membersTable?.translatesAutoresizingMaskIntoConstraints = false
         
         
@@ -144,7 +181,10 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
         memberImagesCollectionView?.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         memberImagesCollectionView?.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
-        membersTable?.topAnchor.constraint(equalTo: memberImagesCollectionView!.bottomAnchor, constant: 30).isActive = true
+        segmentedControl?.topAnchor.constraint(equalTo: memberImagesCollectionView!.bottomAnchor, constant: 30).isActive = true
+        segmentedControl?.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        membersTable?.topAnchor.constraint(equalTo: segmentedControl!.bottomAnchor, constant: 10).isActive = true
         membersTable?.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         membersTable?.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         membersTableHeightConstraint = membersTable?.heightAnchor.constraint(equalToConstant: 0)
@@ -174,6 +214,23 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
         insets?.left = leftInsets
         self.memberImagesCollectionView?.contentInset = insets!
     }
+    
+    @objc func selectedSegment(_ segmentedControl: LGSegmentedControl) {
+        // selectedSegment may be nil, if selectedIndex was set to nil (and hence none was selected)
+        guard let segment = segmentedControl.selectedSegment else { return }
+        let title = segment.title
+        print(title)
+        if segment.title == "Active" {
+            currentView = .activeView
+        } else {
+            currentView = .pendingView
+        }
+        UIView.transition(with: membersTable!,
+                          duration: 0.35,
+                          options: .transitionCrossDissolve,
+                          animations: { self.membersTable?.reloadData() })
+        membersTable?.frame = CGRect(x: membersTable!.frame.origin.x, y: membersTable!.frame.origin.y, width: membersTable!.frame.size.width, height: membersTable!.contentSize.height)
+    }
 }
 
 extension ManageFamilyViewController: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -196,7 +253,7 @@ extension ManageFamilyViewController: UICollectionViewDataSource, UICollectionVi
 
 extension ManageFamilyViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return membersCount
+        return (currentView == .activeView ? membersCount : pendingCount)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
