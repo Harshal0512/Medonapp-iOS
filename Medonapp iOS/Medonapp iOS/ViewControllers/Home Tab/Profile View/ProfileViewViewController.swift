@@ -231,19 +231,7 @@ class ProfileViewViewController: UIViewController, MFMailComposeViewControllerDe
     }
     
     @objc func openShareSheet() {
-        // text to share
-        let text = "Hey! I found an amazing app where you can meet top doctors, schedule appointments, get reports and many more.\n\nDownload & Register on Medonapp now!!"
-        
-        // set up activity view controller
-        let textToShare = [ text ]
-        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
-        
-        // exclude some activity types from the list (optional)
-        activityViewController.excludedActivityTypes = [ ]
-        
-        // present the view controller
-        self.present(activityViewController, animated: true, completion: nil)
+        Utils.openShareAppSheet(on: self)
     }
     
     @objc func handleMailAction() {

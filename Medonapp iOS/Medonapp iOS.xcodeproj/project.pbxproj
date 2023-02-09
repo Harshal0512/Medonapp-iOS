@@ -58,6 +58,7 @@
 		F84B72B029855535001E1737 /* FamilyMemberCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F84B72AE29855535001E1737 /* FamilyMemberCollectionViewCell.xib */; };
 		F859AB3428EC2FA20069D247 /* UITextViewWithPlaceholder_CR8.swift in Sources */ = {isa = PBXBuildFile; fileRef = F859AB3328EC2FA10069D247 /* UITextViewWithPlaceholder_CR8.swift */; };
 		F85D9C3828F33B6D008FBDE9 /* ReportTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85D9C3728F33B6D008FBDE9 /* ReportTabViewController.swift */; };
+		F867977D2994B01300051EF0 /* AddFamilyMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F867977C2994B01300051EF0 /* AddFamilyMemberViewController.swift */; };
 		F86A71CF28EE9C970083D12D /* HomeTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86A71CE28EE9C970083D12D /* HomeTabViewController.swift */; };
 		F86A71D728EEAF7B0083D12D /* NunitoSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F86A71D628EEAF7B0083D12D /* NunitoSans-SemiBold.ttf */; };
 		F87559412901290C00863554 /* RatingHalfScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87559402901290C00863554 /* RatingHalfScreenViewController.swift */; };
@@ -162,6 +163,7 @@
 		F84B72AE29855535001E1737 /* FamilyMemberCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FamilyMemberCollectionViewCell.xib; sourceTree = "<group>"; };
 		F859AB3328EC2FA10069D247 /* UITextViewWithPlaceholder_CR8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewWithPlaceholder_CR8.swift; sourceTree = "<group>"; };
 		F85D9C3728F33B6D008FBDE9 /* ReportTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportTabViewController.swift; sourceTree = "<group>"; };
+		F867977C2994B01300051EF0 /* AddFamilyMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFamilyMemberViewController.swift; sourceTree = "<group>"; };
 		F86A71CE28EE9C970083D12D /* HomeTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabViewController.swift; sourceTree = "<group>"; };
 		F86A71D628EEAF7B0083D12D /* NunitoSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		F87559402901290C00863554 /* RatingHalfScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingHalfScreenViewController.swift; sourceTree = "<group>"; };
@@ -473,6 +475,7 @@
 			isa = PBXGroup;
 			children = (
 				F84B72AA2984F924001E1737 /* ManageFamilyViewController.swift */,
+				F867977C2994B01300051EF0 /* AddFamilyMemberViewController.swift */,
 			);
 			path = "Manage Family";
 			sourceTree = "<group>";
@@ -720,6 +723,7 @@
 				F81BAAE428F93BC90080BD21 /* AppointmentTimeCollectionViewCell.swift in Sources */,
 				F8F3ED4529096A24001D6A4C /* CredentialShort.swift in Sources */,
 				F877CADD29518B6800B36605 /* FavoriteDoctor.swift in Sources */,
+				F867977D2994B01300051EF0 /* AddFamilyMemberViewController.swift in Sources */,
 				F859AB3428EC2FA20069D247 /* UITextViewWithPlaceholder_CR8.swift in Sources */,
 				F81BAAEA28F97E6B0080BD21 /* AppointmentStatusViewController.swift in Sources */,
 				F8F4C3E12919750F00EF17EA /* Popover Utils.swift in Sources */,

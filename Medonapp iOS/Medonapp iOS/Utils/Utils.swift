@@ -28,6 +28,22 @@ class Utils {
         }
     }
     
+    @objc internal class func openShareAppSheet(on vc: UIViewController) {
+        // text to share
+        let text = "Hey! I found an amazing app where you can meet top doctors, schedule appointments, get reports and many more.\n\nDownload & Register on Medonapp now!!"
+        
+        // set up activity view controller
+        let textToShare = [ text ]
+        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = vc.view // so that iPads won't crash
+        
+        // exclude some activity types from the list (optional)
+        activityViewController.excludedActivityTypes = [ ]
+        
+        // present the view controller
+        vc.present(activityViewController, animated: true, completion: nil)
+    }
+    
     internal class func displayNoNetworkBanner(_ vc: UIViewController) -> GrowingNotificationBanner {
         let networkWarningBanner = GrowingNotificationBanner(title: "Connection Error", subtitle: "Limited features available", style: .danger)
         networkWarningBanner.autoDismiss = false

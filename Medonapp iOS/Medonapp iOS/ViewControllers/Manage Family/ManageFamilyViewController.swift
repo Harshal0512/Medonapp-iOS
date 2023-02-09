@@ -197,7 +197,8 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
     }
     
     @objc func handleAddMemberTapAction(_ sender: UITapGestureRecognizer? = nil) {
-        
+        let addFamilyMemberVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "addFamilyMemberVC") as? AddFamilyMemberViewController
+        self.present(addFamilyMemberVC!, animated: true, completion: nil)
     }
     
     private func handleRemoveFromFamily() {
