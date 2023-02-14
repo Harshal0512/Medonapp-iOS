@@ -71,3 +71,13 @@
 "privacy_policy" = "गोपनीयता नीति";
 "tell_friend" = "किसी दोस्त को बताओ";
 "contact_us" = "हमसे संपर्क करें";
+
+
+//MARK: DoctorsScreenViewController
+"doctors" = "चिकित्सक";
+"search_doctor" = "चिकित्सक खोजें";
+"book_appointment" = "निर्धारित तारीख बुक करना";
+"share_profile" = "प्रोफ़ाइल साझा करें";
+"unfavorite" = "नापसंद करें";
+"favorite" = "पसंदीदा करें";
+"reviews" = "समीक्षा";

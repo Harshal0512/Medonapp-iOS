@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Localize_Swift
 
 class DoctorInfoTableViewCell: UITableViewCell {
 
@@ -36,7 +37,7 @@ class DoctorInfoTableViewCell: UITableViewCell {
         self.doctorName.text = doctor.fullNameWithTitle
         self.designation.text = doctor.specialization ?? ""
         self.rating.text = String(format: "%.2f", doctor.avgRating ?? 0)
-        self.numberOfReviews.text = "\(doctor.reviewCount ?? 0) reviews"
+        self.numberOfReviews.text = "\(doctor.reviewCount ?? 0) " + "reviews".localized()
         self.feesLabel.text = doctor.fees?.clean
         
         self.doctorName.textColor = .black

@@ -9,6 +9,7 @@ import UIKit
 import CoreLocation
 import MobileCoreServices
 import Toast_Swift
+import Localize_Swift
 
 class DoctorsScreenViewController: UIViewController {
     
@@ -30,7 +31,7 @@ class DoctorsScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Doctors"
+        self.title = "doctors".localized()
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.navigationItem.largeTitleDisplayMode = .never
         navigationController?.isNavigationBarHidden = true
@@ -92,7 +93,7 @@ class DoctorsScreenViewController: UIViewController {
         backButton?.isUserInteractionEnabled = true
         
         navTitle = UILabel()
-        navTitle?.text = "Doctors"
+        navTitle?.text = "doctors".localized()
         navTitle?.textAlignment = .center
         navTitle?.textColor = .black
         navTitle?.font = UIFont(name: "NunitoSans-Bold", size: 18)
@@ -101,7 +102,7 @@ class DoctorsScreenViewController: UIViewController {
         searchField = SearchBarWithSearchAndFilterIcon()
         searchField?.setupUI()
         searchField?.delegate = self
-        searchField?.setPlaceholder(placeholder: "Search Doctor")
+        searchField?.setPlaceholder(placeholder: "search_doctor".localized())
         view.addSubview(searchField!)
         searchField?.addTarget(self, action: #selector(searchFieldDidChange(_:)), for: .allEditingEvents)
         
@@ -316,12 +317,12 @@ extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSourc
             doctorsDetailsVC?.doctor = Doctor.sortDoctors(doctors: Array(self.doctorsSet))[indexPath.row]
             
             
-            let bookAppt = UIAction(title: "Book Appointment", image: UIImage(systemName: "clock.badge.checkmark")) { action in
+            let bookAppt = UIAction(title: "book_appointment".localized(), image: UIImage(systemName: "clock.badge.checkmark")) { action in
                 self.navigationController?.pushViewController(doctorsDetailsVC!, animated: true)
                 doctorsDetailsVC!.bookNowButtonPressed()
             }
             
-            let shareProfile = UIAction(title: "Share Profile", image: UIImage(systemName: "square.and.arrow.up")) { action in
+            let shareProfile = UIAction(title: "share_profile".localized(), image: UIImage(systemName: "square.and.arrow.up")) { action in
                 // text to share
                 let text = "Hey! I met \(doctorsDetailsVC!.doctor!.fullNameWithTitle) on Medonapp!\n\(doctorsDetailsVC!.doctor?.gender?.lowercased() == "male" ? "He" : "She") is rated \(doctorsDetailsVC!.doctor!.avgRating!.clean) stars and has \(doctorsDetailsVC!.doctor!.experience!.clean)+ years of experience.\n\nYou can contact them through the following channels:\nNumber: \(doctorsDetailsVC!.doctor!.mobile!.contactNumberWithCountryCode!)\nEmail: \(doctorsDetailsVC!.doctor!.credential!.email!)\n\nDownload Medonapp now!!"
                 
@@ -337,7 +338,7 @@ extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSourc
                 self.present(activityViewController, animated: true, completion: nil)
             }
             
-            let favorite = UIAction(title: (doctorsDetailsVC?.doctor?.isFavorite)! ? "Unfavorite" : "Favorite", image: UIImage(systemName: (doctorsDetailsVC?.doctor?.isFavorite)! ? "heart.slash" : "heart")) { action in
+            let favorite = UIAction(title: (doctorsDetailsVC?.doctor?.isFavorite)! ? "unfavorite".localized() : "favorite".localized(), image: UIImage(systemName: (doctorsDetailsVC?.doctor?.isFavorite)! ? "heart.slash" : "heart")) { action in
                 let generator = UIImpactFeedbackGenerator(style: .light)
                 doctorsDetailsVC?.doctor?.setFavorite(state: !(doctorsDetailsVC?.doctor?.isFavorite)!) { isSuccess in
                     if isSuccess {

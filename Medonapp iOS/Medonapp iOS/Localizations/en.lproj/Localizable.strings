@@ -71,3 +71,13 @@
 "privacy_policy" = "Privacy Policy";
 "tell_friend" = "Tell a friend";
 "contact_us" = "Contact us";
+
+
+//MARK: DoctorsScreenViewController
+"doctors" = "Doctors";
+"search_doctor" = "Search Doctors";
+"book_appointment" = "Book Appointment";
+"share_profile" = "Share Profile";
+"unfavorite" = "Unfavorite";
+"favorite" = "Favorite";
+"reviews" = "reviews";
