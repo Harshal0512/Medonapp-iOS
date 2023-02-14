@@ -63,3 +63,11 @@
 "search_medical" = "Search medical";
 "services" = "Services";
 "nearby_doctors" = "Nearby Doctors";
+
+
+//MARK: ProfileViewViewController
+"account_settings" = "Account Settings";
+"manage_family" = "Manage Family";
+"privacy_policy" = "Privacy Policy";
+"tell_friend" = "Tell a friend";
+"contact_us" = "Contact us";

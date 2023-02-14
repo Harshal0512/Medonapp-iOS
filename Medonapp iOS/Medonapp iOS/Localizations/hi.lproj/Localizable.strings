@@ -63,3 +63,11 @@
 "search_medical" = "चिकित्सा खोजें";
 "services" = "सेवाएं";
 "nearby_doctors" = "आस-पास के डॉक्टर";
+
+
+//MARK: ProfileViewViewController
+"account_settings" = "अकाउंट सेटिंग";
+"manage_family" = "परिवार का प्रबंधन करें";
+"privacy_policy" = "गोपनीयता नीति";
+"tell_friend" = "किसी दोस्त को बताओ";
+"contact_us" = "हमसे संपर्क करें";

@@ -8,6 +8,7 @@
 import UIKit
 import MessageUI
 import NotificationBannerSwift
+import Localize_Swift
 
 class ProfileViewViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
@@ -100,27 +101,27 @@ class ProfileViewViewController: UIViewController, MFMailComposeViewControllerDe
         contentView?.addSubview(emailLabel!)
         
         accountSettingsButton = WhiteBackgroundButtonWithIcon()
-        accountSettingsButton?.initButton(title: "Account Settings", icon: UIImage(named: "accountSettingsIcon"))
+        accountSettingsButton?.initButton(title: "account_settings".localized(), icon: UIImage(named: "accountSettingsIcon"))
         contentView?.addSubview(accountSettingsButton!)
         
         manageFamilyButton = WhiteBackgroundButtonWithIcon()
-        manageFamilyButton?.initButton(title: "Manage Family", icon: UIImage(named: "familyIconFilled"))
+        manageFamilyButton?.initButton(title: "manage_family".localized(), icon: UIImage(named: "familyIconFilled"))
         contentView?.addSubview(manageFamilyButton!)
         manageFamilyButton?.addTarget(self, action: #selector(manageFamily), for: .touchUpInside)
         manageFamilyButton?.isUserInteractionEnabled = true
         
         privacyPolicyButton = WhiteBackgroundButtonWithIcon()
-        privacyPolicyButton?.initButton(title: "Privacy Policy", icon: UIImage(named: "compassIcon"))
+        privacyPolicyButton?.initButton(title: "privacy_policy".localized(), icon: UIImage(named: "compassIcon"))
         contentView?.addSubview(privacyPolicyButton!)
         
         tellAFriendButton = WhiteBackgroundButtonWithIcon()
-        tellAFriendButton?.initButton(title: "Tell a friend", icon: UIImage(named: "shareIcon"))
+        tellAFriendButton?.initButton(title: "tell_friend".localized(), icon: UIImage(named: "shareIcon"))
         contentView?.addSubview(tellAFriendButton!)
         tellAFriendButton?.addTarget(self, action: #selector(openShareSheet), for: .touchUpInside)
         tellAFriendButton?.isUserInteractionEnabled = true
         
         contactUsButton = WhiteBackgroundButtonWithIcon()
-        contactUsButton?.initButton(title: "Contact us", icon: UIImage(named: "headphoneIcon"))
+        contactUsButton?.initButton(title: "contact_us".localized(), icon: UIImage(named: "headphoneIcon"))
         contentView?.addSubview(contactUsButton!)
         contactUsButton?.addTarget(self, action: #selector(handleMailAction), for: .touchUpInside)
         contactUsButton?.isUserInteractionEnabled = true
