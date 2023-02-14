@@ -39,6 +39,7 @@
 		F82AA0F628F490B100C7CE7F /* DoctorInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82AA0F428F490B100C7CE7F /* DoctorInfoTableViewCell.swift */; };
 		F82AA0F728F490B100C7CE7F /* DoctorInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F82AA0F528F490B100C7CE7F /* DoctorInfoTableViewCell.xib */; };
 		F8308050290A76390088CDB8 /* Appointments.swift in Sources */ = {isa = PBXBuildFile; fileRef = F830804F290A76390088CDB8 /* Appointments.swift */; };
+		F8310928299B484E001FC51B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F831092A299B484E001FC51B /* Localizable.strings */; };
 		F834BEE2290CFC0F0073FCAC /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = F834BEE1290CFC0F0073FCAC /* Review.swift */; };
 		F83CBC4828D87352005BA1B8 /* LoginSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83CBC4728D87352005BA1B8 /* LoginSignUpViewController.swift */; };
 		F83CBC4C28D88466005BA1B8 /* NunitoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F83CBC4A28D88466005BA1B8 /* NunitoSans-Bold.ttf */; };
@@ -96,6 +97,7 @@
 		F8D088FB291C2DAD00424977 /* LinksLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D088FA291C2DAD00424977 /* LinksLabel.swift */; };
 		F8D5EB8A290FE35000942AE6 /* iOSDropDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D5EB89290FE35000942AE6 /* iOSDropDown.framework */; };
 		F8D5EB8E290FE3C200942AE6 /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D5EB8D290FE3C200942AE6 /* Lottie.framework */; };
+		F8F3B482299A5CF50044AB1D /* Localize_Swift in Frameworks */ = {isa = PBXBuildFile; productRef = F8F3B481299A5CF50044AB1D /* Localize_Swift */; };
 		F8F3ED3D290967DF001D6A4C /* SignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3ED3C290967DF001D6A4C /* SignUpModel.swift */; };
 		F8F3ED3F2909685C001D6A4C /* NameExclMiddleName.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3ED3E2909685C001D6A4C /* NameExclMiddleName.swift */; };
 		F8F3ED41290968D1001D6A4C /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3ED40290968D1001D6A4C /* Address.swift */; };
@@ -144,6 +146,10 @@
 		F82AA0F428F490B100C7CE7F /* DoctorInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorInfoTableViewCell.swift; sourceTree = "<group>"; };
 		F82AA0F528F490B100C7CE7F /* DoctorInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DoctorInfoTableViewCell.xib; sourceTree = "<group>"; };
 		F830804F290A76390088CDB8 /* Appointments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appointments.swift; sourceTree = "<group>"; };
+		F8310929299B484E001FC51B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F831092B299B48B8001FC51B /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Main.strings; sourceTree = "<group>"; };
+		F831092C299B48B8001FC51B /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		F831092D299B48B8001FC51B /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F834BEE1290CFC0F0073FCAC /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		F83CBC4728D87352005BA1B8 /* LoginSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignUpViewController.swift; sourceTree = "<group>"; };
 		F83CBC4A28D88466005BA1B8 /* NunitoSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-Bold.ttf"; sourceTree = "<group>"; };
@@ -219,6 +225,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8D5EB8E290FE3C200942AE6 /* Lottie.framework in Frameworks */,
+				F8F3B482299A5CF50044AB1D /* Localize_Swift in Frameworks */,
 				F8D5EB8A290FE35000942AE6 /* iOSDropDown.framework in Frameworks */,
 				08F565BC217C9820C601B123 /* Pods_Medonapp_iOS.framework in Frameworks */,
 			);
@@ -269,6 +276,7 @@
 		F8131B1228D5A09F00B7558D /* Medonapp iOS */ = {
 			isa = PBXGroup;
 			children = (
+				F8310925299B4825001FC51B /* Localizations */,
 				F81BAAEC28F97F5B0080BD21 /* Resources */,
 				F8C75A5E28E98B6500F5B2E2 /* Utils */,
 				F8131B2A28D5AAF700B7558D /* Network */,
@@ -402,6 +410,14 @@
 				F8BC4A3E28F4211600440406 /* ReportCellWithIconAndDescription.xib */,
 			);
 			path = "Report Tab";
+			sourceTree = "<group>";
+		};
+		F8310925299B4825001FC51B /* Localizations */ = {
+			isa = PBXGroup;
+			children = (
+				F831092A299B484E001FC51B /* Localizable.strings */,
+			);
+			path = Localizations;
 			sourceTree = "<group>";
 		};
 		F834BEE0290CF4460073FCAC /* Booked Appointments Tab */ = {
@@ -580,6 +596,7 @@
 			);
 			name = "Medonapp iOS";
 			packageProductDependencies = (
+				F8F3B481299A5CF50044AB1D /* Localize_Swift */,
 			);
 			productName = "Medonapp iOS";
 			productReference = F8131B1028D5A09F00B7558D /* Medonapp iOS.app */;
@@ -607,9 +624,11 @@
 			knownRegions = (
 				en,
 				Base,
+				hi,
 			);
 			mainGroup = F8131B0728D5A09F00B7558D;
 			packageReferences = (
+				F8F3B480299A5CF50044AB1D /* XCRemoteSwiftPackageReference "Localize-Swift" */,
 			);
 			productRefGroup = F8131B1128D5A09F00B7558D /* Products */;
 			projectDirPath = "";
@@ -634,6 +653,7 @@
 				F81BAAF828F9C8C40080BD21 /* PriceDisplayViewAppointmentDetails.xib in Resources */,
 				F8131B1D28D5A0A000B7558D /* Assets.xcassets in Resources */,
 				F844C65528FEB27000BBE5B0 /* ReportTab.storyboard in Resources */,
+				F8310928299B484E001FC51B /* Localizable.strings in Resources */,
 				F80C19892900F75500891800 /* BookedAppointmentsTableViewCell.xib in Resources */,
 				F82AA0F228F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.xib in Resources */,
 				F89272C428F1B0F80063525E /* NunitoSans-Regular.ttf in Resources */,
@@ -799,6 +819,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				F8131B1A28D5A09F00B7558D /* Base */,
+				F831092B299B48B8001FC51B /* hi */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -807,8 +828,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				F8131B1F28D5A0A000B7558D /* Base */,
+				F831092C299B48B8001FC51B /* hi */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		F831092A299B484E001FC51B /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F8310929299B484E001FC51B /* en */,
+				F831092D299B48B8001FC51B /* hi */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -818,6 +849,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -878,6 +910,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -1016,6 +1049,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F8F3B480299A5CF50044AB1D /* XCRemoteSwiftPackageReference "Localize-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/marmelroy/Localize-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F8F3B481299A5CF50044AB1D /* Localize_Swift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F8F3B480299A5CF50044AB1D /* XCRemoteSwiftPackageReference "Localize-Swift" */;
+			productName = Localize_Swift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F8131B0828D5A09F00B7558D /* Project object */;
 }

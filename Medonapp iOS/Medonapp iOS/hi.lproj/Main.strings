@@ -1,0 +1,15 @@
+
+/* Class = "UITabBarItem"; title = "Report"; ObjectID = "K4M-55-4Fv"; */
+"K4M-55-4Fv.title" = "Report";
+
+/* Class = "UITabBarItem"; title = "Home"; ObjectID = "Pv8-Yy-Cyy"; */
+"Pv8-Yy-Cyy.title" = "Home";
+
+/* Class = "UINavigationController"; title = "Schedule"; ObjectID = "ewj-co-gae"; */
+"ewj-co-gae.title" = "Schedule";
+
+/* Class = "UILabel"; text = "Medonapp"; ObjectID = "gaZ-RD-kkn"; */
+"gaZ-RD-kkn.text" = "Medonapp";
+
+/* Class = "UITabBarItem"; title = "Appointments"; ObjectID = "jEg-zo-wEC"; */
+"jEg-zo-wEC.title" = "Appointments";

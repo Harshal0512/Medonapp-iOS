@@ -1,0 +1,65 @@
+/* 
+  Localizable.strings
+  Medonapp iOS
+
+  Created by Harshal Kulkarni on 14/02/23.
+  
+*/
+
+
+//MARK: General Common Translations
+"no_internet_available" = "No Internet Connection Available";
+"continue" = "Continue";
+"unknown_error" = "Unknown Error";
+"error_has_occured" = "An Error has occured.";
+
+
+//MARK: LoginSignUpViewController
+"welcome_to_medonapp" = "Welcome to Medonapp";
+"email_phone_number" = "Email or Phone Number";
+"password" = "Password";
+"password_hint" = "Is at least 8 characters long and contain an uppercase, a number & a special character";
+"forgot_password" = "Forgot Password?";
+"email" = "Email";
+"email_exists" = "This email already exists, please try logging in or use a different email.";
+"choose_password" = "Choose your Password";
+"conf_password" = "Confirm Password";
+"first_name" = "First Name";
+"last_name" = "Last Name";
+"dob" = "Date of Birth";
+"blood_group" = "Blood Group";
+//"A+" = "A+";
+//"A-" = "A-";
+//"B+" = "B+";
+//"B-" = "B-";
+//"O+" = "O+";
+//"O-" = "O-";
+//"AB+" = "AB+";
+//"AB-" = "AB-";
+"weight_kg" = "Weight (in Kg)";
+"phone_number" = "Phone Number";
+"address" = "Address";
+"state" = "State";
+"city" = "City";
+"enter_otp" = "Please enter Verification code sent to your email.";
+"signup" = "Signup";
+"login" = "Login";
+"incorrect_details" = "Incorrect Details";
+"enter_correct_credentials" = "Enter correct credentials.";
+"enter_details" = "Enter your details";
+"enter_valid_weight" = "Enter valid weight.";
+"all_set" = "You’re all set";
+"didnt_receive" = "Didn't receive the OTP? Resend OTP";
+"resend_otp" = "Resend OTP";
+"resend_in_secs %@" = "Resend OTP in %@ secs";
+"otp_sent" = "OTP Sent";
+"otp_sent_successfully" = "OTP Sent Successfully";
+"otp_incorrect" = "OTP Incorrect";
+"enter_correct_otp" = "Enter correct OTP to continue.";
+
+
+//MARK: HomeTabViewController
+"hello" = "👋 Hello";
+"search_medical" = "Search medical";
+"services" = "Services";
+"nearby_doctors" = "Nearby Doctors";

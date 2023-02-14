@@ -11,6 +11,7 @@ import SwiftValidator
 import DPOTPView
 import iOSDropDown
 import Toast_Swift
+import Localize_Swift
 
 enum views {
     case login
@@ -155,7 +156,7 @@ class LoginSignUpViewController: UIViewController {
         scrollView?.addSubview(signUpScreenContentView!)
         
         pageTitle = UILabel()
-        pageTitle?.text = "Welcome to Medonapp"
+        pageTitle?.text = "welcome_to_medonapp".localized()
         pageTitle?.textColor = .black
         pageTitle?.font = UIFont(name: "NunitoSans-ExtraBold", size: 24)
         scrollView?.addSubview(pageTitle!)
@@ -172,28 +173,28 @@ class LoginSignUpViewController: UIViewController {
         //MARK: Initializing variables for login view
         
         emailLabelLogin = UILabel()
-        emailLabelLogin?.text = "Email or Phone Number"
+        emailLabelLogin?.text = "email_phone_number".localized()
         emailLabelLogin?.textColor = .black
         emailLabelLogin?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
         loginScreenContentView?.addSubview(emailLabelLogin!)
         
         emailTextFieldLogin = UITextFieldWithPlaceholder_CR8()
         emailTextFieldLogin?.delegate = self
-        emailTextFieldLogin?.setPlaceholder(placeholder: "Email or Phone number")
+        emailTextFieldLogin?.setPlaceholder(placeholder: "email_phone_number".localized())
         emailTextFieldLogin?.autocapitalizationType = .none
         emailTextFieldLogin?.autocorrectionType = .no
         emailTextFieldLogin?.keyboardType = .emailAddress
         loginScreenContentView?.addSubview(emailTextFieldLogin!)
         
         passwordLabel = UILabel()
-        passwordLabel?.text = "Password"
+        passwordLabel?.text = "password".localized()
         passwordLabel?.textColor = .black
         passwordLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
         loginScreenContentView?.addSubview(passwordLabel!)
         
         passwordTextField = UITextFieldWithPlaceholder_CR8()
         passwordTextField?.delegate = self
-        passwordTextField?.setPlaceholder(placeholder: "Password")
+        passwordTextField?.setPlaceholder(placeholder: "password".localized())
         passwordTextField?.autocapitalizationType = .none
         passwordTextField?.autocorrectionType = .no
         passwordTextField?.keyboardType = .default
@@ -201,7 +202,7 @@ class LoginSignUpViewController: UIViewController {
         loginScreenContentView?.addSubview(passwordTextField!)
         
         loginPasswordHint = UILabel()
-        loginPasswordHint?.text = "Is at least 8 characters long and contain an uppercase, a number & a special character"
+        loginPasswordHint?.text = "password_hint".localized()
         loginPasswordHint?.textColor = .lightGray
         loginPasswordHint?.font = UIFont(name: "NunitoSans-Bold", size: 11)
         loginPasswordHint?.numberOfLines = 0
@@ -214,13 +215,13 @@ class LoginSignUpViewController: UIViewController {
             .underlineStyle: NSUnderlineStyle.single.rawValue
         ]
         forgotPasswordButton?.setAttributedTitle(NSMutableAttributedString(
-            string: "Forgot Password?",
+            string: "forgot_password".localized(),
             attributes: forgotPasswordButtonAttributes), for: .normal)
         forgotPasswordButton?.contentHorizontalAlignment = .leading
         loginScreenContentView?.addSubview(forgotPasswordButton!)
         
         loginContinueButton = UIButtonVariableBackgroundVariableCR()
-        loginContinueButton?.initButton(title: "Continue", cornerRadius: 14, variant: .blueBack)
+        loginContinueButton?.initButton(title: "continue".localized(), cornerRadius: 14, variant: .blueBack)
         loginScreenContentView?.addSubview(loginContinueButton!)
         loginContinueButton?.addTarget(self, action: #selector(loginContinueButtonPressed), for: .touchUpInside)
         
@@ -228,7 +229,7 @@ class LoginSignUpViewController: UIViewController {
         //MARK: Initializing variables for signup view
         
         emailLabelSignUp = UILabel()
-        emailLabelSignUp?.text = "Email"
+        emailLabelSignUp?.text = "email".localized()
         emailLabelSignUp?.textColor = .black
         emailLabelSignUp?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
         signUpScreenContentView?.addSubview(emailLabelSignUp!)
@@ -236,14 +237,14 @@ class LoginSignUpViewController: UIViewController {
         emailTextFieldSignUp = UITextFieldWithPlaceholder_CR8()
         emailTextFieldSignUp?.name = "emailSignUp"
         emailTextFieldSignUp?.delegate = self
-        emailTextFieldSignUp?.setPlaceholder(placeholder: "Email")
+        emailTextFieldSignUp?.setPlaceholder(placeholder: "email".localized())
         emailTextFieldSignUp?.autocapitalizationType = .none
         emailTextFieldSignUp?.autocorrectionType = .no
         emailTextFieldSignUp?.keyboardType = .emailAddress
         signUpScreenContentView?.addSubview(emailTextFieldSignUp!)
         
         emailAlreadyExistsLabel = UILabel()
-        emailAlreadyExistsLabel?.text = "This email already exists, please try logging in or use a different email."
+        emailAlreadyExistsLabel?.text = "email_exists".localized()
         emailAlreadyExistsLabel?.textColor = UIColor(red: 0.86, green: 0.24, blue: 0.00, alpha: 1.00)
         emailAlreadyExistsLabel?.font = UIFont(name: "NunitoSans-Bold", size: 11)
         emailAlreadyExistsLabel?.numberOfLines = 0
@@ -251,14 +252,14 @@ class LoginSignUpViewController: UIViewController {
         signUpScreenContentView?.addSubview(emailAlreadyExistsLabel!)
         
         choosePasswordLabel = UILabel()
-        choosePasswordLabel?.text = "Choose your Password"
+        choosePasswordLabel?.text = "choose_password".localized()
         choosePasswordLabel?.textColor = .black
         choosePasswordLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
         signUpScreenContentView?.addSubview(choosePasswordLabel!)
         
         choosePasswordTextField = UITextFieldWithPlaceholder_CR8()
         choosePasswordTextField?.delegate = self
-        choosePasswordTextField?.setPlaceholder(placeholder: "Password")
+        choosePasswordTextField?.setPlaceholder(placeholder: "password".localized())
         choosePasswordTextField?.autocapitalizationType = .none
         choosePasswordTextField?.autocorrectionType = .no
         choosePasswordTextField?.keyboardType = .default
@@ -266,21 +267,21 @@ class LoginSignUpViewController: UIViewController {
         signUpScreenContentView?.addSubview(choosePasswordTextField!)
         
         passwordHint = UILabel()
-        passwordHint?.text = "Should be at least 8 characters long and contain an uppercase, a number & a special character"
+        passwordHint?.text = "password_hint".localized()
         passwordHint?.textColor = .lightGray
         passwordHint?.font = UIFont(name: "NunitoSans-Bold", size: 11)
         passwordHint?.numberOfLines = 0
         signUpScreenContentView?.addSubview(passwordHint!)
         
         confirmPasswordLabel = UILabel()
-        confirmPasswordLabel?.text = "Confirm Password"
+        confirmPasswordLabel?.text = "conf_password".localized()
         confirmPasswordLabel?.textColor = .black
         confirmPasswordLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
         signUpScreenContentView?.addSubview(confirmPasswordLabel!)
         
         confirmPasswordTextField = UITextFieldWithPlaceholder_CR8()
         confirmPasswordTextField?.delegate = self
-        confirmPasswordTextField?.setPlaceholder(placeholder: "Confirm Password")
+        confirmPasswordTextField?.setPlaceholder(placeholder: "conf_password".localized())
         confirmPasswordTextField?.autocapitalizationType = .none
         confirmPasswordTextField?.autocorrectionType = .no
         confirmPasswordTextField?.keyboardType = .default
@@ -288,7 +289,7 @@ class LoginSignUpViewController: UIViewController {
         signUpScreenContentView?.addSubview(confirmPasswordTextField!)
         
         firstNameLabel = UILabel()
-        firstNameLabel?.text = "First Name"
+        firstNameLabel?.text = "first_name".localized()
         firstNameLabel?.textColor = .black
         firstNameLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
         signUpScreenContentView?.addSubview(firstNameLabel!)
@@ -296,7 +297,7 @@ class LoginSignUpViewController: UIViewController {
         
         firstNameField = UITextFieldWithPlaceholder_CR8()
         firstNameField?.delegate = self
-        firstNameField?.setPlaceholder(placeholder: "First Name")
+        firstNameField?.setPlaceholder(placeholder: "first_name".localized())
         firstNameField?.autocapitalizationType = .words
         firstNameField?.autocorrectionType = .no
         firstNameField?.keyboardType = .default
@@ -304,7 +305,7 @@ class LoginSignUpViewController: UIViewController {
         firstNameField?.alpha = 0
         
         lastNameLabel = UILabel()
-        lastNameLabel?.text = "Last Name"
+        lastNameLabel?.text = "last_name".localized()
         lastNameLabel?.textColor = .black
         lastNameLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
         signUpScreenContentView?.addSubview(lastNameLabel!)
@@ -312,7 +313,7 @@ class LoginSignUpViewController: UIViewController {
         
         lastNameField = UITextFieldWithPlaceholder_CR8()
         lastNameField?.delegate = self
-        lastNameField?.setPlaceholder(placeholder: "Last Name")
+        lastNameField?.setPlaceholder(placeholder: "last_name".localized())
         lastNameField?.autocapitalizationType = .words
         lastNameField?.autocorrectionType = .no
         lastNameField?.keyboardType = .default
@@ -320,7 +321,7 @@ class LoginSignUpViewController: UIViewController {
         lastNameField?.alpha = 0
         
         dobLabel = UILabel()
-        dobLabel?.text = "Date of Birth"
+        dobLabel?.text = "dob".localized()
         dobLabel?.textColor = .black
         dobLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
         signUpScreenContentView?.addSubview(dobLabel!)
@@ -336,7 +337,7 @@ class LoginSignUpViewController: UIViewController {
         dobPicker?.alpha = 0
         
         bloodGroupLabel = UILabel()
-        bloodGroupLabel?.text = "Blood Group"
+        bloodGroupLabel?.text = "blood_group".localized()
         bloodGroupLabel?.textColor = .black
         bloodGroupLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
         signUpScreenContentView?.addSubview(bloodGroupLabel!)
@@ -359,7 +360,7 @@ class LoginSignUpViewController: UIViewController {
         bloodGroupDropdown?.alpha = 0
         
         weightLabel = UILabel()
-        weightLabel?.text = "Weight (in Kg)"
+        weightLabel?.text = "weight_kg".localized()
         weightLabel?.textColor = .black
         weightLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
         signUpScreenContentView?.addSubview(weightLabel!)
@@ -367,7 +368,7 @@ class LoginSignUpViewController: UIViewController {
         
         weightField = UITextFieldWithPlaceholder_CR8()
         weightField?.delegate = self
-        weightField?.setPlaceholder(placeholder: "Weight (in Kg)")
+        weightField?.setPlaceholder(placeholder: "weight_kg".localized())
         weightField?.autocapitalizationType = .none
         weightField?.autocorrectionType = .no
         weightField?.keyboardType = .decimalPad
@@ -375,7 +376,7 @@ class LoginSignUpViewController: UIViewController {
         weightField?.alpha = 0
         
         phoneNumberLabel = UILabel()
-        phoneNumberLabel?.text = "Phone Number"
+        phoneNumberLabel?.text = "phone_number".localized()
         phoneNumberLabel?.textColor = .black
         phoneNumberLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
         signUpScreenContentView?.addSubview(phoneNumberLabel!)
@@ -395,7 +396,7 @@ class LoginSignUpViewController: UIViewController {
         
         phoneNumberField = UITextFieldWithPlaceholder_CR8()
         phoneNumberField?.delegate = self
-        phoneNumberField?.setPlaceholder(placeholder: "Phone Number")
+        phoneNumberField?.setPlaceholder(placeholder: "phone_number".localized())
         phoneNumberField?.autocapitalizationType = .none
         phoneNumberField?.autocorrectionType = .no
         phoneNumberField?.keyboardType = .numberPad
@@ -404,7 +405,7 @@ class LoginSignUpViewController: UIViewController {
         phoneNumberField?.alpha = 0
         
         addressLabel = UILabel()
-        addressLabel?.text = "Address"
+        addressLabel?.text = "address".localized()
         addressLabel?.textColor = .black
         addressLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
         signUpScreenContentView?.addSubview(addressLabel!)
@@ -418,7 +419,7 @@ class LoginSignUpViewController: UIViewController {
         addressTextView?.alpha = 0
         
         stateLabel = UILabel()
-        stateLabel?.text = "State"
+        stateLabel?.text = "state".localized()
         stateLabel?.textColor = .black
         stateLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
         signUpScreenContentView?.addSubview(stateLabel!)
@@ -426,7 +427,7 @@ class LoginSignUpViewController: UIViewController {
         
         stateField = UITextFieldWithPlaceholder_CR8()
         stateField?.delegate = self
-        stateField?.setPlaceholder(placeholder: "State")
+        stateField?.setPlaceholder(placeholder: "state".localized())
         stateField?.autocapitalizationType = .words
         stateField?.autocorrectionType = .no
         stateField?.keyboardType = .default
@@ -434,7 +435,7 @@ class LoginSignUpViewController: UIViewController {
         stateField?.alpha = 0
         
         cityLabel = UILabel()
-        cityLabel?.text = "City"
+        cityLabel?.text = "city".localized()
         cityLabel?.textColor = .black
         cityLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
         signUpScreenContentView?.addSubview(cityLabel!)
@@ -442,7 +443,7 @@ class LoginSignUpViewController: UIViewController {
         
         cityField = UITextFieldWithPlaceholder_CR8()
         cityField?.delegate = self
-        cityField?.setPlaceholder(placeholder: "City")
+        cityField?.setPlaceholder(placeholder: "city".localized())
         cityField?.autocapitalizationType = .words
         cityField?.autocorrectionType = .no
         cityField?.keyboardType = .default
@@ -450,7 +451,7 @@ class LoginSignUpViewController: UIViewController {
         cityField?.alpha = 0
         
         otpDetailsLabel = UILabel()
-        otpDetailsLabel?.text = "Please enter Verification code sent to your email."
+        otpDetailsLabel?.text = "enter_otp".localized()
         otpDetailsLabel?.textColor = .black
         otpDetailsLabel?.numberOfLines = 0
         otpDetailsLabel?.font = UIFont(name: "NunitoSans-ExtraBold", size: 18)
@@ -490,7 +491,7 @@ class LoginSignUpViewController: UIViewController {
         signUpScreenContentView?.addSubview(progressBar!)
         
         signupContinueButton = UIButtonVariableBackgroundVariableCR()
-        signupContinueButton?.initButton(title: "Continue", cornerRadius: 14, variant: .blueBack)
+        signupContinueButton?.initButton(title: "continue".localized(), cornerRadius: 14, variant: .blueBack)
         signUpScreenContentView?.addSubview(signupContinueButton!)
         signupContinueButton?.addTarget(self, action: #selector(signUpContinueButtonPressed), for: .touchUpInside)
     }
@@ -653,8 +654,8 @@ class LoginSignUpViewController: UIViewController {
 
         UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.transitionCurlUp, animations: {
             //change active button colors
-            self.signUpButton?.initButton(title: "Signup", cornerRadius: 8, variant: .whiteBack)
-            self.loginButton?.initButton(title: "Login", cornerRadius: 8, variant: .blueBack)
+            self.signUpButton?.initButton(title: "signup".localized(), cornerRadius: 8, variant: .whiteBack)
+            self.loginButton?.initButton(title: "login".localized(), cornerRadius: 8, variant: .blueBack)
             
             //set active view opacity
             self.signUpScreenContentView?.alpha = 0
@@ -708,8 +709,8 @@ class LoginSignUpViewController: UIViewController {
         }
         UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
             //change active button colors
-            self.loginButton?.initButton(title: "Login", cornerRadius: 8, variant: .whiteBack)
-            self.signUpButton?.initButton(title: "Signup", cornerRadius: 8, variant: .blueBack)
+            self.loginButton?.initButton(title: "login".localized(), cornerRadius: 8, variant: .whiteBack)
+            self.signUpButton?.initButton(title: "signup".localized(), cornerRadius: 8, variant: .blueBack)
             
             self.signupContinueButton?.isDisabled = true
             
@@ -772,7 +773,7 @@ class LoginSignUpViewController: UIViewController {
                 case .failure(let error):
                     print(error)
                     self.view.hideToastActivity()
-                    Utils.displaySPIndicatorNotifWithMessage(title: "Incorrect Details", message: "Enter correct credentials.", iconPreset: .error, hapticPreset: .error, duration: 6)
+                    Utils.displaySPIndicatorNotifWithMessage(title: "incorrect_details".localized(), message: "enter_correct_credentials".localized(), iconPreset: .error, hapticPreset: .error, duration: 6)
                 }
             }
         }
@@ -797,7 +798,7 @@ class LoginSignUpViewController: UIViewController {
                 self.passwordHint?.alpha = 0
             }, completion: {
                 (finished: Bool) -> Void in
-                self.pageTitle?.text = "Enter your details"
+                self.pageTitle?.text = "enter_details".localized()
                 UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
                     self.pageTitle?.alpha = 1
                     self.initializeAndActivateViewConstraints(view: .signupPersonalDetails)
@@ -815,7 +816,7 @@ class LoginSignUpViewController: UIViewController {
             validator.registerField(weightField!, rules: [RequiredRule(), FloatRule()])
         } else if !isValidationError && activeView == .signupPersonalDetails {
             if Double((self.weightField?.text)!)! <= 0.0 || Double((self.weightField?.text)!)! > 1000.0 {
-                Utils.displaySPIndicatorNotifWithMessage(title: "Incorrect Details", message: "Enter valid weight.", iconPreset: .error, hapticPreset: .error, duration: 6)
+                Utils.displaySPIndicatorNotifWithMessage(title: "incorrect_details".localized(), message: "enter_valid_weight".localized(), iconPreset: .error, hapticPreset: .error, duration: 6)
                 return
             }
             UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
@@ -861,7 +862,7 @@ class LoginSignUpViewController: UIViewController {
                 self.signupContinueButton?.alpha = 0
             }, completion: {
                 (finished: Bool) -> Void in
-                self.pageTitle?.text = "You’re all set"
+                self.pageTitle?.text = "all_set".localized()
                 UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
                     self.pageTitle?.alpha = 1
                     self.initializeAndActivateViewConstraints(view: .signupOtpVerification)
@@ -1052,7 +1053,7 @@ class LoginSignUpViewController: UIViewController {
             otpDetailsLabel?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
             otpDetailsLabel?.trailingAnchor.constraint(equalTo: signUpScreenContentView!.trailingAnchor, constant: -28).isActive = true
             otpDetailsLabel?.heightAnchor.constraint(equalToConstant: 90).isActive = true
-            otpDetailsLabel?.text = "Please enter Verification code sent to the email \(Utils.getObscuredEmail(email: emailTextFieldSignUp!.text!))"
+            otpDetailsLabel?.text = "enter_otp".localized() + " \(Utils.getObscuredEmail(email: emailTextFieldSignUp!.text!))"
             
             txtOTPView?.topAnchor.constraint(equalTo: otpDetailsLabel!.bottomAnchor, constant: 28).isActive = true
             txtOTPView?.leadingAnchor.constraint(equalTo: signUpScreenContentView!.leadingAnchor, constant: 28).isActive = true
@@ -1084,8 +1085,8 @@ class LoginSignUpViewController: UIViewController {
     @objc func timerAction() {
         if counter < 1 {
             timer.invalidate()
-            let mainString = "Didn't receive the OTP? Resend OTP"
-            let stringOne = "Resend OTP"
+            let mainString = "didnt_receive".localized()
+            let stringOne = "resend_otp".localized()
             
             var range = (mainString as NSString).range(of: stringOne)
             let temp = NSMutableAttributedString.init(string: mainString)
@@ -1100,7 +1101,7 @@ class LoginSignUpViewController: UIViewController {
         } else {
             counter -= 1
             resendOtp?.alpha = 0.4
-            resendOtp?.text = "Resend OTP in \(counter) secs"
+            resendOtp?.text = String(format: NSLocalizedString("resend_in_secs %@", comment: ""), "\(counter)")
             resendOtp?.isUserInteractionEnabled = false
             resendOtp?.isTappable = false
         }
@@ -1116,7 +1117,7 @@ class LoginSignUpViewController: UIViewController {
             case .success(_):
                 try? print(result.get())
                 try? self.otpFromServer = "\(result.get())"
-                Utils.displaySPIndicatorNotifWithMessage(title: "Sent OTP", message: "OTP Sent Successfully.", iconPreset: .done, hapticPreset: .success, duration: 6)
+                Utils.displaySPIndicatorNotifWithMessage(title: "otp_sent".localized(), message: "otp_sent_successfully".localized(), iconPreset: .done, hapticPreset: .success, duration: 6)
                 
                 self.timer.invalidate() // just in case this button is tapped multiple times
                 self.counter = 30
@@ -1273,7 +1274,7 @@ extension LoginSignUpViewController : UITextFieldDelegate, DPOTPViewDelegate, Va
                 switch result{
                 case .success(_):
                     try? User.setUserDetails(userDetails: result.get())
-                    self.pageTitle?.text = "You’re all set"
+                    self.pageTitle?.text = "all_set".localized()
                     self.view.hideToastActivity()
                     UIView.animate(withDuration: 0.0, delay: 0.3, options: UIView.AnimationOptions.curveEaseIn, animations: {
                         self.dismiss(animated: true) {
@@ -1289,7 +1290,7 @@ extension LoginSignUpViewController : UITextFieldDelegate, DPOTPViewDelegate, Va
                         
                     })
                     self.view.hideToastActivity()
-                    Utils.displaySPIndicatorNotifWithMessage(title: "Unknown Error", message: "An Error has occured.", iconPreset: .error, hapticPreset: .error, duration: 6)
+                    Utils.displaySPIndicatorNotifWithMessage(title: "unknown_error".localized(), message: "error_has_occured".localized(), iconPreset: .error, hapticPreset: .error, duration: 6)
                 }
             }
             
@@ -1301,7 +1302,7 @@ extension LoginSignUpViewController : UITextFieldDelegate, DPOTPViewDelegate, Va
                     (finished: Bool) -> Void in
                     self.progressBar?.setProgress(0.87, animated: true)
                 })
-                Utils.displaySPIndicatorNotifWithMessage(title: "OTP Incorrect", message: "Enter correct OTP to continue.", iconPreset: .error, hapticPreset: .error, duration: 6)
+                Utils.displaySPIndicatorNotifWithMessage(title: "otp_incorrect".localized(), message: "enter_correct_otp".localized(), iconPreset: .error, hapticPreset: .error, duration: 6)
             }
         }
     }
@@ -1326,9 +1327,6 @@ extension LoginSignUpViewController : UITextFieldDelegate, DPOTPViewDelegate, Va
     }
     
     func validationFailed(_ errors: [(SwiftValidator.Validatable, SwiftValidator.ValidationError)]) {
-        if activeView == .signupInitialDetails {
-            checkEmailExists()
-        }
         isValidationError = true
         self.signupContinueButton?.isDisabled = true
         for (field, _) in errors {

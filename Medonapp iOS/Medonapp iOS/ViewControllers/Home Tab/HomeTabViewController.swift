@@ -10,6 +10,7 @@ import MapKit
 import CoreLocation
 import SkeletonView
 import NotificationBannerSwift
+import Localize_Swift
 
 class HomeTabViewController: UIViewController {
     
@@ -145,7 +146,7 @@ class HomeTabViewController: UIViewController {
         scrollView?.addSubview(contentView!)
         
         helloTextLabel = UILabel()
-        helloTextLabel?.text = "👋 Hello!"
+        helloTextLabel?.text = "hello".localized() + "!"
         helloTextLabel?.textColor = .black
         helloTextLabel?.font = UIFont(name: "NunitoSans-SemiBold", size: 16)
         contentView?.addSubview(helloTextLabel!)
@@ -168,12 +169,12 @@ class HomeTabViewController: UIViewController {
         profileImageView?.addSkeleton()
         
         searchBar = SearchBarWithSearchAndFilterIcon()
-        searchBar?.setPlaceholder(placeholder: "Search medical")
+        searchBar?.setPlaceholder(placeholder: "search_medical".localized())
         searchBar?.delegate = self
         contentView?.addSubview(searchBar!)
         
         servicesTextLabel = UILabel()
-        servicesTextLabel?.text = "Services"
+        servicesTextLabel?.text = "services".localized()
         servicesTextLabel?.textColor = .black
         servicesTextLabel?.font = UIFont(name: "NunitoSans-Bold", size: 17)
         contentView?.addSubview(servicesTextLabel!)
@@ -194,7 +195,7 @@ class HomeTabViewController: UIViewController {
         contentView?.addSubview(banner!)
         
         nearbyTextLabel = UILabel()
-        nearbyTextLabel?.text = "Nearby Doctors"
+        nearbyTextLabel?.text = "nearby_doctors".localized()
         nearbyTextLabel?.textColor = .black
         nearbyTextLabel?.font = UIFont(name: "NunitoSans-Bold", size: 17)
         contentView?.addSubview(nearbyTextLabel!)
@@ -356,7 +357,7 @@ class HomeTabViewController: UIViewController {
             //        self.present(doctorsScreenVC!, animated: true, completion: nil)
             self.navigationController?.pushViewController(doctorsScreenVC!, animated: true)
         } else {
-            self.view.makeToast("No Internet Connection Available")
+            self.view.makeToast("no_internet_available".localized())
         }
         
     }
