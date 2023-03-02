@@ -23,6 +23,7 @@ class Patient: Codable {
     var favoriteDoctors: [FavoriteDoctor]?
     var medicalFiles: [FileModel]?
     var familyMembers: [FamilyMember]?
+    var familyRequestsPendingCountAsOrganizer = 0
     
     enum CodingKeys: CodingKey {
         case id
@@ -40,6 +41,7 @@ class Patient: Codable {
         case profileImage
         case favoriteDoctors
         case medicalFiles
+        case familyMembers
     }
 
     init(id: Int?, credential: Credential?, name: NameInclMiddleName?, address: FullAddress?, mobile: MobileWithCountryCode?, dob: String?, bloodGroup: String?, age: String?, gender: String?, height: Double?, weight: Double?, healthStatus: JSONNull?, profileImage: FileModel?, favoriteDoctors: [FavoriteDoctor]?, medicalFiles: [FileModel]?, familyMembers: [FamilyMember]?) {
@@ -77,5 +79,6 @@ class Patient: Codable {
         self.profileImage = nil
         self.favoriteDoctors = []
         self.medicalFiles = []
+        self.familyMembers = []
     }
 }

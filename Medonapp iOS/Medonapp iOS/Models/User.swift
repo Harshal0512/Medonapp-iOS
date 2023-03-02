@@ -48,14 +48,12 @@ class User: Codable {
     
     static func setUserDetails(userDetails: User) {
         self.userDetails.token = userDetails.token
-        self.userDetails.patient = userDetails.patient
-        
-        saveToPrefs()
+        User.setPatientDetails(patient: userDetails.patient!)
     }
     
     static func setPatientDetails(patient: Patient) {
         self.userDetails.patient = patient
-        
+        initPendingRequestsCount()
         saveToPrefs()
     }
     
@@ -73,5 +71,13 @@ class User: Codable {
     
     static func getUserLocation() -> CLLocation {
         return (self.userDetails.patient?.currentUserlocation)!
+    }
+    
+    static func initPendingRequestsCount() {
+        for member in self.userDetails.patient!.familyMembers! {
+            if member.requestStatus == "PENDING" {
+                self.userDetails.patient?.familyRequestsPendingCountAsOrganizer += 1
+            }
+        }
     }
 }

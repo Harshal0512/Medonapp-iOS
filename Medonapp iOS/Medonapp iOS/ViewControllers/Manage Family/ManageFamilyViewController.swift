@@ -23,8 +23,11 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
     private var membersTable: UITableView?
     private var membersTableHeightConstraint: NSLayoutConstraint?
     private var currentView: FamilyTableState = .activeView
-    var pendingCount = 2
-    var membersCount = 5
+    var pendingCount = 0
+    var activeMembersCount = 0
+    var totalMembersCount = 0
+    
+    private var userDetails = User.getUserDetails()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +35,10 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.navigationItem.largeTitleDisplayMode = .never
         navigationController?.isNavigationBarHidden = true
+        
+        pendingCount = userDetails.patient!.familyRequestsPendingCountAsOrganizer
+        activeMembersCount = userDetails.patient!.familyMembers!.count
+        totalMembersCount = activeMembersCount + pendingCount
         
         initialise()
         setupUI()
@@ -68,13 +75,25 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
         populateFamilyTable()
         
         if Prefs.isNetworkAvailable {
-//            self.refreshData()
+            view.isUserInteractionEnabled = false
+            self.view.makeToastActivity(.center)
+            
+            User.refreshUserDetails { isSuccess in
+                if isSuccess {
+                    self.view.isUserInteractionEnabled = true
+                    self.userDetails = User.getUserDetails()
+                    self.view.hideToastActivity()
+                } else {
+                    Utils.displaySPIndicatorNotifWithoutMessage(title: "Could not refresh data", iconPreset: .error, hapticPreset: .error, duration: 2)
+                }
+            }
+        } else {
+            //TODO: Add actions if network not available
         }
         
         
         //segmented control init
         segmentedControl?.selectedIndex = currentView == .activeView ? 0 : 1
-        
         if pendingCount > 0 {
             segmentedControl?.segments[1].badgeCount = pendingCount
             segmentedControl?.isHidden = false
@@ -207,7 +226,7 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
     
     func centerCollectionViewItems() {
         var insets = self.memberImagesCollectionView?.contentInset
-        var leftInsets = (self.view.frame.size.width - (40 * CGFloat(membersCount))) * 0.5 - (CGFloat(membersCount-1) * 5)
+        var leftInsets = (self.view.frame.size.width - (40 * CGFloat(totalMembersCount))) * 0.5 - (CGFloat(totalMembersCount-1) * 5)
         //leftInsets = (frameWidth! – (collectionViewWidth! * CGFloat(strImages.count))) * 0.5 – (CGFloat(strImages.count-1) * 5)
         if leftInsets <= 0 {
             leftInsets = 0
@@ -220,7 +239,6 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
         // selectedSegment may be nil, if selectedIndex was set to nil (and hence none was selected)
         guard let segment = segmentedControl.selectedSegment else { return }
         let title = segment.title
-        print(title)
         if segment.title == "Active" {
             currentView = .activeView
         } else {
@@ -236,7 +254,7 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
 
 extension ManageFamilyViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return membersCount
+        return totalMembersCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -254,7 +272,7 @@ extension ManageFamilyViewController: UICollectionViewDataSource, UICollectionVi
 
 extension ManageFamilyViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (currentView == .activeView ? membersCount : pendingCount)
+        return (currentView == .activeView ? activeMembersCount : pendingCount)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
