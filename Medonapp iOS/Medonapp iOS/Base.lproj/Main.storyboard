@@ -109,6 +109,7 @@
                         <segue destination="rFr-0G-F7H" kind="relationship" relationship="viewControllers" id="hUk-dT-J7F"/>
                         <segue destination="ewj-co-gae" kind="relationship" relationship="viewControllers" id="DuB-d3-CWi"/>
                         <segue destination="Jo2-Wg-8cP" kind="relationship" relationship="viewControllers" id="at1-kn-Wrv"/>
+                        <segue destination="BXO-ya-HzT" kind="relationship" relationship="viewControllers" id="kbi-uq-UTn"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9o7-PO-Bhq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -185,6 +186,22 @@
             </objects>
             <point key="canvasLocation" x="1995.6521739130437" y="453.34821428571428"/>
         </scene>
+        <!--Notification Tab View Controller-->
+        <scene sceneID="L0r-3O-csj">
+            <objects>
+                <viewController storyboardIdentifier="notifTabVC" id="y22-He-7Qh" customClass="NotificationTabViewController" customModule="Medonapp_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="36M-it-6fN">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="uKv-BG-rcs"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="vfw-ok-XQT"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cH3-W9-LZr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2905.7971014492755" y="1117.6339285714284"/>
+        </scene>
         <!--Home-->
         <scene sceneID="6zK-Jo-9fb">
             <objects>
@@ -204,12 +221,32 @@
             </objects>
             <point key="canvasLocation" x="1995.6521739130437" y="-870.53571428571422"/>
         </scene>
+        <!--Notifications-->
+        <scene sceneID="AJz-bq-8B6">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BXO-ya-HzT" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Notifications" image="bell.fill" catalog="system" id="9sv-qB-FRl"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Wk0-Xk-da8">
+                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="y22-He-7Qh" kind="relationship" relationship="rootViewController" id="3KZ-dH-Pcc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O5y-iI-6Ry" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1995.6521739130437" y="1117.6339285714284"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="81d-GV-bRo"/>
         <segue reference="SAQ-Su-FnV"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="bell.fill" catalog="system" width="123" height="128"/>
         <image name="medonaIcon" width="2048" height="2048"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

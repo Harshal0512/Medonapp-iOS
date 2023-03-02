@@ -79,6 +79,9 @@
 		F8AF821D28F553CA00D62D98 /* DoctorDetailsViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AF821C28F553CA00D62D98 /* DoctorDetailsViewViewController.swift */; };
 		F8AF822128F5CB4900D62D98 /* DoctorDetailsScreenTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AF822028F5CB4900D62D98 /* DoctorDetailsScreenTopView.swift */; };
 		F8AF822328F5CB6300D62D98 /* DoctorDetailsScreenTopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8AF822228F5CB6300D62D98 /* DoctorDetailsScreenTopView.xib */; };
+		F8B4377A29A86C1500A5FDA2 /* NotificationTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B4377929A86C1500A5FDA2 /* NotificationTabViewController.swift */; };
+		F8B4377E29A8703E00A5FDA2 /* FamilyRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B4377C29A8703E00A5FDA2 /* FamilyRequestTableViewCell.swift */; };
+		F8B4377F29A8703E00A5FDA2 /* FamilyRequestTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8B4377D29A8703E00A5FDA2 /* FamilyRequestTableViewCell.xib */; };
 		F8B8E27929227D880061C204 /* FilterHalfScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B8E27829227D880061C204 /* FilterHalfScreenVC.swift */; };
 		F8B96C2628F5D557009E5198 /* GreyViewDoctorDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B96C2528F5D557009E5198 /* GreyViewDoctorDetails.swift */; };
 		F8B96C2828F5D55E009E5198 /* GreyViewDoctorDetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8B96C2728F5D55E009E5198 /* GreyViewDoctorDetails.xib */; };
@@ -189,6 +192,9 @@
 		F8AF821C28F553CA00D62D98 /* DoctorDetailsViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDetailsViewViewController.swift; sourceTree = "<group>"; };
 		F8AF822028F5CB4900D62D98 /* DoctorDetailsScreenTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDetailsScreenTopView.swift; sourceTree = "<group>"; };
 		F8AF822228F5CB6300D62D98 /* DoctorDetailsScreenTopView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DoctorDetailsScreenTopView.xib; sourceTree = "<group>"; };
+		F8B4377929A86C1500A5FDA2 /* NotificationTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTabViewController.swift; sourceTree = "<group>"; };
+		F8B4377C29A8703E00A5FDA2 /* FamilyRequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyRequestTableViewCell.swift; sourceTree = "<group>"; };
+		F8B4377D29A8703E00A5FDA2 /* FamilyRequestTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FamilyRequestTableViewCell.xib; sourceTree = "<group>"; };
 		F8B8E27829227D880061C204 /* FilterHalfScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterHalfScreenVC.swift; sourceTree = "<group>"; };
 		F8B96C2528F5D557009E5198 /* GreyViewDoctorDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreyViewDoctorDetails.swift; sourceTree = "<group>"; };
 		F8B96C2728F5D55E009E5198 /* GreyViewDoctorDetails.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GreyViewDoctorDetails.xib; sourceTree = "<group>"; };
@@ -314,6 +320,7 @@
 				F8BC4A4028F4585700440406 /* Home Tab */,
 				F834BEE0290CF4460073FCAC /* Booked Appointments Tab */,
 				F844C65128FEB22A00BBE5B0 /* Report Tab */,
+				F8B4377829A86BFB00A5FDA2 /* Notifications Tab */,
 				F84B72A92984F903001E1737 /* Manage Family */,
 			);
 			path = ViewControllers;
@@ -332,6 +339,7 @@
 				F814C6BE292219F000B0C1B3 /* Home Tab */,
 				F844C65E28FFDD0A00BBE5B0 /* Booked Appointments Tab */,
 				F82AA0F328F48FE600C7CE7F /* Report Tab */,
+				F8B4377B29A86FFE00A5FDA2 /* Notif Table */,
 				F8AF821E28F5CAD400D62D98 /* Doctors Screen */,
 				F8AF821F28F5CB0400D62D98 /* Doctor Details */,
 				F81BAAF428F9C7AB0080BD21 /* Appointments */,
@@ -531,6 +539,23 @@
 			path = "Doctor Details";
 			sourceTree = "<group>";
 		};
+		F8B4377829A86BFB00A5FDA2 /* Notifications Tab */ = {
+			isa = PBXGroup;
+			children = (
+				F8B4377929A86C1500A5FDA2 /* NotificationTabViewController.swift */,
+			);
+			path = "Notifications Tab";
+			sourceTree = "<group>";
+		};
+		F8B4377B29A86FFE00A5FDA2 /* Notif Table */ = {
+			isa = PBXGroup;
+			children = (
+				F8B4377C29A8703E00A5FDA2 /* FamilyRequestTableViewCell.swift */,
+				F8B4377D29A8703E00A5FDA2 /* FamilyRequestTableViewCell.xib */,
+			);
+			path = "Notif Table";
+			sourceTree = "<group>";
+		};
 		F8BC4A4028F4585700440406 /* Home Tab */ = {
 			isa = PBXGroup;
 			children = (
@@ -666,6 +691,7 @@
 				F8B96C2828F5D55E009E5198 /* GreyViewDoctorDetails.xib in Resources */,
 				F80933D52985843800B87BE9 /* MemberTableViewCell.xib in Resources */,
 				F82AA0F728F490B100C7CE7F /* DoctorInfoTableViewCell.xib in Resources */,
+				F8B4377F29A8703E00A5FDA2 /* FamilyRequestTableViewCell.xib in Resources */,
 				F84B72B029855535001E1737 /* FamilyMemberCollectionViewCell.xib in Resources */,
 				F81BAAEE28F97F720080BD21 /* checkMarkSuccess.json in Resources */,
 				F86A71D728EEAF7B0083D12D /* NunitoSans-SemiBold.ttf in Resources */,
@@ -770,6 +796,7 @@
 				F883FC0529091F8800B17D01 /* Patient.swift in Sources */,
 				F80933D42985843800B87BE9 /* MemberTableViewCell.swift in Sources */,
 				F8B8E27929227D880061C204 /* FilterHalfScreenVC.swift in Sources */,
+				F8B4377A29A86C1500A5FDA2 /* NotificationTabViewController.swift in Sources */,
 				F8C75A6428EA016E00F5B2E2 /* UIButtonVariableBackgroundVariableCR.swift in Sources */,
 				F81BAADD28F928BF0080BD21 /* BookAppointmentViewController.swift in Sources */,
 				F85D9C3828F33B6D008FBDE9 /* ReportTabViewController.swift in Sources */,
@@ -804,6 +831,7 @@
 				F8AAB18229486EE500A5C9E7 /* DefaultResponseModel.swift in Sources */,
 				F86A71CF28EE9C970083D12D /* HomeTabViewController.swift in Sources */,
 				F8283672297A5D9700078F97 /* CircularProgressBar.swift in Sources */,
+				F8B4377E29A8703E00A5FDA2 /* FamilyRequestTableViewCell.swift in Sources */,
 				F8F3ED432909692B001D6A4C /* MobileNumberShort.swift in Sources */,
 				F80577DB29633850009BEC6B /* Reachability.swift in Sources */,
 				F8A4F47828F14CE60032A87B /* SearchBarWithSearchAndFilterIcon.swift in Sources */,
