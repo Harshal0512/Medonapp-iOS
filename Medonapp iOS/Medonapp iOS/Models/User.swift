@@ -74,9 +74,13 @@ class User: Codable {
     }
     
     static func initPendingRequestsCount() {
-        for member in self.userDetails.patient!.familyMembers! {
-            if member.requestStatus == "PENDING" {
-                self.userDetails.patient?.familyRequestsPendingCountAsOrganizer += 1
+        for i in 0...self.userDetails.patient!.familyMembers!.count {
+            if self.userDetails.patient!.familyMembers![i].requestStatus == "PENDING" {
+                self.userDetails.patient?.familyRequestsPendingCountAsOrganizer.0 += 1
+                self.userDetails.patient?.familyRequestsPendingCountAsOrganizer.1.append(i)
+            } else if self.userDetails.patient!.familyMembers![i].requestStatus == "ACCEPTED" {
+                self.userDetails.patient?.familyMembersActiveCount.0 += 1
+                self.userDetails.patient?.familyMembersActiveCount.1.append(i)
             }
         }
     }

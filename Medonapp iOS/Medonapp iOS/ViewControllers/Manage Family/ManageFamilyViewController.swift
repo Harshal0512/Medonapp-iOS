@@ -24,11 +24,10 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
     private var membersTable: UITableView?
     private var membersTableHeightConstraint: NSLayoutConstraint?
     private var currentView: FamilyTableState = .activeView
-    var pendingCount = 0
-    var activeMembersCount = 0
-    var totalMembersCount = 0
     
     private var userDetails = User.getUserDetails()
+    
+    var totalMembersCount = 0 //Active + Pending
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,9 +36,7 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
         navigationController?.navigationItem.largeTitleDisplayMode = .never
         navigationController?.isNavigationBarHidden = true
         
-        pendingCount = userDetails.patient!.familyRequestsPendingCountAsOrganizer
-        activeMembersCount = userDetails.patient!.familyMembers!.count
-        totalMembersCount = activeMembersCount + pendingCount
+        totalMembersCount = userDetails.patient!.familyMembersActiveCount.0 + userDetails.patient!.familyRequestsPendingCountAsOrganizer.0
         
         initialise()
         setupUI()
@@ -83,8 +80,8 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
         
         //segmented control init
         segmentedControl?.selectedIndex = currentView == .activeView ? 0 : 1
-        if pendingCount > 0 {
-            segmentedControl?.segments[1].badgeCount = pendingCount
+        if userDetails.patient!.familyRequestsPendingCountAsOrganizer.0 > 0 {
+            segmentedControl?.segments[1].badgeCount = userDetails.patient!.familyRequestsPendingCountAsOrganizer.0
             segmentedControl?.isHidden = false
         } else {
             segmentedControl?.isHidden = true
@@ -270,13 +267,11 @@ extension ManageFamilyViewController: UICollectionViewDataSource, UICollectionVi
 
 extension ManageFamilyViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (currentView == .activeView ? activeMembersCount : pendingCount)
+        return (currentView == .activeView ? userDetails.patient!.familyMembersActiveCount.0 : userDetails.patient!.familyRequestsPendingCountAsOrganizer.0)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = membersTable!.dequeueReusableCell(withIdentifier: MemberTableViewCell.identifier, for: indexPath) as! MemberTableViewCell
-        
-//        cell.layer.cornerRadius = 30
         
         cell.configure(name: "Harshal Kulkarni", age: "Adult", link: "http://34.100.156.30:8080/api/v1/doctor/image/QmeERDW4VrHaGTMaG676ZJEKEFd2KdSnHcjiKUmmiaTmaw")
         cell.accessoryType = .disclosureIndicator

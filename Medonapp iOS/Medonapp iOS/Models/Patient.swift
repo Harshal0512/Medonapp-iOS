@@ -23,7 +23,8 @@ class Patient: Codable {
     var favoriteDoctors: [FavoriteDoctor]?
     var medicalFiles: [FileModel]?
     var familyMembers: [FamilyMember]?
-    var familyRequestsPendingCountAsOrganizer = 0
+    var familyMembersActiveCount: (Int, [Int]) = (0, [])
+    var familyRequestsPendingCountAsOrganizer: (Int, [Int]) = (0, [])
     
     enum CodingKeys: CodingKey {
         case id
