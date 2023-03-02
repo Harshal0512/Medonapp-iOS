@@ -22,6 +22,7 @@ class Patient: Codable {
     var profileImage: FileModel?
     var favoriteDoctors: [FavoriteDoctor]?
     var medicalFiles: [FileModel]?
+    var familyMembers: [FamilyMember]?
     
     enum CodingKeys: CodingKey {
         case id
@@ -41,7 +42,7 @@ class Patient: Codable {
         case medicalFiles
     }
 
-    init(id: Int?, credential: Credential?, name: NameInclMiddleName?, address: FullAddress?, mobile: MobileWithCountryCode?, dob: String?, bloodGroup: String?, age: String?, gender: String?, height: Double?, weight: Double?, healthStatus: JSONNull?, profileImage: FileModel?, favoriteDoctors: [FavoriteDoctor]?, medicalFiles: [FileModel]?) {
+    init(id: Int?, credential: Credential?, name: NameInclMiddleName?, address: FullAddress?, mobile: MobileWithCountryCode?, dob: String?, bloodGroup: String?, age: String?, gender: String?, height: Double?, weight: Double?, healthStatus: JSONNull?, profileImage: FileModel?, favoriteDoctors: [FavoriteDoctor]?, medicalFiles: [FileModel]?, familyMembers: [FamilyMember]?) {
         self.id = id
         self.credential = credential
         self.name = name
@@ -57,6 +58,7 @@ class Patient: Codable {
         self.profileImage = profileImage
         self.favoriteDoctors = favoriteDoctors
         self.medicalFiles = medicalFiles
+        self.familyMembers = familyMembers
     }
     
     init() {

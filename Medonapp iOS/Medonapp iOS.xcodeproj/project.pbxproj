@@ -73,6 +73,7 @@
 		F883FC132909260E00B17D01 /* Prefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F883FC122909260E00B17D01 /* Prefs.swift */; };
 		F89272BC28F157520063525E /* TabForServices_VariableColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89272BB28F157510063525E /* TabForServices_VariableColor.swift */; };
 		F89272C428F1B0F80063525E /* NunitoSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F89272C328F1B0F80063525E /* NunitoSans-Regular.ttf */; };
+		F89F473029B07FF900F52AFA /* FamilyMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89F472F29B07FF900F52AFA /* FamilyMember.swift */; };
 		F8A0E18629718F4C00B888B0 /* UIButtonCircularWithLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A0E18529718F4C00B888B0 /* UIButtonCircularWithLogo.swift */; };
 		F8A4F47828F14CE60032A87B /* SearchBarWithSearchAndFilterIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A4F47728F14CE60032A87B /* SearchBarWithSearchAndFilterIcon.swift */; };
 		F8AAB18229486EE500A5C9E7 /* DefaultResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AAB18129486EE500A5C9E7 /* DefaultResponseModel.swift */; };
@@ -186,6 +187,7 @@
 		F883FC122909260E00B17D01 /* Prefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prefs.swift; sourceTree = "<group>"; };
 		F89272BB28F157510063525E /* TabForServices_VariableColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabForServices_VariableColor.swift; sourceTree = "<group>"; };
 		F89272C328F1B0F80063525E /* NunitoSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-Regular.ttf"; sourceTree = "<group>"; };
+		F89F472F29B07FF900F52AFA /* FamilyMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMember.swift; sourceTree = "<group>"; };
 		F8A0E18529718F4C00B888B0 /* UIButtonCircularWithLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonCircularWithLogo.swift; sourceTree = "<group>"; };
 		F8A4F47728F14CE60032A87B /* SearchBarWithSearchAndFilterIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarWithSearchAndFilterIcon.swift; sourceTree = "<group>"; };
 		F8AAB18129486EE500A5C9E7 /* DefaultResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultResponseModel.swift; sourceTree = "<group>"; };
@@ -452,6 +454,7 @@
 				F830804F290A76390088CDB8 /* Appointments.swift */,
 				F834BEE1290CFC0F0073FCAC /* Review.swift */,
 				F8AAB18129486EE500A5C9E7 /* DefaultResponseModel.swift */,
+				F89F472F29B07FF900F52AFA /* FamilyMember.swift */,
 				F8F3ED3B290967CD001D6A4C /* Outbound Models */,
 			);
 			path = Models;
@@ -797,6 +800,7 @@
 				F80933D42985843800B87BE9 /* MemberTableViewCell.swift in Sources */,
 				F8B8E27929227D880061C204 /* FilterHalfScreenVC.swift in Sources */,
 				F8B4377A29A86C1500A5FDA2 /* NotificationTabViewController.swift in Sources */,
+				F89F473029B07FF900F52AFA /* FamilyMember.swift in Sources */,
 				F8C75A6428EA016E00F5B2E2 /* UIButtonVariableBackgroundVariableCR.swift in Sources */,
 				F81BAADD28F928BF0080BD21 /* BookAppointmentViewController.swift in Sources */,
 				F85D9C3828F33B6D008FBDE9 /* ReportTabViewController.swift in Sources */,

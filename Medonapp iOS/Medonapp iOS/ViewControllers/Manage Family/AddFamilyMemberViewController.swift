@@ -20,6 +20,8 @@ class AddFamilyMemberViewController: UIViewController {
     
     var activeTextField : UITextField? = nil
     var isValidationError = true
+    
+    private var userDetails = User.getUserDetails()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -177,7 +179,22 @@ class AddFamilyMemberViewController: UIViewController {
     }
     
     @objc func addMemberButtonPressed() {
-        
+        APIService(data: ["username": emailTextField!.trim()], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .addFamilyMember(userDetails.patient!.id!), method: .post, isJSONRequest: true).executeQuery() { (result: Result<User, Error>) in
+            
+            switch result{
+            case .success(_):
+                try? User.setUserDetails(userDetails: result.get())
+                Utils.displaySPIndicatorNotifWithoutMessage(title: "Family Request Sent", iconPreset: .done, hapticPreset: .success, duration: 2.0)
+            case .failure(let error):
+                print(error)
+                if error.localizedDescription.contains("already has join request") {
+                    Utils.displaySPIndicatorNotifWithoutMessage(title: "Join Request Pending with User", iconPreset: .error, hapticPreset: .warning, duration: 3.0)
+                } else {
+                    Utils.displaySPIndicatorNotifWithoutMessage(title: "Could not send Family Request", iconPreset: .error, hapticPreset: .error, duration: 2.0)
+                }
+            }
+            self.dismiss(animated: true)
+        }
     }
 }
 
@@ -186,6 +203,7 @@ extension AddFamilyMemberViewController : UITextFieldDelegate, ValidationDelegat
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // set the activeTextField to the selected textfield
         self.activeTextField = textField
+        self.addMemberButton?.isDisabled = true
         UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
             textField.layer.borderWidth = 2
             textField.layer.borderColor = UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00).cgColor
@@ -200,6 +218,7 @@ extension AddFamilyMemberViewController : UITextFieldDelegate, ValidationDelegat
         })
         
         self.activeTextField = nil
+        self.addMemberButton?.isDisabled = true
         
         clearAllErrors()
         validator.validate(self)
@@ -212,8 +231,6 @@ extension AddFamilyMemberViewController : UITextFieldDelegate, ValidationDelegat
     
     func validationSuccessful() {
         checkEmailExists()
-        self.isValidationError = false
-        self.addMemberButton?.isDisabled = false
     }
     
     func validationFailed(_ errors: [(SwiftValidator.Validatable, SwiftValidator.ValidationError)]) {

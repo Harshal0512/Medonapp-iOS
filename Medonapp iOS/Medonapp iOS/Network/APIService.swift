@@ -20,6 +20,11 @@ class APIService : NSObject{
         case editFeedback(Int)
         case editAppointment(Int)
         case cancelAppointment(Int)
+        case addFamilyMember(Int)
+        case leaveFamily(Int)
+        case acceptFamilyRequest(Int, Int)
+        case rejectFamilyRequest(Int, Int)
+        case removeFamilyMember(Int, Int)
         
         var endpoint: String {
             switch self {
@@ -53,6 +58,16 @@ class APIService : NSObject{
                 return "v1/appointment/\(appointmentID)/update"
             case .cancelAppointment(let appointmentID):
                 return "v1/appointment/\(appointmentID)/cancel"
+            case .addFamilyMember(let organiserID):
+                return "v1/patient/\(organiserID)/addFamilyMember"
+            case .leaveFamily(let patientID):
+                return "v1/patient/\(patientID)/leaveFamily"
+            case .acceptFamilyRequest(let patientID, let organiserID):
+                return "v1/patient/\(patientID)/acceptFamilyRequest?organizer=\(organiserID)"
+            case .rejectFamilyRequest(let patientID, let organiserID):
+                return "v1/patient/\(patientID)/rejectFamilyRequest?organizer=\(organiserID)"
+            case .removeFamilyMember(let patientID, let memberID):
+                return "v1/patient/\(patientID)/removeFamilyMember?member=\(memberID)"
             }
         }
     }
