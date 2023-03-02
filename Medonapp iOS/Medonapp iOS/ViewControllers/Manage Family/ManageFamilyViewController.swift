@@ -7,6 +7,7 @@
 
 import UIKit
 import LGSegmentedControl
+import Toast_Swift
 
 enum FamilyTableState {
     case activeView
@@ -75,22 +76,10 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
         populateFamilyTable()
         
         if Prefs.isNetworkAvailable {
-            view.isUserInteractionEnabled = false
-            self.view.makeToastActivity(.center)
-            
-            User.refreshUserDetails { isSuccess in
-                if isSuccess {
-                    self.view.isUserInteractionEnabled = true
-                    self.userDetails = User.getUserDetails()
-                    self.view.hideToastActivity()
-                } else {
-                    Utils.displaySPIndicatorNotifWithoutMessage(title: "Could not refresh data", iconPreset: .error, hapticPreset: .error, duration: 2)
-                }
-            }
+            refreshData()
         } else {
             //TODO: Add actions if network not available
         }
-        
         
         //segmented control init
         segmentedControl?.selectedIndex = currentView == .activeView ? 0 : 1
@@ -107,9 +96,17 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
     }
     
     @objc func refreshData() {
-        AppointmentElement.refreshAppointments { isSuccess in
-            self.centerCollectionViewItems()
-            self.populateFamilyTable()
+        view.isUserInteractionEnabled = false
+        self.view.makeToastActivity(.center)
+        
+        User.refreshUserDetails { isSuccess in
+            if isSuccess {
+                self.view.isUserInteractionEnabled = true
+                self.userDetails = User.getUserDetails()
+                self.view.hideToastActivity()
+            } else {
+                Utils.displaySPIndicatorNotifWithoutMessage(title: "Could not refresh data", iconPreset: .error, hapticPreset: .error, duration: 2)
+            }
         }
     }
     
@@ -117,6 +114,7 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
     }
     
     func initialise() {
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: Notification.Name("refreshData"), object: nil)
     }
     
     func setupUI() {

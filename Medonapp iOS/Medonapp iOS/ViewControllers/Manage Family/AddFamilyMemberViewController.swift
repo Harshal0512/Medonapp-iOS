@@ -193,7 +193,9 @@ class AddFamilyMemberViewController: UIViewController {
                     Utils.displaySPIndicatorNotifWithoutMessage(title: "Could not send Family Request", iconPreset: .error, hapticPreset: .error, duration: 2.0)
                 }
             }
-            self.dismiss(animated: true)
+            self.dismiss(animated: true) {
+                NotificationCenter.default.post(name: Notification.Name("refreshData"), object: nil)
+            }
         }
     }
 }
