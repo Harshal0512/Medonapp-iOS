@@ -332,15 +332,22 @@ extension ManageFamilyViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let removeFromFamily = UIContextualAction(style: .destructive,
-                                       title: "Remove From Family") { [weak self] (action, view, completionHandler) in
-                                        self?.handleRemoveFromFamily()
-                                        completionHandler(true)
-        }
-        removeFromFamily.backgroundColor = .systemRed
+        let familyMember = (currentView == .activeView) ? userDetails.patient!.familyMembers![userDetails.patient!.familyMembersActiveCount.1[indexPath.row]] : userDetails.patient!.familyMembers![userDetails.patient!.familyRequestsPendingCountAsOrganizer.1[indexPath.row]]
         
-        let configuration = UISwipeActionsConfiguration(actions: [removeFromFamily])
+        if familyMember.requestStatus == "PENDING" {
+            return nil
+        } else if familyMember.type != "ORGANIZER" {
+            let removeFromFamily = UIContextualAction(style: .destructive,
+                                           title: "Remove From Family") { [weak self] (action, view, completionHandler) in
+                                            self?.handleRemoveFromFamily()
+                                            completionHandler(true)
+            }
+            removeFromFamily.backgroundColor = .systemRed
+            
+            let configuration = UISwipeActionsConfiguration(actions: [removeFromFamily])
 
-        return configuration
+            return configuration
+        }
+        return nil
     }
 }
