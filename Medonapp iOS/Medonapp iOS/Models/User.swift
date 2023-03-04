@@ -74,7 +74,7 @@ class User: Codable {
     }
     
     static func initPendingRequestsCount() {
-        for i in 0...self.userDetails.patient!.familyMembers!.count {
+        for i in 0..<self.userDetails.patient!.familyMembers!.count {
             if self.userDetails.patient!.familyMembers![i].requestStatus == "PENDING" {
                 self.userDetails.patient?.familyRequestsPendingCountAsOrganizer.0 += 1
                 self.userDetails.patient?.familyRequestsPendingCountAsOrganizer.1.append(i)

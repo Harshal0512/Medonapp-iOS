@@ -19,10 +19,10 @@ class MemberTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var ageAttributeLabel: UILabel!
     
-    public func configure(name: String, age: String, link: String) {
-        nameLabel.text = name
-        ageAttributeLabel.text = age
-        memberImageView.setKFImage(imageUrl: link ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg", placeholderImage: UIImage(named: ("male" == "male") ? "userPlaceholder-male" : "userPlaceholder-female")!)
+    public func configure(member: FamilyMember) {
+        nameLabel.text = member.name
+        ageAttributeLabel.text = (member.type == "ORGANIZER") ? "Organizer" : "Adult"
+        memberImageView.setKFImage(imageUrl: "http://34.100.156.30:8080/api/v1/doctor/image/QmeERDW4VrHaGTMaG676ZJEKEFd2KdSnHcjiKUmmiaTmaw" ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg", placeholderImage: UIImage(named: ("male" == "male") ? "userPlaceholder-male" : "userPlaceholder-female")!)
         memberImageView.layer.cornerRadius = 20
         memberImageView.contentMode = .scaleAspectFill
     }

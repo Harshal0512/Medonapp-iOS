@@ -179,11 +179,11 @@ class AddFamilyMemberViewController: UIViewController {
     }
     
     @objc func addMemberButtonPressed() {
-        APIService(data: ["username": emailTextField!.trim()], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .addFamilyMember(userDetails.patient!.id!), method: .post, isJSONRequest: true).executeQuery() { (result: Result<User, Error>) in
+        APIService(data: ["username": emailTextField!.trim()], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .addFamilyMember(userDetails.patient!.id!), method: .post, isJSONRequest: true).executeQuery() { (result: Result<Patient, Error>) in
             
             switch result{
             case .success(_):
-                try? User.setUserDetails(userDetails: result.get())
+                try? User.setPatientDetails(patient: result.get())
                 Utils.displaySPIndicatorNotifWithoutMessage(title: "Family Request Sent", iconPreset: .done, hapticPreset: .success, duration: 2.0)
             case .failure(let error):
                 print(error)
@@ -194,7 +194,7 @@ class AddFamilyMemberViewController: UIViewController {
                 }
             }
             self.dismiss(animated: true) {
-                NotificationCenter.default.post(name: Notification.Name("refreshData"), object: nil)
+                NotificationCenter.default.post(name: Notification.Name("refreshDataFromLocal"), object: nil)
             }
         }
     }

@@ -24,6 +24,7 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
     private var membersTable: UITableView?
     private var membersTableHeightConstraint: NSLayoutConstraint?
     private var currentView: FamilyTableState = .activeView
+    private var noFamilyMembersAddedLabel: UILabel?
     
     private var userDetails = User.getUserDetails()
     
@@ -69,30 +70,25 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
         
         Utils.checkForReachability()
         
+        refreshDataFromLocal()
         centerCollectionViewItems()
-        populateFamilyTable()
         
         if Prefs.isNetworkAvailable {
-            refreshData()
+            refreshDataFromAPI()
         } else {
             //TODO: Add actions if network not available
         }
         
         //segmented control init
         segmentedControl?.selectedIndex = currentView == .activeView ? 0 : 1
-        if userDetails.patient!.familyRequestsPendingCountAsOrganizer.0 > 0 {
-            segmentedControl?.segments[1].badgeCount = userDetails.patient!.familyRequestsPendingCountAsOrganizer.0
-            segmentedControl?.isHidden = false
-        } else {
-            segmentedControl?.isHidden = true
-        }
+        showHidePageElements()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
     }
     
-    @objc func refreshData() {
+    @objc func refreshDataFromAPI() {
         view.isUserInteractionEnabled = false
         self.view.makeToastActivity(.center)
         
@@ -100,6 +96,8 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
             if isSuccess {
                 self.view.isUserInteractionEnabled = true
                 self.userDetails = User.getUserDetails()
+                self.refreshTableAndCollectionData()
+                self.showHidePageElements()
                 self.view.hideToastActivity()
             } else {
                 Utils.displaySPIndicatorNotifWithoutMessage(title: "Could not refresh data", iconPreset: .error, hapticPreset: .error, duration: 2)
@@ -107,11 +105,41 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
         }
     }
     
-    func populateFamilyTable() {
+    @objc func refreshDataFromLocal() {
+        self.userDetails = User.getUserDetails()
+        self.refreshTableAndCollectionData()
+        self.showHidePageElements()
+    }
+    
+    func showHidePageElements() {
+        if userDetails.patient!.familyMembers!.count > 0 {
+            if userDetails.patient!.familyRequestsPendingCountAsOrganizer.0 > 0 {
+                segmentedControl?.segments[1].badgeCount = userDetails.patient!.familyRequestsPendingCountAsOrganizer.0
+                segmentedControl?.isHidden = false
+            } else {
+                segmentedControl?.isHidden = true
+            }
+            membersTable?.isHidden = false
+            memberImagesCollectionView?.isHidden = false
+            noFamilyMembersAddedLabel?.isHidden = true
+        } else {
+            membersTable?.isHidden = true
+            memberImagesCollectionView?.isHidden = true
+            noFamilyMembersAddedLabel?.isHidden = false
+        }
+    }
+    
+    func refreshTableAndCollectionData() {
+        let sections = NSIndexSet(indexesIn: NSMakeRange(0, self.membersTable!.numberOfSections))
+        self.membersTable!.reloadSections(sections as IndexSet, with: .fade)
+        self.totalMembersCount = userDetails.patient!.familyMembersActiveCount.0 + userDetails.patient!.familyRequestsPendingCountAsOrganizer.0
+        self.memberImagesCollectionView!.reloadData()
+        self.centerCollectionViewItems()
     }
     
     func initialise() {
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: Notification.Name("refreshData"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshDataFromAPI), name: Notification.Name("refreshDataFromAPI"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshDataFromLocal), name: Notification.Name("refreshDataFromLocal"), object: nil)
     }
     
     func setupUI() {
@@ -150,21 +178,32 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
         view.addSubview(memberImagesCollectionView!)
         memberImagesCollectionView?.showsHorizontalScrollIndicator = false
         memberImagesCollectionView?.showsVerticalScrollIndicator = false
+        memberImagesCollectionView?.isHidden = true
         
         segmentedControl = LGSegmentedControl(frame: CGRect(x: 20, y: 0, width: view.frame.width - 40, height: 30))
         view.addSubview(segmentedControl!)
-        segmentedControl?.isHidden = true
         segmentedControl?.segments = [
             LGSegment(title: "Active"),
             LGSegment(title: "Pending", badgeCount: nil)
         ]
         segmentedControl?.addTarget(self, action: #selector(selectedSegment(_:)), for: .valueChanged)
+        segmentedControl?.isHidden = true
         
         membersTable = UITableView()
         membersTable?.backgroundColor = .white
         membersTable?.layer.cornerRadius = 23
         membersTable?.isScrollEnabled = false
         view.addSubview(membersTable!)
+        membersTable?.isHidden = true
+        
+        noFamilyMembersAddedLabel = UILabel()
+        noFamilyMembersAddedLabel?.text = "No family members added. \nPlease add family members to continue."
+        noFamilyMembersAddedLabel?.numberOfLines = 0
+        noFamilyMembersAddedLabel?.alpha = 0.5
+        noFamilyMembersAddedLabel?.textAlignment = .center
+        noFamilyMembersAddedLabel?.font = UIFont(name: "NunitoSans-Regular", size: 12)
+        view.addSubview(noFamilyMembersAddedLabel!)
+        noFamilyMembersAddedLabel?.isHidden = true
     }
     
     func setConstraints() {
@@ -174,6 +213,7 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
         memberImagesCollectionView?.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl?.translatesAutoresizingMaskIntoConstraints = false
         membersTable?.translatesAutoresizingMaskIntoConstraints = false
+        noFamilyMembersAddedLabel?.translatesAutoresizingMaskIntoConstraints = false
         
         
         backButton?.topAnchor.constraint(equalTo: view.topAnchor, constant: 65).isActive = true
@@ -204,6 +244,10 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
         membersTableHeightConstraint = membersTable?.heightAnchor.constraint(equalToConstant: 0)
         membersTableHeightConstraint?.isActive = true
 //        membersTable?.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
+        
+        noFamilyMembersAddedLabel?.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        noFamilyMembersAddedLabel?.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        noFamilyMembersAddedLabel?.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
     }
     
     @objc func handleBackAction(_ sender: UITapGestureRecognizer? = nil) {
@@ -221,7 +265,7 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
     
     func centerCollectionViewItems() {
         var insets = self.memberImagesCollectionView?.contentInset
-        var leftInsets = (self.view.frame.size.width - (40 * CGFloat(totalMembersCount))) * 0.5 - (CGFloat(totalMembersCount-1) * 5)
+        var leftInsets = (self.view.frame.size.width - (45 * CGFloat(totalMembersCount))) * 0.5 - (CGFloat(totalMembersCount-1) * 5)
         //leftInsets = (frameWidth! – (collectionViewWidth! * CGFloat(strImages.count))) * 0.5 – (CGFloat(strImages.count-1) * 5)
         if leftInsets <= 0 {
             leftInsets = 0
@@ -233,7 +277,6 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
     @objc func selectedSegment(_ segmentedControl: LGSegmentedControl) {
         // selectedSegment may be nil, if selectedIndex was set to nil (and hence none was selected)
         guard let segment = segmentedControl.selectedSegment else { return }
-        let title = segment.title
         if segment.title == "Active" {
             currentView = .activeView
         } else {
@@ -273,7 +316,9 @@ extension ManageFamilyViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = membersTable!.dequeueReusableCell(withIdentifier: MemberTableViewCell.identifier, for: indexPath) as! MemberTableViewCell
         
-        cell.configure(name: "Harshal Kulkarni", age: "Adult", link: "http://34.100.156.30:8080/api/v1/doctor/image/QmeERDW4VrHaGTMaG676ZJEKEFd2KdSnHcjiKUmmiaTmaw")
+        let familyMember = (currentView == .activeView) ? userDetails.patient!.familyMembers![userDetails.patient!.familyMembersActiveCount.1[indexPath.row]] : userDetails.patient!.familyMembers![userDetails.patient!.familyRequestsPendingCountAsOrganizer.1[indexPath.row]]
+        
+        cell.configure(member: familyMember)
         cell.accessoryType = .disclosureIndicator
         return cell
     }
