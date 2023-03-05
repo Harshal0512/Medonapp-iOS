@@ -20,9 +20,9 @@ class MemberTableViewCell: UITableViewCell {
     @IBOutlet weak var ageAttributeLabel: UILabel!
     
     public func configure(member: FamilyMember) {
-        nameLabel.text = member.name
+        nameLabel.text = member.name! + ((member.id == User.getUserDetails().patient?.id) ? " (Me)" : "")
         ageAttributeLabel.text = (member.type == "ORGANIZER") ? "Organizer" : "Adult"
-        memberImageView.setKFImage(imageUrl: "http://34.100.156.30:8080/api/v1/doctor/image/QmeERDW4VrHaGTMaG676ZJEKEFd2KdSnHcjiKUmmiaTmaw" ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg", placeholderImage: UIImage(named: ("male" == "male") ? "userPlaceholder-male" : "userPlaceholder-female")!)
+        memberImageView.setKFImage(imageUrl: member.url ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg", placeholderImage: UIImage(named: ("male" == "male") ? "userPlaceholder-male" : "userPlaceholder-female")!)
         memberImageView.layer.cornerRadius = 20
         memberImageView.contentMode = .scaleAspectFill
     }

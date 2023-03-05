@@ -298,7 +298,15 @@ extension ManageFamilyViewController: UICollectionViewDataSource, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FamilyMemberCollectionViewCell.identifier, for: indexPath) as! FamilyMemberCollectionViewCell
         
-        cell.configure(imageURL: "http://34.100.156.30:8080/api/v1/doctor/image/QmeERDW4VrHaGTMaG676ZJEKEFd2KdSnHcjiKUmmiaTmaw")
+        var familyMember: FamilyMember
+        
+        if indexPath.row < userDetails.patient!.familyMembersActiveCount.0 {
+            familyMember = userDetails.patient!.familyMembers![userDetails.patient!.familyMembersActiveCount.1[indexPath.row]]
+        } else {
+            familyMember = userDetails.patient!.familyMembers![userDetails.patient!.familyRequestsPendingCountAsOrganizer.1[indexPath.row - userDetails.patient!.familyMembersActiveCount.0]]
+        }
+        
+        cell.configure(imageURL: familyMember.url!)
         
         return cell
     }

@@ -8,10 +8,12 @@
 import Foundation
 
 class FamilyMember: Codable {
+    var id: Int?
     var name, requestStatus, type: String?
     var url: String?
 
-    init(name: String?, requestStatus: String?, type: String?, url: String?) {
+    init(id: Int?, name: String?, requestStatus: String?, type: String?, url: String?) {
+        self.id = id
         self.name = name
         self.requestStatus = requestStatus
         self.type = type
