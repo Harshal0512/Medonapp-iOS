@@ -143,7 +143,7 @@ extension NotificationTabViewController: UITableViewDelegate, UITableViewDataSou
 
 extension NotificationTabViewController: FamilyRequestCellProtocol {
     func didAcceptFamilyRequest(notification: NotificationElement) {
-        Utils.displayYesNoAlertWithHandler("Are you sure you want to accept the family request from \("")?", viewController: self) { _ in
+        Utils.displayYesNoAlertWithHandler("Are you sure you want to accept the family request from \(notification.senderName!)?", viewController: self) { _ in
             //no handler
         } yesHandler: { _ in
             self.handleFamilyRequest(didAccept: true, notification: notification)
@@ -151,7 +151,7 @@ extension NotificationTabViewController: FamilyRequestCellProtocol {
     }
     
     func didRejectFamilyRequest(notification: NotificationElement) {
-        Utils.displayYesNoAlertWithHandler("Are you sure you want to decline the family request from \("")?", viewController: self) { _ in
+        Utils.displayYesNoAlertWithHandler("Are you sure you want to decline the family request from \(notification.senderName!)?", viewController: self) { _ in
             //no handler
         } yesHandler: { _ in
             self.handleFamilyRequest(didAccept: false, notification: notification)
