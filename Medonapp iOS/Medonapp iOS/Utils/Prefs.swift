@@ -69,6 +69,8 @@ struct Prefs {
     static var allDoctors: Doctors
     @Storage(key: "allAppointments", defaultValue: [])
     static var allAppointments: Appointments
+    @Storage(key: "notifications", defaultValue: [])
+    static var notifications: Notifications
     //    @EncryptedStringStorage(key: "password_key")
     //    static var password: String
     
@@ -87,6 +89,7 @@ class PrefDataManager {
         Prefs.userDetails = User()
         Prefs.allDoctors = []
         Prefs.allAppointments = []
+        Prefs.notifications = []
     }
 }
 

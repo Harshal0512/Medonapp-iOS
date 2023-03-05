@@ -29,7 +29,7 @@ class FamilyRequestTableViewCell: UITableViewCell {
     
     let boldConfig = UIImage.SymbolConfiguration(weight: .semibold)
 
-    public func configure() {
+    public func configure(notification: NotificationElement) {
         var imageUrl: String = "http://34.100.156.30:8080/api/v1/doctor/image/QmeERDW4VrHaGTMaG676ZJEKEFd2KdSnHcjiKUmmiaTmaw"
         profileImageView.setKFImage(imageUrl: imageUrl ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg", placeholderImage: UIImage(named: ("male" == "male") ? "userPlaceholder-male" : "userPlaceholder-female")!)
         nameLabel.text = "Suryansh Sharma"

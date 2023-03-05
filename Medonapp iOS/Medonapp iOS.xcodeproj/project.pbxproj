@@ -24,6 +24,7 @@
 		F8131B1B28D5A09F00B7558D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8131B1928D5A09F00B7558D /* Main.storyboard */; };
 		F8131B1D28D5A0A000B7558D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8131B1C28D5A0A000B7558D /* Assets.xcassets */; };
 		F8131B2028D5A0A000B7558D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8131B1E28D5A0A000B7558D /* LaunchScreen.storyboard */; };
+		F81AB9F029B46FC60062B166 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81AB9EF29B46FC60062B166 /* Notifications.swift */; };
 		F81BAADD28F928BF0080BD21 /* BookAppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81BAADC28F928BF0080BD21 /* BookAppointmentViewController.swift */; };
 		F81BAAE428F93BC90080BD21 /* AppointmentTimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81BAAE228F93BC90080BD21 /* AppointmentTimeCollectionViewCell.swift */; };
 		F81BAAE528F93BC90080BD21 /* AppointmentTimeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F81BAAE328F93BC90080BD21 /* AppointmentTimeCollectionViewCell.xib */; };
@@ -135,6 +136,7 @@
 		F8131B1C28D5A0A000B7558D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F8131B1F28D5A0A000B7558D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F8131B2128D5A0A000B7558D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F81AB9EF29B46FC60062B166 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		F81BAADC28F928BF0080BD21 /* BookAppointmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookAppointmentViewController.swift; sourceTree = "<group>"; };
 		F81BAAE228F93BC90080BD21 /* AppointmentTimeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentTimeCollectionViewCell.swift; sourceTree = "<group>"; };
 		F81BAAE328F93BC90080BD21 /* AppointmentTimeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppointmentTimeCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -455,6 +457,7 @@
 				F834BEE1290CFC0F0073FCAC /* Review.swift */,
 				F8AAB18129486EE500A5C9E7 /* DefaultResponseModel.swift */,
 				F89F472F29B07FF900F52AFA /* FamilyMember.swift */,
+				F81AB9EF29B46FC60062B166 /* Notifications.swift */,
 				F8F3ED3B290967CD001D6A4C /* Outbound Models */,
 			);
 			path = Models;
@@ -810,6 +813,7 @@
 				F883FC092909222200B17D01 /* Credential.swift in Sources */,
 				F883FC112909248900B17D01 /* User.swift in Sources */,
 				F8A0E18629718F4C00B888B0 /* UIButtonCircularWithLogo.swift in Sources */,
+				F81AB9F029B46FC60062B166 /* Notifications.swift in Sources */,
 				F8BC4A4228F4588A00440406 /* DoctorsScreenViewController.swift in Sources */,
 				F81BAAF328F9C09B0080BD21 /* AppointmentDetailsViewController.swift in Sources */,
 				F8F3ED3D290967DF001D6A4C /* SignUpModel.swift in Sources */,

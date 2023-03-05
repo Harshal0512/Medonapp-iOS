@@ -7,6 +7,7 @@
 
 import UIKit
 import NotificationBannerSwift
+import Toast_Swift
 
 class NotificationTabViewController: UIViewController {
     
@@ -16,6 +17,8 @@ class NotificationTabViewController: UIViewController {
     var notifTable: UITableView?
     
     private var userDetails = User.getUserDetails()
+    
+    private var notifications: Notifications = NotificationElement.getNotifications()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,12 +39,13 @@ class NotificationTabViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        populateNotifTable()
+        
         if !Prefs.isNetworkAvailable {
             DispatchQueue.main.async {
                 self.notifBanner = Utils.displayNoNetworkBanner(self)
             }
         } else {
-            populateNotifTable()
             refreshData()
         }
         
@@ -91,27 +95,44 @@ class NotificationTabViewController: UIViewController {
     }
     
     @objc func refreshData() {
+        view.isUserInteractionEnabled = false
+        self.view.makeToastActivity(.center)
         
+        NotificationElement.refreshNotifications { isSuccess in
+            if isSuccess {
+                self.notifications = NotificationElement.getNotifications()
+                self.populateNotifTable()
+            } else {
+                Utils.displaySPIndicatorNotifWithoutMessage(title: "Could not refresh data", iconPreset: .error, hapticPreset: .error, duration: 2)
+            }
+            self.view.isUserInteractionEnabled = true
+            self.view.hideToastActivity()
+        }
     }
     
     func populateNotifTable() {
-        
+        let sections = NSIndexSet(indexesIn: NSMakeRange(0, self.notifTable!.numberOfSections))
+        self.notifTable!.reloadSections(sections as IndexSet, with: .fade)
     }
 }
 
 extension NotificationTabViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return notifications.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
+        if notifications[indexPath.row].type == "FAMILY_REQUEST" {
+            return 150
+        } else {
+            return 50
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tableCell = tableView.dequeueReusableCell(withIdentifier: FamilyRequestTableViewCell.identifier, for: indexPath) as! FamilyRequestTableViewCell
         
-        tableCell.configure()
+        tableCell.configure(notification: notifications[indexPath.row])
         tableCell.layer.cornerRadius = 20
         tableCell.delegate = self
         return tableCell

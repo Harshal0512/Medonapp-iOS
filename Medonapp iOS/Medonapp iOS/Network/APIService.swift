@@ -25,6 +25,7 @@ class APIService : NSObject{
         case acceptFamilyRequest(Int, Int)
         case rejectFamilyRequest(Int, Int)
         case removeFamilyMember(Int, Int)
+        case getNotificationsWithID(Int)
         
         var endpoint: String {
             switch self {
@@ -68,6 +69,8 @@ class APIService : NSObject{
                 return "v1/patient/\(patientID)/rejectFamilyRequest?organizer=\(organiserID)"
             case .removeFamilyMember(let patientID, let memberID):
                 return "v1/patient/\(patientID)/removeFamilyMember?member=\(memberID)"
+            case .getNotificationsWithID(let patientID):
+                return "v1/patient/\(patientID)/notifications"
             }
         }
     }

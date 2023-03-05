@@ -94,14 +94,14 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
         
         User.refreshUserDetails { isSuccess in
             if isSuccess {
-                self.view.isUserInteractionEnabled = true
                 self.userDetails = User.getUserDetails()
                 self.refreshTableAndCollectionData()
                 self.showHidePageElements()
-                self.view.hideToastActivity()
             } else {
                 Utils.displaySPIndicatorNotifWithoutMessage(title: "Could not refresh data", iconPreset: .error, hapticPreset: .error, duration: 2)
             }
+            self.view.isUserInteractionEnabled = true
+            self.view.hideToastActivity()
         }
     }
     
