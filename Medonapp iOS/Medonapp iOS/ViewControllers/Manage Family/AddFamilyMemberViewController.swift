@@ -189,6 +189,8 @@ class AddFamilyMemberViewController: UIViewController {
                 print(error)
                 if error.localizedDescription.contains("already has join request") {
                     Utils.displaySPIndicatorNotifWithoutMessage(title: "Join Request Pending with User", iconPreset: .error, hapticPreset: .warning, duration: 3.0)
+                } else if error.localizedDescription.contains("already exists!") {
+                    Utils.displaySPIndicatorNotifWithoutMessage(title: "User already exists in Family", iconPreset: .error, hapticPreset: .warning, duration: 3.0)
                 } else {
                     Utils.displaySPIndicatorNotifWithoutMessage(title: "Could not send Family Request", iconPreset: .error, hapticPreset: .error, duration: 2.0)
                 }
