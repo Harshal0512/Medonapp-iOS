@@ -22,10 +22,11 @@ class APIService : NSObject{
         case cancelAppointment(Int)
         case addFamilyMember(Int)
         case leaveFamily(Int)
-        case acceptFamilyRequest(Int, Int)
-        case rejectFamilyRequest(Int, Int)
+        case acceptFamilyRequest(Int, Int, Int)
+        case rejectFamilyRequest(Int, Int, Int)
         case removeFamilyMember(Int, Int)
         case getNotificationsWithID(Int)
+        case markNotificationAsRead(Int, Int)
         
         var endpoint: String {
             switch self {
@@ -63,14 +64,16 @@ class APIService : NSObject{
                 return "v1/patient/\(organiserID)/addFamilyMember"
             case .leaveFamily(let patientID):
                 return "v1/patient/\(patientID)/leaveFamily"
-            case .acceptFamilyRequest(let patientID, let organiserID):
-                return "v1/patient/\(patientID)/acceptFamilyRequest?organizer=\(organiserID)"
-            case .rejectFamilyRequest(let patientID, let organiserID):
-                return "v1/patient/\(patientID)/rejectFamilyRequest?organizer=\(organiserID)"
+            case .acceptFamilyRequest(let patientID, let organiserID, let notificationID):
+                return "v1/patient/\(patientID)/acceptFamilyRequest?organizer=\(organiserID)&notification=\(notificationID)"
+            case .rejectFamilyRequest(let patientID, let organiserID, let notificationID):
+                return "v1/patient/\(patientID)/rejectFamilyRequest?organizer=\(organiserID)&notification=\(notificationID)"
             case .removeFamilyMember(let patientID, let memberID):
                 return "v1/patient/\(patientID)/removeFamilyMember?member=\(memberID)"
             case .getNotificationsWithID(let patientID):
                 return "v1/patient/\(patientID)/notifications"
+            case .markNotificationAsRead(let patientID, let notificationID):
+                return "v1/patient/\(patientID)/notificationRead?notification=\(notificationID)"
             }
         }
     }

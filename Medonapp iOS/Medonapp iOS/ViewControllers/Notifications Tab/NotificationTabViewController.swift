@@ -142,21 +142,34 @@ extension NotificationTabViewController: UITableViewDelegate, UITableViewDataSou
 }
 
 extension NotificationTabViewController: FamilyRequestCellProtocol {
-    func didAcceptFamilyRequest() {
+    func didAcceptFamilyRequest(notification: NotificationElement) {
         Utils.displayYesNoAlertWithHandler("Are you sure you want to accept the family request from \("")?", viewController: self) { _ in
-            
+            //no handler
         } yesHandler: { _ in
-            Utils.displaySPIndicatorNotifWithoutMessage(title: "Family Request Accepted", iconPreset: .done, hapticPreset: .success, duration: 2)
+            self.handleFamilyRequest(didAccept: true, notification: notification)
         }
     }
     
-    func didRejectFamilyRequest() {
+    func didRejectFamilyRequest(notification: NotificationElement) {
         Utils.displayYesNoAlertWithHandler("Are you sure you want to decline the family request from \("")?", viewController: self) { _ in
-            
+            //no handler
         } yesHandler: { _ in
-            Utils.displaySPIndicatorNotifWithoutMessage(title: "Family Request Rejected", iconPreset: .error, hapticPreset: .error, duration: 2)
+            self.handleFamilyRequest(didAccept: false, notification: notification)
         }
     }
     
-    
+    func handleFamilyRequest(didAccept: Bool, notification: NotificationElement) {
+        APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: (didAccept == true) ? .acceptFamilyRequest(User.getUserDetails().patient!.id!, notification.senderID!, notification.id!) : .rejectFamilyRequest(User.getUserDetails().patient!.id!, notification.senderID!, notification.id!), method: .post, isJSONRequest: true).executeQuery() { (result: Result<Patient, Error>) in
+            
+            switch result{
+            case .success(_):
+                try? User.setPatientDetails(patient: result.get())
+                didAccept == true ? Utils.displaySPIndicatorNotifWithoutMessage(title: "Family Request Accepted", iconPreset: .done, hapticPreset: .success, duration: 2) : Utils.displaySPIndicatorNotifWithoutMessage(title: "Family Request Rejected", iconPreset: .error, hapticPreset: .error, duration: 2)
+            case .failure(let error):
+                print(error)
+                Utils.displaySPIndicatorNotifWithoutMessage(title: "An error occured", iconPreset: .error, hapticPreset: .error, duration: 2.0)
+            }
+            self.refreshData()
+        }
+    }
 }

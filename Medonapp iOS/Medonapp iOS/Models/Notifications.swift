@@ -11,13 +11,26 @@ class NotificationElement: Codable {
     var timestamp, message: String?
     var isRead: Bool?
     var type: String?
+    var senderID: Int?
+    var senderName: String?
+    var senderURL: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case id, timestamp, message, isRead, type
+        case senderID = "senderId"
+        case senderName
+        case senderURL = "senderUrl"
+    }
 
-    init(id: Int?, timestamp: String?, message: String?, isRead: Bool?, type: String?) {
+    init(id: Int?, timestamp: String?, message: String?, isRead: Bool?, type: String?, senderID: Int?, senderName: String?, senderURL: String?) {
         self.id = id
         self.timestamp = timestamp
         self.message = message
         self.isRead = isRead
         self.type = type
+        self.senderID = senderID
+        self.senderName = senderName
+        self.senderURL = senderURL
     }
     
     static private var notifications: Notifications = Prefs.notifications

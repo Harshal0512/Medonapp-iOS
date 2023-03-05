@@ -8,8 +8,8 @@
 import UIKit
 
 protocol FamilyRequestCellProtocol {
-    func didAcceptFamilyRequest()
-    func didRejectFamilyRequest()
+    func didAcceptFamilyRequest(notification: NotificationElement)
+    func didRejectFamilyRequest(notification: NotificationElement)
 }
 
 class FamilyRequestTableViewCell: UITableViewCell {
@@ -28,19 +28,21 @@ class FamilyRequestTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     
     let boldConfig = UIImage.SymbolConfiguration(weight: .semibold)
+    
+    var notification: NotificationElement?
 
     public func configure(notification: NotificationElement) {
-        var imageUrl: String = "http://34.100.156.30:8080/api/v1/doctor/image/QmeERDW4VrHaGTMaG676ZJEKEFd2KdSnHcjiKUmmiaTmaw"
-        profileImageView.setKFImage(imageUrl: imageUrl ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg", placeholderImage: UIImage(named: ("male" == "male") ? "userPlaceholder-male" : "userPlaceholder-female")!)
-        nameLabel.text = "Suryansh Sharma"
+        self.notification = notification
+        profileImageView.setKFImage(imageUrl: notification.senderURL ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg", placeholderImage: UIImage(named: ("male" == "male") ? "userPlaceholder-male" : "userPlaceholder-female")!)
+        nameLabel.text = notification.senderName
     }
     
     @IBAction func acceptButtonClicked(_ sender: Any) {
-        delegate.didAcceptFamilyRequest()
+        delegate.didAcceptFamilyRequest(notification: notification!)
     }
     
     @IBAction func rejectButtonClicked(_ sender: Any) {
-        delegate.didRejectFamilyRequest()
+        delegate.didRejectFamilyRequest(notification: notification!)
     }
     
     override func awakeFromNib() {
