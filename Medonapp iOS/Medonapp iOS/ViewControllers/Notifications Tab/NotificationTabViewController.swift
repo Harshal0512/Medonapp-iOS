@@ -32,6 +32,7 @@ class NotificationTabViewController: UIViewController {
         setConstraints()
         
         notifTable?.register(FamilyRequestTableViewCell.nib(), forCellReuseIdentifier: FamilyRequestTableViewCell.identifier)
+        notifTable?.register(NormalNotifWithImageAndIconTableViewCell.nib(), forCellReuseIdentifier: NormalNotifWithImageAndIconTableViewCell.identifier)
         notifTable?.delegate = self
         notifTable?.dataSource = self
     }
@@ -125,20 +126,30 @@ extension NotificationTabViewController: UITableViewDelegate, UITableViewDataSou
         if notifications[indexPath.row].type == "FAMILY_REQUEST" {
             return 150
         } else {
-            return 50
+            return 100
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let tableCell = tableView.dequeueReusableCell(withIdentifier: FamilyRequestTableViewCell.identifier, for: indexPath) as! FamilyRequestTableViewCell
-        
-        tableCell.configure(notification: notifications[indexPath.row])
-        tableCell.layer.cornerRadius = 20
-        tableCell.delegate = self
-        return tableCell
+        if notifications[indexPath.row].type == "FAMILY_REQUEST" {
+            let tableCell = tableView.dequeueReusableCell(withIdentifier: FamilyRequestTableViewCell.identifier, for: indexPath) as! FamilyRequestTableViewCell
+            
+            tableCell.configure(notification: notifications[indexPath.row])
+            tableCell.layer.cornerRadius = 20
+            tableCell.delegate = self
+            return tableCell
+        } else {
+            let tableCell = tableView.dequeueReusableCell(withIdentifier: NormalNotifWithImageAndIconTableViewCell.identifier, for: indexPath) as! NormalNotifWithImageAndIconTableViewCell
+            
+            tableCell.configure(notification: notifications[indexPath.row])
+            tableCell.layer.cornerRadius = 20
+            return tableCell
+        }
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        notifTable?.deselectRow(at: indexPath, animated: true)
+    }
 }
 
 extension NotificationTabViewController: FamilyRequestCellProtocol {

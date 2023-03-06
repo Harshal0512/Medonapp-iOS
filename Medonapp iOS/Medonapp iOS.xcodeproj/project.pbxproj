@@ -102,6 +102,8 @@
 		F8D088FB291C2DAD00424977 /* LinksLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D088FA291C2DAD00424977 /* LinksLabel.swift */; };
 		F8D5EB8A290FE35000942AE6 /* iOSDropDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D5EB89290FE35000942AE6 /* iOSDropDown.framework */; };
 		F8D5EB8E290FE3C200942AE6 /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D5EB8D290FE3C200942AE6 /* Lottie.framework */; };
+		F8D68DDE29B5841300B19A88 /* NormalNotifWithImageAndIconTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D68DDC29B5841300B19A88 /* NormalNotifWithImageAndIconTableViewCell.swift */; };
+		F8D68DDF29B5841300B19A88 /* NormalNotifWithImageAndIconTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8D68DDD29B5841300B19A88 /* NormalNotifWithImageAndIconTableViewCell.xib */; };
 		F8F3B482299A5CF50044AB1D /* Localize_Swift in Frameworks */ = {isa = PBXBuildFile; productRef = F8F3B481299A5CF50044AB1D /* Localize_Swift */; };
 		F8F3ED3D290967DF001D6A4C /* SignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3ED3C290967DF001D6A4C /* SignUpModel.swift */; };
 		F8F3ED3F2909685C001D6A4C /* NameExclMiddleName.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3ED3E2909685C001D6A4C /* NameExclMiddleName.swift */; };
@@ -218,6 +220,8 @@
 		F8D5EB89290FE35000942AE6 /* iOSDropDown.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSDropDown.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8D5EB8B290FE38500942AE6 /* Lottie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Lottie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8D5EB8D290FE3C200942AE6 /* Lottie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Lottie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8D68DDC29B5841300B19A88 /* NormalNotifWithImageAndIconTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalNotifWithImageAndIconTableViewCell.swift; sourceTree = "<group>"; };
+		F8D68DDD29B5841300B19A88 /* NormalNotifWithImageAndIconTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NormalNotifWithImageAndIconTableViewCell.xib; sourceTree = "<group>"; };
 		F8F3ED3C290967DF001D6A4C /* SignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpModel.swift; sourceTree = "<group>"; };
 		F8F3ED3E2909685C001D6A4C /* NameExclMiddleName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameExclMiddleName.swift; sourceTree = "<group>"; };
 		F8F3ED40290968D1001D6A4C /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
@@ -558,6 +562,8 @@
 			children = (
 				F8B4377C29A8703E00A5FDA2 /* FamilyRequestTableViewCell.swift */,
 				F8B4377D29A8703E00A5FDA2 /* FamilyRequestTableViewCell.xib */,
+				F8D68DDC29B5841300B19A88 /* NormalNotifWithImageAndIconTableViewCell.swift */,
+				F8D68DDD29B5841300B19A88 /* NormalNotifWithImageAndIconTableViewCell.xib */,
 			);
 			path = "Notif Table";
 			sourceTree = "<group>";
@@ -683,6 +689,7 @@
 				F81BAAE528F93BC90080BD21 /* AppointmentTimeCollectionViewCell.xib in Resources */,
 				F81BAAF828F9C8C40080BD21 /* PriceDisplayViewAppointmentDetails.xib in Resources */,
 				F8131B1D28D5A0A000B7558D /* Assets.xcassets in Resources */,
+				F8D68DDF29B5841300B19A88 /* NormalNotifWithImageAndIconTableViewCell.xib in Resources */,
 				F844C65528FEB27000BBE5B0 /* ReportTab.storyboard in Resources */,
 				F8310928299B484E001FC51B /* Localizable.strings in Resources */,
 				F80C19892900F75500891800 /* BookedAppointmentsTableViewCell.xib in Resources */,
@@ -774,6 +781,7 @@
 				F8B96C3128F6A686009E5198 /* WhiteBackgroundButtonWithIcon.swift in Sources */,
 				F81BAAE428F93BC90080BD21 /* AppointmentTimeCollectionViewCell.swift in Sources */,
 				F8F3ED4529096A24001D6A4C /* CredentialShort.swift in Sources */,
+				F8D68DDE29B5841300B19A88 /* NormalNotifWithImageAndIconTableViewCell.swift in Sources */,
 				F877CADD29518B6800B36605 /* FavoriteDoctor.swift in Sources */,
 				F867977D2994B01300051EF0 /* AddFamilyMemberViewController.swift in Sources */,
 				F859AB3428EC2FA20069D247 /* UITextViewWithPlaceholder_CR8.swift in Sources */,
