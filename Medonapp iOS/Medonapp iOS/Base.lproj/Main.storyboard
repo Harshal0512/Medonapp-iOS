@@ -225,7 +225,7 @@
         <scene sceneID="AJz-bq-8B6">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BXO-ya-HzT" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Notifications" image="bell.fill" catalog="system" id="9sv-qB-FRl"/>
+                    <tabBarItem key="tabBarItem" title="Notifications" id="9sv-qB-FRl"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Wk0-Xk-da8">
                         <rect key="frame" x="0.0" y="48" width="414" height="44"/>
@@ -246,7 +246,6 @@
         <segue reference="SAQ-Su-FnV"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="bell.fill" catalog="system" width="123" height="128"/>
         <image name="medonaIcon" width="2048" height="2048"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

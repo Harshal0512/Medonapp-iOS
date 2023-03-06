@@ -56,12 +56,14 @@ class HomeTabViewController: UIViewController {
         }
         
         let tabBarItems = tabBarController?.tabBar.items!
-        tabBarItems![0].image = UIImage(named: "homeTabIcon")?.resizeImageTo(size: CGSize(width: 40, height: 40))?.withTintColor(UIColor(red: 0.48, green: 0.55, blue: 0.62, alpha: 1.00))
-        tabBarItems![0].selectedImage = UIImage(named: "homeTabIcon")?.resizeImageTo(size: CGSize(width: 40, height: 40))?.withTintColor(UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00))
-        tabBarItems![1].image = UIImage(named: "calendarIconWithClock")?.resizeImageTo(size: CGSize(width: 25, height: 25))?.withTintColor(UIColor(red: 0.48, green: 0.55, blue: 0.62, alpha: 1.00))
-        tabBarItems![1].selectedImage = UIImage(named: "calendarIconWithClock")?.resizeImageTo(size: CGSize(width: 25, height: 25))?.withTintColor(UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00))
-        tabBarItems![2].image = UIImage(named: "reportTabIcon")?.resizeImageTo(size: CGSize(width: 40, height: 40))?.withTintColor(UIColor(red: 0.48, green: 0.55, blue: 0.62, alpha: 1.00))
-        tabBarItems![2].selectedImage = UIImage(named: "reportTabIcon")?.resizeImageTo(size: CGSize(width: 40, height: 40))?.withTintColor(UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00))
+        tabBarItems![0].image = UIImage(named: "homeTabIcon")?.resizeImageTo(size: CGSize(width: 30, height: 30))?.withTintColor(UIColor(red: 0.48, green: 0.55, blue: 0.62, alpha: 1.00))
+        tabBarItems![0].selectedImage = UIImage(named: "homeTabIcon")?.resizeImageTo(size: CGSize(width: 30, height: 30))?.withTintColor(UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00))
+        tabBarItems![1].image = UIImage(named: "calendarIconWithClock")?.resizeImageTo(size: CGSize(width: 20, height: 20))?.withTintColor(UIColor(red: 0.48, green: 0.55, blue: 0.62, alpha: 1.00))
+        tabBarItems![1].selectedImage = UIImage(named: "calendarIconWithClock")?.resizeImageTo(size: CGSize(width: 20, height: 20))?.withTintColor(UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00))
+        tabBarItems![2].image = UIImage(named: "reportTabIcon")?.resizeImageTo(size: CGSize(width: 30, height: 30))?.withTintColor(UIColor(red: 0.48, green: 0.55, blue: 0.62, alpha: 1.00))
+        tabBarItems![2].selectedImage = UIImage(named: "reportTabIcon")?.resizeImageTo(size: CGSize(width: 30, height: 30))?.withTintColor(UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00))
+        tabBarItems![3].image = UIImage(systemName: "bell.fill")?.resizeImageTo(size: CGSize(width: 22, height: 22))?.withTintColor(UIColor(red: 0.48, green: 0.55, blue: 0.62, alpha: 1.00))
+        tabBarItems![3].selectedImage = UIImage(systemName: "bell.fill")?.resizeImageTo(size: CGSize(width: 22, height: 22))?.withTintColor(UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00))
         
         if Prefs.isNetworkAvailable {
             view.isUserInteractionEnabled = false
