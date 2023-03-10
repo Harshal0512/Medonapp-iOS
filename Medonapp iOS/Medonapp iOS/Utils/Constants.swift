@@ -8,7 +8,7 @@ import UIKit
 
 class Constants {
     
-    static let BASE_SERVER_HOST = "http://34.100.156.30:8080"
+    static let BASE_SERVER_HOST = "http://35.200.193.253:8080"
     
     static let BASE_URI = "\(Constants.BASE_SERVER_HOST)/api/"
     
