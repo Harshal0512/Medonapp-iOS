@@ -103,6 +103,8 @@ class ProfileViewViewController: UIViewController, MFMailComposeViewControllerDe
         accountSettingsButton = WhiteBackgroundButtonWithIcon()
         accountSettingsButton?.initButton(title: "account_settings".localized(), icon: UIImage(named: "accountSettingsIcon"))
         contentView?.addSubview(accountSettingsButton!)
+        accountSettingsButton?.addTarget(self, action: #selector(openAccountSettings), for: .touchUpInside)
+        accountSettingsButton?.isUserInteractionEnabled = true
         
         manageFamilyButton = WhiteBackgroundButtonWithIcon()
         manageFamilyButton?.initButton(title: "manage_family".localized(), icon: UIImage(named: "familyIconFilled"))
@@ -229,6 +231,13 @@ class ProfileViewViewController: UIViewController, MFMailComposeViewControllerDe
         manageFamilyVC?.modalPresentationStyle = .fullScreen
         manageFamilyVC?.modalTransitionStyle = .coverVertical
         self.navigationController?.pushViewController(manageFamilyVC!, animated: true)
+    }
+    
+    @objc func openAccountSettings() {
+        let accountSettingsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "accountSettingsVC") as? AccountSettingsViewController
+        accountSettingsVC?.modalPresentationStyle = .fullScreen
+        accountSettingsVC?.modalTransitionStyle = .coverVertical
+        self.navigationController?.pushViewController(accountSettingsVC!, animated: true)
     }
     
     @objc func openShareSheet() {

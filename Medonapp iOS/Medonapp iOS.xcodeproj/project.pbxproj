@@ -60,6 +60,7 @@
 		F84B72B029855535001E1737 /* FamilyMemberCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F84B72AE29855535001E1737 /* FamilyMemberCollectionViewCell.xib */; };
 		F859AB3428EC2FA20069D247 /* UITextViewWithPlaceholder_CR8.swift in Sources */ = {isa = PBXBuildFile; fileRef = F859AB3328EC2FA10069D247 /* UITextViewWithPlaceholder_CR8.swift */; };
 		F85D9C3828F33B6D008FBDE9 /* ReportTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85D9C3728F33B6D008FBDE9 /* ReportTabViewController.swift */; };
+		F85F29D629BAEB070024D98D /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85F29D529BAEB070024D98D /* AccountSettingsViewController.swift */; };
 		F867977D2994B01300051EF0 /* AddFamilyMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F867977C2994B01300051EF0 /* AddFamilyMemberViewController.swift */; };
 		F86A71CF28EE9C970083D12D /* HomeTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86A71CE28EE9C970083D12D /* HomeTabViewController.swift */; };
 		F86A71D728EEAF7B0083D12D /* NunitoSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F86A71D628EEAF7B0083D12D /* NunitoSans-SemiBold.ttf */; };
@@ -177,6 +178,7 @@
 		F84B72AE29855535001E1737 /* FamilyMemberCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FamilyMemberCollectionViewCell.xib; sourceTree = "<group>"; };
 		F859AB3328EC2FA10069D247 /* UITextViewWithPlaceholder_CR8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewWithPlaceholder_CR8.swift; sourceTree = "<group>"; };
 		F85D9C3728F33B6D008FBDE9 /* ReportTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportTabViewController.swift; sourceTree = "<group>"; };
+		F85F29D529BAEB070024D98D /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewController.swift; sourceTree = "<group>"; };
 		F867977C2994B01300051EF0 /* AddFamilyMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFamilyMemberViewController.swift; sourceTree = "<group>"; };
 		F86A71CE28EE9C970083D12D /* HomeTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabViewController.swift; sourceTree = "<group>"; };
 		F86A71D628EEAF7B0083D12D /* NunitoSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -490,6 +492,7 @@
 			isa = PBXGroup;
 			children = (
 				F8B96C2E28F699EF009E5198 /* ProfileViewViewController.swift */,
+				F85F29D529BAEB070024D98D /* AccountSettingsViewController.swift */,
 			);
 			path = "Profile View";
 			sourceTree = "<group>";
@@ -825,6 +828,7 @@
 				F8BC4A4228F4588A00440406 /* DoctorsScreenViewController.swift in Sources */,
 				F81BAAF328F9C09B0080BD21 /* AppointmentDetailsViewController.swift in Sources */,
 				F8F3ED3D290967DF001D6A4C /* SignUpModel.swift in Sources */,
+				F85F29D629BAEB070024D98D /* AccountSettingsViewController.swift in Sources */,
 				F883FC0B2909225E00B17D01 /* NameInclMiddleName.swift in Sources */,
 				F840513528FD139F0051B636 /* Doctor.swift in Sources */,
 				F8BC4A4428F460D600440406 /* StoryboardUtils.swift in Sources */,
