@@ -135,6 +135,9 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
         self.totalMembersCount = userDetails.patient!.familyMembersActiveCount.0 + userDetails.patient!.familyRequestsPendingCountAsOrganizer.0
         self.memberImagesCollectionView!.reloadData()
         self.centerCollectionViewItems()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25, execute: {
+            self.viewDidLayoutSubviews()
+        })
     }
     
     func initialise() {
@@ -259,8 +262,23 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
         self.present(addFamilyMemberVC!, animated: true, completion: nil)
     }
     
-    private func handleRemoveFromFamily() {
-        print("Removed From Family")
+    private func handleRemoveFromFamily(member: FamilyMember) {
+        Utils.displayYesREDNoAlertWithHandler("Do you want to remove \(member.name!) from your family?", viewController: self) { _ in
+            
+        } yesHandler: { _ in
+            APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .removeFamilyMember((self.userDetails.patient?.id)!, member.id!), method: .post, isJSONRequest: true).executeQuery() { (result: Result<Patient, Error>) in
+                
+                switch result{
+                case .success(_):
+                    try? User.setPatientDetails(patient: result.get())
+                    self.refreshDataFromLocal()
+                case .failure(let error):
+                    print(error)
+                    Utils.displaySPIndicatorNotifWithoutMessage(title: "An error occured", iconPreset: .error, hapticPreset: .error, duration: 2.0)
+                }
+            }
+        }
+
     }
     
     func centerCollectionViewItems() {
@@ -347,7 +365,7 @@ extension ManageFamilyViewController: UITableViewDelegate, UITableViewDataSource
         } else if familyMember.type != "ORGANIZER" {
             let removeFromFamily = UIContextualAction(style: .destructive,
                                            title: "Remove From Family") { [weak self] (action, view, completionHandler) in
-                                            self?.handleRemoveFromFamily()
+                                            self?.handleRemoveFromFamily(member: familyMember)
                                             completionHandler(true)
             }
             removeFromFamily.backgroundColor = .systemRed
