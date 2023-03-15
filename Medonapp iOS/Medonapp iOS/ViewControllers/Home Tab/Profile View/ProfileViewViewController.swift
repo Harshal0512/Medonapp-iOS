@@ -221,8 +221,12 @@ class ProfileViewViewController: UIViewController, MFMailComposeViewControllerDe
     }
     
     @objc func handleLogoutAction(_ sender: UITapGestureRecognizer? = nil) {
-        self.dismiss(animated: true) {
-            NotificationCenter.default.post(name: Notification.Name("logout"), object: nil)
+        Utils.displayYesREDNoAlertWithHandler("Are you sure you want to logout?", viewController: self, style: .actionSheet) { _ in
+            
+        } yesHandler: { _ in
+            self.dismiss(animated: true) {
+                NotificationCenter.default.post(name: Notification.Name("logout"), object: nil)
+            }
         }
     }
     
