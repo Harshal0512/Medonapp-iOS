@@ -36,8 +36,8 @@ class LandingPageView: UIViewController {
         UIView.animate(withDuration: 0.05) {
                 self.view.layoutIfNeeded()
         }
-        self.imageViewTop?.constant = -120
-        UIView.animate(withDuration: 0.37) {
+        self.imageViewTop?.constant = -50
+        UIView.animate(withDuration: 0.37, delay: 0, options: .curveEaseOut) {
                 self.view.layoutIfNeeded()
         }
     }
