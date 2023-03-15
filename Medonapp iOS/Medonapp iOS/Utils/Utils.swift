@@ -173,10 +173,10 @@ class Utils {
         
     }
     
-    internal class func displayYesREDNoAlertWithHandler(_ displayText: String, viewController: UIViewController?, noHandler: ((UIAlertAction)->Void)?,  yesHandler: ( (UIAlertAction)->Void)?){
+    internal class func displayYesREDNoAlertWithHandler(_ displayText: String, viewController: UIViewController?, style: UIAlertController.Style = .alert, noHandler: ((UIAlertAction)->Void)?,  yesHandler: ( (UIAlertAction)->Void)?){
         
         let alertController = UIAlertController(title: "Medonapp", message:
-                                                    displayText, preferredStyle: UIAlertController.Style.alert)
+                                                    displayText, preferredStyle: style)
         alertController.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.cancel, handler: noHandler))
         alertController.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.destructive, handler: yesHandler))
         
