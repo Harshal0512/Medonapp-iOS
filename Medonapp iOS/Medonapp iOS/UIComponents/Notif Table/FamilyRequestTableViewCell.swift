@@ -49,6 +49,7 @@ class FamilyRequestTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         profileImageView.layer.cornerRadius = 23
+        profileImageView.contentMode = .scaleAspectFill
         
         acceptButton.setImage(UIImage(systemName: "checkmark", withConfiguration: boldConfig), for: .normal)
         rejectButton.setImage(UIImage(systemName: "xmark", withConfiguration: boldConfig), for: .normal)
