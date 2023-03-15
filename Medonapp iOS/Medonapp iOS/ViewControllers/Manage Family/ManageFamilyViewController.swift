@@ -272,13 +272,31 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
                 case .success(_):
                     try? User.setPatientDetails(patient: result.get())
                     self.refreshDataFromLocal()
+                    Utils.displaySPIndicatorNotifWithoutMessage(title: "Member removed from family", iconPreset: .done, hapticPreset: .success, duration: 3.0)
                 case .failure(let error):
                     print(error)
                     Utils.displaySPIndicatorNotifWithoutMessage(title: "An error occured", iconPreset: .error, hapticPreset: .error, duration: 2.0)
                 }
             }
         }
-
+    }
+    
+    private func handleLeaveFamily() {
+        Utils.displayYesREDNoAlertWithHandler("Are you sure you want to leave this family?", viewController: self) { _ in
+            
+        } yesHandler: { _ in
+            APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .leaveFamily((self.userDetails.patient?.id)!), method: .post, isJSONRequest: true).executeQuery() { (result: Result<Patient, Error>) in
+                switch result{
+                case .success(_):
+                    try? User.setPatientDetails(patient: result.get())
+                    self.refreshDataFromLocal()
+                    Utils.displaySPIndicatorNotifWithoutMessage(title: "Leave family successful", iconPreset: .done, hapticPreset: .success, duration: 3.0)
+                case .failure(let error):
+                    print(error)
+                    Utils.displaySPIndicatorNotifWithoutMessage(title: "An error occured", iconPreset: .error, hapticPreset: .error, duration: 2.0)
+                }
+            }
+        }
     }
     
     func centerCollectionViewItems() {
@@ -362,7 +380,7 @@ extension ManageFamilyViewController: UITableViewDelegate, UITableViewDataSource
         
         if familyMember.requestStatus == "PENDING" {
             return nil
-        } else if familyMember.type != "ORGANIZER" {
+        } else if userDetails.patient?.isFamilyOrganizer == true && familyMember.type != "ORGANIZER" {
             let removeFromFamily = UIContextualAction(style: .destructive,
                                            title: "Remove From Family") { [weak self] (action, view, completionHandler) in
                                             self?.handleRemoveFromFamily(member: familyMember)
@@ -371,6 +389,17 @@ extension ManageFamilyViewController: UITableViewDelegate, UITableViewDataSource
             removeFromFamily.backgroundColor = .systemRed
             
             let configuration = UISwipeActionsConfiguration(actions: [removeFromFamily])
+
+            return configuration
+        } else if userDetails.patient?.isFamilyOrganizer == false && familyMember.id == userDetails.patient?.id {
+            let leaveFamily = UIContextualAction(style: .destructive,
+                                           title: "Leave Family") { [weak self] (action, view, completionHandler) in
+                                            self?.handleLeaveFamily()
+                                            completionHandler(true)
+            }
+            leaveFamily.backgroundColor = .systemRed
+            
+            let configuration = UISwipeActionsConfiguration(actions: [leaveFamily])
 
             return configuration
         }

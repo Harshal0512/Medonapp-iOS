@@ -22,6 +22,7 @@ class Patient: Codable {
     var profileImage: FileModel?
     var favoriteDoctors: [FavoriteDoctor]?
     var medicalFiles: [FileModel]?
+    var isFamilyOrganizer: Bool = false
     var familyMembers: [FamilyMember]?
     var familyMembersActiveCount: (Int, [Int]) = (0, [])
     var familyRequestsPendingCountAsOrganizer: (Int, [Int]) = (0, [])

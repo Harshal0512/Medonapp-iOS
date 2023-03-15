@@ -82,6 +82,10 @@ class User: Codable {
                 self.userDetails.patient?.familyMembersActiveCount.0 += 1
                 self.userDetails.patient?.familyMembersActiveCount.1.append(i)
             }
+            
+            if self.userDetails.patient!.familyMembers![i].id == self.userDetails.patient!.id && self.userDetails.patient!.familyMembers![i].type == "ORGANIZER" {
+                self.userDetails.patient!.isFamilyOrganizer = true
+            }
         }
     }
 }
