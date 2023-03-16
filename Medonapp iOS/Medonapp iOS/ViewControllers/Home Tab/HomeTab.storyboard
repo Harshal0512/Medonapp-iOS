@@ -70,6 +70,21 @@
             </objects>
             <point key="canvasLocation" x="1845" y="-751"/>
         </scene>
+        <!--Family Member Details View Controller-->
+        <scene sceneID="TAz-Vy-G2x">
+            <objects>
+                <viewController storyboardIdentifier="familyMemberDetailsVC" id="7Bi-oy-KE3" customClass="FamilyMemberDetailsViewController" customModule="Medonapp_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tjt-h7-yeR">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="9Bw-ir-WmT"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5pf-LS-Wwr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2688" y="-751"/>
+        </scene>
         <!--Doctors Screen View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>

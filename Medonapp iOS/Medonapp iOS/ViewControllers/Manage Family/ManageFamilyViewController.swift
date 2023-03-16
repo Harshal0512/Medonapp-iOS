@@ -372,6 +372,13 @@ extension ManageFamilyViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let familyMember = (currentView == .activeView) ? userDetails.patient!.familyMembers![userDetails.patient!.familyMembersActiveCount.1[indexPath.row]] : userDetails.patient!.familyMembers![userDetails.patient!.familyRequestsPendingCountAsOrganizer.1[indexPath.row]]
+        
+        if familyMember.type != "ORGANIZER" && familyMember.requestStatus != "PENDING" {
+            let familyMemberDetailsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "familyMemberDetailsVC") as? FamilyMemberDetailsViewController
+            familyMemberDetailsVC?.member = familyMember
+            self.navigationController?.pushViewController(familyMemberDetailsVC!, animated: true)
+        }
         membersTable?.deselectRow(at: indexPath, animated: true)
     }
     

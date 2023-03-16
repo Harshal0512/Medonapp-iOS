@@ -45,6 +45,7 @@
 		F83CBC4828D87352005BA1B8 /* LoginSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83CBC4728D87352005BA1B8 /* LoginSignUpViewController.swift */; };
 		F83CBC4C28D88466005BA1B8 /* NunitoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F83CBC4A28D88466005BA1B8 /* NunitoSans-Bold.ttf */; };
 		F83CBC4D28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F83CBC4B28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf */; };
+		F83D6D0229C2E38F00ACB16A /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83D6D0129C2E38F00ACB16A /* PaddingLabel.swift */; };
 		F840513528FD139F0051B636 /* Doctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F840513428FD139F0051B636 /* Doctor.swift */; };
 		F84370092976927D00B0B0C9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84370082976927D00B0B0C9 /* Constants.swift */; };
 		F843700B2976977500B0B0C9 /* FileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843700A2976977500B0B0C9 /* FileModel.swift */; };
@@ -105,6 +106,7 @@
 		F8D5EB8E290FE3C200942AE6 /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D5EB8D290FE3C200942AE6 /* Lottie.framework */; };
 		F8D68DDE29B5841300B19A88 /* NormalNotifWithImageAndIconTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D68DDC29B5841300B19A88 /* NormalNotifWithImageAndIconTableViewCell.swift */; };
 		F8D68DDF29B5841300B19A88 /* NormalNotifWithImageAndIconTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8D68DDD29B5841300B19A88 /* NormalNotifWithImageAndIconTableViewCell.xib */; };
+		F8E97AC729C2355800949060 /* FamilyMemberDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E97AC629C2355800949060 /* FamilyMemberDetailsViewController.swift */; };
 		F8F3B482299A5CF50044AB1D /* Localize_Swift in Frameworks */ = {isa = PBXBuildFile; productRef = F8F3B481299A5CF50044AB1D /* Localize_Swift */; };
 		F8F3ED3D290967DF001D6A4C /* SignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3ED3C290967DF001D6A4C /* SignUpModel.swift */; };
 		F8F3ED3F2909685C001D6A4C /* NameExclMiddleName.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3ED3E2909685C001D6A4C /* NameExclMiddleName.swift */; };
@@ -163,6 +165,7 @@
 		F83CBC4728D87352005BA1B8 /* LoginSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignUpViewController.swift; sourceTree = "<group>"; };
 		F83CBC4A28D88466005BA1B8 /* NunitoSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-Bold.ttf"; sourceTree = "<group>"; };
 		F83CBC4B28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		F83D6D0129C2E38F00ACB16A /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		F840513428FD139F0051B636 /* Doctor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctor.swift; sourceTree = "<group>"; };
 		F84370082976927D00B0B0C9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F843700A2976977500B0B0C9 /* FileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileModel.swift; sourceTree = "<group>"; };
@@ -224,6 +227,7 @@
 		F8D5EB8D290FE3C200942AE6 /* Lottie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Lottie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8D68DDC29B5841300B19A88 /* NormalNotifWithImageAndIconTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalNotifWithImageAndIconTableViewCell.swift; sourceTree = "<group>"; };
 		F8D68DDD29B5841300B19A88 /* NormalNotifWithImageAndIconTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NormalNotifWithImageAndIconTableViewCell.xib; sourceTree = "<group>"; };
+		F8E97AC629C2355800949060 /* FamilyMemberDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberDetailsViewController.swift; sourceTree = "<group>"; };
 		F8F3ED3C290967DF001D6A4C /* SignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpModel.swift; sourceTree = "<group>"; };
 		F8F3ED3E2909685C001D6A4C /* NameExclMiddleName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameExclMiddleName.swift; sourceTree = "<group>"; };
 		F8F3ED40290968D1001D6A4C /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
@@ -357,6 +361,7 @@
 				F844C65628FF0DF100BBE5B0 /* Report Details Screen */,
 				F8D088FA291C2DAD00424977 /* LinksLabel.swift */,
 				F84B72AC29855513001E1737 /* Manage Family */,
+				F83D6D0129C2E38F00ACB16A /* PaddingLabel.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -513,6 +518,7 @@
 			children = (
 				F84B72AA2984F924001E1737 /* ManageFamilyViewController.swift */,
 				F867977C2994B01300051EF0 /* AddFamilyMemberViewController.swift */,
+				F8E97AC629C2355800949060 /* FamilyMemberDetailsViewController.swift */,
 			);
 			path = "Manage Family";
 			sourceTree = "<group>";
@@ -798,6 +804,7 @@
 				F8AF821D28F553CA00D62D98 /* DoctorDetailsViewViewController.swift in Sources */,
 				F883FC07290921F100B17D01 /* FullAddress.swift in Sources */,
 				F89272BC28F157520063525E /* TabForServices_VariableColor.swift in Sources */,
+				F8E97AC729C2355800949060 /* FamilyMemberDetailsViewController.swift in Sources */,
 				F8FB225C28F7CB7A003B9173 /* ContactDoctorViewController.swift in Sources */,
 				F8AF822128F5CB4900D62D98 /* DoctorDetailsScreenTopView.swift in Sources */,
 				F8C75A5D28E97EC100F5B2E2 /* UITextFieldWithPlaceholder_CR8.swift in Sources */,
@@ -816,6 +823,7 @@
 				F8B4377A29A86C1500A5FDA2 /* NotificationTabViewController.swift in Sources */,
 				F89F473029B07FF900F52AFA /* FamilyMember.swift in Sources */,
 				F8C75A6428EA016E00F5B2E2 /* UIButtonVariableBackgroundVariableCR.swift in Sources */,
+				F83D6D0229C2E38F00ACB16A /* PaddingLabel.swift in Sources */,
 				F81BAADD28F928BF0080BD21 /* BookAppointmentViewController.swift in Sources */,
 				F85D9C3828F33B6D008FBDE9 /* ReportTabViewController.swift in Sources */,
 				F8F3ED3F2909685C001D6A4C /* NameExclMiddleName.swift in Sources */,
