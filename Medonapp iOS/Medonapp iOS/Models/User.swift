@@ -88,4 +88,31 @@ class User: Codable {
             }
         }
     }
+    
+    static func removeFamilyMember(withID id: Int, completion: @escaping (Bool) -> Void) {
+        APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .removeFamilyMember((self.userDetails.patient?.id)!, id), method: .post, isJSONRequest: true).executeQuery() { (result: Result<Patient, Error>) in
+            
+            switch result{
+            case .success(_):
+                try? User.setPatientDetails(patient: result.get())
+                completion(true)
+            case .failure(let error):
+                print(error)
+                completion(false)
+            }
+        }
+    }
+    
+    static func leaveFamily(completion: @escaping (Bool) -> Void) {
+        APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .leaveFamily((self.userDetails.patient?.id)!), method: .post, isJSONRequest: true).executeQuery() { (result: Result<Patient, Error>) in
+            switch result{
+            case .success(_):
+                try? User.setPatientDetails(patient: result.get())
+                completion(true)
+            case .failure(let error):
+                print(error)
+                completion(false)
+            }
+        }
+    }
 }

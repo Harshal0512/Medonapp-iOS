@@ -20,6 +20,7 @@ class FamilyMemberDetailsViewController: UIViewController {
     private var emailLabel: PaddingLabel?
     private var emailInfoLabel: UILabel?
     private var familyReports: ReportCellWithIconAndDescription?
+    private var removeFromFamilyButton: PaddingLabel?
     
     public var member: FamilyMember?
     public var memberDetails: Patient?
@@ -91,7 +92,7 @@ class FamilyMemberDetailsViewController: UIViewController {
         emailLabel?.textAlignment = .left
         emailLabel?.font = UIFont(name: "NunitoSans-Bold", size: 15)
         contentView?.addSubview(emailLabel!)
-        emailLabel?.layer.cornerRadius = 12
+        emailLabel?.layer.cornerRadius = 14
         emailLabel?.layer.masksToBounds = true
         emailLabel?.backgroundColor = .white
         emailLabel?.paddingLeft = 15
@@ -114,6 +115,26 @@ class FamilyMemberDetailsViewController: UIViewController {
         let familyReportsTap = UITapGestureRecognizer(target: self, action: #selector(self.expandFamilyReports))
         familyReports?.addGestureRecognizer(familyReportsTap)
         familyReports?.isUserInteractionEnabled = true
+        
+        removeFromFamilyButton = PaddingLabel()
+        removeFromFamilyButton?.text = "Remove from Family"
+        removeFromFamilyButton?.textColor = UIColor(red: 0.97, green: 0.22, blue: 0.35, alpha: 1.00)
+        removeFromFamilyButton?.textAlignment = .left
+        removeFromFamilyButton?.font = UIFont(name: "NunitoSans-Bold", size: 15)
+        contentView?.addSubview(removeFromFamilyButton!)
+        let removeFromFamilyTap = UITapGestureRecognizer(target: self, action: #selector(self.removeFromFamily))
+        removeFromFamilyButton?.addGestureRecognizer(removeFromFamilyTap)
+        removeFromFamilyButton?.isUserInteractionEnabled = true
+        removeFromFamilyButton?.layer.cornerRadius = 14
+        removeFromFamilyButton?.layer.masksToBounds = true
+        removeFromFamilyButton?.backgroundColor = .white
+        removeFromFamilyButton?.paddingLeft = 15
+        removeFromFamilyButton?.paddingTop = 5
+        removeFromFamilyButton?.paddingRight = 15
+        removeFromFamilyButton?.paddingBottom = 5
+        
+        removeFromFamilyButton?.isHidden = !(User.getUserDetails().patient!.isFamilyOrganizer)
+        
     }
     
     func setConstraints() {
@@ -127,6 +148,7 @@ class FamilyMemberDetailsViewController: UIViewController {
         emailLabel?.translatesAutoresizingMaskIntoConstraints = false
         emailInfoLabel?.translatesAutoresizingMaskIntoConstraints = false
         familyReports?.translatesAutoresizingMaskIntoConstraints = false
+        removeFromFamilyButton?.translatesAutoresizingMaskIntoConstraints = false
         
         
         scrollView?.topAnchor.constraint(equalTo: backButton!.bottomAnchor, constant: 0).isActive = true
@@ -170,7 +192,7 @@ class FamilyMemberDetailsViewController: UIViewController {
         emailLabel?.centerXAnchor.constraint(equalTo: contentView!.centerXAnchor).isActive = true
         emailLabel?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 28).isActive = true
         emailLabel?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -28).isActive = true
-        emailLabel?.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        emailLabel?.heightAnchor.constraint(equalToConstant: 45).isActive = true
         
         emailInfoLabel?.topAnchor.constraint(equalTo: emailLabel!.bottomAnchor, constant: 5).isActive = true
         emailInfoLabel?.centerXAnchor.constraint(equalTo: contentView!.centerXAnchor).isActive = true
@@ -181,7 +203,13 @@ class FamilyMemberDetailsViewController: UIViewController {
         familyReports?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 27).isActive = true
         familyReports?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -27).isActive = true
         familyReports?.heightAnchor.constraint(equalToConstant: 93).isActive = true
-        familyReports?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -20).isActive = true
+        
+        removeFromFamilyButton?.topAnchor.constraint(equalTo: familyReports!.bottomAnchor, constant: 40).isActive = true
+        removeFromFamilyButton?.centerXAnchor.constraint(equalTo: contentView!.centerXAnchor).isActive = true
+        removeFromFamilyButton?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 28).isActive = true
+        removeFromFamilyButton?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -28).isActive = true
+        removeFromFamilyButton?.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        removeFromFamilyButton?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -20).isActive = true
     }
     
     @objc func refreshMemberDetails() {
@@ -196,6 +224,7 @@ class FamilyMemberDetailsViewController: UIViewController {
                 self.profileImageView?.setKFImage(imageUrl: self.memberDetails?.profileImage?.fileDownloadURI ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg", placeholderImage: UIImage(named: "userPlaceholder-male")!)
                 self.nameLabel?.text = self.memberDetails?.name?.fullName
                 self.familyReports?.setNumberOfFiles(self.memberDetails!.medicalFiles!.count)
+                self.removeFromFamilyButton?.text = "Remove \(self.memberDetails!.name!.firstName!) from Family"
             case .failure(let error):
                 print(error)
             }
@@ -211,6 +240,22 @@ class FamilyMemberDetailsViewController: UIViewController {
         reportDetailsVC?.familyMember = self.memberDetails
         reportDetailsVC?.reportsVariant = .family
         self.present(reportDetailsVC!, animated: true)
+    }
+    
+    @objc func removeFromFamily() {
+        Utils.displayYesREDNoAlertWithHandler("Do you want to remove \(memberDetails!.name!.firstName!) from your family?", viewController: self) { _ in
+            
+        } yesHandler: { _ in
+            User.removeFamilyMember(withID: self.memberDetails!.id!) { isSuccess in
+                if isSuccess {
+                    Utils.displaySPIndicatorNotifWithoutMessage(title: "Member removed from family", iconPreset: .done, hapticPreset: .success, duration: 3.0)
+                    self.navigationController?.popViewController(animated: true)
+                    NotificationCenter.default.post(name: Notification.Name("refreshDataFromLocal"), object: nil)
+                } else {
+                    Utils.displaySPIndicatorNotifWithoutMessage(title: "An error occured", iconPreset: .error, hapticPreset: .error, duration: 2.0)
+                }
+            }
+        }
     }
 
     @objc func handleBackAction(_ sender: UITapGestureRecognizer? = nil) {

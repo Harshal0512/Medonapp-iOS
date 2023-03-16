@@ -266,15 +266,11 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
         Utils.displayYesREDNoAlertWithHandler("Do you want to remove \(member.name!) from your family?", viewController: self) { _ in
             
         } yesHandler: { _ in
-            APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .removeFamilyMember((self.userDetails.patient?.id)!, member.id!), method: .post, isJSONRequest: true).executeQuery() { (result: Result<Patient, Error>) in
-                
-                switch result{
-                case .success(_):
-                    try? User.setPatientDetails(patient: result.get())
+            User.removeFamilyMember(withID: member.id!) { isSuccess in
+                if isSuccess {
                     self.refreshDataFromLocal()
                     Utils.displaySPIndicatorNotifWithoutMessage(title: "Member removed from family", iconPreset: .done, hapticPreset: .success, duration: 3.0)
-                case .failure(let error):
-                    print(error)
+                } else {
                     Utils.displaySPIndicatorNotifWithoutMessage(title: "An error occured", iconPreset: .error, hapticPreset: .error, duration: 2.0)
                 }
             }
@@ -285,14 +281,11 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
         Utils.displayYesREDNoAlertWithHandler("Are you sure you want to leave this family?", viewController: self) { _ in
             
         } yesHandler: { _ in
-            APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .leaveFamily((self.userDetails.patient?.id)!), method: .post, isJSONRequest: true).executeQuery() { (result: Result<Patient, Error>) in
-                switch result{
-                case .success(_):
-                    try? User.setPatientDetails(patient: result.get())
+            User.leaveFamily { isSuccess in
+                if isSuccess {
                     self.refreshDataFromLocal()
                     Utils.displaySPIndicatorNotifWithoutMessage(title: "Leave family successful", iconPreset: .done, hapticPreset: .success, duration: 3.0)
-                case .failure(let error):
-                    print(error)
+                } else {
                     Utils.displaySPIndicatorNotifWithoutMessage(title: "An error occured", iconPreset: .error, hapticPreset: .error, duration: 2.0)
                 }
             }
