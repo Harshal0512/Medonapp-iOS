@@ -80,6 +80,7 @@
 		F8A0E18629718F4C00B888B0 /* UIButtonCircularWithLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A0E18529718F4C00B888B0 /* UIButtonCircularWithLogo.swift */; };
 		F8A4F47828F14CE60032A87B /* SearchBarWithSearchAndFilterIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A4F47728F14CE60032A87B /* SearchBarWithSearchAndFilterIcon.swift */; };
 		F8AAB18229486EE500A5C9E7 /* DefaultResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AAB18129486EE500A5C9E7 /* DefaultResponseModel.swift */; };
+		F8AC6F1729C3876D00C91A3B /* UpdateUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AC6F1629C3876D00C91A3B /* UpdateUserModel.swift */; };
 		F8AF821D28F553CA00D62D98 /* DoctorDetailsViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AF821C28F553CA00D62D98 /* DoctorDetailsViewViewController.swift */; };
 		F8AF822128F5CB4900D62D98 /* DoctorDetailsScreenTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AF822028F5CB4900D62D98 /* DoctorDetailsScreenTopView.swift */; };
 		F8AF822328F5CB6300D62D98 /* DoctorDetailsScreenTopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8AF822228F5CB6300D62D98 /* DoctorDetailsScreenTopView.xib */; };
@@ -200,6 +201,7 @@
 		F8A0E18529718F4C00B888B0 /* UIButtonCircularWithLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonCircularWithLogo.swift; sourceTree = "<group>"; };
 		F8A4F47728F14CE60032A87B /* SearchBarWithSearchAndFilterIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarWithSearchAndFilterIcon.swift; sourceTree = "<group>"; };
 		F8AAB18129486EE500A5C9E7 /* DefaultResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultResponseModel.swift; sourceTree = "<group>"; };
+		F8AC6F1629C3876D00C91A3B /* UpdateUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserModel.swift; sourceTree = "<group>"; };
 		F8AF821C28F553CA00D62D98 /* DoctorDetailsViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDetailsViewViewController.swift; sourceTree = "<group>"; };
 		F8AF822028F5CB4900D62D98 /* DoctorDetailsScreenTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDetailsScreenTopView.swift; sourceTree = "<group>"; };
 		F8AF822228F5CB6300D62D98 /* DoctorDetailsScreenTopView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DoctorDetailsScreenTopView.xib; sourceTree = "<group>"; };
@@ -609,6 +611,7 @@
 				F8F3ED3E2909685C001D6A4C /* NameExclMiddleName.swift */,
 				F8F3ED40290968D1001D6A4C /* Address.swift */,
 				F8F3ED422909692B001D6A4C /* MobileNumberShort.swift */,
+				F8AC6F1629C3876D00C91A3B /* UpdateUserModel.swift */,
 			);
 			path = "Outbound Models";
 			sourceTree = "<group>";
@@ -840,6 +843,7 @@
 				F883FC0B2909225E00B17D01 /* NameInclMiddleName.swift in Sources */,
 				F840513528FD139F0051B636 /* Doctor.swift in Sources */,
 				F8BC4A4428F460D600440406 /* StoryboardUtils.swift in Sources */,
+				F8AC6F1729C3876D00C91A3B /* UpdateUserModel.swift in Sources */,
 				F84B72AF29855535001E1737 /* FamilyMemberCollectionViewCell.swift in Sources */,
 				F84B72AB2984F924001E1737 /* ManageFamilyViewController.swift in Sources */,
 				F8FB225E28F7D9C7003B9173 /* TabViewInContactScreen.swift in Sources */,

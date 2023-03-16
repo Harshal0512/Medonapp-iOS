@@ -27,6 +27,7 @@ class APIService : NSObject{
         case removeFamilyMember(Int, Int)
         case getNotificationsWithID(Int)
         case markNotificationAsRead(Int, Int)
+        case updateUserDetails(Int)
         
         var endpoint: String {
             switch self {
@@ -74,6 +75,8 @@ class APIService : NSObject{
                 return "v1/patient/\(patientID)/notifications"
             case .markNotificationAsRead(let patientID, let notificationID):
                 return "v1/patient/\(patientID)/notificationRead?notification=\(notificationID)"
+            case .updateUserDetails(let patientID):
+                return "v1/patient/\(patientID)/update"
             }
         }
     }

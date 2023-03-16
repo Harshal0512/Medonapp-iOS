@@ -8,6 +8,7 @@
 import UIKit
 import SwiftValidator
 import iOSDropDown
+import Toast_Swift
 
 class AccountSettingsViewController: UIViewController {
     
@@ -258,6 +259,7 @@ class AccountSettingsViewController: UIViewController {
         saveDetailsButton?.initButton(title: "Save Details", cornerRadius: 14, variant: .blueBack)
         contentView?.addSubview(saveDetailsButton!)
         saveDetailsButton?.addTarget(self, action: #selector(saveDetailsButtonPressed), for: .touchUpInside)
+        saveDetailsButton?.isDisabled = true
     }
     
     func setConstraints() {
@@ -447,7 +449,46 @@ class AccountSettingsViewController: UIViewController {
     }
     
     @objc func saveDetailsButtonPressed() {
-        
+        self.view.isUserInteractionEnabled = false
+        self.view.makeToastActivity(.center)
+        let dob = dobPicker!.date
+        // Convert model to JSON data
+        var day = Date.getDayFromDate(date: dob)
+        if Int(Date.getDayFromDate(date: dob))! < 10 {
+            day = "0" + day
+        }
+        var month = Date.getMonthFromDate(date: dob)
+        if Int(Date.getMonthFromDate(date: dob))! < 10 {
+            month = "0" + month
+        }
+        let model = UpdateUserModel(name:
+                                    NameExclMiddleName(firstName: firstNameField!.trim(),
+                                                       lastName: lastNameField!.trim()),
+                                address: Address(address: addressTextView!.trimmedWhitespaces(),
+                                                 state: stateField!.trim(),
+                                                 city: cityField!.trim(),
+                                                 postalCode: ""),
+                                gender: "male",
+                                mobile: MobileNumberShort(contactNumber: phoneNumberField!.trim(),
+                                                          countryCode: countryCodeLabel!.text!),
+                                dob: "\(Date.getYearFromDate(date: dob))-\(month)-\(day)",
+                                bloodGroup: bloodGroupDropdown!.text!,
+                                height: 0.0,
+                                weight: Double(weightField!.trim()) ?? 0.0)
+        APIService(data: try! model.toDictionary(), headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .updateUserDetails(userDetails.patient!.id!), method: .put, isJSONRequest: true).executeQuery() { (result: Result<Patient, Error>) in
+            switch result{
+            case .success(_):
+                try? User.setPatientDetails(patient: result.get())
+                self.initDetails()
+                self.dismiss(animated: true)
+                Utils.displaySPIndicatorNotifWithoutMessage(title: "Details Updated Successfully", iconPreset: .done, hapticPreset: .success, duration: 4)
+            case .failure(let error):
+                print(error)
+                Utils.displaySPIndicatorNotifWithMessage(title: "unknown_error".localized(), message: "error_has_occured".localized(), iconPreset: .error, hapticPreset: .error, duration: 6)
+            }
+            self.view.isUserInteractionEnabled = true
+            self.view.hideToastActivity()
+        }
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -518,12 +559,12 @@ extension AccountSettingsViewController : UITextFieldDelegate, ValidationDelegat
     
     func validationSuccessful() {
         self.isValidationError = false
-//        self.signupContinueButton?.isDisabled = false
+        self.saveDetailsButton?.isDisabled = false
     }
     
     func validationFailed(_ errors: [(SwiftValidator.Validatable, SwiftValidator.ValidationError)]) {
         isValidationError = true
-//        self.signupContinueButton?.isDisabled = true
+        self.saveDetailsButton?.isDisabled = true
         for (field, _) in errors {
             if let field = field as? UITextField {
                 field.layer.borderColor = UIColor.red.cgColor
