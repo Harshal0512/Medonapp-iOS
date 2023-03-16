@@ -113,7 +113,7 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
     
     func showHidePageElements() {
         if userDetails.patient!.familyMembers!.count > 0 {
-            if userDetails.patient!.familyRequestsPendingCountAsOrganizer.0 > 0 {
+            if userDetails.patient!.familyRequestsPendingCountAsOrganizer.0 > 0 && userDetails.patient!.isFamilyOrganizer {
                 segmentedControl?.segments[1].badgeCount = userDetails.patient!.familyRequestsPendingCountAsOrganizer.0
                 segmentedControl?.isHidden = false
             } else {
