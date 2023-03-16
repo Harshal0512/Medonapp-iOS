@@ -47,8 +47,6 @@ class AccountSettingsViewController: UIViewController {
     
     private var saveDetailsButton: UIButtonVariableBackgroundVariableCR?
     
-    private var deleteAccountButton: UIImageView?
-    
     var activeTextField : UITextField? = nil
     
     var isValidationError = true
@@ -260,14 +258,6 @@ class AccountSettingsViewController: UIViewController {
         saveDetailsButton?.initButton(title: "Save Details", cornerRadius: 14, variant: .blueBack)
         contentView?.addSubview(saveDetailsButton!)
         saveDetailsButton?.addTarget(self, action: #selector(saveDetailsButtonPressed), for: .touchUpInside)
-        
-        deleteAccountButton = UIImageView()
-        deleteAccountButton?.image = UIImage(named: "deleteAccountPng")!
-        deleteAccountButton?.contentMode = .scaleAspectFit
-        contentView?.addSubview(deleteAccountButton!)
-        let deleteAccountTap = UITapGestureRecognizer(target: self, action: #selector(self.handleDeleteAccountAction(_:)))
-        deleteAccountButton?.addGestureRecognizer(deleteAccountTap)
-        deleteAccountButton?.isUserInteractionEnabled = true
     }
     
     func setConstraints() {
@@ -301,7 +291,6 @@ class AccountSettingsViewController: UIViewController {
         cityField?.translatesAutoresizingMaskIntoConstraints = false
         
         saveDetailsButton?.translatesAutoresizingMaskIntoConstraints = false
-        deleteAccountButton?.translatesAutoresizingMaskIntoConstraints = false
         
         
         scrollView?.topAnchor.constraint(equalTo: backButton!.bottomAnchor, constant: 0).isActive = true
@@ -432,11 +421,7 @@ class AccountSettingsViewController: UIViewController {
         saveDetailsButton?.leadingAnchor.constraint(equalTo: firstNameField!.leadingAnchor).isActive = true
         saveDetailsButton?.trailingAnchor.constraint(equalTo: firstNameField!.trailingAnchor).isActive = true
         saveDetailsButton?.heightAnchor.constraint(equalToConstant: 56).isActive = true
-        
-        deleteAccountButton?.topAnchor.constraint(equalTo: saveDetailsButton!.bottomAnchor, constant: 40).isActive = true
-        deleteAccountButton?.centerXAnchor.constraint(equalTo: contentView!.centerXAnchor).isActive = true
-        deleteAccountButton?.heightAnchor.constraint(equalToConstant: 28).isActive = true
-        deleteAccountButton?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -40).isActive = true
+        saveDetailsButton?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -40).isActive = true
     }
     
     func initDetails() {
@@ -462,15 +447,7 @@ class AccountSettingsViewController: UIViewController {
     }
     
     @objc func saveDetailsButtonPressed() {
-    }
-    
-    @objc func handleDeleteAccountAction(_ sender: UITapGestureRecognizer? = nil) {
-        Utils.displayYesREDNoAlertWithHandler("Are you sure you want to delete your Medonapp Account? \n This action cannot be undone.", viewController: self, style: .actionSheet) { _ in
-            
-        } yesHandler: { _ in
-            
-        }
-
+        
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
