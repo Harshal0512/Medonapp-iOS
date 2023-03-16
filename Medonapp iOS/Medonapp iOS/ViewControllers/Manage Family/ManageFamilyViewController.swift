@@ -170,6 +170,7 @@ class ManageFamilyViewController: UIViewController, UICollectionViewDelegateFlow
         view.addSubview(addMemberButton!)
         addMemberButton?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleAddMemberTapAction(_:))))
         addMemberButton?.isUserInteractionEnabled = true
+        addMemberButton?.isHidden = !(userDetails.patient!.isFamilyOrganizer || userDetails.patient!.familyMembers!.isEmpty)
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
