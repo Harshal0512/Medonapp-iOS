@@ -19,6 +19,7 @@ class FamilyMemberDetailsViewController: UIViewController {
     private var ageAttributeLabel: UILabel?
     private var emailLabel: PaddingLabel?
     private var emailInfoLabel: UILabel?
+    private var familyReports: ReportCellWithIconAndDescription?
     
     public var member: FamilyMember?
     public var memberDetails: Patient?
@@ -34,6 +35,7 @@ class FamilyMemberDetailsViewController: UIViewController {
     }
     
     func initialise() {
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshMemberDetails), name: Notification.Name("refreshMemberDetails"), object: nil)
     }
     
     func setupUI() {
@@ -105,6 +107,13 @@ class FamilyMemberDetailsViewController: UIViewController {
         emailInfoLabel?.textAlignment = .justified
         emailInfoLabel?.font = UIFont(name: "NunitoSans-SemiBold", size: 12)
         contentView?.addSubview(emailInfoLabel!)
+        
+        familyReports = ReportCellWithIconAndDescription.instantiate(viewBackgroundColor: .clear, icon: UIImage(named: "documentIcon")!.withTintColor(UIColor(red: 0.00, green: 0.54, blue: 0.37, alpha: 1.00)), iconBackgroundColor: UIColor(red: 0.84, green: 1.00, blue: 0.95, alpha: 1.00), title: "Medical Reports", numberOfFiles: 0)
+        contentView?.addSubview(familyReports!)
+        familyReports?.layer.cornerRadius = 28
+        let familyReportsTap = UITapGestureRecognizer(target: self, action: #selector(self.expandFamilyReports))
+        familyReports?.addGestureRecognizer(familyReportsTap)
+        familyReports?.isUserInteractionEnabled = true
     }
     
     func setConstraints() {
@@ -117,6 +126,7 @@ class FamilyMemberDetailsViewController: UIViewController {
         ageAttributeLabel?.translatesAutoresizingMaskIntoConstraints = false
         emailLabel?.translatesAutoresizingMaskIntoConstraints = false
         emailInfoLabel?.translatesAutoresizingMaskIntoConstraints = false
+        familyReports?.translatesAutoresizingMaskIntoConstraints = false
         
         
         scrollView?.topAnchor.constraint(equalTo: backButton!.bottomAnchor, constant: 0).isActive = true
@@ -166,9 +176,15 @@ class FamilyMemberDetailsViewController: UIViewController {
         emailInfoLabel?.centerXAnchor.constraint(equalTo: contentView!.centerXAnchor).isActive = true
         emailInfoLabel?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 37).isActive = true
         emailInfoLabel?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -37).isActive = true
+        
+        familyReports?.topAnchor.constraint(equalTo: emailInfoLabel!.bottomAnchor, constant: 40).isActive = true
+        familyReports?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 27).isActive = true
+        familyReports?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -27).isActive = true
+        familyReports?.heightAnchor.constraint(equalToConstant: 93).isActive = true
+        familyReports?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -20).isActive = true
     }
     
-    func refreshMemberDetails() {
+    @objc func refreshMemberDetails() {
         APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .getPatientWithID((member?.id)!), method: .get, isJSONRequest: false).executeQuery() { (result: Result<Patient, Error>) in
             
             self.view.isUserInteractionEnabled = false
@@ -179,6 +195,7 @@ class FamilyMemberDetailsViewController: UIViewController {
                 self.emailLabel?.text = self.memberDetails?.credential?.email
                 self.profileImageView?.setKFImage(imageUrl: self.memberDetails?.profileImage?.fileDownloadURI ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg", placeholderImage: UIImage(named: "userPlaceholder-male")!)
                 self.nameLabel?.text = self.memberDetails?.name?.fullName
+                self.familyReports?.setNumberOfFiles(self.memberDetails!.medicalFiles!.count)
             case .failure(let error):
                 print(error)
             }
@@ -186,6 +203,14 @@ class FamilyMemberDetailsViewController: UIViewController {
             self.view.isUserInteractionEnabled = true
             self.view.hideToastActivity()
         }
+    }
+    
+    @objc func expandFamilyReports() {
+        let reportDetailsVC = UIStoryboard.init(name: "ReportTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "reportDetails") as? ReportDetailsViewController
+        reportDetailsVC?.modalPresentationStyle = .fullScreen
+        reportDetailsVC?.familyMember = self.memberDetails
+        reportDetailsVC?.reportsVariant = .family
+        self.present(reportDetailsVC!, animated: true)
     }
 
     @objc func handleBackAction(_ sender: UITapGestureRecognizer? = nil) {

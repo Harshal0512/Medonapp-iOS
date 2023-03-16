@@ -29,6 +29,9 @@ class ReportDetailsViewController: UIViewController {
     
     var reportsVariant: reportVariant = .user
     
+    //family member variable in case family reports
+    public var familyMember: Patient?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,6 +82,8 @@ class ReportDetailsViewController: UIViewController {
         addReportsButton?.initButton(buttonIcon: UIImage(systemName: "plus")!, dimensions: 75, variant: reportsVariant == .user ? .blueBack : .greenBack)
         addReportsButton?.addTarget(self, action: #selector(addReportAction(_ :)), for: .touchUpInside)
         view.addSubview(addReportsButton!)
+//        addReportsButton?.isHidden = reportsVariant == .user ? false : true
+        
         
         closeButton.setTitle("close", for: .normal)
         closeButton.setTitleColor(.white, for: .normal)
@@ -124,7 +129,7 @@ class ReportDetailsViewController: UIViewController {
         addReportsButton?.heightAnchor.constraint(equalToConstant: 75).isActive = true
     }
     
-    func refreshData() {
+    func refreshUserReportsData() {
         view.isUserInteractionEnabled = false
         //        self.view.makeToastActivity(.center)
         
@@ -146,7 +151,7 @@ class ReportDetailsViewController: UIViewController {
     }
     
     func setupFamilyReportsUIWithConstraints() {
-        reportsTopView = ReportCellWithIconAndDescription.instantiate(viewBackgroundColor: .white, icon: UIImage(named: "documentIcon")!.withTintColor(UIColor(red: 0.00, green: 0.54, blue: 0.37, alpha: 1.00)), iconBackgroundColor: UIColor(red: 0.84, green: 1.00, blue: 0.95, alpha: 1.00), title: "Family Reports", numberOfFiles: 8, showOutline: false, showMoreIcon: false)
+        reportsTopView = ReportCellWithIconAndDescription.instantiate(viewBackgroundColor: .white, icon: UIImage(named: "documentIcon")!.withTintColor(UIColor(red: 0.00, green: 0.54, blue: 0.37, alpha: 1.00)), iconBackgroundColor: UIColor(red: 0.84, green: 1.00, blue: 0.95, alpha: 1.00), title: "Member Reports", numberOfFiles: (familyMember?.medicalFiles?.count)!, showOutline: false, showMoreIcon: false)
         view.addSubview(reportsTopView!)
         
         //future additions
@@ -179,7 +184,7 @@ class ReportDetailsViewController: UIViewController {
 extension ReportDetailsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (User.getUserDetails().patient?.medicalFiles?.count)!
+        return reportsVariant == .user ? (User.getUserDetails().patient?.medicalFiles?.count)! : (familyMember?.medicalFiles?.count)!
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -191,10 +196,10 @@ extension ReportDetailsViewController: UITableViewDelegate, UITableViewDataSourc
         if reportsVariant == .user {
             let fileExists: (Bool, URL?) = (User.getUserDetails().patient?.medicalFiles![indexPath.row].checkIfFileAlreadyExists())!
             cell.configure(icon: UIImage(named: "documentIcon")!, medicalFile: (User.getUserDetails().patient?.medicalFiles?[indexPath.row])!, reportCellVariant: .user, isDownloaded: fileExists.0)
+        } else if reportsVariant == .family {
+            let fileExists: (Bool, URL?) = (familyMember?.medicalFiles![indexPath.row].checkIfFileAlreadyExists())!
+            cell.configure(icon: UIImage(named: "documentIcon")!, medicalFile: (familyMember?.medicalFiles?[indexPath.row])!, reportCellVariant: .family, isDownloaded: fileExists.0)
         }
-        //        else if reportsVariant == .family {
-        //            cell.configure(icon: UIImage(named: "documentIcon")!, medicalFile: "X-Ray Report", reportCellVariant: .family, isDownloaded: false)
-        //        }
         
         cell.delegate = self
         
@@ -205,10 +210,11 @@ extension ReportDetailsViewController: UITableViewDelegate, UITableViewDataSourc
         reportsHistoryTable?.scrollToRow(at: indexPath, at: .middle, animated: true)
         reportsHistoryTable?.deselectRow(at: indexPath, animated: true)
         
-        let fileExists: (Bool, URL?) = (User.getUserDetails().patient?.medicalFiles![indexPath.row])!.checkIfFileAlreadyExists()
+        let fileExists: (Bool, URL?) = (reportsVariant == .user ? (User.getUserDetails().patient?.medicalFiles![indexPath.row])! : (familyMember?.medicalFiles![indexPath.row])!)
+            .checkIfFileAlreadyExists()
         
         if fileExists.0 {
-            viewDownloadedFile(file: (User.getUserDetails().patient?.medicalFiles![indexPath.row])!)
+            viewDownloadedFile(file: (reportsVariant == .user ? (User.getUserDetails().patient?.medicalFiles![indexPath.row])! : (familyMember?.medicalFiles![indexPath.row])!))
         } else {
             (reportsHistoryTable?.cellForRow(at: indexPath) as! ReportTableViewCell).download()
         }
@@ -326,11 +332,17 @@ extension ReportDetailsViewController: UIDocumentPickerDelegate {
                     
                     self.present(uploadStatusAlert, animated: true)
                     
-                    APIService.uploadFile(file: fileData, fileName: selectedFileData["filename"] ?? "", params: [:], progressAlert: progressBar) { isSuccess in
+                    APIService.uploadMedicalFile(file: fileData, fileName: selectedFileData["filename"] ?? "", params: [:], progressAlert: progressBar, patientID: (self.reportsVariant == .user ? (User.getUserDetails().patient?.id)! : (self.familyMember?.id)!)) { isSuccess in
                         uploadStatusAlert.dismiss(animated: true) {
                             if isSuccess {
-                                Utils.displayAlert("Success", "File uploaded successfully.", viewController: self)
-                                self.refreshData()
+                                Utils.displayAlertWithHandler("Success", "File uploaded successfully.", viewController: self) { _ in
+                                    if self.reportsVariant == .family {
+                                        self.dismiss(animated: true) {
+                                            NotificationCenter.default.post(name: Notification.Name("refreshMemberDetails"), object: nil)
+                                        }
+                                    }
+                                }
+                                self.refreshUserReportsData()
                             } else {
                                 Utils.displayAlert("Error", "File could not be uploaded, please try again later.", viewController: self)
                             }

@@ -128,7 +128,7 @@ class APIService : NSObject{
         })
     }
     
-    static func uploadFile(file: Data, fileName: String, params: [String: Any], progressAlert: CircularProgressBar?, completion: @escaping (Bool) -> Void) {
+    static func uploadMedicalFile(file: Data, fileName: String, params: [String: Any], progressAlert: CircularProgressBar?, patientID: Int, completion: @escaping (Bool) -> Void) {
         let headers: HTTPHeaders = [
             "Content-type": "multipart/form-data",
             "Accept": "application/json",
@@ -158,7 +158,7 @@ class APIService : NSObject{
                 }
                 multipartFormData.append(file, withName: "file", fileName: fileName, mimeType: "patientMedicalFile")
             },
-            to: "\(Constants.BASE_URI)v1/patient/\((User.getUserDetails().patient?.id!)!)/upload",
+            to: "\(Constants.BASE_URI)v1/patient/\(patientID)/upload",
             method: .post,
             headers: headers)
         .uploadProgress(queue: .main, closure: { progress in

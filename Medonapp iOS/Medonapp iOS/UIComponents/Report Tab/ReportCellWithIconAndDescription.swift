@@ -9,12 +9,12 @@ import UIKit
 
 class ReportCellWithIconAndDescription: UIView {
    
-    @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var iconView: UIView!
-    @IBOutlet weak var iconLabel: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var numberOfFilesLabel: UILabel!
-    @IBOutlet weak var moreIcon: UIImageView!
+    @IBOutlet weak private var containerView: UIView!
+    @IBOutlet weak private var iconView: UIView!
+    @IBOutlet weak private var iconLabel: UIImageView!
+    @IBOutlet weak private var titleLabel: UILabel!
+    @IBOutlet weak private var numberOfFilesLabel: UILabel!
+    @IBOutlet weak private var moreIcon: UIImageView!
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -42,6 +42,10 @@ class ReportCellWithIconAndDescription: UIView {
         
         view.moreIcon.alpha = showMoreIcon ? 1 : 0
         return view
+    }
+    
+    func setNumberOfFiles(_ files: Int) {
+        self.numberOfFilesLabel.text = "\(files) files"
     }
     
 }
