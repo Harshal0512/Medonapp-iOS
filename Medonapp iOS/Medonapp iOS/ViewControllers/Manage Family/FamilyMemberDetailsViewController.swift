@@ -101,7 +101,7 @@ class FamilyMemberDetailsViewController: UIViewController {
         emailLabel?.paddingBottom = 5
         
         emailInfoLabel = UILabel()
-        emailInfoLabel?.text = "This is the email ID Shreeya uses for family and for sharing details, documents and medical reports with other members."
+        emailInfoLabel?.text = ""
         emailInfoLabel?.numberOfLines = 0
         emailInfoLabel?.textColor = .black
         emailInfoLabel?.alpha = 0.6
@@ -221,6 +221,7 @@ class FamilyMemberDetailsViewController: UIViewController {
             case .success(_):
                 try? self.memberDetails = result.get()
                 self.emailLabel?.text = self.memberDetails?.credential?.email
+                self.emailInfoLabel?.text = "This is the email ID \(self.memberDetails!.name!.firstName!) uses for family and for sharing details, documents and medical reports with other members."
                 self.profileImageView?.setKFImage(imageUrl: self.memberDetails?.profileImage?.fileDownloadURI ?? "https://i.ibb.co/jHvKxC3/broken-1.jpg", placeholderImage: UIImage(named: "userPlaceholder-male")!)
                 self.nameLabel?.text = self.memberDetails?.name?.fullName
                 self.familyReports?.setNumberOfFiles(self.memberDetails!.medicalFiles!.count)
