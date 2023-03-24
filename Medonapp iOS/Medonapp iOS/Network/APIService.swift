@@ -48,17 +48,17 @@ class APIService : NSObject{
             case .postReview:
                 return "v1/review/add"
             case .getAppointmentsWithPatientID(let patientID):
-                return "v1/patient/\(patientID)/Appointments"
+                return "v1/patient/\(patientID)/appointments"
             case .addFavorite(let patientID):
                 return "v1/patient/\(patientID)/addFavouriteDoctor"
             case .removeFavorite(let patientID):
                 return "v1/patient/\(patientID)/removeFavouriteDoctor"
             case .deleteReview(let reviewID):
-                return "v1/review/\(reviewID)/delete"
+                return "v1/review/\(reviewID)"
             case .editFeedback(let reviewID):
-                return "v1/review/\(reviewID)/update"
+                return "v1/review/\(reviewID)"
             case .editAppointment(let appointmentID):
-                return "v1/appointment/\(appointmentID)/update"
+                return "v1/appointment/\(appointmentID)"
             case .cancelAppointment(let appointmentID):
                 return "v1/appointment/\(appointmentID)/cancel"
             case .addFamilyMember(let organiserID):
@@ -76,7 +76,7 @@ class APIService : NSObject{
             case .markNotificationAsRead(let patientID, let notificationID):
                 return "v1/patient/\(patientID)/notificationRead?notification=\(notificationID)"
             case .updateUserDetails(let patientID):
-                return "v1/patient/\(patientID)/update"
+                return "v1/patient/\(patientID)"
             }
         }
     }
