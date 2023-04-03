@@ -21,7 +21,6 @@ class FilterHalfScreenVC: UIViewController {
     private var sortCollectionView: UICollectionView?
     private var applyFilterButton: UIButtonVariableBackgroundVariableCR?
     
-//    var multiSelectActiveItem: Set<Int> = []
     var activeItem: Int = -1
     var animateIndex: Int = -1
     
@@ -157,8 +156,6 @@ extension FilterHalfScreenVC: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SortOptionCollectionViewCell.identifier, for: indexPath) as! SortOptionCollectionViewCell
         
-        
-//        cell.configure(type: SortType.allCases[indexPath.row], isActive: (multiSelectActiveItem.contains(indexPath.row)), animateActive: indexPath.row == animateIndex)
         cell.configure(type: SortType.allCases[indexPath.row], isActive: activeItem == indexPath.row, animateActive: indexPath.row == animateIndex)
         
         return cell
@@ -181,14 +178,5 @@ extension FilterHalfScreenVC: UICollectionViewDelegate, UICollectionViewDataSour
             activeItem = indexPath.row
             collectionView.reloadData()
         }
-//        else if multiSelectActiveItem.contains(indexPath.row) {
-//            animateIndex = -1
-//            self.multiSelectActiveItem.remove(indexPath.row)
-//            collectionView.reloadData()
-//        } else {
-//            animateIndex = indexPath.row
-//            self.multiSelectActiveItem.insert(animateIndex)
-//            collectionView.reloadData()
-//        }
     }
 }
