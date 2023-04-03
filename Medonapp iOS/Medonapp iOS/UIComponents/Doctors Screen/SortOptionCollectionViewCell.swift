@@ -25,15 +25,13 @@ class SortOptionCollectionViewCell: UICollectionViewCell {
     @IBOutlet var titleLabel: UILabel?
     
     public var sortType: SortType?
-    public var isNotAvailable = false
     
-    public func configure(type: SortType, isActive: Bool, animateActive: Bool) {
+    public func configure(type: SortType, isActive: Bool, animateActive: Bool, isNotAvailable: Bool = false) {
         self.sortType = type
         
         switch type {
         case .distance:
             titleLabel?.text = "Distance"
-            isNotAvailable = !Prefs.isLocationPerm
         case .cost:
             titleLabel?.text = "Cost"
         case .rating:
@@ -43,7 +41,7 @@ class SortOptionCollectionViewCell: UICollectionViewCell {
         cellContentView?.layer.borderWidth = 1
         
         
-        if isNotAvailable {
+        if isNotAvailable || (!Prefs.isLocationPerm && type == .distance) {
             cellContentView?.backgroundColor = .white.withAlphaComponent(0.2)
             cellContentView?.alpha = 0.4
         } else {

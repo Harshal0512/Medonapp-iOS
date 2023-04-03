@@ -185,7 +185,7 @@ extension FilterHalfScreenVC: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if (collectionView.cellForItem(at: indexPath) as! SortOptionCollectionViewCell).isNotAvailable && (collectionView.cellForItem(at: indexPath) as! SortOptionCollectionViewCell).sortType == .distance {
+        if !Prefs.isLocationPerm && (collectionView.cellForItem(at: indexPath) as! SortOptionCollectionViewCell).sortType == .distance {
             Utils.displaySPIndicatorNotifWithoutMessage(title: "Location permission needed for this feature.", iconPreset: .error, hapticPreset: .error, duration: 3)
         }
         else if activeItem == indexPath.row {
