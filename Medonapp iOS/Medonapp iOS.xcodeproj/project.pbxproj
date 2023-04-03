@@ -56,6 +56,8 @@
 		F844C65D28FFCF0500BBE5B0 /* BookedAppointmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F844C65C28FFCF0500BBE5B0 /* BookedAppointmentsViewController.swift */; };
 		F844C66028FFDD3E00BBE5B0 /* MonthViewBookedAppointments.swift in Sources */ = {isa = PBXBuildFile; fileRef = F844C65F28FFDD3E00BBE5B0 /* MonthViewBookedAppointments.swift */; };
 		F844C66228FFDD6700BBE5B0 /* MonthViewBookedAppointments.xib in Resources */ = {isa = PBXBuildFile; fileRef = F844C66128FFDD6700BBE5B0 /* MonthViewBookedAppointments.xib */; };
+		F847671C29D8015F00B50B8A /* SortOptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F847671A29D8015F00B50B8A /* SortOptionCollectionViewCell.swift */; };
+		F847671D29D8015F00B50B8A /* SortOptionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F847671B29D8015F00B50B8A /* SortOptionCollectionViewCell.xib */; };
 		F84B72AB2984F924001E1737 /* ManageFamilyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84B72AA2984F924001E1737 /* ManageFamilyViewController.swift */; };
 		F84B72AF29855535001E1737 /* FamilyMemberCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84B72AD29855535001E1737 /* FamilyMemberCollectionViewCell.swift */; };
 		F84B72B029855535001E1737 /* FamilyMemberCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F84B72AE29855535001E1737 /* FamilyMemberCollectionViewCell.xib */; };
@@ -177,6 +179,8 @@
 		F844C65C28FFCF0500BBE5B0 /* BookedAppointmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookedAppointmentsViewController.swift; sourceTree = "<group>"; };
 		F844C65F28FFDD3E00BBE5B0 /* MonthViewBookedAppointments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthViewBookedAppointments.swift; sourceTree = "<group>"; };
 		F844C66128FFDD6700BBE5B0 /* MonthViewBookedAppointments.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MonthViewBookedAppointments.xib; sourceTree = "<group>"; };
+		F847671A29D8015F00B50B8A /* SortOptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOptionCollectionViewCell.swift; sourceTree = "<group>"; };
+		F847671B29D8015F00B50B8A /* SortOptionCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SortOptionCollectionViewCell.xib; sourceTree = "<group>"; };
 		F84B72AA2984F924001E1737 /* ManageFamilyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageFamilyViewController.swift; sourceTree = "<group>"; };
 		F84B72AD29855535001E1737 /* FamilyMemberCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberCollectionViewCell.swift; sourceTree = "<group>"; };
 		F84B72AE29855535001E1737 /* FamilyMemberCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FamilyMemberCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -543,6 +547,8 @@
 				F82AA0F028F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.xib */,
 				F82AA0F428F490B100C7CE7F /* DoctorInfoTableViewCell.swift */,
 				F82AA0F528F490B100C7CE7F /* DoctorInfoTableViewCell.xib */,
+				F847671A29D8015F00B50B8A /* SortOptionCollectionViewCell.swift */,
+				F847671B29D8015F00B50B8A /* SortOptionCollectionViewCell.xib */,
 			);
 			path = "Doctors Screen";
 			sourceTree = "<group>";
@@ -703,6 +709,7 @@
 				F8131B1D28D5A0A000B7558D /* Assets.xcassets in Resources */,
 				F8D68DDF29B5841300B19A88 /* NormalNotifWithImageAndIconTableViewCell.xib in Resources */,
 				F844C65528FEB27000BBE5B0 /* ReportTab.storyboard in Resources */,
+				F847671D29D8015F00B50B8A /* SortOptionCollectionViewCell.xib in Resources */,
 				F8310928299B484E001FC51B /* Localizable.strings in Resources */,
 				F80C19892900F75500891800 /* BookedAppointmentsTableViewCell.xib in Resources */,
 				F82AA0F228F4732400C7CE7F /* DoctorsScreenCarouselCollectionViewCell.xib in Resources */,
@@ -799,6 +806,7 @@
 				F859AB3428EC2FA20069D247 /* UITextViewWithPlaceholder_CR8.swift in Sources */,
 				F81BAAEA28F97E6B0080BD21 /* AppointmentStatusViewController.swift in Sources */,
 				F8F4C3E12919750F00EF17EA /* Popover Utils.swift in Sources */,
+				F847671C29D8015F00B50B8A /* SortOptionCollectionViewCell.swift in Sources */,
 				F80C19882900F75500891800 /* BookedAppointmentsTableViewCell.swift in Sources */,
 				F8C4398929102FEB0091FBE3 /* SplashScreenViewController.swift in Sources */,
 				F8B96C2628F5D557009E5198 /* GreyViewDoctorDetails.swift in Sources */,

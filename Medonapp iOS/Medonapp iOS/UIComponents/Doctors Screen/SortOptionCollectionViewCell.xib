@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="NunitoSans-Bold.ttf">
+            <string>NunitoSans-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="SortOptionCollectionViewCell" customModule="Medonapp_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="120" height="42"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="120" height="42"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BDA-6V-MNs">
+                        <rect key="frame" x="0.0" y="0.0" width="120" height="42"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TITLE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Lb-Cv-rUR">
+                                <rect key="frame" x="7" y="7" width="106" height="28"/>
+                                <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="14"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="4Lb-Cv-rUR" firstAttribute="leading" secondItem="BDA-6V-MNs" secondAttribute="leading" constant="7" id="1CB-4j-4K5"/>
+                            <constraint firstAttribute="bottom" secondItem="4Lb-Cv-rUR" secondAttribute="bottom" constant="7" id="7O9-lg-Pd4"/>
+                            <constraint firstAttribute="trailing" secondItem="4Lb-Cv-rUR" secondAttribute="trailing" constant="7" id="Vv3-Mk-AcH"/>
+                            <constraint firstItem="4Lb-Cv-rUR" firstAttribute="top" secondItem="BDA-6V-MNs" secondAttribute="top" constant="7" id="kt6-eS-bfd"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="BDA-6V-MNs" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="dAp-X9-3QE"/>
+                <constraint firstAttribute="bottom" secondItem="BDA-6V-MNs" secondAttribute="bottom" id="eHG-a6-13J"/>
+                <constraint firstAttribute="trailing" secondItem="BDA-6V-MNs" secondAttribute="trailing" id="pv0-ef-lsM"/>
+                <constraint firstItem="BDA-6V-MNs" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="tPM-14-LXS"/>
+            </constraints>
+            <connections>
+                <outlet property="cellContentView" destination="BDA-6V-MNs" id="Ihq-LG-JSt"/>
+                <outlet property="titleLabel" destination="4Lb-Cv-rUR" id="qEb-vO-HtT"/>
+            </connections>
+            <point key="canvasLocation" x="129.7709923664122" y="-11.267605633802818"/>
+        </collectionViewCell>
+    </objects>
+</document>
