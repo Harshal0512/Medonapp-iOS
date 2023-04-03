@@ -73,7 +73,7 @@ class FilterHalfScreenVC: UIViewController {
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: 120, height: 42)
+        layout.itemSize = CGSize(width: 110, height: 42)
         layout.minimumInteritemSpacing = 0
         //        layout.scrollDirection = .horizontal
         
@@ -121,7 +121,7 @@ class FilterHalfScreenVC: UIViewController {
         sortCollectionView?.topAnchor.constraint(equalTo: sortSelectView!.topAnchor, constant: 20).isActive = true
         sortCollectionView?.leadingAnchor.constraint(equalTo: sortSelectView!.leadingAnchor, constant: 30).isActive = true
         sortCollectionView?.trailingAnchor.constraint(equalTo: sortSelectView!.trailingAnchor, constant: -30).isActive = true
-        sortCollectionView?.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        sortCollectionView?.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
         applyFilterButton?.topAnchor.constraint(equalTo: sortCollectionView!.bottomAnchor, constant: 20).isActive = true
         applyFilterButton?.leadingAnchor.constraint(equalTo: sortSelectView!.leadingAnchor, constant: 20).isActive = true
@@ -166,12 +166,12 @@ extension FilterHalfScreenVC: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: 120, height: 42)
+        return CGSize(width: 110, height: 42)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if (collectionView.cellForItem(at: indexPath) as! SortOptionCollectionViewCell).isNotAvailable && (collectionView.cellForItem(at: indexPath) as! SortOptionCollectionViewCell).sortType == .distance {
-            Utils.displaySPIndicatorNotifWithoutMessage(title: "You have to give location permission for using this feature.", iconPreset: .error, hapticPreset: .error, duration: 1)
+            Utils.displaySPIndicatorNotifWithoutMessage(title: "Location permission needed for this feature.", iconPreset: .error, hapticPreset: .error, duration: 3)
         } else if activeItem == indexPath.row {
             animateIndex = -1
             activeItem = -1
