@@ -189,6 +189,13 @@ class DoctorsScreenViewController: UIViewController {
         let sheetViewController = FilterHalfScreenVC()
         sheetViewController.delegate = self
         
+        for i in 0..<SortType.allCases.count {
+            if SortType.allCases[i] == self.sortType {
+                sheetViewController.selectedSortValue = i
+                break
+            }
+        }
+        
         // Present it w/o any adjustments so it uses the default sheet presentation.
         present(sheetViewController, animated: true)
     }

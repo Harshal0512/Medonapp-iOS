@@ -21,6 +21,8 @@ class FilterHalfScreenVC: UIViewController {
     private var sortCollectionView: UICollectionView?
     private var applyFilterButton: UIButtonVariableBackgroundVariableCR?
     
+    public var selectedSortValue: Int?
+    
     var activeItem: Int = -1
     var animateIndex: Int = -1
     
@@ -28,6 +30,8 @@ class FilterHalfScreenVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.isUserInteractionEnabled = false
         
         if let presentationController = presentationController as? UISheetPresentationController {
             presentationController.detents = [
@@ -45,6 +49,20 @@ class FilterHalfScreenVC: UIViewController {
         sortCollectionView?.register(SortOptionCollectionViewCell.nib(), forCellWithReuseIdentifier: SortOptionCollectionViewCell.identifier)
         sortCollectionView?.delegate = self
         sortCollectionView?.dataSource = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        view.isUserInteractionEnabled = true
+        
+        guard let selectedVal = selectedSortValue else {
+            return
+        }
+        activeItem = selectedVal
+        animateIndex = selectedVal
+        sortCollectionView?.reloadData()
+        //do not write any code below this line
     }
     
     func initialise() {
@@ -169,11 +187,14 @@ extension FilterHalfScreenVC: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if (collectionView.cellForItem(at: indexPath) as! SortOptionCollectionViewCell).isNotAvailable && (collectionView.cellForItem(at: indexPath) as! SortOptionCollectionViewCell).sortType == .distance {
             Utils.displaySPIndicatorNotifWithoutMessage(title: "Location permission needed for this feature.", iconPreset: .error, hapticPreset: .error, duration: 3)
-        } else if activeItem == indexPath.row {
-            animateIndex = -1
-            activeItem = -1
-            collectionView.reloadData()
-        } else {
+        }
+        else if activeItem == indexPath.row {
+            return
+//            animateIndex = -1
+//            activeItem = -1
+//            collectionView.reloadData()
+        }
+        else {
             animateIndex = indexPath.row
             activeItem = indexPath.row
             collectionView.reloadData()
