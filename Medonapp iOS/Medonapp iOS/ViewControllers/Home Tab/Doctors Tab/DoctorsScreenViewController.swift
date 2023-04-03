@@ -27,6 +27,8 @@ class DoctorsScreenViewController: UIViewController {
     var dropView: UIView?
     var dropImageView: UIImageView?
     
+    public var sortType: SortType = .rating
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -280,7 +282,7 @@ extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tableCell = tableView.dequeueReusableCell(withIdentifier: DoctorInfoTableViewCell.identifier, for: indexPath) as! DoctorInfoTableViewCell
         
-        tableCell.configure(doctor: Doctor.sortDoctors(doctors: Array(doctorsSet))[indexPath.row])
+        tableCell.configure(doctor: Doctor.sortDoctors(doctors: Array(doctorsSet), sortType: self.sortType)[indexPath.row])
         tableCell.layer.cornerRadius = 20
         return tableCell
     }
@@ -291,7 +293,7 @@ extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSourc
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             let doctorsDetailsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "doctorsDetailsVC") as? DoctorDetailsViewViewController
-            doctorsDetailsVC?.doctor = Doctor.sortDoctors(doctors: Array(self.doctorsSet))[indexPath.row]
+            doctorsDetailsVC?.doctor = Doctor.sortDoctors(doctors: Array(self.doctorsSet), sortType: self.sortType)[indexPath.row]
             self.navigationController?.pushViewController(doctorsDetailsVC!, animated: true)
         }
     }
@@ -308,13 +310,13 @@ extension DoctorsScreenViewController: UITableViewDelegate, UITableViewDataSourc
         
         return UIContextMenuConfiguration(identifier: identifier, previewProvider: {
             let doctorPeekVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "doctorPeekVC") as? DoctorDetailsPeekViewViewController
-            doctorPeekVC?.doctor = Doctor.sortDoctors(doctors: Array(self.doctorsSet))[indexPath.row]
+            doctorPeekVC?.doctor = Doctor.sortDoctors(doctors: Array(self.doctorsSet), sortType: self.sortType)[indexPath.row]
             return doctorPeekVC
         }) { suggestedActions in
             
             //common init of doctorDetailsVC
             let doctorsDetailsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "doctorsDetailsVC") as? DoctorDetailsViewViewController
-            doctorsDetailsVC?.doctor = Doctor.sortDoctors(doctors: Array(self.doctorsSet))[indexPath.row]
+            doctorsDetailsVC?.doctor = Doctor.sortDoctors(doctors: Array(self.doctorsSet), sortType: self.sortType)[indexPath.row]
             
             
             let bookAppt = UIAction(title: "book_appointment".localized(), image: UIImage(systemName: "clock.badge.checkmark")) { action in
@@ -380,7 +382,7 @@ extension DoctorsScreenViewController: UITableViewDragDelegate {
     }
     
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        let doctor = Doctor.sortDoctors(doctors: Array(doctorsSet))[indexPath.row]
+        let doctor = Doctor.sortDoctors(doctors: Array(doctorsSet), sortType: self.sortType)[indexPath.row]
         //text to share
         let text = "Hey! I met \(doctor.fullNameWithTitle) on Medonapp!\n\(doctor.gender?.lowercased() == "male" ? "He" : "She") is rated \(doctor.avgRating!.clean) stars and has \(doctor.experience!.clean)+ years of experience.\n\nYou can contact them through the following channels:\nNumber: \(doctor.mobile!.contactNumberWithCountryCode!)\nEmail: \(doctor.credential!.email!)\n\nDownload Medonapp now!!"
         
@@ -462,7 +464,9 @@ extension DoctorsScreenViewController: UIDropInteractionDelegate {
 }
 
 extension DoctorsScreenViewController: FilterHalfScreenDelegate {
-    func filderDidEndSelecting() {
-        
+    func filderDidEndSelecting(sortType: SortType) {
+        self.sortType = sortType
+        self.doctorsTable?.reloadData()
     }
+
 }

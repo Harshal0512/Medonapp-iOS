@@ -9,8 +9,7 @@ import Foundation
 import UIKit
 
 protocol FilterHalfScreenDelegate {
-    func filderDidEndSelecting()
-    //TODO: Return filter enum
+    func filderDidEndSelecting(sortType: SortType)
 }
 
 class FilterHalfScreenVC: UIViewController {
@@ -135,12 +134,21 @@ class FilterHalfScreenVC: UIViewController {
     }
     
     @objc func applyFilterButtonClicked() {
-        delegate.filderDidEndSelecting() //TODO: Return filter enum
+        guard activeItem != -1 else {
+            return
+        }
+        
+        delegate.filderDidEndSelecting(sortType: (sortCollectionView?.cellForItem(at: IndexPath(row: activeItem, section: 0)) as! SortOptionCollectionViewCell).sortType!)
+        self.dismiss(animated: true)
     }
     
 }
 
 extension FilterHalfScreenVC: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return SortType.allCases.count

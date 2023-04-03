@@ -148,11 +148,15 @@ class Doctor: Codable, Hashable {
         return nil
     }
     
-    static func sortDoctors(doctors: Doctors) -> Doctors {
-        if Prefs.isLocationPerm {
-            return doctors.sorted(by: { $0.distanceFromUser < $1.distanceFromUser }).sorted(by: { $0.reviewCount! > $1.reviewCount! }).sorted(by: { $0.avgRating! > $1.avgRating! })
+    static func sortDoctors(doctors: Doctors, sortType: SortType) -> Doctors {
+        if sortType == .distance && Prefs.isLocationPerm {
+            return doctors.sorted(by: { $0.distanceFromUser < $1.distanceFromUser })
+        } else if sortType == .cost {
+            return doctors.sorted(by: { $0.fees! < $1.fees! })
+        } else if sortType == .rating {
+            return doctors.sorted(by: { $0.reviewCount! > $1.reviewCount! }).sorted(by: { $0.avgRating! > $1.avgRating! })
         }
-        return doctors.sorted(by: { $0.fees! < $1.fees! }).sorted(by: { $0.reviewCount! > $1.reviewCount! }).sorted(by: { $0.avgRating! > $1.avgRating! })
+        return doctors
     }
     
     static func calculateLiveStatus() {
