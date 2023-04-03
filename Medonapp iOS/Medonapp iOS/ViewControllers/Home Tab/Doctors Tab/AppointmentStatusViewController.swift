@@ -15,7 +15,7 @@ enum actionButtonTypes {
 
 class AppointmentStatusViewController: UIViewController {
     
-    private var animationView: AnimationView?
+    private var animationView: LottieAnimationView?
     var appointmentIsSuccess: Bool = false
     var reminderIsSet: Bool = false
     var actionButtonCommand: actionButtonTypes = .dashboard

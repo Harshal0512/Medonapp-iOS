@@ -688,7 +688,7 @@
 		03E197A52DF32DA6A7BF7385EF9637A2 /* SwiftValidator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftValidator.debug.xcconfig; sourceTree = "<group>"; };
 		04432B642A1F22E2CE74B92FFF1FD553 /* LGSegmentedControl */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = LGSegmentedControl; path = LGSegmentedControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		047EBE276F2906C8A2CCE6CE8D68F31A /* KFAnimatedImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KFAnimatedImage.swift; path = Sources/SwiftUI/KFAnimatedImage.swift; sourceTree = "<group>"; };
-		0576AEF40417284237EA7FD361313D9F /* SwiftValidator */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftValidator; path = SwiftValidator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0576AEF40417284237EA7FD361313D9F /* SwiftValidator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftValidator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		058680C3D5CAF855FE3AA8DAB46A1BC2 /* AlphaRule.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AlphaRule.swift; path = SwiftValidator/Rules/AlphaRule.swift; sourceTree = "<group>"; };
 		0590127C687CBF4284735A1322E7E86E /* OpacityAnimation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OpacityAnimation.swift; path = Sources/Private/CoreAnimation/Animations/OpacityAnimation.swift; sourceTree = "<group>"; };
 		05D459080D1343BDB379EB5296EAD1A2 /* Constraint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Constraint.swift; path = Source/Constraint.swift; sourceTree = "<group>"; };
@@ -815,7 +815,7 @@
 		323E9A7B79FABE9129CE6BD4516CFE6C /* iOSDropDown-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "iOSDropDown-Info.plist"; sourceTree = "<group>"; };
 		32F4D5FE7A518D10E45504158F55BE22 /* IPV4Rule.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IPV4Rule.swift; path = SwiftValidator/Rules/IPV4Rule.swift; sourceTree = "<group>"; };
 		3423D86C1C98D4D47E89BB5E4FCE8B63 /* ImageCompositionLayer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageCompositionLayer.swift; path = Sources/Private/MainThread/LayerContainers/CompLayers/ImageCompositionLayer.swift; sourceTree = "<group>"; };
-		34C2E3D7D565438AF9167E96DCC35489 /* FaveButton */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FaveButton; path = FaveButton.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		34C2E3D7D565438AF9167E96DCC35489 /* FaveButton.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FaveButton.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		352C9575114ACC880220BE00FD0AEA67 /* Notifications.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Notifications.swift; path = Source/Notifications.swift; sourceTree = "<group>"; };
 		35EF439F857D9E305E0DDCBE2D0F235B /* CompatibleAnimationView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CompatibleAnimationView.swift; path = Sources/Public/iOS/Compatibility/CompatibleAnimationView.swift; sourceTree = "<group>"; };
 		366E4F1F49F899EA6C634085FDFC3BDB /* ShapeNode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ShapeNode.swift; path = Sources/Private/MainThread/NodeRenderSystem/Nodes/PathNodes/ShapeNode.swift; sourceTree = "<group>"; };
@@ -1055,7 +1055,7 @@
 		9CB7E4578F494633844428C67092B8D0 /* FaveButton.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FaveButton.debug.xcconfig; sourceTree = "<group>"; };
 		9CFACEA7A4F0A1B72130BC224E80D7B1 /* TestHelpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TestHelpers.swift; path = Sources/Private/Utility/Debugging/TestHelpers.swift; sourceTree = "<group>"; };
 		9D1F384FB28C5D6C70D85AB70B08101D /* ResponseSerialization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResponseSerialization.swift; path = Source/ResponseSerialization.swift; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9DCD605E9AAF0FD17518208BC2454A0C /* Typealiases.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Typealiases.swift; path = Source/Typealiases.swift; sourceTree = "<group>"; };
 		9E08A527A226B318CEEEB607C03456A0 /* NodePropertyMap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NodePropertyMap.swift; path = Sources/Private/MainThread/NodeRenderSystem/NodeProperties/Protocols/NodePropertyMap.swift; sourceTree = "<group>"; };
 		9E3942591E86D715F249BE79286AEA0C /* LayerImageProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayerImageProvider.swift; path = Sources/Private/MainThread/LayerContainers/Utility/LayerImageProvider.swift; sourceTree = "<group>"; };
@@ -1198,7 +1198,7 @@
 		D4A0417AF6BCAAF8AC5269A5A34F1B4E /* SwiftValidator-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftValidator-umbrella.h"; sourceTree = "<group>"; };
 		D56D5ECBF429B034836853DC82362965 /* GrowingNotificationBanner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GrowingNotificationBanner.swift; path = NotificationBanner/Classes/GrowingNotificationBanner.swift; sourceTree = "<group>"; };
 		D5C66CA31125E7828A3F17799303302B /* SwiftUIExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftUIExtension.swift; path = Sources/SPIndicator/Extensions/SwiftUIExtension.swift; sourceTree = "<group>"; };
-		D6043471C96F93DC41F7DD1E0D7D8B35 /* Toast-Swift */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Toast-Swift"; path = Toast_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6043471C96F93DC41F7DD1E0D7D8B35 /* Toast_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Toast_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6284A68390D2FC2B558D9B2B3EE8C67 /* DPOTPView */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = DPOTPView; path = DPOTPView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D65D69F63DCA8B0D9047A0E80322CFD4 /* Pods-Medonapp iOS-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Medonapp iOS-frameworks.sh"; sourceTree = "<group>"; };
 		D75BC4D985193541A129C0E84B971C78 /* ConstraintRelatableTarget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintRelatableTarget.swift; path = Source/ConstraintRelatableTarget.swift; sourceTree = "<group>"; };
@@ -1490,7 +1490,6 @@
 				5CBFF96415DD90081EB6B9EB0298BADC /* Validation.swift */,
 				DA85224B4A5DD15BEB0F625FB534FE77 /* Support Files */,
 			);
-			name = Alamofire;
 			path = Alamofire;
 			sourceTree = "<group>";
 		};
@@ -1500,7 +1499,6 @@
 				8036D97B5FA7EBB7149FFE5419C4D480 /* MarqueeLabel.swift */,
 				235887BB2B9382E349F6FF10F44C2738 /* Support Files */,
 			);
-			name = MarqueeLabel;
 			path = MarqueeLabel;
 			sourceTree = "<group>";
 		};
@@ -1633,7 +1631,6 @@
 				035282D6B6F803391B292FD6D2CEF80A /* LGSegmentOptions.swift */,
 				0EFF1A5CE570DA5EB1ACFE6123924A9D /* Support Files */,
 			);
-			name = LGSegmentedControl;
 			path = LGSegmentedControl;
 			sourceTree = "<group>";
 		};
@@ -1692,7 +1689,6 @@
 				B2B6EAE855267B241C077127C13037B5 /* Templates.swift */,
 				0B1D6CA53155EAFAECB5F1008D8A26F5 /* Support Files */,
 			);
-			name = Popovers;
 			path = Popovers;
 			sourceTree = "<group>";
 		};
@@ -1702,7 +1698,6 @@
 				ED294A2DE9063C971D1919930E67472A /* iOSDropDown.swift */,
 				10362ACCADE826C1EB06EDDD72C22028 /* Support Files */,
 			);
-			name = iOSDropDown;
 			path = iOSDropDown;
 			sourceTree = "<group>";
 		};
@@ -1928,7 +1923,6 @@
 				65D80584D10324C9880EEA0981E67D1E /* ZipEntry+ZIP64.swift */,
 				7843878A278F600E414DDE317E47E355 /* Support Files */,
 			);
-			name = "lottie-ios";
 			path = "lottie-ios";
 			sourceTree = "<group>";
 		};
@@ -1938,7 +1932,6 @@
 				03C8ACC086E1A186B1E6D1EA508C6335 /* Toast.swift */,
 				04602E988F225425C365CE5428316E71 /* Support Files */,
 			);
-			name = "Toast-Swift";
 			path = "Toast-Swift";
 			sourceTree = "<group>";
 		};
@@ -1992,7 +1985,6 @@
 				CFE84EE8C5296775730BCE898C1935F2 /* UIWindow+orientation.swift */,
 				EF5C4369A02D02C510EE8C1C507A4AF4 /* Support Files */,
 			);
-			name = NotificationBannerSwift;
 			path = NotificationBannerSwift;
 			sourceTree = "<group>";
 		};
@@ -2009,7 +2001,6 @@
 				A5911BB8309B9D81DEB6221CE8AC06C0 /* Spark.swift */,
 				0E1213075C03BD7936E5DB47AB4070D0 /* Support Files */,
 			);
-			name = FaveButton;
 			path = FaveButton;
 			sourceTree = "<group>";
 		};
@@ -2094,7 +2085,6 @@
 				42DFC3C475E2F1DF9094E47974D7BE94 /* UIView+Transitions.swift */,
 				3952AB4016EB212AAD9C4AC89D078C21 /* Support Files */,
 			);
-			name = SkeletonView;
 			path = SkeletonView;
 			sourceTree = "<group>";
 		};
@@ -2103,7 +2093,7 @@
 			children = (
 				5D797E9A5C5782CE845840781FA1CC81 /* Alamofire */,
 				D6284A68390D2FC2B558D9B2B3EE8C67 /* DPOTPView */,
-				34C2E3D7D565438AF9167E96DCC35489 /* FaveButton */,
+				34C2E3D7D565438AF9167E96DCC35489 /* FaveButton.framework */,
 				FCEEA8BBD9DA8D0CCE0A3092B20E3FA7 /* iOSDropDown */,
 				C3F44C782D64D7EB20B61CE3844EBFAD /* Kingfisher */,
 				04432B642A1F22E2CE74B92FFF1FD553 /* LGSegmentedControl */,
@@ -2115,8 +2105,8 @@
 				CDC8C1E54D1F3A8B5CAC89FFFF6A3F80 /* SkeletonView */,
 				979486118B3E90C08386079D57962701 /* SnapKit */,
 				1610EA30A41A8E40274DA799098CF8BB /* SPIndicator */,
-				0576AEF40417284237EA7FD361313D9F /* SwiftValidator */,
-				D6043471C96F93DC41F7DD1E0D7D8B35 /* Toast-Swift */,
+				0576AEF40417284237EA7FD361313D9F /* SwiftValidator.framework */,
+				D6043471C96F93DC41F7DD1E0D7D8B35 /* Toast_Swift.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2139,7 +2129,6 @@
 				49D222A83D78B7F5EC5683D701E6341E /* UILabelExtension.swift */,
 				F1BC10838FD7AC937A3DD000DD202ACD /* Support Files */,
 			);
-			name = SPIndicator;
 			path = SPIndicator;
 			sourceTree = "<group>";
 		};
@@ -2183,7 +2172,6 @@
 				64F9EE357DE0BA087ABEAFC17AF033C9 /* ZipCodeRule.swift */,
 				6FC1ACCA07F16A8CE61E6C03BE7E9D57 /* Support Files */,
 			);
-			name = SwiftValidator;
 			path = SwiftValidator;
 			sourceTree = "<group>";
 		};
@@ -2253,7 +2241,6 @@
 				EB00AD26DC42F6CC5805A5061526A9BB /* WKInterfaceImage+Kingfisher.swift */,
 				881B70A5D3B99A3611F4C35A10264D0E /* Support Files */,
 			);
-			name = Kingfisher;
 			path = Kingfisher;
 			sourceTree = "<group>";
 		};
@@ -2319,7 +2306,6 @@
 				60B012D9F3764632AD8F690CFE446919 /* DPOTPView.swift */,
 				2240FD98481746B090099FDD1D041C6B /* Support Files */,
 			);
-			name = DPOTPView;
 			path = DPOTPView;
 			sourceTree = "<group>";
 		};
@@ -2364,7 +2350,6 @@
 				BD2BF7F0DAEE47BDF30FA883CD482145 /* UILayoutSupport+Extensions.swift */,
 				0B1123CCEE43CCEDB7369C95EA25B710 /* Support Files */,
 			);
-			name = SnapKit;
 			path = SnapKit;
 			sourceTree = "<group>";
 		};
@@ -2690,7 +2675,7 @@
 			);
 			name = FaveButton;
 			productName = FaveButton;
-			productReference = 34C2E3D7D565438AF9167E96DCC35489 /* FaveButton */;
+			productReference = 34C2E3D7D565438AF9167E96DCC35489 /* FaveButton.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		765CC6276452C8332186E7325B6370CD /* SPIndicator */ = {
@@ -2762,7 +2747,7 @@
 			);
 			name = "Toast-Swift";
 			productName = Toast_Swift;
-			productReference = D6043471C96F93DC41F7DD1E0D7D8B35 /* Toast-Swift */;
+			productReference = D6043471C96F93DC41F7DD1E0D7D8B35 /* Toast_Swift.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		C23DB88E45B0ED14F0C8827BE9C46C95 /* MarqueeLabel */ = {
@@ -2834,7 +2819,7 @@
 			);
 			name = SwiftValidator;
 			productName = SwiftValidator;
-			productReference = 0576AEF40417284237EA7FD361313D9F /* SwiftValidator */;
+			productReference = 0576AEF40417284237EA7FD361313D9F /* SwiftValidator.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -3733,7 +3718,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SwiftValidator/SwiftValidator-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SwiftValidator/SwiftValidator-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3871,7 +3856,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/Toast-Swift/Toast-Swift-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/Toast-Swift/Toast-Swift-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4047,7 +4032,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/FaveButton/FaveButton-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/FaveButton/FaveButton-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4705,7 +4690,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SwiftValidator/SwiftValidator-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SwiftValidator/SwiftValidator-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4740,7 +4725,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/Toast-Swift/Toast-Swift-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/Toast-Swift/Toast-Swift-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4918,7 +4903,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/FaveButton/FaveButton-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/FaveButton/FaveButton-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
