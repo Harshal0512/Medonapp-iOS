@@ -17,6 +17,7 @@ class RatingsWithStarsView: UIView {
     @IBOutlet weak var threeStarProgressBar: UIProgressView!
     @IBOutlet weak var twoStarProgressBar: UIProgressView!
     @IBOutlet weak var oneStarProgressBar: UIProgressView!
+    @IBOutlet weak var numberOfRatingsLabel: UILabel!
     
     static let shared = RatingsWithStarsView.instantiate()
 
@@ -50,6 +51,8 @@ class RatingsWithStarsView: UIView {
         view.oneStarProgressBar.progress = 0.25
         view.oneStarProgressBar.progressTintColor = UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00)
         view.oneStarProgressBar.trackTintColor = UIColor(red: 0.75, green: 0.79, blue: 0.85, alpha: 1.00)
+        
+        view.numberOfRatingsLabel.font = UIFont(name: "NunitoSans-SemiBold", size: 11)
         
         return view
     }

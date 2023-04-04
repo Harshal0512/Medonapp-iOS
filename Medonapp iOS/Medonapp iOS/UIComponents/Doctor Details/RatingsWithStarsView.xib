@@ -176,6 +176,12 @@
                     </constraints>
                     <color key="progressTintColor" name="AccentColor"/>
                 </progressView>
+                <label opaque="NO" userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18 Ratings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4eI-sL-cBt">
+                    <rect key="frame" x="209" y="77" width="66" height="18"/>
+                    <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="13"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -195,6 +201,7 @@
                 <constraint firstItem="FaN-uJ-2Kh" firstAttribute="leading" secondItem="hmX-9i-LBy" secondAttribute="trailing" constant="1" id="GEe-5g-kLY"/>
                 <constraint firstItem="jvI-Ry-PzQ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="33" id="GFb-cz-Nds"/>
                 <constraint firstItem="giU-T4-bx7" firstAttribute="leading" secondItem="U8X-jV-0xH" secondAttribute="trailing" constant="1" id="H0t-DO-z6P"/>
+                <constraint firstItem="4eI-sL-cBt" firstAttribute="top" secondItem="EhU-lO-DPf" secondAttribute="bottom" constant="8" id="Iv7-z1-vGv"/>
                 <constraint firstItem="hDK-7e-l1M" firstAttribute="leading" secondItem="eZr-ya-2XC" secondAttribute="trailing" constant="1" id="Kgx-ru-cAm"/>
                 <constraint firstItem="Fa2-8c-psW" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-5" id="P6W-AF-0Tv"/>
                 <constraint firstItem="Kfc-It-5YN" firstAttribute="top" secondItem="Fa2-8c-psW" secondAttribute="bottom" constant="-10" id="PaQ-Lk-ydR"/>
@@ -222,6 +229,7 @@
                 <constraint firstItem="U8X-jV-0xH" firstAttribute="leading" secondItem="jvI-Ry-PzQ" secondAttribute="trailing" constant="1" id="onT-Xr-xsh"/>
                 <constraint firstItem="IlD-Uu-Noa" firstAttribute="top" secondItem="jgV-zK-XCJ" secondAttribute="top" id="pGb-l1-KAa"/>
                 <constraint firstItem="1K9-VY-rqR" firstAttribute="top" secondItem="TXZ-15-QbX" secondAttribute="bottom" constant="5" id="pzG-Cr-4kf"/>
+                <constraint firstAttribute="trailing" secondItem="4eI-sL-cBt" secondAttribute="trailing" constant="25" id="qhV-6E-C0B"/>
                 <constraint firstItem="jvI-Ry-PzQ" firstAttribute="leading" secondItem="Fa2-8c-psW" secondAttribute="trailing" constant="26.329999999999998" id="qjz-DM-5SI"/>
                 <constraint firstItem="0Yw-ei-D4T" firstAttribute="top" secondItem="jvI-Ry-PzQ" secondAttribute="top" id="r4G-e5-C8c"/>
                 <constraint firstItem="xBp-I4-qAs" firstAttribute="top" secondItem="FaN-uJ-2Kh" secondAttribute="bottom" constant="3" id="tqk-Ym-JNb"/>
@@ -234,6 +242,7 @@
             <connections>
                 <outlet property="fiveStarProgressBar" destination="Epn-kz-Ws3" id="p6f-iB-qKI"/>
                 <outlet property="fourStarProgressBar" destination="CTT-OB-vuo" id="51G-8R-6iI"/>
+                <outlet property="numberOfRatingsLabel" destination="4eI-sL-cBt" id="5qR-TX-N0N"/>
                 <outlet property="oneStarProgressBar" destination="EhU-lO-DPf" id="sLu-yT-BgK"/>
                 <outlet property="outOfLabel" destination="Kfc-It-5YN" id="WDA-Yf-mO4"/>
                 <outlet property="ratingLabel" destination="Fa2-8c-psW" id="1we-wo-cwT"/>
