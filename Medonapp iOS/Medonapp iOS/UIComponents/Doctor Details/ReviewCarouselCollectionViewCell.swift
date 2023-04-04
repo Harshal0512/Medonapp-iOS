@@ -64,6 +64,7 @@ private extension ReviewCarouselCollectionViewCell {
         ratingControl.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -20).isActive = true
         ratingControl.widthAnchor.constraint(equalToConstant: 75).isActive = true
         ratingControl.heightAnchor.constraint(equalToConstant: 15).isActive = true
+        ratingControl.isUserInteractionEnabled = false
 
         addSubview(reviewLabel)
         reviewLabel.translatesAutoresizingMaskIntoConstraints = false
