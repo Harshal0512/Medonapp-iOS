@@ -27,6 +27,7 @@ class DoctorDetailsViewViewController: UIViewController {
     private var locationView: UIView?
     private var locationMapView: MKMapView?
     private var reviewTextLabel: UILabel?
+    private var reviewViewAllButton: UIButton?
     private var reviewCarouselView: CarouselView?
     private var bottomView: UIView?
     private var bookNowButton: UIButtonVariableBackgroundVariableCR?
@@ -142,6 +143,19 @@ class DoctorDetailsViewViewController: UIViewController {
         reviewTextLabel?.font = UIFont(name: "NunitoSans-Bold", size: 17)
         contentView?.addSubview(reviewTextLabel!)
         
+        reviewViewAllButton = UIButton()
+        let viewAllButtonAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont(name: "NunitoSans-Bold", size: 13)!,
+            .foregroundColor: UIColor(red: 0.48, green: 0.55, blue: 0.62, alpha: 1.00),
+            .underlineStyle: NSUnderlineStyle.single.rawValue,
+        ]
+        reviewViewAllButton?.setAttributedTitle(NSMutableAttributedString(
+            string: "See All",
+            attributes: viewAllButtonAttributes), for: .normal)
+        reviewViewAllButton?.contentHorizontalAlignment = .trailing
+        contentView?.addSubview(reviewViewAllButton!)
+        reviewViewAllButton?.addTarget(self, action: #selector(handleViewAllReviewsButtonClicked), for: .touchUpInside)
+        
         reviewCarouselView = CarouselView(pages: 3, delegate: self)
         contentView?.addSubview(reviewCarouselView!)
         carouselData.append(.init(image: UIImage(named: "cat")!, title: "Harshal K.", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi magna urna, suscipit ac scelerisque convallis, tristique nec nunc. Quisque pellentesque ipsum elit, sed pulvinar enim eleifend quis. Curabitur varius malesuada purus in laoreet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus dui lacus, venenatis quis tellus nec, dapibus pulvinar felis."))
@@ -185,6 +199,7 @@ class DoctorDetailsViewViewController: UIViewController {
         locationView?.translatesAutoresizingMaskIntoConstraints = false
         locationMapView?.translatesAutoresizingMaskIntoConstraints = false
         reviewTextLabel?.translatesAutoresizingMaskIntoConstraints = false
+        reviewViewAllButton?.translatesAutoresizingMaskIntoConstraints = false
         reviewCarouselView?.translatesAutoresizingMaskIntoConstraints = false
         bottomView?.translatesAutoresizingMaskIntoConstraints = false
         bookNowButton?.translatesAutoresizingMaskIntoConstraints = false
@@ -266,7 +281,11 @@ class DoctorDetailsViewViewController: UIViewController {
         
         reviewTextLabel?.topAnchor.constraint(equalTo: locationView!.bottomAnchor, constant: 23).isActive = true
         reviewTextLabel?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 27).isActive = true
-        reviewTextLabel?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -27).isActive = true
+        reviewTextLabel?.widthAnchor.constraint(equalToConstant: 180).isActive = true
+        
+        reviewViewAllButton?.topAnchor.constraint(equalTo: reviewTextLabel!.topAnchor).isActive = true
+        reviewViewAllButton?.leadingAnchor.constraint(equalTo: reviewTextLabel!.leadingAnchor, constant: 5).isActive = true
+        reviewViewAllButton?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -27).isActive = true
         
         reviewCarouselView?.topAnchor.constraint(equalTo: reviewTextLabel!.bottomAnchor, constant: 20).isActive = true
         reviewCarouselView?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 28).isActive = true
@@ -305,6 +324,10 @@ class DoctorDetailsViewViewController: UIViewController {
         sheetViewController.doctor = self.doctor
         // Present it w/o any adjustments so it uses the default sheet presentation.
         present(sheetViewController, animated: true)
+    }
+    
+    @objc func handleViewAllReviewsButtonClicked() {
+        
     }
     
     @objc func bookNowButtonPressed() {
