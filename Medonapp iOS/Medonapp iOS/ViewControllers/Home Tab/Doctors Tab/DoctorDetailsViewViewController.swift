@@ -26,12 +26,16 @@ class DoctorDetailsViewViewController: UIViewController {
     private var locationTextLabel: UILabel?
     private var locationView: UIView?
     private var locationMapView: MKMapView?
+    private var reviewTextLabel: UILabel?
+    private var reviewCarouselView: CarouselView?
     private var bottomView: UIView?
     private var bookNowButton: UIButtonVariableBackgroundVariableCR?
     private var favoriteView: UIView?
     private var favoriteButton: FaveButton?
     
+    
     public var doctor: Doctor?
+    private var carouselData = [CarouselView.CarouselData]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +50,12 @@ class DoctorDetailsViewViewController: UIViewController {
         setConstraints()
         
         setAboutLabelText()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        reviewCarouselView?.configureView(with: carouselData)
     }
     
     func initialise() {
@@ -126,6 +136,18 @@ class DoctorDetailsViewViewController: UIViewController {
         locationMapView?.layer.cornerRadius = 28
         locationView?.addSubview(locationMapView!)
         
+        reviewTextLabel = UILabel()
+        reviewTextLabel?.text = "Reviews"
+        reviewTextLabel?.textColor = .black
+        reviewTextLabel?.font = UIFont(name: "NunitoSans-Bold", size: 17)
+        contentView?.addSubview(reviewTextLabel!)
+        
+        reviewCarouselView = CarouselView(pages: 3, delegate: self)
+        contentView?.addSubview(reviewCarouselView!)
+        carouselData.append(.init(image: UIImage(named: "cat")!, title: "Harshal K.", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi magna urna, suscipit ac scelerisque convallis, tristique nec nunc. Quisque pellentesque ipsum elit, sed pulvinar enim eleifend quis. Curabitur varius malesuada purus in laoreet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus dui lacus, venenatis quis tellus nec, dapibus pulvinar felis."))
+        carouselData.append(.init(image: UIImage(named: "cat")!, title: "Harshal Kulkarni", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi magna urna, suscipit ac scelerisque convallis, tristique nec nunc. Quisque pellentesque ipsum elit, sed pulvinar enim eleifend quis. Curabitur varius malesuada purus in laoreet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus dui lacus, venenatis quis tellus nec, dapibus pulvinar felis."))
+        carouselData.append(.init(image: UIImage(named: "cat")!, title: "Harshal", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi magna urna, suscipit ac scelerisque convallis, tristique nec nunc. Quisque pellentesque ipsum elit, sed pulvinar enim eleifend quis. Curabitur varius malesuada purus in laoreet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus dui lacus, venenatis quis tellus nec, dapibus pulvinar felis."))
+        
         bottomView = UIView()
         bottomView?.backgroundColor = .white
         view?.addSubview(bottomView!)
@@ -162,6 +184,8 @@ class DoctorDetailsViewViewController: UIViewController {
         locationTextLabel?.translatesAutoresizingMaskIntoConstraints = false
         locationView?.translatesAutoresizingMaskIntoConstraints = false
         locationMapView?.translatesAutoresizingMaskIntoConstraints = false
+        reviewTextLabel?.translatesAutoresizingMaskIntoConstraints = false
+        reviewCarouselView?.translatesAutoresizingMaskIntoConstraints = false
         bottomView?.translatesAutoresizingMaskIntoConstraints = false
         bookNowButton?.translatesAutoresizingMaskIntoConstraints = false
         favoriteView?.translatesAutoresizingMaskIntoConstraints = false
@@ -232,13 +256,23 @@ class DoctorDetailsViewViewController: UIViewController {
         locationView?.topAnchor.constraint(equalTo: locationTextLabel!.bottomAnchor, constant: 12).isActive = true
         locationView?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 28).isActive = true
         locationView?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -28).isActive = true
-        locationView?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -100).isActive = true
+//        locationView?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -100).isActive = true
         locationView?.heightAnchor.constraint(equalToConstant: 180).isActive = true
         
         locationMapView?.topAnchor.constraint(equalTo: locationView!.topAnchor).isActive = true
         locationMapView?.leadingAnchor.constraint(equalTo: locationView!.leadingAnchor).isActive = true
         locationMapView?.trailingAnchor.constraint(equalTo: locationView!.trailingAnchor).isActive = true
         locationMapView?.bottomAnchor.constraint(equalTo: locationView!.bottomAnchor).isActive = true
+        
+        reviewTextLabel?.topAnchor.constraint(equalTo: locationView!.bottomAnchor, constant: 23).isActive = true
+        reviewTextLabel?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 27).isActive = true
+        reviewTextLabel?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -27).isActive = true
+        
+        reviewCarouselView?.topAnchor.constraint(equalTo: reviewTextLabel!.bottomAnchor, constant: 20).isActive = true
+        reviewCarouselView?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 28).isActive = true
+        reviewCarouselView?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -28).isActive = true
+        reviewCarouselView?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -120).isActive = true
+        reviewCarouselView?.heightAnchor.constraint(equalToConstant: 150).isActive = true
         
         bottomView?.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         bottomView?.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -328,5 +362,13 @@ extension DoctorDetailsViewViewController: FaveButtonDelegate {
                 generator.impactOccurred()
             }
         }
+    }
+}
+
+extension DoctorDetailsViewViewController: CarouselViewDelegate {
+    func currentPageDidChange(to page: Int) {
+//        UIView.animate(withDuration: 0.7) {
+//            self.view.backgroundColor = self.backgroundColors[page]
+//        }
     }
 }
