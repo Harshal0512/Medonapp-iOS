@@ -162,6 +162,8 @@ class DoctorDetailsViewViewController: UIViewController {
         carouselData.append(.init(image: UIImage(named: "cat")!, title: "Harshal Kulkarni", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi magna urna, suscipit ac scelerisque convallis, tristique nec nunc. Quisque pellentesque ipsum elit, sed pulvinar enim eleifend quis. Curabitur varius malesuada purus in laoreet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus dui lacus, venenatis quis tellus nec, dapibus pulvinar felis."))
         carouselData.append(.init(image: UIImage(named: "cat")!, title: "Harshal", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi magna urna, suscipit ac scelerisque convallis, tristique nec nunc. Quisque pellentesque ipsum elit, sed pulvinar enim eleifend quis. Curabitur varius malesuada purus in laoreet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus dui lacus, venenatis quis tellus nec, dapibus pulvinar felis."))
         
+        reviewCarouselView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleViewAllReviewsButtonClicked)))
+        
         bottomView = UIView()
         bottomView?.backgroundColor = .white
         view?.addSubview(bottomView!)
@@ -327,7 +329,11 @@ class DoctorDetailsViewViewController: UIViewController {
     }
     
     @objc func handleViewAllReviewsButtonClicked() {
-        
+        let ratingsAndReviewsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "ratingsAndReviewsVC") as? RatingAndReviewsViewController
+//        appointmentDetailsVC?.doctor = self.doctor
+//        doctorsScreenVC?.modalPresentationStyle = .fullScreen
+//        self.present(doctorsScreenVC!, animated: true, completion: nil)
+        self.navigationController?.pushViewController(ratingsAndReviewsVC!, animated: true)
     }
     
     @objc func bookNowButtonPressed() {

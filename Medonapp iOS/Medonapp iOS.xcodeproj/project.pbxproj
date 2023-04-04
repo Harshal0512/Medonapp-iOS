@@ -24,6 +24,9 @@
 		F8131B1B28D5A09F00B7558D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8131B1928D5A09F00B7558D /* Main.storyboard */; };
 		F8131B1D28D5A0A000B7558D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8131B1C28D5A0A000B7558D /* Assets.xcassets */; };
 		F8131B2028D5A0A000B7558D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8131B1E28D5A0A000B7558D /* LaunchScreen.storyboard */; };
+		F817EF8D29DC719E00116664 /* RatingAndReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F817EF8C29DC719E00116664 /* RatingAndReviewsViewController.swift */; };
+		F817EF9129DC7EEE00116664 /* RatingsWithStarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F817EF9029DC7EEE00116664 /* RatingsWithStarsView.swift */; };
+		F817EF9329DC7F1300116664 /* RatingsWithStarsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F817EF9229DC7F1300116664 /* RatingsWithStarsView.xib */; };
 		F81AB9F029B46FC60062B166 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81AB9EF29B46FC60062B166 /* Notifications.swift */; };
 		F81BAADD28F928BF0080BD21 /* BookAppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81BAADC28F928BF0080BD21 /* BookAppointmentViewController.swift */; };
 		F81BAAE428F93BC90080BD21 /* AppointmentTimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81BAAE228F93BC90080BD21 /* AppointmentTimeCollectionViewCell.swift */; };
@@ -146,6 +149,9 @@
 		F8131B1C28D5A0A000B7558D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F8131B1F28D5A0A000B7558D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F8131B2128D5A0A000B7558D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F817EF8C29DC719E00116664 /* RatingAndReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingAndReviewsViewController.swift; sourceTree = "<group>"; };
+		F817EF9029DC7EEE00116664 /* RatingsWithStarsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingsWithStarsView.swift; sourceTree = "<group>"; };
+		F817EF9229DC7F1300116664 /* RatingsWithStarsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RatingsWithStarsView.xib; sourceTree = "<group>"; };
 		F81AB9EF29B46FC60062B166 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		F81BAADC28F928BF0080BD21 /* BookAppointmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookAppointmentViewController.swift; sourceTree = "<group>"; };
 		F81BAAE228F93BC90080BD21 /* AppointmentTimeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentTimeCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -404,6 +410,7 @@
 				F81BAADC28F928BF0080BD21 /* BookAppointmentViewController.swift */,
 				F81BAAE928F97E6B0080BD21 /* AppointmentStatusViewController.swift */,
 				F8B8E27829227D880061C204 /* FilterHalfScreenVC.swift */,
+				F817EF8C29DC719E00116664 /* RatingAndReviewsViewController.swift */,
 			);
 			path = "Doctors Tab";
 			sourceTree = "<group>";
@@ -568,6 +575,8 @@
 				F8FB225F28F7D9D4003B9173 /* TabViewInContactScreen.xib */,
 				F84C120529DBDE9B005472E1 /* ReviewCarouselCollectionViewCell.swift */,
 				F8A13B4029DC17AC00C6B456 /* CarouselView.swift */,
+				F817EF9029DC7EEE00116664 /* RatingsWithStarsView.swift */,
+				F817EF9229DC7F1300116664 /* RatingsWithStarsView.xib */,
 			);
 			path = "Doctor Details";
 			sourceTree = "<group>";
@@ -732,6 +741,7 @@
 				F8B4377F29A8703E00A5FDA2 /* FamilyRequestTableViewCell.xib in Resources */,
 				F84B72B029855535001E1737 /* FamilyMemberCollectionViewCell.xib in Resources */,
 				F81BAAEE28F97F720080BD21 /* checkMarkSuccess.json in Resources */,
+				F817EF9329DC7F1300116664 /* RatingsWithStarsView.xib in Resources */,
 				F86A71D728EEAF7B0083D12D /* NunitoSans-SemiBold.ttf in Resources */,
 				F8BC4A3F28F4211600440406 /* ReportCellWithIconAndDescription.xib in Resources */,
 			);
@@ -848,6 +858,7 @@
 				F843700B2976977500B0B0C9 /* FileModel.swift in Sources */,
 				F883FC092909222200B17D01 /* Credential.swift in Sources */,
 				F883FC112909248900B17D01 /* User.swift in Sources */,
+				F817EF9129DC7EEE00116664 /* RatingsWithStarsView.swift in Sources */,
 				F8A0E18629718F4C00B888B0 /* UIButtonCircularWithLogo.swift in Sources */,
 				F81AB9F029B46FC60062B166 /* Notifications.swift in Sources */,
 				F8BC4A4228F4588A00440406 /* DoctorsScreenViewController.swift in Sources */,
@@ -870,6 +881,7 @@
 				F883FC0F2909228F00B17D01 /* MobileWithCountryCode.swift in Sources */,
 				F81BAAF628F9C8A20080BD21 /* PriceDisplayViewAppointmentDetails.swift in Sources */,
 				F84C120629DBDE9B005472E1 /* ReviewCarouselCollectionViewCell.swift in Sources */,
+				F817EF8D29DC719E00116664 /* RatingAndReviewsViewController.swift in Sources */,
 				F8BC4A3D28F420F000440406 /* ReportCellWithIconAndDescription.swift in Sources */,
 				F8308050290A76390088CDB8 /* Appointments.swift in Sources */,
 				E6D081B1293C7D5500380F73 /* DoctorDetailsPeekViewViewController.swift in Sources */,
