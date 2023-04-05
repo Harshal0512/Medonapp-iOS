@@ -16,6 +16,9 @@ class RatingAndReviewsViewController: UIViewController {
     private var navTitle: UILabel?
     
     private var ratingsWithStarsView: RatingsWithStarsView?
+    
+    public var doctor: Doctor?
+    public var reviews: Reviews = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +30,22 @@ class RatingAndReviewsViewController: UIViewController {
         initialise()
         setupUI()
         setConstraints()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        populateRatingsWithStarsView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        ratingsWithStarsView?.oneStarProgressBar.progress = 0.25
+        ratingsWithStarsView?.twoStarProgressBar.progress = 0.25
+        ratingsWithStarsView?.threeStarProgressBar.progress = 0.25
+        ratingsWithStarsView?.fourStarProgressBar.progress = 0.25
+        ratingsWithStarsView?.fiveStarProgressBar.progress = 0.25
     }
     
     func initialise() {
@@ -55,6 +74,8 @@ class RatingAndReviewsViewController: UIViewController {
         contentView?.addSubview(navTitle!)
         
         ratingsWithStarsView = RatingsWithStarsView.shared
+//        ratingsWithStarsView?.ratingLabel.text = String(format: "%.1f", doctor?.avgRating ?? 0)
+        ratingsWithStarsView?.numberOfRatingsLabel.text = "\(reviews.count) ratings"
         contentView?.addSubview(ratingsWithStarsView!)
     }
     
@@ -97,5 +118,35 @@ class RatingAndReviewsViewController: UIViewController {
     
     @objc func handleBackAction(_ sender: UITapGestureRecognizer? = nil) {
         navigationController?.popViewController(animated: true)
+    }
+    
+    func populateRatingsWithStarsView() {
+        var oneStarCount, twoStarCount, threeStarCount, fourStarCount, fiveStarCount: Int
+        oneStarCount = 0; twoStarCount = 0; threeStarCount = 0; fourStarCount = 0; fiveStarCount = 0
+    
+        for review in reviews {
+            switch review.rating {
+            case 0.5, 1:
+                oneStarCount+=1
+            case 1.5, 2:
+                twoStarCount+=1
+            case 2.5, 3:
+                threeStarCount+=1
+            case 3.5, 4:
+                fourStarCount+=1
+            case 4.5, 5:
+                fiveStarCount+=1
+            default:
+                break
+            }
+        }
+        
+        ratingsWithStarsView?.ratingLabel.countFromZero(to: CGFloat(doctor!.avgRating!))
+        
+        ratingsWithStarsView?.oneStarProgressBar.setProgress(Float(oneStarCount)/Float(reviews.count), animated: true)
+        ratingsWithStarsView?.twoStarProgressBar.setProgress(Float(twoStarCount)/Float(reviews.count), animated: true)
+        ratingsWithStarsView?.threeStarProgressBar.setProgress(Float(threeStarCount)/Float(reviews.count), animated: true)
+        ratingsWithStarsView?.fourStarProgressBar.setProgress(Float(fourStarCount)/Float(reviews.count), animated: true)
+        ratingsWithStarsView?.fiveStarProgressBar.setProgress(Float(fiveStarCount)/Float(reviews.count), animated: true)
     }
 }

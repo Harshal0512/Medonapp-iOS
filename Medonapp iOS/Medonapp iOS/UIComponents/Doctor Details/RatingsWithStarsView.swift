@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import UICountingLabel
 
 class RatingsWithStarsView: UIView {
     
     
-    @IBOutlet weak var ratingLabel: UILabel!
+    @IBOutlet weak var ratingLabel: UICountingLabel!
     @IBOutlet weak var outOfLabel: UILabel!
     @IBOutlet weak var fiveStarProgressBar: UIProgressView!
     @IBOutlet weak var fourStarProgressBar: UIProgressView!
@@ -31,6 +32,10 @@ class RatingsWithStarsView: UIView {
     
     static func instantiate() -> RatingsWithStarsView {
         let view: RatingsWithStarsView = initFromNib()
+        
+        view.ratingLabel.format = "%.1f"
+        view.ratingLabel.method = .easeInOut
+        view.ratingLabel.animationDuration = 0.4
         
         view.fiveStarProgressBar.progress = 0.25
         view.fiveStarProgressBar.progressTintColor = UIColor(red: 0.11, green: 0.42, blue: 0.64, alpha: 1.00)

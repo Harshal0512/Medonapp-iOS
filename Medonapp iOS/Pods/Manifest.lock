@@ -16,6 +16,7 @@ PODS:
   - SPIndicator (1.6.4)
   - SwiftValidator (4.0.0)
   - Toast-Swift (5.0.1)
+  - UICountingLabel (1.4.1)
 
 DEPENDENCIES:
   - Alamofire (>= 5.6.2)
@@ -31,6 +32,7 @@ DEPENDENCIES:
   - SPIndicator
   - SwiftValidator (from `https://github.com/jpotts18/SwiftValidator.git`, tag `4.2.0`)
   - Toast-Swift (~> 5.0.1)
+  - UICountingLabel
 
 SPEC REPOS:
   trunk:
@@ -48,6 +50,7 @@ SPEC REPOS:
     - SnapKit
     - SPIndicator
     - Toast-Swift
+    - UICountingLabel
 
 EXTERNAL SOURCES:
   SwiftValidator:
@@ -75,7 +78,8 @@ SPEC CHECKSUMS:
   SPIndicator: 93e0a4fb23de51294ac48e874c0f081a5e293e4f
   SwiftValidator: 249b6b3ae3b294266c5b9de134d94f18f2d5aa47
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
+  UICountingLabel: faf890b505d96312e324a86718f031fafffb0ccb
 
-PODFILE CHECKSUM: 9d696e6593b8b0db081129d294260876b3f3da20
+PODFILE CHECKSUM: 01c32b3a1be8dc26731c89985d04810d6b6542ba
 
 COCOAPODS: 1.12.0

@@ -20,5 +20,6 @@ target 'Medonapp iOS' do
   pod 'SPIndicator'
   pod 'NotificationBannerSwift', '~> 3.0.0'
   pod 'LGSegmentedControl'
+  pod 'UICountingLabel'
 
 end

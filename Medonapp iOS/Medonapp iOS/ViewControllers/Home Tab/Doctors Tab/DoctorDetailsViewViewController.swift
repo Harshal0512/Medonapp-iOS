@@ -337,17 +337,14 @@ class DoctorDetailsViewViewController: UIViewController {
     
     @objc func handleViewAllReviewsButtonClicked() {
         let ratingsAndReviewsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "ratingsAndReviewsVC") as? RatingAndReviewsViewController
-//        appointmentDetailsVC?.doctor = self.doctor
-//        doctorsScreenVC?.modalPresentationStyle = .fullScreen
-//        self.present(doctorsScreenVC!, animated: true, completion: nil)
+        ratingsAndReviewsVC?.doctor = self.doctor
+        ratingsAndReviewsVC?.reviews = self.reviews
         self.navigationController?.pushViewController(ratingsAndReviewsVC!, animated: true)
     }
     
     @objc func bookNowButtonPressed() {
         let appointmentDetailsVC = UIStoryboard.init(name: "HomeTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "appointmentDetailsVC") as? AppointmentDetailsViewController
         appointmentDetailsVC?.doctor = self.doctor
-//        doctorsScreenVC?.modalPresentationStyle = .fullScreen
-//        self.present(doctorsScreenVC!, animated: true, completion: nil)
         self.navigationController?.pushViewController(appointmentDetailsVC!, animated: true)
     }
     
