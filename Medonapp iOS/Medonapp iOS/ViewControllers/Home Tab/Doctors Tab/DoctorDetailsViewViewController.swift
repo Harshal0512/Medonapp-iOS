@@ -19,6 +19,8 @@ class DoctorDetailsViewViewController: UIViewController {
     private var anchorButton: UIImageView?
     private var scrollView: UIScrollView?
     private var contentView: UIView?
+    private var contentViewBottomAnchor: NSLayoutConstraint?
+    
     private var patientsGreyView: GreyViewDoctorDetails?
     private var experienceGreyView: GreyViewDoctorDetails?
     private var ratingsGreyView: GreyViewDoctorDetails?
@@ -296,7 +298,8 @@ class DoctorDetailsViewViewController: UIViewController {
         reviewCarouselView?.topAnchor.constraint(equalTo: reviewTextLabel!.bottomAnchor, constant: 20).isActive = true
         reviewCarouselView?.leadingAnchor.constraint(equalTo: contentView!.leadingAnchor, constant: 28).isActive = true
         reviewCarouselView?.trailingAnchor.constraint(equalTo: contentView!.trailingAnchor, constant: -28).isActive = true
-        reviewCarouselView?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -120).isActive = true
+        contentViewBottomAnchor = reviewCarouselView?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -120)
+        contentViewBottomAnchor?.isActive = true
         reviewCarouselView?.heightAnchor.constraint(equalToConstant: 150).isActive = true
         
         bottomView?.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
@@ -385,6 +388,21 @@ class DoctorDetailsViewViewController: UIViewController {
         }
         reviewCarouselView?.update(pages: numberOfPages)
         reviewCarouselView?.configureView(with: carouselData)
+        if numberOfPages == 0 {
+            self.reviewTextLabel?.isHidden = true
+            self.reviewViewAllButton?.isHidden = true
+            self.reviewCarouselView?.isHidden = true
+            contentViewBottomAnchor?.isActive = false
+            contentViewBottomAnchor = locationView?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -100)
+            contentViewBottomAnchor?.isActive = true
+        } else {
+            self.reviewTextLabel?.isHidden = false
+            self.reviewViewAllButton?.isHidden = false
+            self.reviewCarouselView?.isHidden = false
+            contentViewBottomAnchor?.isActive = false
+            contentViewBottomAnchor = reviewCarouselView?.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -120)
+            contentViewBottomAnchor?.isActive = true
+        }
         self.view.layoutSubviews()
     }
     
