@@ -14,9 +14,10 @@ protocol CarouselViewDelegate: class {
 class CarouselView: UIView {
     
     struct CarouselData {
-        let image: UIImage
+        let image: String
         let title: String
         let text: String
+        let rating: Double
     }
     
     // MARK: - Subviews
@@ -54,6 +55,11 @@ class CarouselView: UIView {
         self.pages = pages
         self.delegate = delegate
         super.init(frame: .zero)
+        setupUI()
+    }
+    
+    func update(pages: Int) {
+        self.pages = pages
         setupUI()
     }
     
@@ -125,8 +131,9 @@ extension CarouselView: UICollectionViewDataSource, UICollectionViewDelegate {
         let image = carouselData[indexPath.row].image
         let title = carouselData[indexPath.row].title
         let text = carouselData[indexPath.row].text
+        let rating = carouselData[indexPath.row].rating
         
-        cell.configure(image: image, title: title, text: text)
+        cell.configure(image: image, title: title, text: text, rating: rating)
         
         return cell
     }

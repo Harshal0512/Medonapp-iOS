@@ -132,6 +132,19 @@ class Doctor: Codable, Hashable {
         }
     }
     
+    static func fetchReviews(withDoctorID doctorID: Int, completionHandler: @escaping (Bool, Reviews) -> ()) {
+        APIService(data: [:], headers: ["Authorization" : "Bearer \(User.getUserDetails().token ?? "")"], url: nil, service: .getDoctorReviews(doctorID), method: .get, isJSONRequest: false).executeQuery() { (result: Result<Reviews, Error>) in
+            switch result{
+            case .success(_):
+                let reviews = try? result.get()
+                completionHandler(true, reviews!)
+            case .failure(let error):
+                print(error)
+                completionHandler(false, [])
+            }
+        }
+    }
+    
     static func initDoctors(doctors: Doctors) {
         self.doctors = doctors
         Doctor.initFavoriteState()

@@ -9,6 +9,7 @@ import UIKit
 import MapKit
 import CoreLocation
 import FaveButton
+import Toast_Swift
 
 class DoctorDetailsViewViewController: UIViewController {
     
@@ -36,7 +37,15 @@ class DoctorDetailsViewViewController: UIViewController {
     
     
     public var doctor: Doctor?
+    private var reviews: [Review] = []
     private var carouselData = [CarouselView.CarouselData]()
+    
+    
+    let viewAllButtonAttributes: [NSAttributedString.Key: Any] = [
+        .font: UIFont(name: "NunitoSans-Bold", size: 13)!,
+        .foregroundColor: UIColor(red: 0.48, green: 0.55, blue: 0.62, alpha: 1.00),
+        .underlineStyle: NSUnderlineStyle.single.rawValue,
+    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +60,10 @@ class DoctorDetailsViewViewController: UIViewController {
         setConstraints()
         
         setAboutLabelText()
+        
+        view.isUserInteractionEnabled = false
+        view.makeToastActivity(.center)
+        refreshData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -144,11 +157,6 @@ class DoctorDetailsViewViewController: UIViewController {
         contentView?.addSubview(reviewTextLabel!)
         
         reviewViewAllButton = UIButton()
-        let viewAllButtonAttributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont(name: "NunitoSans-Bold", size: 13)!,
-            .foregroundColor: UIColor(red: 0.48, green: 0.55, blue: 0.62, alpha: 1.00),
-            .underlineStyle: NSUnderlineStyle.single.rawValue,
-        ]
         reviewViewAllButton?.setAttributedTitle(NSMutableAttributedString(
             string: "See All",
             attributes: viewAllButtonAttributes), for: .normal)
@@ -156,12 +164,8 @@ class DoctorDetailsViewViewController: UIViewController {
         contentView?.addSubview(reviewViewAllButton!)
         reviewViewAllButton?.addTarget(self, action: #selector(handleViewAllReviewsButtonClicked), for: .touchUpInside)
         
-        reviewCarouselView = CarouselView(pages: 3, delegate: self)
+        reviewCarouselView = CarouselView(pages: 0, delegate: self)
         contentView?.addSubview(reviewCarouselView!)
-        carouselData.append(.init(image: UIImage(named: "cat")!, title: "Harshal K.", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi magna urna, suscipit ac scelerisque convallis, tristique nec nunc. Quisque pellentesque ipsum elit, sed pulvinar enim eleifend quis. Curabitur varius malesuada purus in laoreet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus dui lacus, venenatis quis tellus nec, dapibus pulvinar felis."))
-        carouselData.append(.init(image: UIImage(named: "cat")!, title: "Harshal Kulkarni", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi magna urna, suscipit ac scelerisque convallis, tristique nec nunc. Quisque pellentesque ipsum elit, sed pulvinar enim eleifend quis. Curabitur varius malesuada purus in laoreet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus dui lacus, venenatis quis tellus nec, dapibus pulvinar felis."))
-        carouselData.append(.init(image: UIImage(named: "cat")!, title: "Harshal", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi magna urna, suscipit ac scelerisque convallis, tristique nec nunc. Quisque pellentesque ipsum elit, sed pulvinar enim eleifend quis. Curabitur varius malesuada purus in laoreet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus dui lacus, venenatis quis tellus nec, dapibus pulvinar felis."))
-        
         reviewCarouselView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleViewAllReviewsButtonClicked)))
         
         bottomView = UIView()
@@ -350,6 +354,38 @@ class DoctorDetailsViewViewController: UIViewController {
             text += line + "\n"
         }
         aboutDescription?.text = text
+    }
+    
+    @objc func refreshData() {
+        Doctor.fetchReviews(withDoctorID: doctor!.id!) { isSuccess, reviews in
+            if isSuccess {
+                self.reviews = reviews
+                self.populateDoctorsTable()
+            } else {
+                Utils.displaySPIndicatorNotifWithoutMessage(title: "Could not fetch reviews", iconPreset: .error, hapticPreset: .error, duration: 4)
+                self.navigationController?.popViewController(animated: true)
+            }
+            self.view.isUserInteractionEnabled = true
+            self.view.hideToastActivity()
+        }
+    }
+    
+    func populateDoctorsTable() {
+        reviewViewAllButton?.setAttributedTitle(NSMutableAttributedString(
+            string: "See All (\(reviews.count) reviews)",
+            attributes: viewAllButtonAttributes), for: .normal)
+        carouselData = [CarouselView.CarouselData]()
+        
+        var numberOfPages = 0
+        for review in reviews {
+            if review.review!.count > 0 {
+                carouselData.append(.init(image: "\(review.reviewerImage!)", title: "\(review.reviewerName!)", text: "\(review.review!)", rating: review.rating!))
+                numberOfPages+=1
+            }
+        }
+        reviewCarouselView?.update(pages: numberOfPages)
+        reviewCarouselView?.configureView(with: carouselData)
+        self.view.layoutSubviews()
     }
     
     @objc func openGoogleMap() {

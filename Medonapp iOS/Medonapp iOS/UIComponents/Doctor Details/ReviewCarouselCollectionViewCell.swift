@@ -50,10 +50,10 @@ private extension ReviewCarouselCollectionViewCell {
         
         addSubview(nameLabel)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.leadingAnchor.constraint(equalTo: userProfileImageView.trailingAnchor, constant: 3.5).isActive = true
+        nameLabel.leadingAnchor.constraint(equalTo: userProfileImageView.trailingAnchor, constant: 5).isActive = true
         nameLabel.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -10).isActive = true
         nameLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -19).isActive = true
-        nameLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        nameLabel.heightAnchor.constraint(equalToConstant: 12).isActive = true
         nameLabel.numberOfLines = 1
         nameLabel.font = UIFont(name: "NunitoSans-Bold", size: 14)
         nameLabel.textColor = .black
@@ -82,9 +82,10 @@ private extension ReviewCarouselCollectionViewCell {
 
 // MARK: - Public
 extension ReviewCarouselCollectionViewCell {
-    public func configure(image: UIImage, title: String, text: String) {
-        userProfileImageView.image = image
+    public func configure(image: String, title: String, text: String, rating: Double) {
+        self.userProfileImageView.setKFImage(imageUrl: image, placeholderImage: UIImage(named:"userPlaceholder-male")!)
         nameLabel.text = title
         reviewLabel.text = text
+        ratingControl.rating = Float(rating)
     }
 }
