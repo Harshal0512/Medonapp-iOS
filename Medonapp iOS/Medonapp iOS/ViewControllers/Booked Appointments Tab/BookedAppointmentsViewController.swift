@@ -240,6 +240,7 @@ extension BookedAppointmentsViewController: UITableViewDelegate, UITableViewData
         let array = appointmentsByDate[indexPath.section + 1]
         
         cell.layer.cornerRadius = 30
+        cell.clipsToBounds = true
         
         cell.configure(appointment: appointments[array![indexPath.row]])
         cell.delegate = self
