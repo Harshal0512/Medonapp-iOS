@@ -65,6 +65,8 @@
 		F84B72AF29855535001E1737 /* FamilyMemberCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84B72AD29855535001E1737 /* FamilyMemberCollectionViewCell.swift */; };
 		F84B72B029855535001E1737 /* FamilyMemberCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F84B72AE29855535001E1737 /* FamilyMemberCollectionViewCell.xib */; };
 		F84C120629DBDE9B005472E1 /* ReviewCarouselCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84C120529DBDE9B005472E1 /* ReviewCarouselCollectionViewCell.swift */; };
+		F8544A4729DDF65E008653DA /* ReviewExpandedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8544A4529DDF65E008653DA /* ReviewExpandedTableViewCell.swift */; };
+		F8544A4829DDF65E008653DA /* ReviewExpandedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8544A4629DDF65E008653DA /* ReviewExpandedTableViewCell.xib */; };
 		F859AB3428EC2FA20069D247 /* UITextViewWithPlaceholder_CR8.swift in Sources */ = {isa = PBXBuildFile; fileRef = F859AB3328EC2FA10069D247 /* UITextViewWithPlaceholder_CR8.swift */; };
 		F85D9C3828F33B6D008FBDE9 /* ReportTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85D9C3728F33B6D008FBDE9 /* ReportTabViewController.swift */; };
 		F85F29D629BAEB070024D98D /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85F29D529BAEB070024D98D /* AccountSettingsViewController.swift */; };
@@ -193,6 +195,8 @@
 		F84B72AD29855535001E1737 /* FamilyMemberCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberCollectionViewCell.swift; sourceTree = "<group>"; };
 		F84B72AE29855535001E1737 /* FamilyMemberCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FamilyMemberCollectionViewCell.xib; sourceTree = "<group>"; };
 		F84C120529DBDE9B005472E1 /* ReviewCarouselCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCarouselCollectionViewCell.swift; sourceTree = "<group>"; };
+		F8544A4529DDF65E008653DA /* ReviewExpandedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewExpandedTableViewCell.swift; sourceTree = "<group>"; };
+		F8544A4629DDF65E008653DA /* ReviewExpandedTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewExpandedTableViewCell.xib; sourceTree = "<group>"; };
 		F859AB3328EC2FA10069D247 /* UITextViewWithPlaceholder_CR8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewWithPlaceholder_CR8.swift; sourceTree = "<group>"; };
 		F85D9C3728F33B6D008FBDE9 /* ReportTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportTabViewController.swift; sourceTree = "<group>"; };
 		F85F29D529BAEB070024D98D /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewController.swift; sourceTree = "<group>"; };
@@ -577,6 +581,8 @@
 				F8A13B4029DC17AC00C6B456 /* CarouselView.swift */,
 				F817EF9029DC7EEE00116664 /* RatingsWithStarsView.swift */,
 				F817EF9229DC7F1300116664 /* RatingsWithStarsView.xib */,
+				F8544A4529DDF65E008653DA /* ReviewExpandedTableViewCell.swift */,
+				F8544A4629DDF65E008653DA /* ReviewExpandedTableViewCell.xib */,
 			);
 			path = "Doctor Details";
 			sourceTree = "<group>";
@@ -716,6 +722,7 @@
 			files = (
 				F80C19832900F3A000891800 /* StarRatingStackView.xib in Resources */,
 				F8FB226028F7D9D4003B9173 /* TabViewInContactScreen.xib in Resources */,
+				F8544A4829DDF65E008653DA /* ReviewExpandedTableViewCell.xib in Resources */,
 				F83CBC4D28D88466005BA1B8 /* NunitoSans-ExtraBold.ttf in Resources */,
 				F8131B2028D5A0A000B7558D /* LaunchScreen.storyboard in Resources */,
 				F844C65A28FF0E1700BBE5B0 /* ReportTableViewCell.xib in Resources */,
@@ -891,6 +898,7 @@
 				F8AAB18229486EE500A5C9E7 /* DefaultResponseModel.swift in Sources */,
 				F86A71CF28EE9C970083D12D /* HomeTabViewController.swift in Sources */,
 				F8283672297A5D9700078F97 /* CircularProgressBar.swift in Sources */,
+				F8544A4729DDF65E008653DA /* ReviewExpandedTableViewCell.swift in Sources */,
 				F8B4377E29A8703E00A5FDA2 /* FamilyRequestTableViewCell.swift in Sources */,
 				F8F3ED432909692B001D6A4C /* MobileNumberShort.swift in Sources */,
 				F80577DB29633850009BEC6B /* Reachability.swift in Sources */,
