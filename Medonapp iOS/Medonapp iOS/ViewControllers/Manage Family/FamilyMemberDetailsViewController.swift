@@ -24,6 +24,8 @@ class FamilyMemberDetailsViewController: UIViewController {
     
     public var member: FamilyMember?
     public var memberDetails: Patient?
+    
+    private let biometricAuth = BiometricAuthentication()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -236,11 +238,28 @@ class FamilyMemberDetailsViewController: UIViewController {
     }
     
     @objc func expandFamilyReports() {
-        let reportDetailsVC = UIStoryboard.init(name: "ReportTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "reportDetails") as? ReportDetailsViewController
-        reportDetailsVC?.modalPresentationStyle = .fullScreen
-        reportDetailsVC?.familyMember = self.memberDetails
-        reportDetailsVC?.reportsVariant = .family
-        self.present(reportDetailsVC!, animated: true)
+        biometricAuth.canEvaluate { (canEvaluate, _, canEvaluateError) in
+            guard canEvaluate else {
+                // Face ID/Touch ID may not be available or configured
+                Utils.displaySPIndicatorNotifWithMessage(title: "Requires FaceID/TouchID", message: "Please enroll FaceID/TouchID.", iconPreset: .error, hapticPreset: .error, duration: 4)
+                return
+            }
+            
+            biometricAuth.evaluate { [weak self] (success, error) in
+                guard success else {
+                    // Face ID/Touch ID may not be configured
+                    Utils.displaySPIndicatorNotifWithMessage(title: "Requires FaceID/TouchID", message: "Please enroll FaceID/TouchID.", iconPreset: .error, hapticPreset: .error, duration: 4)
+                    return
+                }
+                
+                // You are successfully verified
+                let reportDetailsVC = UIStoryboard.init(name: "ReportTab", bundle: Bundle.main).instantiateViewController(withIdentifier: "reportDetails") as? ReportDetailsViewController
+                reportDetailsVC?.modalPresentationStyle = .fullScreen
+                reportDetailsVC?.familyMember = self?.memberDetails
+                reportDetailsVC?.reportsVariant = .family
+                self?.present(reportDetailsVC!, animated: true)
+            }
+        }
     }
     
     @objc func removeFromFamily() {

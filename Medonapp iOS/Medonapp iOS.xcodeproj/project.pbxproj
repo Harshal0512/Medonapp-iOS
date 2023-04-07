@@ -116,6 +116,7 @@
 		F8D5EB8E290FE3C200942AE6 /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D5EB8D290FE3C200942AE6 /* Lottie.framework */; };
 		F8D68DDE29B5841300B19A88 /* NormalNotifWithImageAndIconTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D68DDC29B5841300B19A88 /* NormalNotifWithImageAndIconTableViewCell.swift */; };
 		F8D68DDF29B5841300B19A88 /* NormalNotifWithImageAndIconTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8D68DDD29B5841300B19A88 /* NormalNotifWithImageAndIconTableViewCell.xib */; };
+		F8DAE89A29DFDA1A00CA50C1 /* BiometricAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DAE89929DFDA1A00CA50C1 /* BiometricAuthentication.swift */; };
 		F8E97AC729C2355800949060 /* FamilyMemberDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E97AC629C2355800949060 /* FamilyMemberDetailsViewController.swift */; };
 		F8F3B482299A5CF50044AB1D /* Localize_Swift in Frameworks */ = {isa = PBXBuildFile; productRef = F8F3B481299A5CF50044AB1D /* Localize_Swift */; };
 		F8F3ED3D290967DF001D6A4C /* SignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3ED3C290967DF001D6A4C /* SignUpModel.swift */; };
@@ -247,6 +248,7 @@
 		F8D5EB8D290FE3C200942AE6 /* Lottie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Lottie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8D68DDC29B5841300B19A88 /* NormalNotifWithImageAndIconTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalNotifWithImageAndIconTableViewCell.swift; sourceTree = "<group>"; };
 		F8D68DDD29B5841300B19A88 /* NormalNotifWithImageAndIconTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NormalNotifWithImageAndIconTableViewCell.xib; sourceTree = "<group>"; };
+		F8DAE89929DFDA1A00CA50C1 /* BiometricAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuthentication.swift; sourceTree = "<group>"; };
 		F8E97AC629C2355800949060 /* FamilyMemberDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberDetailsViewController.swift; sourceTree = "<group>"; };
 		F8F3ED3C290967DF001D6A4C /* SignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpModel.swift; sourceTree = "<group>"; };
 		F8F3ED3E2909685C001D6A4C /* NameExclMiddleName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameExclMiddleName.swift; sourceTree = "<group>"; };
@@ -626,6 +628,7 @@
 				F883FC122909260E00B17D01 /* Prefs.swift */,
 				F8F4C3E02919750F00EF17EA /* Popover Utils.swift */,
 				F84370082976927D00B0B0C9 /* Constants.swift */,
+				F8DAE89929DFDA1A00CA50C1 /* BiometricAuthentication.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -870,6 +873,7 @@
 				F81AB9F029B46FC60062B166 /* Notifications.swift in Sources */,
 				F8BC4A4228F4588A00440406 /* DoctorsScreenViewController.swift in Sources */,
 				F81BAAF328F9C09B0080BD21 /* AppointmentDetailsViewController.swift in Sources */,
+				F8DAE89A29DFDA1A00CA50C1 /* BiometricAuthentication.swift in Sources */,
 				F8F3ED3D290967DF001D6A4C /* SignUpModel.swift in Sources */,
 				F85F29D629BAEB070024D98D /* AccountSettingsViewController.swift in Sources */,
 				F883FC0B2909225E00B17D01 /* NameInclMiddleName.swift in Sources */,
