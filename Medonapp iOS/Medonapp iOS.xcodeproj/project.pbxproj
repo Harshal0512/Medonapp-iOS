@@ -1069,7 +1069,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = M5X9ZUFVAN;
+				DEVELOPMENT_TEAM = 7ZK5WQMKAL;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Medonapp iOS/Info.plist";
 				INFOPLIST_KEY_NSCalendarsUsageDescription = "We need this permission to add appointment reminders to your iPhone.";
@@ -1102,7 +1102,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = M5X9ZUFVAN;
+				DEVELOPMENT_TEAM = 7ZK5WQMKAL;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Medonapp iOS/Info.plist";
 				INFOPLIST_KEY_NSCalendarsUsageDescription = "We need this permission to add appointment reminders to your iPhone.";
